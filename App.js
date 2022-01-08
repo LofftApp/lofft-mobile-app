@@ -3,9 +3,11 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {navigationRef} from './src/RootNavigation';
+import {Provider as AuthProvider} from './src/context/AuthContext';
 // Screens
 import HomeScreen from './src/screens/HomeScreen';
-import {GestureHandlerRootView} from 'react-native-gesture-handler';
+import SigninScreen from './src/screens/visitorScreens/SigninScreen';
+import SignupScreen from './src/screens/visitorScreens/SignupScreen';
 
 const Stack = createStackNavigator();
 
@@ -17,14 +19,26 @@ const App = () => {
         component={HomeScreen}
         options={{title: 'Lofft', headerShown: false}}
       />
+      <Stack.Screen
+        name="Signin"
+        component={SigninScreen}
+        options={{title: 'Sign in', headerShown: false}}
+      />
+      <Stack.Screen
+        name="Signup"
+        component={SignupScreen}
+        options={{title: 'Sign up', headerShown: false}}
+      />
     </Stack.Navigator>
   );
 };
 
 export default () => {
   return (
-    <NavigationContainer ref={navigationRef}>
-      <App />
-    </NavigationContainer>
+    <AuthProvider>
+      <NavigationContainer ref={navigationRef}>
+        <App />
+      </NavigationContainer>
+    </AuthProvider>
   );
 };
