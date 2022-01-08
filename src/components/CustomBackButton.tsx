@@ -1,7 +1,7 @@
 import React from 'react';
 import {TouchableOpacity, StyleSheet, View, Text} from 'react-native';
 import color from '../assets/defaultColorPallet.json';
-// import { Ionicons } from "@expo/vector-icons";
+import Icon from 'react-native-vector-icons/Ionicons';
 import {fontStyles} from '../StyleSheets/FontStyleSheet';
 import {navigationRef} from '../RootNavigation';
 
@@ -28,9 +28,9 @@ const CustomBackButton = ({
         style={[styles.button, close ? styles.closeButton : styles.backButton]}
         onPress={onPress}>
         {close ? (
-          <Ionicons name="close" size={45} color={color.Black[50]} />
+          <Icon name="close" size={45} color={color.Black[50]} />
         ) : (
-          <Ionicons name="chevron-back" size={45} color={color.Lavendar[80]} />
+          <Icon name="chevron-back" size={45} color={color.Lavendar[80]} />
         )}
       </TouchableOpacity>
     </View>

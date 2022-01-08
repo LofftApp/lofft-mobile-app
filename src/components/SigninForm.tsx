@@ -29,7 +29,6 @@ const SigninForm = ({navigation, signupForm = false}: any) => {
           style={[styles.inputStyle, fontStyles.bodyMedium]}
           keyboardType="email-address"
           placeholder="Email"
-          autoComplete="email"
           autoCapitalize="none"
           value={email}
           onChangeText={text => setEmail(text)}
@@ -37,7 +36,6 @@ const SigninForm = ({navigation, signupForm = false}: any) => {
         <TextInput
           style={[styles.inputStyle, fontStyles.bodyMedium]}
           placeholder="Set up password"
-          autoComplete="password"
           autoCapitalize="none"
           secureTextEntry={true}
           value={password}

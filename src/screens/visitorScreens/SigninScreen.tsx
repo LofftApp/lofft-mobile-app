@@ -6,7 +6,7 @@ import CustomBackButton from './../../components/CustomBackButton';
 const SigninScreen = ({navigation}: any) => {
   return (
     <View style={styles.containerStyle}>
-      {/* <CustomBackButton onPress={() => navigation.navigate('Home')} /> */}
+      <CustomBackButton onPress={() => navigation.goBack()} />
       <Text style={[fontStyles.headerLarge, styles.headerStyle]}>Sign in</Text>
       <SigninForm navigation={navigation} />
     </View>

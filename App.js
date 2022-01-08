@@ -7,7 +7,7 @@ import {Provider as AuthProvider} from './src/context/AuthContext';
 // Screens
 import HomeScreen from './src/screens/HomeScreen';
 import SigninScreen from './src/screens/visitorScreens/SigninScreen';
-// import SignupScreen from './src/screens/visitorScreens/SignupScreen';
+import SignupScreen from './src/screens/visitorScreens/SignupScreen';
 
 const Stack = createStackNavigator();
 
@@ -23,6 +23,11 @@ const App = () => {
         name="Signin"
         component={SigninScreen}
         options={{title: 'Sign in', headerShown: false}}
+      />
+      <Stack.Screen
+        name="Signup"
+        component={SignupScreen}
+        options={{title: 'Sign up', headerShown: false}}
       />
     </Stack.Navigator>
   );
