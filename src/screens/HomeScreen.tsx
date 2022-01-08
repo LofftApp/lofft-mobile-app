@@ -4,22 +4,22 @@ import color from './../assets/defaultColorPallet.json';
 import {CoreButton} from '../components/CoreButton';
 import HomeCarosel from '../components/HomeCarosel';
 import PaginationBar from '../components/PaginationBar';
-import {credentials} from './../api/Auth0/authCredentials';
+// import {credentials} from './../api/Auth0/authCredentials';
 
 // Auth
-import Auth0 from 'react-native-auth0';
-const auth0 = new Auth0(credentials);
+// import Auth0 from 'react-native-auth0';
+// const auth0 = new Auth0(credentials);
 
-const authSignup = () => {
-  auth0.webAuth
-    .authorize({
-      scope: 'openid profile email',
-    })
-    .then(credentials => {
-      const token = credentials.accessToken;
-      console.log(credentials);
-    });
-};
+// const authSignup = () => {
+//   auth0.webAuth
+//     .authorize({
+//       scope: 'openid profile email',
+//     })
+//     .then(credentials => {
+//       const token = credentials.accessToken;
+//       console.log(credentials);
+//     });
+// };
 
 const HomeScreen = ({navigation}: any) => {
   const [screen, setScreen] = useState(0);
