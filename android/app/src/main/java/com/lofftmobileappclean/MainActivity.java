@@ -1,4 +1,4 @@
-package com.lofftmobileappclean;
+package app.lofft.lofft;
 
 import com.facebook.react.ReactActivity;
 import android.os.Bundle;
