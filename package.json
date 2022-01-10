@@ -9,6 +9,10 @@
     "test": "jest",
     "lint": "eslint ."
   },
+  "resolutions": {
+    "nth-check": "^2.0.1",
+    "ansi-regex": "^5.0.1"
+  },
   "dependencies": {
     "@react-native-async-storage/async-storage": "^1.15.14",
     "@react-native-community/masked-view": "^0.1.11",
