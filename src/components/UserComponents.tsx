@@ -1,3 +1,4 @@
+/* eslint-disable no-shadow */
 import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -5,6 +6,9 @@ import color from '../assets/defaultColorPallet.json';
 
 // Screens
 import DashboardScreen from './../screens/userScreens/DashboardScreen';
+import CostsScreen from './../screens/userScreens/CostsScreen';
+import ApartmentScreen from './../screens/userScreens/ApartmentScreen';
+import SettingsScreen from './../screens/userScreens/SettingsScreen';
 
 const BottomTab = createBottomTabNavigator();
 
