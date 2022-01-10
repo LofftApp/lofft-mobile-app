@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useCallback} from 'react';
-import {Pressable, View, Text, StyleSheet} from 'react-native';
+import {Pressable, View, Text, StyleSheet, Platform} from 'react-native';
 import {fontStyles} from './../../StyleSheets/FontStyleSheet';
 import color from './../../assets/defaultColorPallet.json';
 
@@ -89,9 +89,12 @@ const DashboardScreen = ({navigation}: any) => {
   const dashboardToggle = useCallback(toggled => {
     setIsDashboard(toggled);
   }, []);
-  console.log(isDashboard);
   return (
-    <View style={styles.viewContainerStyle}>
+    <View
+      style={[
+        styles.viewContainerStyle,
+        Platform.OS === 'ios' ? styles.viewContainerIOSStyle : null,
+      ]}>
       <View style={styles.headerContainer}>
         <Text style={fontStyles.headerMedium}>Your Finances</Text>
         <UserIcon image={userImage} />
@@ -176,9 +179,12 @@ const styles = StyleSheet.create({
     backgroundColor: color.White[100],
     flex: 1,
     paddingHorizontal: 25,
+    paddingTop: 15,
+  },
+  viewContainerIOSStyle: {
+    paddingTop: 65,
   },
   headerContainer: {
-    marginTop: 65,
     justifyContent: 'space-between',
     alignItems: 'center',
     flexDirection: 'row',
