@@ -1,8 +1,9 @@
-import React, {useState} from 'react';
+import React, {useContext, useEffect} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 
 import {navigationRef} from './src/RootNavigation';
+import {Context as AuthContext} from './src/context/AuthContext';
 import {Provider as AuthProvider} from './src/context/AuthContext';
 // Screens
 import {UserComponents} from './src/components/UserComponents';
@@ -13,10 +14,18 @@ import SignupScreen from './src/screens/visitorScreens/SignupScreen';
 const Stack = createStackNavigator();
 
 const App = () => {
-  const [token] = useState(true);
+  const {state, activeUser} = useContext(AuthContext);
+
+  useEffect(() => {
+    const bootstrapAsync = async () => {
+      activeUser();
+    };
+    bootstrapAsync();
+  }, []);
+
   return (
     <Stack.Navigator initialRouteName="UserComponents, {screen: 'Costs'}">
-      {token ? (
+      {state.token ? (
         <>
           <Stack.Screen
             name="UserComponents"
