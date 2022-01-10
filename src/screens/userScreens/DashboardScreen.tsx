@@ -1,12 +1,10 @@
-import React, {useState, useEffect} from 'react';
-import {Button, Pressable, View, Text, StyleSheet} from 'react-native';
-
+import React, {useState, useEffect, useCallback} from 'react';
+import {Pressable, View, Text, StyleSheet} from 'react-native';
 import {fontStyles} from './../../StyleSheets/FontStyleSheet';
 import color from './../../assets/defaultColorPallet.json';
 
 // Components
 import MoneyActionButton from './../../components/MoneyActionButton';
-import UseToggle from './../../components/helpers/UseToggle';
 import PendingPaymentContainer from './../../components/PendingPaymentContainer';
 
 // Image
@@ -20,6 +18,7 @@ import TestChartMonth from './../../components/charts/TestChartMonth';
 import TestChartYear from './../../components/charts/TestChartYear';
 
 import UserIcon from './../../components/UserIcon';
+import ToggleBar from './../../components/ToggleBar';
 
 const DashboardScreen = ({navigation}: any) => {
   const [owed, setOwed] = useState(0);
@@ -28,8 +27,6 @@ const DashboardScreen = ({navigation}: any) => {
   const [week, setWeekSelected] = useState(true);
   const [month, setMonthSelected] = useState(false);
   const [year, setYearSelected] = useState(false);
-  // Toggle Pill
-  const [isToggled, setToggle] = UseToggle(true);
 
   const [billDetails, setBillDetails] = useState([]);
 
@@ -88,35 +85,19 @@ const DashboardScreen = ({navigation}: any) => {
   } else if (year) {
     chart = <TestChartYear />; // Pass Props! So far only dummy data
   }
-
+  const [isDashboard, setIsDashboard] = useState(true);
+  const dashboardToggle = useCallback(toggled => {
+    setIsDashboard(toggled);
+  }, []);
+  console.log(isDashboard);
   return (
     <View style={styles.viewContainerStyle}>
       <View style={styles.headerContainer}>
         <Text style={fontStyles.headerMedium}>Your Finances</Text>
         <UserIcon image={userImage} />
       </View>
-
-      <View style={styles.togglePillContainer}>
-        <View style={isToggled ? styles.selected : styles.notSelected}>
-          <Button
-            onPress={() => {
-              setToggle();
-            }}
-            title="Dashboard"
-            color={isToggled ? color.White[100] : color.Lavendar[80]}
-          />
-        </View>
-        <View style={isToggled ? styles.notSelected : styles.selected}>
-          <Button
-            onPress={() => {
-              setToggle();
-            }}
-            title="History"
-            color={isToggled ? color.Lavendar[80] : color.White[100]}
-          />
-        </View>
-      </View>
-      {isToggled ? (
+      <ToggleBar dashboard={dashboardToggle} />
+      {isDashboard ? (
         <>
           <PendingPaymentContainer
             buttonValue="Pay now"
@@ -217,24 +198,6 @@ const styles = StyleSheet.create({
     height: 64,
     borderRadius: 50,
     backgroundColor: color.Lavendar[10],
-  },
-
-  togglePillContainer: {
-    borderRadius: 18,
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    backgroundColor: color.Lavendar[10],
-    marginTop: 22,
-    paddingVertical: 1,
-  },
-  selected: {
-    flex: 1,
-    backgroundColor: color.Lavendar[80],
-    borderRadius: 18,
-  },
-  notSelected: {
-    flex: 1,
-    borderRadius: 18,
   },
   historyContainer: {
     display: 'flex',
