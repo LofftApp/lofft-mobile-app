@@ -2,10 +2,12 @@ import React from 'react';
 import {View, Image, StyleSheet} from 'react-native';
 import color from './../assets/defaultColorPallet.json';
 
-const UserIcon = ({image, userIconStyle, userImageStyle}: any) => {
+const UserIcon = ({image, userIconStyle = {}, userImageStyle = {}}: any) => {
   return (
     <View style={[styles.backgroundCurcle, userIconStyle]}>
-      <Image source={image} style={[styles.userIcon, userImageStyle]} />
+      <View style={styles.imageContainer}>
+        <Image source={image} style={[styles.userIcon, userImageStyle]} />
+      </View>
     </View>
   );
 };
@@ -15,8 +17,14 @@ const styles = StyleSheet.create({
     width: 45,
     height: 45,
     borderRadius: 40,
+  },
+  imageContainer: {
+    width: 50,
+    height: 50,
+    borderRadius: 40,
     borderWidth: 4,
     borderColor: color.Lavendar[100],
+    overflow: 'hidden',
     resizeMode: 'contain',
   },
   backgroundCurcle: {
