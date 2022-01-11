@@ -7,17 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		00E356F31AD99517003FC87E /* LofftMobileAppCleanTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* LofftMobileAppCleanTests.m */; };
+		00E356F31AD99517003FC87E /* LofftAppTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* LofftAppTests.m */; };
 		0B74CFEA1E68435594FE3445 /* Montserrat-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 90E07223025C44A9BA60E3BD /* Montserrat-Bold.ttf */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		2781BBD8278E3B92004AE44B /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2781BBD7278E3B91004AE44B /* Images.xcassets */; };
 		27B2326C278E0A0600274919 /* BootSplash.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 27B2326B278E0A0600274919 /* BootSplash.storyboard */; };
 		389EA84C08A743A4AC0AC3E8 /* Montserrat.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CE623818DBFB4343B561D61B /* Montserrat.ttf */; };
-		3F28793E02348B005A87C17D /* libPods-LofftMobileAppClean.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A45B711B576CBAE60C9A3BB /* libPods-LofftMobileAppClean.a */; };
+		3F28793E02348B005A87C17D /* libPods-LofftApp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A45B711B576CBAE60C9A3BB /* libPods-LofftApp.a */; };
 		72FAC0C8F7114D7FB9D2DD5B /* Roboto.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E86EBF0A0A3F43F48571F08E /* Roboto.ttf */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
-		9D33A882959CD49626DB212E /* libPods-LofftMobileAppClean-LofftMobileAppCleanTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 40A3F2B860A330C7956B0D38 /* libPods-LofftMobileAppClean-LofftMobileAppCleanTests.a */; };
+		9D33A882959CD49626DB212E /* libPods-LofftApp-LofftAppTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 40A3F2B860A330C7956B0D38 /* libPods-LofftApp-LofftAppTests.a */; };
 		D094C8648CC54D55BFF7D77F /* Montserrat-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F0BCB02B16B24795A760B8DA /* Montserrat-SemiBold.ttf */; };
 		F8FC73A5B4914E1DAD990770 /* Roboto-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E9CF46F9B29948228F510166 /* Roboto-Bold.ttf */; };
 		FE1964A318874A2AA00EF1EE /* Roboto-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 78C189458CB1431EB2506400 /* Roboto-Medium.ttf */; };
@@ -29,31 +29,31 @@
 			containerPortal = 83CBB9F71A601CBA00E9B192 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 13B07F861A680F5B00A75B9A;
-			remoteInfo = LofftMobileAppClean;
+			remoteInfo = LofftApp;
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		00E356EE1AD99517003FC87E /* LofftMobileAppCleanTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LofftMobileAppCleanTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		00E356EE1AD99517003FC87E /* LofftAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LofftAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		00E356F21AD99517003FC87E /* LofftMobileAppCleanTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LofftMobileAppCleanTests.m; sourceTree = "<group>"; };
-		0A45B711B576CBAE60C9A3BB /* libPods-LofftMobileAppClean.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-LofftMobileAppClean.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		13B07F961A680F5B00A75B9A /* LofftMobileAppClean.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LofftMobileAppClean.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = LofftMobileAppClean/AppDelegate.h; sourceTree = "<group>"; };
-		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = LofftMobileAppClean/AppDelegate.m; sourceTree = "<group>"; };
-		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = LofftMobileAppClean/Info.plist; sourceTree = "<group>"; };
-		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = LofftMobileAppClean/main.m; sourceTree = "<group>"; };
-		2781BBD7278E3B91004AE44B /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = LofftMobileAppClean/Images.xcassets; sourceTree = "<group>"; };
-		27B2326B278E0A0600274919 /* BootSplash.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = BootSplash.storyboard; path = LofftMobileAppClean/BootSplash.storyboard; sourceTree = "<group>"; };
-		2F0C7815C6475F2EC670807E /* Pods-LofftMobileAppClean-LofftMobileAppCleanTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LofftMobileAppClean-LofftMobileAppCleanTests.debug.xcconfig"; path = "Target Support Files/Pods-LofftMobileAppClean-LofftMobileAppCleanTests/Pods-LofftMobileAppClean-LofftMobileAppCleanTests.debug.xcconfig"; sourceTree = "<group>"; };
-		35EF6C55E9AB679D9AA729C3 /* Pods-LofftMobileAppClean.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LofftMobileAppClean.debug.xcconfig"; path = "Target Support Files/Pods-LofftMobileAppClean/Pods-LofftMobileAppClean.debug.xcconfig"; sourceTree = "<group>"; };
-		40A3F2B860A330C7956B0D38 /* libPods-LofftMobileAppClean-LofftMobileAppCleanTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-LofftMobileAppClean-LofftMobileAppCleanTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		00E356F21AD99517003FC87E /* LofftAppTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LofftAppTests.m; sourceTree = "<group>"; };
+		0A45B711B576CBAE60C9A3BB /* libPods-LofftApp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-LofftApp.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		13B07F961A680F5B00A75B9A /* LofftApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LofftApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = LofftApp/AppDelegate.h; sourceTree = "<group>"; };
+		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = LofftApp/AppDelegate.m; sourceTree = "<group>"; };
+		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = LofftApp/Info.plist; sourceTree = "<group>"; };
+		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = LofftApp/main.m; sourceTree = "<group>"; };
+		2781BBD7278E3B91004AE44B /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = LofftApp/Images.xcassets; sourceTree = "<group>"; };
+		27B2326B278E0A0600274919 /* BootSplash.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = BootSplash.storyboard; path = LofftApp/BootSplash.storyboard; sourceTree = "<group>"; };
+		2F0C7815C6475F2EC670807E /* Pods-LofftApp-LofftAppTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LofftApp-LofftAppTests.debug.xcconfig"; path = "Target Support Files/Pods-LofftApp-LofftAppTests/Pods-LofftApp-LofftAppTests.debug.xcconfig"; sourceTree = "<group>"; };
+		35EF6C55E9AB679D9AA729C3 /* Pods-LofftApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LofftApp.debug.xcconfig"; path = "Target Support Files/Pods-LofftApp/Pods-LofftApp.debug.xcconfig"; sourceTree = "<group>"; };
+		40A3F2B860A330C7956B0D38 /* libPods-LofftApp-LofftAppTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-LofftApp-LofftAppTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		78C189458CB1431EB2506400 /* Roboto-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Roboto-Medium.ttf"; path = "../assets/fonts/Roboto-Medium.ttf"; sourceTree = "<group>"; };
-		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = LofftMobileAppClean/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = LofftApp/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		90E07223025C44A9BA60E3BD /* Montserrat-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Montserrat-Bold.ttf"; path = "../assets/fonts/Montserrat-Bold.ttf"; sourceTree = "<group>"; };
-		944C7468A5D68D5A31150D0E /* Pods-LofftMobileAppClean-LofftMobileAppCleanTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LofftMobileAppClean-LofftMobileAppCleanTests.release.xcconfig"; path = "Target Support Files/Pods-LofftMobileAppClean-LofftMobileAppCleanTests/Pods-LofftMobileAppClean-LofftMobileAppCleanTests.release.xcconfig"; sourceTree = "<group>"; };
+		944C7468A5D68D5A31150D0E /* Pods-LofftApp-LofftAppTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LofftApp-LofftAppTests.release.xcconfig"; path = "Target Support Files/Pods-LofftApp-LofftAppTests/Pods-LofftApp-LofftAppTests.release.xcconfig"; sourceTree = "<group>"; };
 		CE623818DBFB4343B561D61B /* Montserrat.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Montserrat.ttf; path = ../assets/fonts/Montserrat.ttf; sourceTree = "<group>"; };
-		E7AF2A1FB674E47979515454 /* Pods-LofftMobileAppClean.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LofftMobileAppClean.release.xcconfig"; path = "Target Support Files/Pods-LofftMobileAppClean/Pods-LofftMobileAppClean.release.xcconfig"; sourceTree = "<group>"; };
+		E7AF2A1FB674E47979515454 /* Pods-LofftApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LofftApp.release.xcconfig"; path = "Target Support Files/Pods-LofftApp/Pods-LofftApp.release.xcconfig"; sourceTree = "<group>"; };
 		E86EBF0A0A3F43F48571F08E /* Roboto.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Roboto.ttf; path = ../assets/fonts/Roboto.ttf; sourceTree = "<group>"; };
 		E9CF46F9B29948228F510166 /* Roboto-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Roboto-Bold.ttf"; path = "../assets/fonts/Roboto-Bold.ttf"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
@@ -65,7 +65,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9D33A882959CD49626DB212E /* libPods-LofftMobileAppClean-LofftMobileAppCleanTests.a in Frameworks */,
+				9D33A882959CD49626DB212E /* libPods-LofftApp-LofftAppTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -73,20 +73,20 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3F28793E02348B005A87C17D /* libPods-LofftMobileAppClean.a in Frameworks */,
+				3F28793E02348B005A87C17D /* libPods-LofftApp.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		00E356EF1AD99517003FC87E /* LofftMobileAppCleanTests */ = {
+		00E356EF1AD99517003FC87E /* LofftAppTests */ = {
 			isa = PBXGroup;
 			children = (
-				00E356F21AD99517003FC87E /* LofftMobileAppCleanTests.m */,
+				00E356F21AD99517003FC87E /* LofftAppTests.m */,
 				00E356F01AD99517003FC87E /* Supporting Files */,
 			);
-			path = LofftMobileAppCleanTests;
+			path = LofftAppTests;
 			sourceTree = "<group>";
 		};
 		00E356F01AD99517003FC87E /* Supporting Files */ = {
@@ -97,7 +97,7 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		13B07FAE1A68108700A75B9A /* LofftMobileAppClean */ = {
+		13B07FAE1A68108700A75B9A /* LofftApp */ = {
 			isa = PBXGroup;
 			children = (
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
@@ -108,7 +108,7 @@
 				81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */,
 				13B07FB71A68108700A75B9A /* main.m */,
 			);
-			name = LofftMobileAppClean;
+			name = LofftApp;
 			sourceTree = "<group>";
 		};
 		21A722D5E82B4D519024597F /* Resources */ = {
@@ -128,8 +128,8 @@
 			isa = PBXGroup;
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
-				0A45B711B576CBAE60C9A3BB /* libPods-LofftMobileAppClean.a */,
-				40A3F2B860A330C7956B0D38 /* libPods-LofftMobileAppClean-LofftMobileAppCleanTests.a */,
+				0A45B711B576CBAE60C9A3BB /* libPods-LofftApp.a */,
+				40A3F2B860A330C7956B0D38 /* libPods-LofftApp-LofftAppTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -144,9 +144,9 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
-				13B07FAE1A68108700A75B9A /* LofftMobileAppClean */,
+				13B07FAE1A68108700A75B9A /* LofftApp */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
-				00E356EF1AD99517003FC87E /* LofftMobileAppCleanTests */,
+				00E356EF1AD99517003FC87E /* LofftAppTests */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				9CF6646273E440F30C8F05FD /* Pods */,
@@ -160,8 +160,8 @@
 		83CBBA001A601CBA00E9B192 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				13B07F961A680F5B00A75B9A /* LofftMobileAppClean.app */,
-				00E356EE1AD99517003FC87E /* LofftMobileAppCleanTests.xctest */,
+				13B07F961A680F5B00A75B9A /* LofftApp.app */,
+				00E356EE1AD99517003FC87E /* LofftAppTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -169,10 +169,10 @@
 		9CF6646273E440F30C8F05FD /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				35EF6C55E9AB679D9AA729C3 /* Pods-LofftMobileAppClean.debug.xcconfig */,
-				E7AF2A1FB674E47979515454 /* Pods-LofftMobileAppClean.release.xcconfig */,
-				2F0C7815C6475F2EC670807E /* Pods-LofftMobileAppClean-LofftMobileAppCleanTests.debug.xcconfig */,
-				944C7468A5D68D5A31150D0E /* Pods-LofftMobileAppClean-LofftMobileAppCleanTests.release.xcconfig */,
+				35EF6C55E9AB679D9AA729C3 /* Pods-LofftApp.debug.xcconfig */,
+				E7AF2A1FB674E47979515454 /* Pods-LofftApp.release.xcconfig */,
+				2F0C7815C6475F2EC670807E /* Pods-LofftApp-LofftAppTests.debug.xcconfig */,
+				944C7468A5D68D5A31150D0E /* Pods-LofftApp-LofftAppTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -180,9 +180,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		00E356ED1AD99517003FC87E /* LofftMobileAppCleanTests */ = {
+		00E356ED1AD99517003FC87E /* LofftAppTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "LofftMobileAppCleanTests" */;
+			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "LofftAppTests" */;
 			buildPhases = (
 				116F128D78BB56B9A797D0C6 /* [CP] Check Pods Manifest.lock */,
 				00E356EA1AD99517003FC87E /* Sources */,
@@ -196,14 +196,14 @@
 			dependencies = (
 				00E356F51AD99517003FC87E /* PBXTargetDependency */,
 			);
-			name = LofftMobileAppCleanTests;
-			productName = LofftMobileAppCleanTests;
-			productReference = 00E356EE1AD99517003FC87E /* LofftMobileAppCleanTests.xctest */;
+			name = LofftAppTests;
+			productName = LofftAppTests;
+			productReference = 00E356EE1AD99517003FC87E /* LofftAppTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		13B07F861A680F5B00A75B9A /* LofftMobileAppClean */ = {
+		13B07F861A680F5B00A75B9A /* LofftApp */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "LofftMobileAppClean" */;
+			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "LofftApp" */;
 			buildPhases = (
 				EB32E136BEE8E93F20D93BE2 /* [CP] Check Pods Manifest.lock */,
 				FD10A7F022414F080027D42C /* Start Packager */,
@@ -218,9 +218,9 @@
 			);
 			dependencies = (
 			);
-			name = LofftMobileAppClean;
-			productName = LofftMobileAppClean;
-			productReference = 13B07F961A680F5B00A75B9A /* LofftMobileAppClean.app */;
+			name = LofftApp;
+			productName = LofftApp;
+			productReference = 13B07F961A680F5B00A75B9A /* LofftApp.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -240,7 +240,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "LofftMobileAppClean" */;
+			buildConfigurationList = 83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "LofftApp" */;
 			compatibilityVersion = "Xcode 12.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -253,8 +253,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				13B07F861A680F5B00A75B9A /* LofftMobileAppClean */,
-				00E356ED1AD99517003FC87E /* LofftMobileAppCleanTests */,
+				13B07F861A680F5B00A75B9A /* LofftApp */,
+				00E356ED1AD99517003FC87E /* LofftAppTests */,
 			);
 		};
 /* End PBXProject section */
@@ -306,15 +306,15 @@
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-LofftMobileAppClean-LofftMobileAppCleanTests/Pods-LofftMobileAppClean-LofftMobileAppCleanTests-resources-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-LofftApp-LofftAppTests/Pods-LofftApp-LofftAppTests-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-LofftMobileAppClean-LofftMobileAppCleanTests/Pods-LofftMobileAppClean-LofftMobileAppCleanTests-resources-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-LofftApp-LofftAppTests/Pods-LofftApp-LofftAppTests-resources-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-LofftMobileAppClean-LofftMobileAppCleanTests/Pods-LofftMobileAppClean-LofftMobileAppCleanTests-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-LofftApp-LofftAppTests/Pods-LofftApp-LofftAppTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		116F128D78BB56B9A797D0C6 /* [CP] Check Pods Manifest.lock */ = {
@@ -332,7 +332,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-LofftMobileAppClean-LofftMobileAppCleanTests-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-LofftApp-LofftAppTests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -345,15 +345,15 @@
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-LofftMobileAppClean-LofftMobileAppCleanTests/Pods-LofftMobileAppClean-LofftMobileAppCleanTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-LofftApp-LofftAppTests/Pods-LofftApp-LofftAppTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-LofftMobileAppClean-LofftMobileAppCleanTests/Pods-LofftMobileAppClean-LofftMobileAppCleanTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-LofftApp-LofftAppTests/Pods-LofftApp-LofftAppTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-LofftMobileAppClean-LofftMobileAppCleanTests/Pods-LofftMobileAppClean-LofftMobileAppCleanTests-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-LofftApp-LofftAppTests/Pods-LofftApp-LofftAppTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		C1D2A5AC47AAD7DD6ED5EC77 /* [CP] Embed Pods Frameworks */ = {
@@ -362,15 +362,15 @@
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-LofftMobileAppClean/Pods-LofftMobileAppClean-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-LofftApp/Pods-LofftApp-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-LofftMobileAppClean/Pods-LofftMobileAppClean-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-LofftApp/Pods-LofftApp-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-LofftMobileAppClean/Pods-LofftMobileAppClean-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-LofftApp/Pods-LofftApp-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		EB32E136BEE8E93F20D93BE2 /* [CP] Check Pods Manifest.lock */ = {
@@ -388,7 +388,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-LofftMobileAppClean-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-LofftApp-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -401,15 +401,15 @@
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-LofftMobileAppClean/Pods-LofftMobileAppClean-resources-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-LofftApp/Pods-LofftApp-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-LofftMobileAppClean/Pods-LofftMobileAppClean-resources-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-LofftApp/Pods-LofftApp-resources-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-LofftMobileAppClean/Pods-LofftMobileAppClean-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-LofftApp/Pods-LofftApp-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		FD10A7F022414F080027D42C /* Start Packager */ = {
@@ -438,7 +438,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				00E356F31AD99517003FC87E /* LofftMobileAppCleanTests.m in Sources */,
+				00E356F31AD99517003FC87E /* LofftAppTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -456,7 +456,7 @@
 /* Begin PBXTargetDependency section */
 		00E356F51AD99517003FC87E /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 13B07F861A680F5B00A75B9A /* LofftMobileAppClean */;
+			target = 13B07F861A680F5B00A75B9A /* LofftApp */;
 			targetProxy = 00E356F41AD99517003FC87E /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -464,14 +464,14 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2F0C7815C6475F2EC670807E /* Pods-LofftMobileAppClean-LofftMobileAppCleanTests.debug.xcconfig */;
+			baseConfigurationReference = 2F0C7815C6475F2EC670807E /* Pods-LofftApp-LofftAppTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = LofftMobileAppCleanTests/Info.plist;
+				INFOPLIST_FILE = LofftAppTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -485,17 +485,17 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/LofftMobileAppClean.app/LofftMobileAppClean";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/LofftApp.app/LofftApp";
 			};
 			name = Debug;
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 944C7468A5D68D5A31150D0E /* Pods-LofftMobileAppClean-LofftMobileAppCleanTests.release.xcconfig */;
+			baseConfigurationReference = 944C7468A5D68D5A31150D0E /* Pods-LofftApp-LofftAppTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
-				INFOPLIST_FILE = LofftMobileAppCleanTests/Info.plist;
+				INFOPLIST_FILE = LofftAppTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -509,19 +509,19 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/LofftMobileAppClean.app/LofftMobileAppClean";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/LofftApp.app/LofftApp";
 			};
 			name = Release;
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 35EF6C55E9AB679D9AA729C3 /* Pods-LofftMobileAppClean.debug.xcconfig */;
+			baseConfigurationReference = 35EF6C55E9AB679D9AA729C3 /* Pods-LofftApp.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_BITCODE = NO;
-				INFOPLIST_FILE = LofftMobileAppClean/Info.plist;
+				INFOPLIST_FILE = LofftApp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -532,8 +532,8 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = LofftMobileAppClean;
+				PRODUCT_BUNDLE_IDENTIFIER = app.lofft.lofft;
+				PRODUCT_NAME = LofftApp;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -542,12 +542,12 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E7AF2A1FB674E47979515454 /* Pods-LofftMobileAppClean.release.xcconfig */;
+			baseConfigurationReference = E7AF2A1FB674E47979515454 /* Pods-LofftApp.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
-				INFOPLIST_FILE = LofftMobileAppClean/Info.plist;
+				INFOPLIST_FILE = LofftApp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -558,8 +558,8 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = LofftMobileAppClean;
+				PRODUCT_BUNDLE_IDENTIFIER = app.lofft.lofft;
+				PRODUCT_NAME = LofftApp;
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -693,7 +693,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "LofftMobileAppCleanTests" */ = {
+		00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "LofftAppTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				00E356F61AD99517003FC87E /* Debug */,
@@ -702,7 +702,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "LofftMobileAppClean" */ = {
+		13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "LofftApp" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				13B07F941A680F5B00A75B9A /* Debug */,
@@ -711,7 +711,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "LofftMobileAppClean" */ = {
+		83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "LofftApp" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				83CBBA201A601CBA00E9B192 /* Debug */,

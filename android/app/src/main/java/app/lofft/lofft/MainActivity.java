@@ -1,4 +1,4 @@
-package com.lofftmobileappclean;
+package app.lofft.lofft;
 
 import com.facebook.react.ReactActivity;
 import android.os.Bundle;
@@ -14,7 +14,7 @@ public class MainActivity extends ReactActivity {
 
   @Override
   protected String getMainComponentName() {
-    return "LofftMobileAppClean";
+    return "LofftApp";
   }
 
   @Override
