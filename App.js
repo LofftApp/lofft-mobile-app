@@ -10,6 +10,10 @@ import {UserComponents} from './src/components/UserComponents';
 import HomeScreen from './src/screens/HomeScreen';
 import SigninScreen from './src/screens/visitorScreens/SigninScreen';
 import SignupScreen from './src/screens/visitorScreens/SignupScreen';
+import PendingPaymentsScreen from './src/screens/userScreens/PendingPaymentsScreen';
+import MakePaymentScreen from './src/screens/userScreens/MakePaymentScreen';
+import PaymentConfirmationScreen from './src/screens/userScreens/PaymentConfirmationScreen';
+import PaidConfirmationScreen from './src/screens/userScreens/PaidConfirmationScreen';
 
 const Stack = createStackNavigator();
 
@@ -30,6 +34,26 @@ const App = () => {
           <Stack.Screen
             name="UserComponents"
             component={UserComponents}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="PayNow"
+            component={PendingPaymentsScreen}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="MakePayment"
+            component={MakePaymentScreen}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="ConfirmPayment"
+            component={PaymentConfirmationScreen}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="PaymentConfirmation"
+            component={PaidConfirmationScreen}
             options={{headerShown: false}}
           />
         </>
