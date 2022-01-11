@@ -19,8 +19,8 @@ export const CoreButton = ({
       onPress={onPress}>
       <Text
         style={[
-          styles.buttonTextStyle,
           fontStyles.buttonTextMedium,
+          styles.buttonTextStyle,
           invert ? styles.textInvertButton : null,
         ]}>
         {value}
@@ -41,7 +41,6 @@ const styles = StyleSheet.create({
   },
   buttonTextStyle: {
     color: color.White[100],
-    fontSize: 22,
   },
   buttonInvert: {
     backgroundColor: color.White[100],
