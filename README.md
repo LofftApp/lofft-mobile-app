@@ -39,11 +39,11 @@ Once the application the following tasks are required to get it up and running.
 To launch the project run through the terminal the following commands,
 
 ```
-  npx react-native start
+  npx react-native start | yarn start
 
-  npx react-native run-ios
+  npx react-native run-ios | yarn ios
 
-  npx react-native run-android
+  npx react-native run-android | yarn android
 ```
 
 ### Possible issues
@@ -52,6 +52,8 @@ When ever a new package is installed it needs to be linked to the two apps, for 
 
 ```
   cd ios && pod install
+  
+  cd android && ./gradle clean
 ```
 
 This installs files and updates the cocoa pods, check the readmes as if during initial set up sometimes extra parameters are required.
