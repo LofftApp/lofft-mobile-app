@@ -1,12 +1,20 @@
 import React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
-import SigninForm from './../../components/SigninForm';
+import {View, Text, StyleSheet, Platform} from 'react-native';
+
+// StyleSheets
 import {fontStyles} from './../../StyleSheets/FontStyleSheet';
+import {CoreStyleSheet} from '../../StyleSheets/CoreDesignStyleSheet';
+// Components
 import CustomBackButton from './../../components/CustomBackButton';
+import SigninForm from './../../components/SigninForm';
 
 const SignupScreen = ({navigation}: any) => {
   return (
-    <View style={styles.containerStyle}>
+    <View
+      style={[
+        CoreStyleSheet.viewContainerStyle,
+        Platform.OS === 'ios' ? CoreStyleSheet.viewContainerIOSStyle : null,
+      ]}>
       <CustomBackButton onPress={() => navigation.goBack()} />
       <Text style={[fontStyles.headerLarge, styles.headerStyle]}>
         Create account
