@@ -11,6 +11,7 @@ import HomeScreen from './src/screens/HomeScreen';
 import SigninScreen from './src/screens/visitorScreens/SigninScreen';
 import SignupScreen from './src/screens/visitorScreens/SignupScreen';
 import PendingPaymentsScreen from './src/screens/userScreens/PendingPaymentsScreen';
+import MakePaymentScreen from './src/screens/userScreens/MakePaymentScreen';
 
 const Stack = createStackNavigator();
 
@@ -36,6 +37,11 @@ const App = () => {
           <Stack.Screen
             name="PayNow"
             component={PendingPaymentsScreen}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="MakePayment"
+            component={MakePaymentScreen}
             options={{headerShown: false}}
           />
         </>
