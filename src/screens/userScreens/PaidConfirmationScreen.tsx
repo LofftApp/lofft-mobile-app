@@ -1,15 +1,24 @@
 import React, {useState} from 'react';
-import {View, Text, StyleSheet} from 'react-native';
-import {fontStyles} from '../../StyleSheets/FontStyleSheet';
-import color from './../../assets/defaultColorPallet.json';
-import CustomBackButton from '../../components/CustomBackButton';
+import {View, Text, StyleSheet, Platform} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
+
+// StyleSheets
+import color from './../../assets/defaultColorPallet.json';
+import {fontStyles} from '../../StyleSheets/FontStyleSheet';
+import {CoreStyleSheet} from '../../StyleSheets/CoreDesignStyleSheet';
+
+// Components
+import CustomBackButton from '../../components/CustomBackButton';
 
 const PaidConfirmationScreen = ({navigation, route}: any) => {
   const [recipient] = useState(route.params.recipient);
   const [message] = useState(`We'll let ${recipient} know that you've paid`);
   return (
-    <View style={styles.screenContainer}>
+    <View
+      style={[
+        CoreStyleSheet.viewContainerStyle,
+        Platform.OS === 'ios' ? CoreStyleSheet.viewContainerIOSStyle : null,
+      ]}>
       <CustomBackButton
         onPress={() => navigation.navigate('Costs')}
         title="Payment"
