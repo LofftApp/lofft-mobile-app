@@ -8,11 +8,17 @@
 
 /* Begin PBXBuildFile section */
 		00E356F31AD99517003FC87E /* LofftMobileAppCleanTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* LofftMobileAppCleanTests.m */; };
+		0B74CFEA1E68435594FE3445 /* Montserrat-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 90E07223025C44A9BA60E3BD /* Montserrat-Bold.ttf */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
+		389EA84C08A743A4AC0AC3E8 /* Montserrat.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CE623818DBFB4343B561D61B /* Montserrat.ttf */; };
 		3F28793E02348B005A87C17D /* libPods-LofftMobileAppClean.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A45B711B576CBAE60C9A3BB /* libPods-LofftMobileAppClean.a */; };
+		72FAC0C8F7114D7FB9D2DD5B /* Roboto.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E86EBF0A0A3F43F48571F08E /* Roboto.ttf */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		9D33A882959CD49626DB212E /* libPods-LofftMobileAppClean-LofftMobileAppCleanTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 40A3F2B860A330C7956B0D38 /* libPods-LofftMobileAppClean-LofftMobileAppCleanTests.a */; };
+		D094C8648CC54D55BFF7D77F /* Montserrat-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F0BCB02B16B24795A760B8DA /* Montserrat-SemiBold.ttf */; };
+		F8FC73A5B4914E1DAD990770 /* Roboto-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E9CF46F9B29948228F510166 /* Roboto-Bold.ttf */; };
+		FE1964A318874A2AA00EF1EE /* Roboto-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 78C189458CB1431EB2506400 /* Roboto-Medium.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,10 +44,16 @@
 		2F0C7815C6475F2EC670807E /* Pods-LofftMobileAppClean-LofftMobileAppCleanTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LofftMobileAppClean-LofftMobileAppCleanTests.debug.xcconfig"; path = "Target Support Files/Pods-LofftMobileAppClean-LofftMobileAppCleanTests/Pods-LofftMobileAppClean-LofftMobileAppCleanTests.debug.xcconfig"; sourceTree = "<group>"; };
 		35EF6C55E9AB679D9AA729C3 /* Pods-LofftMobileAppClean.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LofftMobileAppClean.debug.xcconfig"; path = "Target Support Files/Pods-LofftMobileAppClean/Pods-LofftMobileAppClean.debug.xcconfig"; sourceTree = "<group>"; };
 		40A3F2B860A330C7956B0D38 /* libPods-LofftMobileAppClean-LofftMobileAppCleanTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-LofftMobileAppClean-LofftMobileAppCleanTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		78C189458CB1431EB2506400 /* Roboto-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Roboto-Medium.ttf"; path = "../assets/fonts/Roboto-Medium.ttf"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = LofftMobileAppClean/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		90E07223025C44A9BA60E3BD /* Montserrat-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Montserrat-Bold.ttf"; path = "../assets/fonts/Montserrat-Bold.ttf"; sourceTree = "<group>"; };
 		944C7468A5D68D5A31150D0E /* Pods-LofftMobileAppClean-LofftMobileAppCleanTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LofftMobileAppClean-LofftMobileAppCleanTests.release.xcconfig"; path = "Target Support Files/Pods-LofftMobileAppClean-LofftMobileAppCleanTests/Pods-LofftMobileAppClean-LofftMobileAppCleanTests.release.xcconfig"; sourceTree = "<group>"; };
+		CE623818DBFB4343B561D61B /* Montserrat.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Montserrat.ttf; path = ../assets/fonts/Montserrat.ttf; sourceTree = "<group>"; };
 		E7AF2A1FB674E47979515454 /* Pods-LofftMobileAppClean.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LofftMobileAppClean.release.xcconfig"; path = "Target Support Files/Pods-LofftMobileAppClean/Pods-LofftMobileAppClean.release.xcconfig"; sourceTree = "<group>"; };
+		E86EBF0A0A3F43F48571F08E /* Roboto.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Roboto.ttf; path = ../assets/fonts/Roboto.ttf; sourceTree = "<group>"; };
+		E9CF46F9B29948228F510166 /* Roboto-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Roboto-Bold.ttf"; path = "../assets/fonts/Roboto-Bold.ttf"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
+		F0BCB02B16B24795A760B8DA /* Montserrat-SemiBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Montserrat-SemiBold.ttf"; path = "../assets/fonts/Montserrat-SemiBold.ttf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -93,6 +105,19 @@
 			name = LofftMobileAppClean;
 			sourceTree = "<group>";
 		};
+		21A722D5E82B4D519024597F /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				90E07223025C44A9BA60E3BD /* Montserrat-Bold.ttf */,
+				F0BCB02B16B24795A760B8DA /* Montserrat-SemiBold.ttf */,
+				CE623818DBFB4343B561D61B /* Montserrat.ttf */,
+				E9CF46F9B29948228F510166 /* Roboto-Bold.ttf */,
+				78C189458CB1431EB2506400 /* Roboto-Medium.ttf */,
+				E86EBF0A0A3F43F48571F08E /* Roboto.ttf */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -119,6 +144,7 @@
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				9CF6646273E440F30C8F05FD /* Pods */,
+				21A722D5E82B4D519024597F /* Resources */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -240,6 +266,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
+				0B74CFEA1E68435594FE3445 /* Montserrat-Bold.ttf in Resources */,
+				D094C8648CC54D55BFF7D77F /* Montserrat-SemiBold.ttf in Resources */,
+				389EA84C08A743A4AC0AC3E8 /* Montserrat.ttf in Resources */,
+				F8FC73A5B4914E1DAD990770 /* Roboto-Bold.ttf in Resources */,
+				FE1964A318874A2AA00EF1EE /* Roboto-Medium.ttf in Resources */,
+				72FAC0C8F7114D7FB9D2DD5B /* Roboto.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
