@@ -10,6 +10,7 @@ import {UserComponents} from './src/components/UserComponents';
 import HomeScreen from './src/screens/HomeScreen';
 import SigninScreen from './src/screens/visitorScreens/SigninScreen';
 import SignupScreen from './src/screens/visitorScreens/SignupScreen';
+import PendingPaymentsScreen from './src/screens/userScreens/PendingPaymentsScreen';
 
 const Stack = createStackNavigator();
 
@@ -30,6 +31,11 @@ const App = () => {
           <Stack.Screen
             name="UserComponents"
             component={UserComponents}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="PayNow"
+            component={PendingPaymentsScreen}
             options={{headerShown: false}}
           />
         </>
