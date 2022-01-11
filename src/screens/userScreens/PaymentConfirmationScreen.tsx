@@ -5,9 +5,15 @@ import {
   Text,
   StyleSheet,
   TextInput,
+  Platform,
 } from 'react-native';
-import {fontStyles} from '../../StyleSheets/FontStyleSheet';
+
+// StyleSheet
 import color from './../../assets/defaultColorPallet.json';
+import {fontStyles} from '../../StyleSheets/FontStyleSheet';
+import {CoreStyleSheet} from '../../StyleSheets/CoreDesignStyleSheet';
+
+// Components
 import CustomBackButton from '../../components/CustomBackButton';
 import {CoreButton} from '../../components/CoreButton';
 
@@ -17,7 +23,11 @@ const PaymentConfirmationScreen = ({navigation, route}: any) => {
   const [billDetails] = useState(route.params.billDetails);
   const [paymentMethod] = useState(route.params.paymentMethod);
   return (
-    <View style={styles.screenContainer}>
+    <View
+      style={[
+        CoreStyleSheet.viewContainerStyle,
+        Platform.OS === 'ios' ? CoreStyleSheet.viewContainerIOSStyle : null,
+      ]}>
       <CustomBackButton onPress={() => navigation.goBack()} title="Payment" />
       <View style={styles.formContainer}>
         <View style={styles.inputFieldContainer}>

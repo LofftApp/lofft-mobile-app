@@ -1,18 +1,29 @@
 import React, {useState} from 'react';
-import {View, Text, StyleSheet} from 'react-native';
-import CustomBackButton from '../../components/CustomBackButton';
-import {fontStyles} from '../../StyleSheets/FontStyleSheet';
+import {View, Text, StyleSheet, Platform} from 'react-native';
+
+// StyleSheets
 import color from './../../assets/defaultColorPallet.json';
+import {CoreStyleSheet} from '../../StyleSheets/CoreDesignStyleSheet';
+import {fontStyles} from '../../StyleSheets/FontStyleSheet';
+
+// Components
+import CustomBackButton from '../../components/CustomBackButton';
 import UserIcon from '../../components/UserIcon';
-import userImage from '../../assets/user.jpeg';
 import PaymentCard from '../../components/PaymentCard';
 import {CoreButton} from '../../components/CoreButton';
+
+// Assets
+import userImage from '../../assets/user.jpeg';
 
 const MakePayment = ({navigation, route}: any) => {
   const [billDetails] = useState(route.params.billDetails);
   const [paymentMethod, setPaymentMethod] = useState('Manual payment');
   return (
-    <View style={styles.screenContainer}>
+    <View
+      style={[
+        CoreStyleSheet.viewContainerStyle,
+        Platform.OS === 'ios' ? CoreStyleSheet.viewContainerIOSStyle : null,
+      ]}>
       <CustomBackButton
         onPress={() => navigation.goBack()}
         title="Make a payment"

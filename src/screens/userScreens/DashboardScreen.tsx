@@ -1,7 +1,10 @@
 import React, {useState, useEffect, useCallback} from 'react';
 import {Pressable, View, Text, StyleSheet, Platform} from 'react-native';
-import {fontStyles} from './../../StyleSheets/FontStyleSheet';
+
+// StyleSheets
 import color from './../../assets/defaultColorPallet.json';
+import {CoreStyleSheet} from '../../StyleSheets/CoreDesignStyleSheet';
+import {fontStyles} from './../../StyleSheets/FontStyleSheet';
 
 // Components
 import MoneyActionButton from './../../components/MoneyActionButton';
@@ -92,8 +95,8 @@ const DashboardScreen = ({navigation}: any) => {
   return (
     <View
       style={[
-        styles.viewContainerStyle,
-        Platform.OS === 'ios' ? styles.viewContainerIOSStyle : null,
+        CoreStyleSheet.viewContainerStyle,
+        Platform.OS === 'ios' ? CoreStyleSheet.viewContainerIOSStyle : null,
       ]}>
       <View style={styles.headerContainer}>
         <Text style={fontStyles.headerMedium}>Your Finances</Text>
@@ -175,15 +178,6 @@ const DashboardScreen = ({navigation}: any) => {
 };
 
 const styles = StyleSheet.create({
-  viewContainerStyle: {
-    backgroundColor: color.White[100],
-    flex: 1,
-    paddingHorizontal: 25,
-    paddingTop: 15,
-  },
-  viewContainerIOSStyle: {
-    paddingTop: 65,
-  },
   headerContainer: {
     justifyContent: 'space-between',
     alignItems: 'center',

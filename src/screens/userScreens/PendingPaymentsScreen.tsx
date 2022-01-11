@@ -1,16 +1,25 @@
 import React, {useState} from 'react';
-import {View, Text, StyleSheet} from 'react-native';
-import CustomBackButton from '../../components/CustomBackButton';
-import {fontStyles} from '../../StyleSheets/FontStyleSheet';
+import {View, Text, StyleSheet, Platform} from 'react-native';
+
+// StyleSheets
 import color from './../../assets/defaultColorPallet.json';
+import {fontStyles} from '../../StyleSheets/FontStyleSheet';
+import {CoreStyleSheet} from '../../StyleSheets/CoreDesignStyleSheet';
+
+// Components
 import PendingPaymentContainer from '../../components/PendingPaymentContainer';
 import ItemPendingPaymentCard from '../../components/ItemPendingPaymentCard';
+import CustomBackButton from '../../components/CustomBackButton';
 
 const PendingPaymentsScreen = ({navigation, route}: any) => {
   const [owed] = useState(route.params.owed);
   const [details] = useState(route.params.details);
   return (
-    <View style={styles.screenContainer}>
+    <View
+      style={[
+        CoreStyleSheet.viewContainerStyle,
+        Platform.OS === 'ios' ? CoreStyleSheet.viewContainerIOSStyle : null,
+      ]}>
       <CustomBackButton
         onPress={() => navigation.goBack()}
         title="Pending payments"
@@ -38,12 +47,6 @@ const PendingPaymentsScreen = ({navigation, route}: any) => {
 };
 
 const styles = StyleSheet.create({
-  screenContainer: {
-    paddingVertical: 50,
-    paddingHorizontal: 15,
-    backgroundColor: color.White[100],
-    flex: 1,
-  },
   ItemPendingPayment: {
     width: '100%',
     height: 88,
@@ -55,7 +58,6 @@ const styles = StyleSheet.create({
     borderRadius: 16,
     overflow: 'hidden',
   },
-  textContainer: {},
   subHeader: {
     marginBottom: 15,
     marginLeft: 3,

@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
     width: '100%',
     alignContent: 'flex-start',
     flexDirection: 'row-reverse',
-    paddingTop: 25,
+    paddingTop: 5,
   },
   headerContainClose: {
     flexDirection: 'row',
