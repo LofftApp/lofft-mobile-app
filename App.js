@@ -14,6 +14,7 @@ import PendingPaymentsScreen from './src/screens/userScreens/PendingPaymentsScre
 import MakePaymentScreen from './src/screens/userScreens/MakePaymentScreen';
 import PaymentConfirmationScreen from './src/screens/userScreens/PaymentConfirmationScreen';
 import PaidConfirmationScreen from './src/screens/userScreens/PaidConfirmationScreen';
+import RNBootSplash from 'react-native-bootsplash';
 
 const Stack = createStackNavigator();
 
@@ -83,7 +84,9 @@ const App = () => {
 export default () => {
   return (
     <AuthProvider>
-      <NavigationContainer ref={navigationRef}>
+      <NavigationContainer
+        ref={navigationRef}
+        onReady={() => RNBootSplash.hide()}>
         <App />
       </NavigationContainer>
     </AuthProvider>
