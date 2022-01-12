@@ -16,6 +16,8 @@ import PaymentConfirmationScreen from './src/screens/userScreens/PaymentConfirma
 import PaidConfirmationScreen from './src/screens/userScreens/PaidConfirmationScreen';
 import RNBootSplash from 'react-native-bootsplash';
 import auth from '@react-native-firebase/auth';
+import firestore from '@react-native-firebase/firestore';
+import functions from '@react-native-firebase/functions';
 
 const Stack = createStackNavigator();
 
@@ -24,6 +26,13 @@ const App = () => {
   // Firebase initialize values
   const [initializing, setInitializing] = useState(true);
   const [user, setUser] = useState();
+
+  // Firebase Dev check
+  if (__DEV__) {
+    functions().useFunctionsEmulator('http://localhost:5000');
+  }
+
+  const db = firestore();
 
   // Firebase handle user state change
   const onAuthStateChanged = userStateChange => {

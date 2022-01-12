@@ -1,4 +1,4 @@
-import React, {useState, useContext} from 'react';
+import React, {useState} from 'react';
 import {
   View,
   Text,
@@ -7,19 +7,15 @@ import {
   StyleSheet,
 } from 'react-native';
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
-import {Context as AuthContext} from '../context/AuthContext';
 import color from '../assets/defaultColorPallet.json';
 import {fontStyles} from '../StyleSheets/FontStyleSheet';
 import {CoreButton} from './CoreButton';
-import {emailSignIn} from '../api/firebase/emailApi';
-// import GoogleButton from "./GoogleButton";
-// import AppleButton from "./AppleButton";
+import {emailSignup, emailSignin} from '../api/firebase/firebaseApi';
 
 const SigninForm = ({navigation, signupForm = false}: any) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [checkbox, setCheckbox] = useState(false);
-  const {state, signin, signup} = useContext(AuthContext);
   const buttonValue = signupForm ? 'Sign up' : 'Sign in';
 
   return (
@@ -42,9 +38,9 @@ const SigninForm = ({navigation, signupForm = false}: any) => {
           onChangeText={(text: string) => setPassword(text)}
         />
       </View>
-      {state.errorMessage ? (
+      {/* {state.errorMessage ? (
         <Text>Error Message: {state.errorMessage}</Text>
-      ) : null}
+      ) : null} */}
       {signupForm ? (
         <BouncyCheckbox
           text="I agree to the terms & conditions and Lofft's privacy policy"
@@ -60,13 +56,13 @@ const SigninForm = ({navigation, signupForm = false}: any) => {
       {signupForm ? (
         <CoreButton
           value={buttonValue}
-          onPress={() => emailSignIn({email, password})}
+          onPress={() => emailSignup({email, password})}
           userStyle={{width: '100%', marginTop: 40}}
         />
       ) : (
         <CoreButton
           value={buttonValue}
-          onPress={() => signin({email, password})}
+          onPress={() => emailSignin({email, password})}
           userStyle={{width: '100%', marginTop: 40}}
         />
       )}
