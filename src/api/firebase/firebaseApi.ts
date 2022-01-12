@@ -1,6 +1,10 @@
 import auth from '@react-native-firebase/auth';
 import * as RootNavigation from '../../RootNavigation';
 
+if (__DEV__) {
+  auth().useEmulator('http://localhost:9099');
+}
+
 export const emailSignup = ({email, password}) => {
   console.log(`I am pushed Firebase - ${email} - ${password}`);
   auth()

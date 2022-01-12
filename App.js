@@ -29,7 +29,7 @@ const App = () => {
 
   // Firebase Dev check
   if (__DEV__) {
-    functions().useFunctionsEmulator('http://localhost:5000');
+    functions().useFunctionsEmulator('http://localhost:4000');
   }
 
   const db = firestore();
