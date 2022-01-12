@@ -5,13 +5,13 @@ import {
   TextInput,
   TouchableOpacity,
   StyleSheet,
-  Platform,
 } from 'react-native';
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
 import {Context as AuthContext} from '../context/AuthContext';
 import color from '../assets/defaultColorPallet.json';
 import {fontStyles} from '../StyleSheets/FontStyleSheet';
 import {CoreButton} from './CoreButton';
+import {emailSignIn} from '../api/firebase/emailApi';
 // import GoogleButton from "./GoogleButton";
 // import AppleButton from "./AppleButton";
 
@@ -60,7 +60,7 @@ const SigninForm = ({navigation, signupForm = false}: any) => {
       {signupForm ? (
         <CoreButton
           value={buttonValue}
-          onPress={() => signup({email, password})}
+          onPress={() => emailSignIn({email, password})}
           userStyle={{width: '100%', marginTop: 40}}
         />
       ) : (
@@ -70,9 +70,6 @@ const SigninForm = ({navigation, signupForm = false}: any) => {
           userStyle={{width: '100%', marginTop: 40}}
         />
       )}
-      {/* <GoogleButton buttonValue={buttonValue} /> */}
-      {/* {Platform.OS === "ios" ? <AppleButton signup={signup} /> : null} */}
-
       <View style={styles.switchContainer}>
         <Text style={[fontStyles.bodySmall]}>
           {signupForm ? 'Already' : "Don't"} have an account?
