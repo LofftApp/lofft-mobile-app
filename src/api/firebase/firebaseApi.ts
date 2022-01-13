@@ -1,4 +1,5 @@
 import auth from '@react-native-firebase/auth';
+import getAuth from '@react-native-firebase/auth';
 import * as RootNavigation from '../../RootNavigation';
 
 if (__DEV__) {
@@ -11,6 +12,8 @@ export const emailSignup = ({email, password}) => {
     .createUserWithEmailAndPassword(email, password)
     .then(() => {
       console.log('User account created & signed in!');
+      const current = getAuth().currentUser;
+      console.log(current);
       RootNavigation.navigate('Costs');
     })
     .catch(error => {
