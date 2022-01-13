@@ -58,3 +58,8 @@ buck-out/
 
 # CocoaPods
 /ios/Pods/
+
+# firebase
+firebase-debug.log*
+firestore-debug.log*
+ui-debug.log*

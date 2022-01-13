@@ -14,7 +14,8 @@ import PendingPaymentContainer from './../../components/PendingPaymentContainer'
 import userImage from './../../assets/user.jpeg';
 
 // API Interactions
-import {my_bills} from './../../context/BillsQuery';
+// import {my_bills} from './../../context/BillsQuery';
+import {billQuery} from '../../api/firebase/firebaseApi';
 
 import TestChartWeek from './../../components/charts/TestChartWeek';
 import TestChartMonth from './../../components/charts/TestChartMonth';
@@ -33,32 +34,8 @@ const DashboardScreen = ({navigation}: any) => {
 
   const [billDetails, setBillDetails] = useState([]);
 
-  const setValueOwed = async () => {
-    const userData = await my_bills();
-
-    let total: number = 0;
-    let data: any = [];
-    userData.map((item: any) => {
-      if (!item.accepted) {
-        total = total + item.value;
-        data.push({
-          id: item.id,
-          name: item.bill.name,
-          description: item.bill.description,
-          value: item.value,
-          recipient: {
-            id: item.recipient.id,
-            first_name: item.recipient.first_name,
-          },
-        });
-      }
-    });
-    setBillDetails(data);
-    setOwed(total.toFixed(2));
-  };
-
   useEffect(() => {
-    setValueOwed();
+    billQuery();
   }, []);
 
   const handleWeekClick = () => {
@@ -108,10 +85,7 @@ const DashboardScreen = ({navigation}: any) => {
           <PendingPaymentContainer
             buttonValue="Pay now"
             buttonAction={() => {
-              navigation.navigate('PayNow', {
-                owed: owed,
-                details: billDetails,
-              });
+              navigation.navigate('PayNow');
             }}
             owed={owed}
           />

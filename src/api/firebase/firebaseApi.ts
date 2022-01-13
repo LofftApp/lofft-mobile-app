@@ -1,9 +1,14 @@
 import auth from '@react-native-firebase/auth';
 import getAuth from '@react-native-firebase/auth';
+import firestore from '@react-native-firebase/firestore';
 import * as RootNavigation from '../../RootNavigation';
 
+const db = firestore();
+
 if (__DEV__) {
-  auth().useEmulator('http://localhost:9099');
+  const localhost = '192.168.0.1';
+  auth().useEmulator(`http://${localhost}:9099`);
+  db.useEmulator('localhost', 8080);
 }
 
 export const emailSignup = ({email, password}) => {
@@ -12,8 +17,7 @@ export const emailSignup = ({email, password}) => {
     .createUserWithEmailAndPassword(email, password)
     .then(() => {
       console.log('User account created & signed in!');
-      const current = getAuth().currentUser;
-      console.log(current);
+
       RootNavigation.navigate('Costs');
     })
     .catch(error => {
@@ -52,4 +56,12 @@ export const emailSignin = ({email, password}) => {
 export const signout = () => {
   auth().signOut();
   console.log('User has been signed out');
+};
+
+export const billQuery = async () => {
+  const currentUID = getAuth().currentUser.uid;
+  console.log(currentUID);
+  const bills = await db.collection('Bills').get();
+  console.log(bills);
+  return 0;
 };
