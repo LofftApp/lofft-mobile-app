@@ -35,7 +35,11 @@ const DashboardScreen = ({navigation}: any) => {
   const [billDetails, setBillDetails] = useState([]);
 
   useEffect(() => {
-    billQuery();
+    const setLoad = async () => {
+      const result = await billQuery();
+      setOwed(result);
+    };
+    setLoad();
   }, []);
 
   const handleWeekClick = () => {

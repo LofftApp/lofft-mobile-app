@@ -3,12 +3,9 @@ import getAuth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 import * as RootNavigation from '../../RootNavigation';
 
-const db = firestore();
-
 if (__DEV__) {
-  const localhost = '192.168.0.1';
-  auth().useEmulator(`http://${localhost}:9099`);
-  db.useEmulator('localhost', 8080);
+  auth().useEmulator('http://localhost:9099');
+  firestore().useEmulator('localhost', 8080);
 }
 
 export const emailSignup = ({email, password}) => {
@@ -59,9 +56,22 @@ export const signout = () => {
 };
 
 export const billQuery = async () => {
-  const currentUID = getAuth().currentUser.uid;
-  console.log(currentUID);
-  const bills = await db.collection('Bills').get();
-  console.log(bills);
-  return 0;
+  const current_user: any = await getAuth().currentUser.uid;
+  let total = 0;
+  let payee_data = [];
+  await firestore()
+    .collection('bills')
+    .get()
+    .then(async querySnapshot => {
+      await querySnapshot.forEach(documentSnapShot => {
+        payee_data.push(documentSnapShot.data());
+      });
+      console.log(current_user);
+      payee_data.forEach(userBills => {
+        if (userBills.payees[current_user]) {
+          total += userBills.payees[current_user].value;
+        }
+      });
+    });
+  return total;
 };

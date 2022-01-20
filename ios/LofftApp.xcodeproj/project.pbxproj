@@ -11,8 +11,8 @@
 		0B74CFEA1E68435594FE3445 /* Montserrat-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 90E07223025C44A9BA60E3BD /* Montserrat-Bold.ttf */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
+		2708316327945BFF00EE1E57 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2708316227945BFF00EE1E57 /* GoogleService-Info.plist */; };
 		2781BBD8278E3B92004AE44B /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2781BBD7278E3B91004AE44B /* Images.xcassets */; };
-		27A80978278ED8E200ED662A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 27A80977278ED8E200ED662A /* GoogleService-Info.plist */; };
 		27B2326C278E0A0600274919 /* BootSplash.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 27B2326B278E0A0600274919 /* BootSplash.storyboard */; };
 		389EA84C08A743A4AC0AC3E8 /* Montserrat.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CE623818DBFB4343B561D61B /* Montserrat.ttf */; };
 		3F28793E02348B005A87C17D /* libPods-LofftApp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A45B711B576CBAE60C9A3BB /* libPods-LofftApp.a */; };
@@ -44,8 +44,8 @@
 		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = LofftApp/AppDelegate.m; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = LofftApp/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = LofftApp/main.m; sourceTree = "<group>"; };
+		2708316227945BFF00EE1E57 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		2781BBD7278E3B91004AE44B /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = LofftApp/Images.xcassets; sourceTree = "<group>"; };
-		27A80977278ED8E200ED662A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		27B2326B278E0A0600274919 /* BootSplash.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = BootSplash.storyboard; path = LofftApp/BootSplash.storyboard; sourceTree = "<group>"; };
 		2F0C7815C6475F2EC670807E /* Pods-LofftApp-LofftAppTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LofftApp-LofftAppTests.debug.xcconfig"; path = "Target Support Files/Pods-LofftApp-LofftAppTests/Pods-LofftApp-LofftAppTests.debug.xcconfig"; sourceTree = "<group>"; };
 		35EF6C55E9AB679D9AA729C3 /* Pods-LofftApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LofftApp.debug.xcconfig"; path = "Target Support Files/Pods-LofftApp/Pods-LofftApp.debug.xcconfig"; sourceTree = "<group>"; };
@@ -146,7 +146,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
-				27A80977278ED8E200ED662A /* GoogleService-Info.plist */,
+				2708316227945BFF00EE1E57 /* GoogleService-Info.plist */,
 				13B07FAE1A68108700A75B9A /* LofftApp */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* LofftAppTests */,
@@ -282,7 +282,7 @@
 				27B2326C278E0A0600274919 /* BootSplash.storyboard in Resources */,
 				389EA84C08A743A4AC0AC3E8 /* Montserrat.ttf in Resources */,
 				F8FC73A5B4914E1DAD990770 /* Roboto-Bold.ttf in Resources */,
-				27A80978278ED8E200ED662A /* GoogleService-Info.plist in Resources */,
+				2708316327945BFF00EE1E57 /* GoogleService-Info.plist in Resources */,
 				FE1964A318874A2AA00EF1EE /* Roboto-Medium.ttf in Resources */,
 				72FAC0C8F7114D7FB9D2DD5B /* Roboto.ttf in Resources */,
 			);
