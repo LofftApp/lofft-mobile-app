@@ -66,12 +66,14 @@ export const billQuery = async () => {
       await querySnapshot.forEach(documentSnapShot => {
         payee_data.push(documentSnapShot.data());
       });
-      console.log(current_user);
       payee_data.forEach(userBills => {
-        if (userBills.payees[current_user]) {
+        if (
+          userBills.payees[current_user] &&
+          !userBills.payees[current_user].paid
+        ) {
           total += userBills.payees[current_user].value;
         }
       });
     });
-  return total;
+  return {total, payee_data};
 };

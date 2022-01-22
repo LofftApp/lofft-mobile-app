@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import {View, Text, StyleSheet, Platform} from 'react-native';
+import getAuth from '@react-native-firebase/auth';
 
 // StyleSheets
 import color from './../../assets/defaultColorPallet.json';
@@ -13,7 +14,8 @@ import CustomBackButton from '../../components/CustomBackButton';
 
 const PendingPaymentsScreen = ({navigation, route}: any) => {
   const [owed] = useState(route.params.owed);
-  const [details] = useState(route.params.details);
+  const [details] = useState(route.params.billDetails);
+  const currentUser = getAuth().currentUser.uid;
   return (
     <View
       style={[
@@ -32,16 +34,18 @@ const PendingPaymentsScreen = ({navigation, route}: any) => {
       <Text style={[styles.subHeader, fontStyles.buttonTextLarge]}>
         Pay per item
       </Text>
-      {details.map((item: any) => (
-        <ItemPendingPaymentCard
-          key={item.id}
-          value={item.value}
-          description={item.description}
-          buttonAction={() =>
-            navigation.navigate('MakePayment', {billDetails: item})
-          }
-        />
-      ))}
+      {details.map((item: any) =>
+        !item.payees[currentUser].paid ? (
+          <ItemPendingPaymentCard
+            key={item.payees[currentUser].id}
+            value={item.payees[currentUser].value}
+            description={item.title}
+            buttonAction={() =>
+              navigation.navigate('MakePayment', {billDetails: item})
+            }
+          />
+        ) : null,
+      )}
     </View>
   );
 };
@@ -49,7 +53,7 @@ const PendingPaymentsScreen = ({navigation, route}: any) => {
 const styles = StyleSheet.create({
   ItemPendingPayment: {
     width: '100%',
-    height: 88,
+    minHeight: 88,
     flexDirection: 'row',
     justifyContent: 'space-around',
     paddingVertical: 15,

@@ -37,7 +37,8 @@ const DashboardScreen = ({navigation}: any) => {
   useEffect(() => {
     const setLoad = async () => {
       const result = await billQuery();
-      setOwed(result);
+      setBillDetails(result.payee_data);
+      setOwed(result.total);
     };
     setLoad();
   }, []);
@@ -89,7 +90,7 @@ const DashboardScreen = ({navigation}: any) => {
           <PendingPaymentContainer
             buttonValue="Pay now"
             buttonAction={() => {
-              navigation.navigate('PayNow');
+              navigation.navigate('PayNow', {owed, billDetails});
             }}
             owed={owed}
           />
