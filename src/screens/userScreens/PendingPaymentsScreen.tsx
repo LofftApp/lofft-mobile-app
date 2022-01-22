@@ -37,11 +37,14 @@ const PendingPaymentsScreen = ({navigation, route}: any) => {
       {details.map((item: any) =>
         !item.payees[currentUser].paid ? (
           <ItemPendingPaymentCard
-            key={item.payees[currentUser].id}
+            key={String(item.payees[currentUser].id)}
             value={item.payees[currentUser].value}
             description={item.title}
             buttonAction={() =>
-              navigation.navigate('MakePayment', {billDetails: item})
+              navigation.navigate('MakePayment', {
+                billDetails: item,
+                payer: item.payees[currentUser],
+              })
             }
           />
         ) : null,

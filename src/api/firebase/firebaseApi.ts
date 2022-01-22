@@ -1,9 +1,10 @@
-import auth from '@react-native-firebase/auth';
+import auth, {FirebaseAuthTypes} from '@react-native-firebase/auth';
 import getAuth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 import * as RootNavigation from '../../RootNavigation';
 
 if (__DEV__) {
+  console.log('Development Environment');
   auth().useEmulator('http://localhost:9099');
   firestore().useEmulator('localhost', 8080);
 }
@@ -76,4 +77,15 @@ export const billQuery = async () => {
       });
     });
   return {total, payee_data};
+};
+
+export const getUser = async userID => {
+  console.log(userID);
+  await firestore()
+    .collection('users')
+    .doc(userID)
+    .get()
+    .then(async querySnapshot => {
+      return querySnapshot.data().name.split(' ')[0];
+    });
 };
