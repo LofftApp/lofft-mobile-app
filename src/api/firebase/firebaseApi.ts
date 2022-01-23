@@ -59,24 +59,26 @@ export const signout = () => {
 export const billQuery = async () => {
   const current_user: any = await getAuth().currentUser.uid;
   let total = 0;
-  let payee_data = [];
+  let payeeData = [];
+  let returnedData = [];
   await firestore()
     .collection('bills')
     .get()
     .then(async querySnapshot => {
       await querySnapshot.forEach(documentSnapShot => {
-        payee_data.push(documentSnapShot.data());
+        payeeData.push(documentSnapShot.data());
       });
-      payee_data.forEach(userBills => {
+      payeeData.forEach(userBill => {
         if (
-          userBills.payees[current_user] &&
-          !userBills.payees[current_user].paid
+          userBill.payees[current_user] &&
+          !userBill.payees[current_user].paid
         ) {
-          total += userBills.payees[current_user].value;
+          total += userBill.payees[current_user].value;
+          returnedData.push(userBill);
         }
       });
     });
-  return {total, payee_data};
+  return {total, returnedData};
 };
 
 export const getUser = async userID => {

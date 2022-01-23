@@ -37,8 +37,11 @@ const DashboardScreen = ({navigation}: any) => {
   useEffect(() => {
     const setLoad = async () => {
       const result = await billQuery();
-      setBillDetails(result.payee_data);
+      setBillDetails(result.returnedData);
       setOwed(result.total);
+      console.log(result.returnedData);
+      console.log(`Owed: ${owed}`);
+      console.log(`Bill Details: ${billDetails}`);
     };
     setLoad();
   }, []);

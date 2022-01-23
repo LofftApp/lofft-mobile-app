@@ -46,7 +46,9 @@ const MakePayment = ({navigation, route}: any) => {
           userImageContainerStyle={styles.userImageContainer}
           userImageStyle={styles.userImage}
         />
-        <Text style={[styles.userText, fontStyles.buttonTextMedium]}>John</Text>
+        <Text style={[styles.userText, fontStyles.buttonTextMedium]}>
+          
+        </Text>
         <View style={styles.moneyPill}>
           <Text style={fontStyles.buttonTextMedium}>{payer.value}</Text>
         </View>
