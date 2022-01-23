@@ -9,6 +9,7 @@ import {fontStyles} from './../../StyleSheets/FontStyleSheet';
 // Components
 import MoneyActionButton from './../../components/MoneyActionButton';
 import PendingPaymentContainer from './../../components/PendingPaymentContainer';
+import ZeroPendingPaymentsContainer from '../../components/ZeroPendingPayments';
 
 // Image
 import userImage from './../../assets/user.jpeg';
@@ -90,13 +91,17 @@ const DashboardScreen = ({navigation}: any) => {
       <ToggleBar dashboard={dashboardToggle} />
       {isDashboard ? (
         <>
-          <PendingPaymentContainer
-            buttonValue="Pay now"
-            buttonAction={() => {
-              navigation.navigate('PayNow', {owed, billDetails});
-            }}
-            owed={owed}
-          />
+          {owed === 0 ? (
+            <ZeroPendingPaymentsContainer />
+          ) : (
+            <PendingPaymentContainer
+              buttonValue="Pay now"
+              buttonAction={() => {
+                navigation.navigate('PayNow', {owed, billDetails});
+              }}
+              owed={owed}
+            />
+          )}
 
           <View style={styles.moneyActionContainer}>
             <MoneyActionButton />
