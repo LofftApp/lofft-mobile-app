@@ -40,9 +40,6 @@ const DashboardScreen = ({navigation}: any) => {
       const result = await billQuery();
       setBillDetails(result.returnedData);
       setOwed(result.total);
-      console.log(result.returnedData);
-      console.log(`Owed: ${owed}`);
-      console.log(`Bill Details: ${billDetails}`);
     };
     setLoad();
   }, []);

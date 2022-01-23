@@ -20,6 +20,7 @@ import {CoreButton} from '../../components/CoreButton';
 const PaymentConfirmationScreen = ({navigation, route}: any) => {
   const [nowActive, setNowActive] = useState(true);
   const [schedActive, setSchedActive] = useState(false);
+  const [recipient] = useState(route.params.recipient);
   const [billDetails] = useState(route.params.billDetails);
   const [paymentMethod] = useState(route.params.paymentMethod);
   return (
@@ -33,7 +34,7 @@ const PaymentConfirmationScreen = ({navigation, route}: any) => {
         <View style={styles.inputFieldContainer}>
           <Text style={[fontStyles.buttonTextMedium]}>Paying</Text>
           <TextInput
-            value={billDetails.description}
+            value={billDetails.title}
             style={[styles.inputField, fontStyles.bodyMedium]}
           />
         </View>
@@ -94,7 +95,7 @@ const PaymentConfirmationScreen = ({navigation, route}: any) => {
         </Text>
         <View style={styles.inputFieldContainer}>
           <Text style={[fontStyles.buttonTextMedium]}>
-            {billDetails.recipient.first_name}
+            {recipient.split(' ')[0]}
           </Text>
           <TextInput
             value={String(billDetails.value)}
@@ -107,7 +108,7 @@ const PaymentConfirmationScreen = ({navigation, route}: any) => {
             userStyle={styles.button}
             onPress={() => {
               navigation.navigate('PaymentConfirmation', {
-                recipient: billDetails.recipient.first_name,
+                recipient: recipient.split(' ')[0],
               });
             }}
           />

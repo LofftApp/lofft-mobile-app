@@ -82,12 +82,13 @@ export const billQuery = async () => {
 };
 
 export const getUser = async userID => {
-  console.log(userID);
+  let name: any;
   await firestore()
     .collection('users')
     .doc(userID)
     .get()
     .then(async querySnapshot => {
-      return querySnapshot.data().name.split(' ')[0];
+      name = querySnapshot.data();
     });
+  return name;
 };

@@ -23,8 +23,10 @@ const MakePayment = ({navigation, route}: any) => {
   const [userName, setUserName] = useState('');
 
   const getUserName = async () => {
-    const user = getUser(billDetails.payer);
+    const user = await getUser(billDetails.payer);
+    setUserName(user.name);
   };
+  getUserName();
   return (
     <View
       style={[
@@ -47,7 +49,7 @@ const MakePayment = ({navigation, route}: any) => {
           userImageStyle={styles.userImage}
         />
         <Text style={[styles.userText, fontStyles.buttonTextMedium]}>
-          
+          {userName.split(' ')[0]}
         </Text>
         <View style={styles.moneyPill}>
           <Text style={fontStyles.buttonTextMedium}>{payer.value}</Text>
@@ -59,6 +61,7 @@ const MakePayment = ({navigation, route}: any) => {
           userStyle={styles.button}
           onPress={() =>
             navigation.navigate('ConfirmPayment', {
+              recipient: userName,
               billDetails: billDetails,
               paymentMethod: paymentMethod,
             })
