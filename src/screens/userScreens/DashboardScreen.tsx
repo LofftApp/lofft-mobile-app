@@ -9,12 +9,14 @@ import {fontStyles} from './../../StyleSheets/FontStyleSheet';
 // Components
 import MoneyActionButton from './../../components/MoneyActionButton';
 import PendingPaymentContainer from './../../components/PendingPaymentContainer';
+import ZeroPendingPaymentsContainer from '../../components/ZeroPendingPayments';
 
 // Image
 import userImage from './../../assets/user.jpeg';
 
 // API Interactions
-import {my_bills} from './../../context/BillsQuery';
+// import {my_bills} from './../../context/BillsQuery';
+import {billQuery} from '../../api/firebase/firebaseApi';
 
 import TestChartWeek from './../../components/charts/TestChartWeek';
 import TestChartMonth from './../../components/charts/TestChartMonth';
@@ -33,32 +35,13 @@ const DashboardScreen = ({navigation}: any) => {
 
   const [billDetails, setBillDetails] = useState([]);
 
-  const setValueOwed = async () => {
-    const userData = await my_bills();
-
-    let total: number = 0;
-    let data: any = [];
-    userData.map((item: any) => {
-      if (!item.accepted) {
-        total = total + item.value;
-        data.push({
-          id: item.id,
-          name: item.bill.name,
-          description: item.bill.description,
-          value: item.value,
-          recipient: {
-            id: item.recipient.id,
-            first_name: item.recipient.first_name,
-          },
-        });
-      }
-    });
-    setBillDetails(data);
-    setOwed(total.toFixed(2));
-  };
-
   useEffect(() => {
-    setValueOwed();
+    const setLoad = async () => {
+      const result = await billQuery();
+      setBillDetails(result.returnedData);
+      setOwed(result.total);
+    };
+    setLoad();
   }, []);
 
   const handleWeekClick = () => {
@@ -105,16 +88,17 @@ const DashboardScreen = ({navigation}: any) => {
       <ToggleBar dashboard={dashboardToggle} />
       {isDashboard ? (
         <>
-          <PendingPaymentContainer
-            buttonValue="Pay now"
-            buttonAction={() => {
-              navigation.navigate('PayNow', {
-                owed: owed,
-                details: billDetails,
-              });
-            }}
-            owed={owed}
-          />
+          {owed === 0 ? (
+            <ZeroPendingPaymentsContainer />
+          ) : (
+            <PendingPaymentContainer
+              buttonValue="Pay now"
+              buttonAction={() => {
+                navigation.navigate('PayNow', {owed, billDetails});
+              }}
+              owed={owed}
+            />
+          )}
 
           <View style={styles.moneyActionContainer}>
             <MoneyActionButton />

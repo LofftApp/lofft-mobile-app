@@ -1,25 +1,21 @@
-import React, {useState, useContext} from 'react';
+import React, {useState} from 'react';
 import {
   View,
   Text,
   TextInput,
   TouchableOpacity,
   StyleSheet,
-  Platform,
 } from 'react-native';
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
-import {Context as AuthContext} from '../context/AuthContext';
 import color from '../assets/defaultColorPallet.json';
 import {fontStyles} from '../StyleSheets/FontStyleSheet';
 import {CoreButton} from './CoreButton';
-// import GoogleButton from "./GoogleButton";
-// import AppleButton from "./AppleButton";
+import {emailSignup, emailSignin} from '../api/firebase/firebaseApi';
 
 const SigninForm = ({navigation, signupForm = false}: any) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [checkbox, setCheckbox] = useState(false);
-  const {state, signin, signup} = useContext(AuthContext);
   const buttonValue = signupForm ? 'Sign up' : 'Sign in';
 
   return (
@@ -42,9 +38,9 @@ const SigninForm = ({navigation, signupForm = false}: any) => {
           onChangeText={(text: string) => setPassword(text)}
         />
       </View>
-      {state.errorMessage ? (
+      {/* {state.errorMessage ? (
         <Text>Error Message: {state.errorMessage}</Text>
-      ) : null}
+      ) : null} */}
       {signupForm ? (
         <BouncyCheckbox
           text="I agree to the terms & conditions and Lofft's privacy policy"
@@ -60,19 +56,16 @@ const SigninForm = ({navigation, signupForm = false}: any) => {
       {signupForm ? (
         <CoreButton
           value={buttonValue}
-          onPress={() => signup({email, password})}
+          onPress={() => emailSignup({email, password})}
           userStyle={{width: '100%', marginTop: 40}}
         />
       ) : (
         <CoreButton
           value={buttonValue}
-          onPress={() => signin({email, password})}
+          onPress={() => emailSignin({email, password})}
           userStyle={{width: '100%', marginTop: 40}}
         />
       )}
-      {/* <GoogleButton buttonValue={buttonValue} /> */}
-      {/* {Platform.OS === "ios" ? <AppleButton signup={signup} /> : null} */}
-
       <View style={styles.switchContainer}>
         <Text style={[fontStyles.bodySmall]}>
           {signupForm ? 'Already' : "Don't"} have an account?

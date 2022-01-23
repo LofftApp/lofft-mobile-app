@@ -1,9 +1,8 @@
-import React, {useContext} from 'react';
+import React from 'react';
 import {View, Text, Button, StyleSheet} from 'react-native';
-import {Context as AuthContext} from './../../context/AuthContext';
+import {signout} from '../../api/firebase/firebaseApi';
 
 const SettingsScreen = () => {
-  const {signout} = useContext(AuthContext);
   return (
     <View style={styles.viewContainer}>
       <Text>Settings Screen</Text>

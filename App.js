@@ -1,4 +1,4 @@
-import React, {useContext, useEffect} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 
@@ -15,22 +15,48 @@ import MakePaymentScreen from './src/screens/userScreens/MakePaymentScreen';
 import PaymentConfirmationScreen from './src/screens/userScreens/PaymentConfirmationScreen';
 import PaidConfirmationScreen from './src/screens/userScreens/PaidConfirmationScreen';
 import RNBootSplash from 'react-native-bootsplash';
+import auth from '@react-native-firebase/auth';
+import firestore from '@react-native-firebase/firestore';
+import functions from '@react-native-firebase/functions';
 
 const Stack = createStackNavigator();
 
 const App = () => {
   const {state, activeUser} = useContext(AuthContext);
+  // Firebase initialize values
+  const [initializing, setInitializing] = useState(true);
+  const [user, setUser] = useState();
+
+  // Firebase Dev check
+  if (__DEV__) {
+    functions().useFunctionsEmulator('http://localhost:4000');
+  }
+
+  const db = firestore();
+
+  // Firebase handle user state change
+  const onAuthStateChanged = userStateChange => {
+    setUser(userStateChange);
+    if (initializing) {
+      setInitializing(false);
+    }
+  };
 
   useEffect(() => {
     const bootstrapAsync = async () => {
       activeUser();
     };
+    // New Authentication code from Firebase
+    const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
     bootstrapAsync();
+    return subscriber;
   }, []);
+
+  if (initializing) return null;
 
   return (
     <Stack.Navigator initialRouteName="UserComponents, {screen: 'Costs'}">
-      {state.token ? (
+      {user ? (
         <>
           <Stack.Screen
             name="UserComponents"

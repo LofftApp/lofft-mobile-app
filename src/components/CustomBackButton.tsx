@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
     backgroundColor: color.Lavendar[10],
   },
   closeButton: {
-    backgroundColor: color.Black[10],
+    backgroundColor: color.Black[0],
   },
   header: {
     width: '100%',

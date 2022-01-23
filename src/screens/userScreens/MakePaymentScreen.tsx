@@ -1,5 +1,6 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {View, Text, StyleSheet, Platform} from 'react-native';
+import {getUser} from '../../api/firebase/firebaseApi';
 
 // StyleSheets
 import color from './../../assets/defaultColorPallet.json';
@@ -17,7 +18,15 @@ import userImage from '../../assets/user.jpeg';
 
 const MakePayment = ({navigation, route}: any) => {
   const [billDetails] = useState(route.params.billDetails);
+  const [payer] = useState(route.params.payer);
   const [paymentMethod, setPaymentMethod] = useState('Manual payment');
+  const [userName, setUserName] = useState('');
+
+  const getUserName = async () => {
+    const user = await getUser(billDetails.payer);
+    setUserName(user.name);
+  };
+  getUserName();
   return (
     <View
       style={[
@@ -36,13 +45,14 @@ const MakePayment = ({navigation, route}: any) => {
         <UserIcon
           image={userImage}
           userIconStyle={styles.userIcon}
+          userImageContainerStyle={styles.userImageContainer}
           userImageStyle={styles.userImage}
         />
         <Text style={[styles.userText, fontStyles.buttonTextMedium]}>
-          {billDetails.recipient.first_name}
+          {userName.split(' ')[0]}
         </Text>
         <View style={styles.moneyPill}>
-          <Text style={fontStyles.buttonTextMedium}>{billDetails.value}</Text>
+          <Text style={fontStyles.buttonTextMedium}>{payer.value}</Text>
         </View>
       </View>
       <View style={styles.buttonContainer}>
@@ -51,6 +61,7 @@ const MakePayment = ({navigation, route}: any) => {
           userStyle={styles.button}
           onPress={() =>
             navigation.navigate('ConfirmPayment', {
+              recipient: userName,
               billDetails: billDetails,
               paymentMethod: paymentMethod,
             })
@@ -88,10 +99,14 @@ const styles = StyleSheet.create({
     marginVertical: 5,
     backgroundColor: color.Lavendar[50],
   },
-  userImage: {
+  userImageContainer: {
     width: 75,
     height: 75,
     borderWidth: 0,
+  },
+  userImage: {
+    width: 75,
+    height: 75,
   },
   userText: {
     marginVertical: 5,

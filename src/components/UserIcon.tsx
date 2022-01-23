@@ -2,10 +2,15 @@ import React from 'react';
 import {View, Image, StyleSheet} from 'react-native';
 import color from './../assets/defaultColorPallet.json';
 
-const UserIcon = ({image, userIconStyle = {}, userImageStyle = {}}: any) => {
+const UserIcon = ({
+  image,
+  userIconStyle = {},
+  userImageContainerStyle = {},
+  userImageStyle = {},
+}: any) => {
   return (
     <View style={[styles.backgroundCurcle, userIconStyle]}>
-      <View style={styles.imageContainer}>
+      <View style={[styles.imageContainer, userImageContainerStyle]}>
         <Image source={image} style={[styles.userIcon, userImageStyle]} />
       </View>
     </View>
