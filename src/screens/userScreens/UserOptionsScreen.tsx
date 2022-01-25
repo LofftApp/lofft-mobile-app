@@ -25,7 +25,11 @@ const UserOptionsScreen = () => {
       />
       <View>
         <View style={styles.linkContainer}>
-          <TouchableOpacity style={styles.optionsLinkText}>
+          <TouchableOpacity
+            style={styles.optionsLinkText}
+            onPress={() => {
+              navigationRef.navigate('ProfileScreen');
+            }}>
             <Text style={[fontStyles.bodyLarge, styles.textStyle]}>
               Profile
             </Text>
