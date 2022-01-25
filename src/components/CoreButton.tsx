@@ -8,9 +8,11 @@ export const CoreButton = ({
   invert = false,
   userStyle,
   onPress,
+  disabled = false,
 }: any) => {
   return (
     <TouchableOpacity
+      disabled={disabled}
       style={[
         styles.buttonStyle,
         invert ? styles.buttonInvert : null,

@@ -95,7 +95,7 @@ export const getUser = async userID => {
 
 export const getCurrentUserDetails = async () => {
   const currentUser: any = await getAuth().currentUser.uid;
-  let details = {};
+  let details = {name: undefined, pronouns: undefined, email: undefined};
   await firestore()
     .collection('users')
     .doc(currentUser)
@@ -104,4 +104,32 @@ export const getCurrentUserDetails = async () => {
       details = querySnapShot.data();
     });
   return details;
+};
+
+export const updateUserAccountDetails = async ({
+  firstName,
+  lastName,
+  pronouns,
+  email,
+  password,
+}) => {
+  const currentUserDetails: any = await getAuth().currentUser;
+  if (currentUserDetails.email === email) {
+    firestore()
+      .collection('users')
+      .doc(currentUserDetails.uid)
+      .update({
+        name: `${firstName} ${lastName}`,
+        pronouns,
+        email,
+      })
+      .then(() => {
+        auth().currentUser.updateProfile({
+          displayName: `${firstName} ${lastName}`,
+        });
+        auth().currentUser.updateEmail(email);
+      });
+  } else {
+    return {message: 'Incorrect Password'};
+  }
 };

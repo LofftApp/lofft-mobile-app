@@ -4,12 +4,16 @@ import {
   ScrollView,
   Text,
   StyleSheet,
+  TouchableOpacity,
   Platform,
   TextInput,
 } from 'react-native';
 
 // Firebase
-import {getCurrentUserDetails} from '../../api/firebase/firebaseApi';
+import {
+  getCurrentUserDetails,
+  updateUserAccountDetails,
+} from '../../api/firebase/firebaseApi';
 
 // Components
 import CustomBackButton from '../../components/CustomBackButton';
@@ -25,7 +29,6 @@ const ProfileScreen = () => {
   useEffect(() => {
     const getUser = async () => {
       const result = await getCurrentUserDetails();
-      console.log(result);
       if (result.name) {
         const nameArray = result.name.split(' ');
         setFirstName(nameArray[0]);
@@ -46,7 +49,8 @@ const ProfileScreen = () => {
   const [pronouns, setPronouns] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [repeatPassword, setRepeatPassword] = useState('');
+  // const [repeatPassword, setRepeatPassword] = useState('');
+  const [update, setUpdate] = useState(false);
 
   return (
     <View
@@ -58,6 +62,15 @@ const ProfileScreen = () => {
         onPress={() => navigationRef.goBack()}
         title="My Profile"
       />
+      {update ? (
+        <TouchableOpacity
+          style={styles.notification}
+          onPress={() => setUpdate(false)}>
+          <Text style={[fontStyles.bodyMedium, styles.notificationText]}>
+            Your profile has been updated
+          </Text>
+        </TouchableOpacity>
+      ) : null}
       <ScrollView style={styles.scrollContainer}>
         <Text style={[fontStyles.bodyMedium, styles.introText]}>
           Use this page to update your account information or missing details
@@ -87,6 +100,7 @@ const ProfileScreen = () => {
             value={pronouns}
             onChangeText={text => setPronouns(text)}
             autoCorrect={false}
+            autoCapitalize="none"
           />
         </View>
         <View style={styles.textInputContainer}>
@@ -97,6 +111,7 @@ const ProfileScreen = () => {
             onChangeText={text => setEmail(text)}
             autoCorrect={false}
             keyboardType="email-address"
+            autoCapitalize="none"
           />
         </View>
         <View style={styles.textInputContainer}>
@@ -107,9 +122,10 @@ const ProfileScreen = () => {
             onChangeText={text => setPassword(text)}
             autoCorrect={false}
             secureTextEntry={true}
+            autoCapitalize="none"
           />
         </View>
-        <View style={styles.textInputContainer}>
+        {/* <View style={styles.textInputContainer}>
           <Text style={fontStyles.buttonTextMedium}>Repeat Password</Text>
           <TextInput
             style={[fontStyles.bodyMedium, styles.inputField]}
@@ -117,9 +133,27 @@ const ProfileScreen = () => {
             onChangeText={text => setRepeatPassword(text)}
             autoCorrect={false}
             secureTextEntry={true}
+            autoCapitalize="none"
           />
-        </View>
-        <CoreButton value="Update Account" userStyle={styles.updateButton} />
+        </View> */}
+        <CoreButton
+          disabled={password ? false : true}
+          value="Update Account"
+          userStyle={[
+            styles.updateButton,
+            password ? null : styles.buttonDisabled,
+          ]}
+          onPress={() => {
+            updateUserAccountDetails({
+              firstName,
+              lastName,
+              pronouns,
+              email,
+              password,
+            });
+            // setUpdate(true);
+          }}
+        />
         <CoreButton value="Delete Account" userStyle={styles.deleteButton} />
       </ScrollView>
     </View>
@@ -127,6 +161,17 @@ const ProfileScreen = () => {
 };
 
 const styles = StyleSheet.create({
+  notification: {
+    width: '100%',
+    padding: 15,
+    borderRadius: 12,
+    backgroundColor: color.Mint[80],
+    marginVertical: 10,
+  },
+  notificationText: {
+    color: color.White[100],
+    textAlign: 'justify',
+  },
   scrollContainer: {
     flex: 1,
     paddingTop: 15,
@@ -154,6 +199,10 @@ const styles = StyleSheet.create({
     backgroundColor: color.Tomato[100],
     borderColor: color.Tomato[100],
     marginBottom: 55,
+  },
+  buttonDisabled: {
+    backgroundColor: color.Mint[30],
+    borderColor: color.Mint[30],
   },
 });
 
