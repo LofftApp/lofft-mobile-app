@@ -1,6 +1,7 @@
 import React from 'react';
 import {TouchableOpacity, View, Image, StyleSheet} from 'react-native';
 import color from './../assets/defaultColorPallet.json';
+import {navigationRef} from '../RootNavigation';
 
 const UserIcon = ({
   image,
@@ -9,7 +10,9 @@ const UserIcon = ({
   userImageStyle = {},
 }: any) => {
   return (
-    <TouchableOpacity style={[styles.backgroundCurcle, userIconStyle]}>
+    <TouchableOpacity
+      style={[styles.backgroundCurcle, userIconStyle]}
+      onPress={() => navigationRef.navigate('UserOptions')}>
       <View style={[styles.imageContainer, userImageContainerStyle]}>
         <Image source={image} style={[styles.userIcon, userImageStyle]} />
       </View>

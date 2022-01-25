@@ -1,6 +1,10 @@
 import React, {useContext, useEffect, useState} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
+import RNBootSplash from 'react-native-bootsplash';
+import auth from '@react-native-firebase/auth';
+import firestore from '@react-native-firebase/firestore';
+import functions from '@react-native-firebase/functions';
 
 import {navigationRef} from './src/RootNavigation';
 import {Context as AuthContext} from './src/context/AuthContext';
@@ -14,10 +18,7 @@ import PendingPaymentsScreen from './src/screens/userScreens/PendingPaymentsScre
 import MakePaymentScreen from './src/screens/userScreens/MakePaymentScreen';
 import PaymentConfirmationScreen from './src/screens/userScreens/PaymentConfirmationScreen';
 import PaidConfirmationScreen from './src/screens/userScreens/PaidConfirmationScreen';
-import RNBootSplash from 'react-native-bootsplash';
-import auth from '@react-native-firebase/auth';
-import firestore from '@react-native-firebase/firestore';
-import functions from '@react-native-firebase/functions';
+import UserOptionsScreen from './src/screens/userScreens/UserOptionsScreen';
 
 const Stack = createStackNavigator();
 
@@ -58,6 +59,7 @@ const App = () => {
     <Stack.Navigator initialRouteName="UserComponents, {screen: 'Costs'}">
       {user ? (
         <>
+          {/* Billing and Finance Screens */}
           <Stack.Screen
             name="UserComponents"
             component={UserComponents}
@@ -81,6 +83,12 @@ const App = () => {
           <Stack.Screen
             name="PaymentConfirmation"
             component={PaidConfirmationScreen}
+            options={{headerShown: false}}
+          />
+          {/* Settings and Profile Management */}
+          <Stack.Screen
+            name="UserOptions"
+            component={UserOptionsScreen}
             options={{headerShown: false}}
           />
         </>
