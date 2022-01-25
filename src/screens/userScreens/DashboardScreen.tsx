@@ -7,6 +7,7 @@ import {CoreStyleSheet} from '../../StyleSheets/CoreDesignStyleSheet';
 import {fontStyles} from './../../StyleSheets/FontStyleSheet';
 
 // Components
+import HeaderBar from '../../components/HeaderBar';
 import MoneyActionButton from './../../components/MoneyActionButton';
 import PendingPaymentContainer from './../../components/PendingPaymentContainer';
 import ZeroPendingPaymentsContainer from '../../components/ZeroPendingPayments';
@@ -81,10 +82,7 @@ const DashboardScreen = ({navigation}: any) => {
         CoreStyleSheet.viewContainerStyle,
         Platform.OS === 'ios' ? CoreStyleSheet.viewContainerIOSStyle : null,
       ]}>
-      <View style={styles.headerContainer}>
-        <Text style={fontStyles.headerMedium}>Your Finances</Text>
-        <UserIcon image={userImage} />
-      </View>
+      <HeaderBar titleText="Your Finances" />
       <ToggleBar dashboard={dashboardToggle} />
       {isDashboard ? (
         <>
@@ -162,27 +160,6 @@ const DashboardScreen = ({navigation}: any) => {
 };
 
 const styles = StyleSheet.create({
-  headerContainer: {
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    flexDirection: 'row',
-  },
-  userIcon: {
-    width: 45,
-    height: 45,
-    borderRadius: 40,
-    borderWidth: 4,
-    borderColor: color.Lavendar[100],
-    resizeMode: 'contain',
-  },
-  backgroundCurcle: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: 64,
-    height: 64,
-    borderRadius: 50,
-    backgroundColor: color.Lavendar[10],
-  },
   historyContainer: {
     display: 'flex',
     justifyContent: 'center',

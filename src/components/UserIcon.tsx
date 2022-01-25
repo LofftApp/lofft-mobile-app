@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Image, StyleSheet} from 'react-native';
+import {TouchableOpacity, View, Image, StyleSheet} from 'react-native';
 import color from './../assets/defaultColorPallet.json';
 
 const UserIcon = ({
@@ -9,11 +9,11 @@ const UserIcon = ({
   userImageStyle = {},
 }: any) => {
   return (
-    <View style={[styles.backgroundCurcle, userIconStyle]}>
+    <TouchableOpacity style={[styles.backgroundCurcle, userIconStyle]}>
       <View style={[styles.imageContainer, userImageContainerStyle]}>
         <Image source={image} style={[styles.userIcon, userImageStyle]} />
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 
