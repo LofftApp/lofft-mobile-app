@@ -92,3 +92,16 @@ export const getUser = async userID => {
     });
   return name;
 };
+
+export const getCurrentUserDetails = async () => {
+  const currentUser: any = await getAuth().currentUser.uid;
+  let details = {};
+  await firestore()
+    .collection('users')
+    .doc(currentUser)
+    .get()
+    .then(async querySnapShot => {
+      details = querySnapShot.data();
+    });
+  return details;
+};

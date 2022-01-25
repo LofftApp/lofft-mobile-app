@@ -1,5 +1,15 @@
-import React, {useState} from 'react';
-import {View, Text, StyleSheet, Platform, TextInput} from 'react-native';
+import React, {useState, useEffect} from 'react';
+import {
+  View,
+  ScrollView,
+  Text,
+  StyleSheet,
+  Platform,
+  TextInput,
+} from 'react-native';
+
+// Firebase
+import {getCurrentUserDetails} from '../../api/firebase/firebaseApi';
 
 // Components
 import CustomBackButton from '../../components/CustomBackButton';
@@ -12,6 +22,25 @@ import {navigationRef} from '../../RootNavigation';
 import {CoreButton} from '../../components/CoreButton';
 
 const ProfileScreen = () => {
+  useEffect(() => {
+    const getUser = async () => {
+      const result = await getCurrentUserDetails();
+      console.log(result);
+      if (result.name) {
+        const nameArray = result.name.split(' ');
+        setFirstName(nameArray[0]);
+        setLastName(nameArray[1]);
+      }
+      if (result.pronouns) {
+        setPronouns(result.pronouns);
+      }
+      if (result.email) {
+        setEmail(result.email);
+      }
+    };
+    getUser();
+  }, []);
+
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [pronouns, setPronouns] = useState('');
@@ -29,72 +58,79 @@ const ProfileScreen = () => {
         onPress={() => navigationRef.goBack()}
         title="My Profile"
       />
-      <Text style={[fontStyles.bodyMedium, styles.introText]}>
-        Use this page to update your account information or missing details
-      </Text>
-      <View style={styles.textInputContainer}>
-        <Text style={fontStyles.buttonTextMedium}>First Name</Text>
-        <TextInput
-          style={[fontStyles.bodyMedium, styles.inputField]}
-          value={firstName}
-          onChangeText={text => setFirstName(text)}
-          autoCorrect={false}
-        />
-      </View>
-      <View style={styles.textInputContainer}>
-        <Text style={fontStyles.buttonTextMedium}>Last Name</Text>
-        <TextInput
-          style={[fontStyles.bodyMedium, styles.inputField]}
-          value={lastName}
-          onChangeText={text => setLastName(text)}
-          autoCorrect={false}
-        />
-      </View>
-      <View style={styles.textInputContainer}>
-        <Text style={fontStyles.buttonTextMedium}>Pronouns</Text>
-        <TextInput
-          style={[fontStyles.bodyMedium, styles.inputField]}
-          value={pronouns}
-          onChangeText={text => setPronouns(text)}
-          autoCorrect={false}
-        />
-      </View>
-      <View style={styles.textInputContainer}>
-        <Text style={fontStyles.buttonTextMedium}>E-mail</Text>
-        <TextInput
-          style={[fontStyles.bodyMedium, styles.inputField]}
-          value={email}
-          onChangeText={text => setEmail(text)}
-          autoCorrect={false}
-          keyboardType="email-address"
-        />
-      </View>
-      <View style={styles.textInputContainer}>
-        <Text style={fontStyles.buttonTextMedium}>Password</Text>
-        <TextInput
-          style={[fontStyles.bodyMedium, styles.inputField]}
-          value={password}
-          onChangeText={text => setPassword(text)}
-          autoCorrect={false}
-          secureTextEntry={true}
-        />
-      </View>
-      <View style={styles.textInputContainer}>
-        <Text style={fontStyles.buttonTextMedium}>Repeat Password</Text>
-        <TextInput
-          style={[fontStyles.bodyMedium, styles.inputField]}
-          value={repeatPassword}
-          onChangeText={text => setRepeatPassword(text)}
-          autoCorrect={false}
-          secureTextEntry={true}
-        />
-      </View>
-      <CoreButton value="Update Account" userStyle={styles.updateButton} />
+      <ScrollView style={styles.scrollContainer}>
+        <Text style={[fontStyles.bodyMedium, styles.introText]}>
+          Use this page to update your account information or missing details
+        </Text>
+        <View style={styles.textInputContainer}>
+          <Text style={fontStyles.buttonTextMedium}>First Name</Text>
+          <TextInput
+            style={[fontStyles.bodyMedium, styles.inputField]}
+            value={firstName}
+            onChangeText={text => setFirstName(text)}
+            autoCorrect={false}
+          />
+        </View>
+        <View style={styles.textInputContainer}>
+          <Text style={fontStyles.buttonTextMedium}>Last Name</Text>
+          <TextInput
+            style={[fontStyles.bodyMedium, styles.inputField]}
+            value={lastName}
+            onChangeText={text => setLastName(text)}
+            autoCorrect={false}
+          />
+        </View>
+        <View style={styles.textInputContainer}>
+          <Text style={fontStyles.buttonTextMedium}>Pronouns</Text>
+          <TextInput
+            style={[fontStyles.bodyMedium, styles.inputField]}
+            value={pronouns}
+            onChangeText={text => setPronouns(text)}
+            autoCorrect={false}
+          />
+        </View>
+        <View style={styles.textInputContainer}>
+          <Text style={fontStyles.buttonTextMedium}>E-mail</Text>
+          <TextInput
+            style={[fontStyles.bodyMedium, styles.inputField]}
+            value={email}
+            onChangeText={text => setEmail(text)}
+            autoCorrect={false}
+            keyboardType="email-address"
+          />
+        </View>
+        <View style={styles.textInputContainer}>
+          <Text style={fontStyles.buttonTextMedium}>Password</Text>
+          <TextInput
+            style={[fontStyles.bodyMedium, styles.inputField]}
+            value={password}
+            onChangeText={text => setPassword(text)}
+            autoCorrect={false}
+            secureTextEntry={true}
+          />
+        </View>
+        <View style={styles.textInputContainer}>
+          <Text style={fontStyles.buttonTextMedium}>Repeat Password</Text>
+          <TextInput
+            style={[fontStyles.bodyMedium, styles.inputField]}
+            value={repeatPassword}
+            onChangeText={text => setRepeatPassword(text)}
+            autoCorrect={false}
+            secureTextEntry={true}
+          />
+        </View>
+        <CoreButton value="Update Account" userStyle={styles.updateButton} />
+        <CoreButton value="Delete Account" userStyle={styles.deleteButton} />
+      </ScrollView>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
+  scrollContainer: {
+    flex: 1,
+    paddingTop: 15,
+  },
   introText: {
     textAlign: 'justify',
     marginTop: 25,
@@ -112,6 +148,12 @@ const styles = StyleSheet.create({
     marginTop: 25,
     backgroundColor: color.Mint[100],
     borderColor: color.Mint[100],
+  },
+  deleteButton: {
+    marginTop: 25,
+    backgroundColor: color.Tomato[100],
+    borderColor: color.Tomato[100],
+    marginBottom: 55,
   },
 });
 
