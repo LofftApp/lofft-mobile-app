@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, StyleSheet, Platform} from 'react-native';
+import {View, Text, StyleSheet, Platform, TouchableOpacity} from 'react-native';
 import {signout} from '../../api/firebase/firebaseApi';
 
 // Components
@@ -25,15 +25,22 @@ const UserOptionsScreen = () => {
       />
       <View>
         <View style={styles.linkContainer}>
-          <Text style={[fontStyles.buttonTextLarge, styles.textStyle]}>
-            Profile
-          </Text>
-          <Text style={[fontStyles.buttonTextLarge, styles.textStyle]}>
-            Account Settings
-          </Text>
-          <Text style={[fontStyles.buttonTextLarge, styles.textStyle]}>
-            Billing Information
-          </Text>
+          <TouchableOpacity style={styles.optionsLinkText}>
+            <Text style={[fontStyles.bodyLarge, styles.textStyle]}>
+              Profile
+            </Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity style={styles.optionsLinkText}>
+            <Text style={[fontStyles.bodyLarge, styles.textStyle]}>
+              Account Settings
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.optionsLinkText}>
+            <Text style={[fontStyles.bodyLarge, styles.textStyle]}>
+              Billing Information
+            </Text>
+          </TouchableOpacity>
         </View>
       </View>
       <View style={styles.buttonContainer}>
@@ -51,11 +58,12 @@ const styles = StyleSheet.create({
   linkContainer: {
     marginTop: 25,
   },
-  textStyle: {
-    borderLeftColor: color.Black[30],
-    paddingVertical: 25,
-    marginVertical: 10,
+  optionsLinkText: {
+    paddingVertical: 15,
+    borderBottomWidth: 1,
+    borderBottomColor: color.Black[30],
   },
+  textStyle: {},
   logoutButton: {
     backgroundColor: color.Tomato[100],
     borderColor: color.Tomato[100],
