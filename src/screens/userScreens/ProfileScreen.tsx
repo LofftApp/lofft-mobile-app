@@ -14,9 +14,11 @@ import {
   getCurrentUserDetails,
   updateUserAccountDetails,
 } from '../../api/firebase/firebaseApi';
+// import {userImageUpload} from '../../api/firebase/firebaseApi';
 
 // Components
 import CustomBackButton from '../../components/CustomBackButton';
+import UserIcon from '../../components/UserIcon';
 
 // Stylesheets
 import color from './../../assets/defaultColorPallet.json';
@@ -60,7 +62,7 @@ const ProfileScreen = () => {
       ]}>
       <CustomBackButton
         onPress={() => navigationRef.goBack()}
-        title="My Profile"
+        title="Update Profile"
       />
       {update ? (
         <TouchableOpacity
@@ -81,9 +83,14 @@ const ProfileScreen = () => {
         </TouchableOpacity>
       ) : null}
       <ScrollView style={styles.scrollContainer}>
-        <Text style={[fontStyles.bodyMedium, styles.introText]}>
-          Use this page to update your account information or missing details
-        </Text>
+        <View style={styles.userIconContainer}>
+          <UserIcon
+            onPress={() => userImageUpload()}
+            userImageContainerStyle={styles.userImageContainerStyle}
+            userImageStyle={styles.userImageStyle}
+            userIconStyle={styles.userIconStyle}
+          />
+        </View>
         <View style={styles.textInputContainer}>
           <Text style={fontStyles.buttonTextMedium}>First Name</Text>
           <TextInput
@@ -134,17 +141,6 @@ const ProfileScreen = () => {
             autoCapitalize="none"
           />
         </View>
-        {/* <View style={styles.textInputContainer}>
-          <Text style={fontStyles.buttonTextMedium}>Repeat Password</Text>
-          <TextInput
-            style={[fontStyles.bodyMedium, styles.inputField]}
-            value={repeatPassword}
-            onChangeText={text => setRepeatPassword(text)}
-            autoCorrect={false}
-            secureTextEntry={true}
-            autoCapitalize="none"
-          />
-        </View> */}
         <CoreButton
           disabled={password ? false : true}
           value="Update Account"
@@ -187,6 +183,21 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingTop: 15,
   },
+  userIconContainer: {
+    width: '100%',
+    paddingVertical: 15,
+    flexDirection: 'row',
+    justifyContent: 'center',
+  },
+  userIconStyle: {
+    width: 90,
+    height: 90,
+  },
+  userImageContainerStyle: {
+    width: 70,
+    height: 70,
+  },
+  userImageStyle: {},
   introText: {
     textAlign: 'justify',
     marginTop: 25,

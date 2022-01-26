@@ -1,20 +1,26 @@
 import React from 'react';
 import {TouchableOpacity, View, Image, StyleSheet} from 'react-native';
 import color from './../assets/defaultColorPallet.json';
-import {navigationRef} from '../RootNavigation';
+
+import Icon from 'react-native-vector-icons/Ionicons';
 
 const UserIcon = ({
-  image,
+  image = '',
   userIconStyle = {},
   userImageContainerStyle = {},
   userImageStyle = {},
+  onPress = {},
 }: any) => {
   return (
     <TouchableOpacity
       style={[styles.backgroundCurcle, userIconStyle]}
-      onPress={() => navigationRef.navigate('UserOptions')}>
+      onPress={onPress}>
       <View style={[styles.imageContainer, userImageContainerStyle]}>
-        <Image source={image} style={[styles.userIcon, userImageStyle]} />
+        {image === '' ? (
+          <Icon name="person-outline" size={45} color={color.Lavendar[100]} />
+        ) : (
+          <Image source={image} style={[styles.userIcon, userImageStyle]} />
+        )}
       </View>
     </TouchableOpacity>
   );
@@ -34,6 +40,10 @@ const styles = StyleSheet.create({
     borderColor: color.Lavendar[100],
     overflow: 'hidden',
     resizeMode: 'contain',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignContent: 'center',
+    paddingTop: 5,
   },
   backgroundCurcle: {
     justifyContent: 'center',

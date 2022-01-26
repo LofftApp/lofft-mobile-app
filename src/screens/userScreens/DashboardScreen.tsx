@@ -12,9 +12,6 @@ import MoneyActionButton from './../../components/MoneyActionButton';
 import PendingPaymentContainer from './../../components/PendingPaymentContainer';
 import ZeroPendingPaymentsContainer from '../../components/ZeroPendingPayments';
 
-// Image
-import userImage from './../../assets/user.jpeg';
-
 // API Interactions
 // import {my_bills} from './../../context/BillsQuery';
 import {billQuery} from '../../api/firebase/firebaseApi';

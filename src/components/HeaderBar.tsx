@@ -1,5 +1,6 @@
 import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
+import {navigationRef} from '../RootNavigation';
 
 // Components
 import UserIcon from './UserIcon';
@@ -7,14 +8,11 @@ import UserIcon from './UserIcon';
 // Stylesheets
 import {fontStyles} from './../StyleSheets/FontStyleSheet';
 
-// Images
-import userImage from './../assets/user.jpeg';
-
 const HeaderBar = ({titleText}) => {
   return (
     <View style={styles.headerContainer}>
       <Text style={fontStyles.headerMedium}>{titleText}</Text>
-      <UserIcon image={userImage} />
+      <UserIcon onPress={() => navigationRef.navigate('UserOptions')} />
     </View>
   );
 };
