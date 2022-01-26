@@ -14,7 +14,7 @@ import {
   getCurrentUserDetails,
   updateUserAccountDetails,
 } from '../../api/firebase/firebaseApi';
-// import {userImageUpload} from '../../api/firebase/firebaseApi';
+import {userImageUpload} from '../../api/firebase/firebaseApi';
 
 // Components
 import CustomBackButton from '../../components/CustomBackButton';
