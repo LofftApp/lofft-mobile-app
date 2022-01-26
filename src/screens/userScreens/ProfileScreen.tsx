@@ -49,8 +49,8 @@ const ProfileScreen = () => {
   const [pronouns, setPronouns] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  // const [repeatPassword, setRepeatPassword] = useState('');
   const [update, setUpdate] = useState(false);
+  const [error, setError] = useState(false);
 
   return (
     <View
@@ -68,6 +68,15 @@ const ProfileScreen = () => {
           onPress={() => setUpdate(false)}>
           <Text style={[fontStyles.bodyMedium, styles.notificationText]}>
             Your profile has been updated
+          </Text>
+        </TouchableOpacity>
+      ) : null}
+      {error ? (
+        <TouchableOpacity
+          style={[styles.notification, styles.errorNotification]}
+          onPress={() => setError(false)}>
+          <Text style={[fontStyles.bodyMedium, styles.notificationText]}>
+            Please use a correct password
           </Text>
         </TouchableOpacity>
       ) : null}
@@ -143,15 +152,17 @@ const ProfileScreen = () => {
             styles.updateButton,
             password ? null : styles.buttonDisabled,
           ]}
-          onPress={() => {
-            updateUserAccountDetails({
+          onPress={async () => {
+            const answer = await updateUserAccountDetails({
               firstName,
               lastName,
               pronouns,
               email,
               password,
             });
-            // setUpdate(true);
+            setPassword('');
+            console.log(answer);
+            // setError(true);
           }}
         />
         <CoreButton value="Delete Account" userStyle={styles.deleteButton} />
@@ -202,7 +213,10 @@ const styles = StyleSheet.create({
   },
   buttonDisabled: {
     backgroundColor: color.Mint[30],
-    borderColor: color.Mint[30],
+    borderColor: color.Mint[10],
+  },
+  errorNotification: {
+    backgroundColor: color.Tomato[80],
   },
 });
 

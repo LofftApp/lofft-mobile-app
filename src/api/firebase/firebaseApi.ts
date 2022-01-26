@@ -114,22 +114,26 @@ export const updateUserAccountDetails = async ({
   password,
 }) => {
   const currentUserDetails: any = await getAuth().currentUser;
-  if (currentUserDetails.email === email) {
-    firestore()
-      .collection('users')
-      .doc(currentUserDetails.uid)
-      .update({
-        name: `${firstName} ${lastName}`,
-        pronouns,
-        email,
-      })
-      .then(() => {
-        auth().currentUser.updateProfile({
-          displayName: `${firstName} ${lastName}`,
+  auth()
+    .signInWithEmailAndPassword(currentUserDetails.email, password)
+    .then(() => {
+      firestore()
+        .collection('users')
+        .doc(currentUserDetails.uid)
+        .update({
+          name: `${firstName} ${lastName}`,
+          pronouns,
+          email,
+        })
+        .then(() => {
+          auth().currentUser.updateProfile({
+            displayName: `${firstName} ${lastName}`,
+          });
+          auth().currentUser.updateEmail(email);
         });
-        auth().currentUser.updateEmail(email);
-      });
-  } else {
-    return {message: 'Incorrect Password'};
-  }
+    })
+    .catch(e => {
+      console.log(e.code);
+      return e;
+    });
 };
