@@ -8,9 +8,9 @@ import {launchImageLibrary} from 'react-native-image-picker';
 
 if (__DEV__) {
   console.log('Development Environment');
-  auth().useEmulator('http://localhost:9099');
-  firestore().useEmulator('localhost', 8080);
-  storage().useEmulator('localhost', 9199);
+  auth().useEmulator('http://192.168.0.123:9099');
+  firestore().useEmulator('192.168.0.123', 8080);
+  storage().useEmulator('192.168.0.123', 9199);
 }
 
 export const emailSignup = ({email, password}) => {

@@ -20,7 +20,6 @@ import TestChartWeek from './../../components/charts/TestChartWeek';
 import TestChartMonth from './../../components/charts/TestChartMonth';
 import TestChartYear from './../../components/charts/TestChartYear';
 
-import UserIcon from './../../components/UserIcon';
 import ToggleBar from './../../components/ToggleBar';
 
 const DashboardScreen = ({navigation}: any) => {
