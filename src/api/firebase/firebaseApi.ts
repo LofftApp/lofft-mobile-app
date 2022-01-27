@@ -145,11 +145,12 @@ export const updateUserAccountDetails = async ({
 // React Firebase Storage
 
 export const userImageUpload = async () => {
+  const currentUser: any = await getAuth().currentUser.uid;
   console.log('Image Upload Start');
   const result = await launchImageLibrary({mediaType: 'photo'});
   console.log(result);
   console.log(result.assets[0].uri);
-  const reference = storage().ref('/userImage/profile.jpg');
+  const reference = storage().ref(`${currentUser}/userImage/profile.jpg`);
   const pathToFile = `${utils.FilePath.TEMP_DIRECTORY}/${result.assets[0].fileName}`;
   console.log(`Reference: ${reference}`);
   console.log(`Path: ${pathToFile}`);
