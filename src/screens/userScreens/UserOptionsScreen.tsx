@@ -50,7 +50,7 @@ const UserOptionsScreen = () => {
       <View style={styles.buttonContainer}>
         <CoreButton
           value="Sign out"
-          userStyle={styles.logoutButton}
+          style={styles.logoutButton}
           onPress={signout}
         />
       </View>

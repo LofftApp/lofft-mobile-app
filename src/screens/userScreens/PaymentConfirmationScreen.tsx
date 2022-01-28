@@ -105,7 +105,7 @@ const PaymentConfirmationScreen = ({navigation, route}: any) => {
         <View style={styles.buttonContainer}>
           <CoreButton
             value="Confirm Payment"
-            userStyle={styles.button}
+            style={styles.button}
             onPress={() => {
               navigation.navigate('PaymentConfirmation', {
                 recipient: recipient.split(' ')[0],
@@ -114,7 +114,7 @@ const PaymentConfirmationScreen = ({navigation, route}: any) => {
           />
           <CoreButton
             value="Cancel"
-            userStyle={styles.button}
+            style={styles.button}
             invert
             onPress={() => navigation.navigate('Costs')}
           />

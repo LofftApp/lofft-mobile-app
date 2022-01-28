@@ -57,13 +57,13 @@ const SigninForm = ({navigation, signupForm = false}: any) => {
         <CoreButton
           value={buttonValue}
           onPress={() => emailSignup({email, password})}
-          userStyle={{width: '100%', marginTop: 40}}
+          style={{width: '100%', marginTop: 40}}
         />
       ) : (
         <CoreButton
           value={buttonValue}
           onPress={() => emailSignin({email, password})}
-          userStyle={{width: '100%', marginTop: 40}}
+          style={{width: '100%', marginTop: 40}}
         />
       )}
       <View style={styles.switchContainer}>

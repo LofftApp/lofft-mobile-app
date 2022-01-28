@@ -53,12 +53,12 @@ const HomeScreen = ({navigation}: any) => {
         <CoreButton
           value="Sign in"
           invert={true}
-          userStyle={{width: '45%'}}
+          style={{width: '45%'}}
           onPress={() => navigation.navigate('Signin')}
         />
         <CoreButton
           value="Sign up"
-          userStyle={{width: '45%'}}
+          style={{width: '45%'}}
           onPress={() => navigation.navigate('Signup')}
         />
       </View>

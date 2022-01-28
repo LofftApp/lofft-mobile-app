@@ -149,10 +149,7 @@ const ProfileScreen = () => {
         <CoreButton
           disabled={password ? false : true}
           value="Update Account"
-          userStyle={[
-            styles.updateButton,
-            password ? null : styles.buttonDisabled,
-          ]}
+          style={[styles.updateButton, password ? null : styles.buttonDisabled]}
           onPress={async () => {
             const answer = await updateUserAccountDetails({
               firstName,
@@ -166,7 +163,7 @@ const ProfileScreen = () => {
             // setError(true);
           }}
         />
-        <CoreButton value="Delete Account" userStyle={styles.deleteButton} />
+        <CoreButton value="Delete Account" style={styles.deleteButton} />
       </ScrollView>
     </View>
   );
