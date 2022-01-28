@@ -14,7 +14,7 @@ import ZeroPendingPaymentsContainer from '../../components/ZeroPendingPayments';
 
 // API Interactions
 // import {my_bills} from './../../context/BillsQuery';
-import {billQuery} from '../../api/firebase/firebaseApi';
+import {billQuery} from '../../api/firebase/fireStoreActions';
 
 import TestChartWeek from './../../components/charts/TestChartWeek';
 import TestChartMonth from './../../components/charts/TestChartMonth';

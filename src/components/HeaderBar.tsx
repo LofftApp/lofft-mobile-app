@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import {navigationRef} from '../RootNavigation';
-import getAuth from '@react-native-firebase/auth';
+import auth from '@react-native-firebase/auth';
 
 // Components
 import UserIcon from './UserIcon';
@@ -12,8 +12,8 @@ import {fontStyles} from './../StyleSheets/FontStyleSheet';
 const HeaderBar = ({titleText}) => {
   const [userImage, setUserImage]: any = useState('');
   useEffect(() => {
-    const user = getAuth().currentUser;
-    setUserImage({uri: user.photoURL});
+    const user = auth().currentUser;
+    if (user.photoURL) setUserImage({uri: user.photoURL});
   }, []);
   return (
     <View style={styles.headerContainer}>
