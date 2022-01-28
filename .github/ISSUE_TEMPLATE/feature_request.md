@@ -6,15 +6,9 @@ labels: "enhancement"
 assignees: ""
 ---
 
-<!-- V1.1 -->
+<!-- V1.2 -->
 
 # Feature Request
-
-_Use this form to outline potential new features or planned features in Lofft_
-
-**[Notion Link]()**
-
----
 
 ## Feature description
 
@@ -24,7 +18,7 @@ _Use this form to outline potential new features or planned features in Lofft_
 
 -
 
-### Todo
+### To-do
 
 - [ ]
 
