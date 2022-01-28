@@ -15,7 +15,7 @@ close, closes, closed, fix, fixes, fixed, resolve, resolves, resolved -->
 
 ### Added APIs, Webpack or Yarn/NPM installs
 
-<!-- Place within this block anything that is required to get this PR working on another mechine -->
+<!-- Place within this block anything that is required to get this PR working on another machine -->
 
 - _No Added APIs_
 
