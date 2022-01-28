@@ -9,9 +9,6 @@ import color from './../../assets/defaultColorPallet.json';
 import {CoreStyleSheet} from '../../StyleSheets/CoreDesignStyleSheet';
 import {fontStyles} from './../../StyleSheets/FontStyleSheet';
 
-// Images
-import userImage from './../../assets/user.jpeg';
-
 const CostsScreen = () => {
   return (
     <View
@@ -20,7 +17,7 @@ const CostsScreen = () => {
         Platform.OS === 'ios' ? CoreStyleSheet.viewContainerIOSStyle : null,
         styles.container,
       ]}>
-      <HeaderBar titleText="Hello James" />
+      <HeaderBar title="Hello James" />
       <View style={styles.notification}>
         <Text style={[fontStyles.bodyMedium, styles.notificationText]}>
           welcome to Lofft - Finish creating your profile

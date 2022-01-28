@@ -78,7 +78,7 @@ const DashboardScreen = ({navigation}: any) => {
         CoreStyleSheet.viewContainerStyle,
         Platform.OS === 'ios' ? CoreStyleSheet.viewContainerIOSStyle : null,
       ]}>
-      <HeaderBar titleText="Your Finances" />
+      <HeaderBar title="Your Finances" />
       <ToggleBar dashboard={dashboardToggle} />
       {isDashboard ? (
         <>
