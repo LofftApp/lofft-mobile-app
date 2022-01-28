@@ -20,7 +20,7 @@ _Use this form to outline potential new feaures_
 
 -
 
-### Todo
+### To-do
 
 - [ ]
 
