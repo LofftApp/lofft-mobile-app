@@ -14,7 +14,7 @@ const PendingPaymentContainer = ({buttonAction, buttonValue, owed}: any) => {
       <Text style={fontStyles.headerMedium}>{`${owed} €`}</Text>
       <CoreButton
         value={buttonValue}
-        userStyle={styles.paynowButton}
+        style={styles.paynowButton}
         onPress={buttonAction}
       />
     </ImageBackground>

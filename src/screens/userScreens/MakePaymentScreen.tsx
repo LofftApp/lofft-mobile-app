@@ -58,7 +58,7 @@ const MakePayment = ({navigation, route}: any) => {
       <View style={styles.buttonContainer}>
         <CoreButton
           value="See Summary"
-          userStyle={styles.button}
+          style={styles.button}
           onPress={() =>
             navigation.navigate('ConfirmPayment', {
               recipient: userName,
@@ -69,7 +69,7 @@ const MakePayment = ({navigation, route}: any) => {
         />
         <CoreButton
           value="Cancel"
-          userStyle={styles.button}
+          style={styles.button}
           invert
           onPress={() => navigation.navigate('Costs')}
         />

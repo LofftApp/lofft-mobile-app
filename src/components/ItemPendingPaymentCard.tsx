@@ -19,7 +19,7 @@ const ItemPendingPaymentCard = ({buttonAction, description, value}: any) => {
       <CoreButton
         value="Pay this item"
         invert={true}
-        userStyle={styles.button}
+        style={styles.button}
         onPress={buttonAction}
       />
     </ImageBackground>

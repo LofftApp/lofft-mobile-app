@@ -6,18 +6,14 @@ import {fontStyles} from '../StyleSheets/FontStyleSheet';
 export const CoreButton = ({
   value,
   invert = false,
-  userStyle,
+  style,
   onPress,
   disabled = false,
 }: any) => {
   return (
     <TouchableOpacity
       disabled={disabled}
-      style={[
-        styles.buttonStyle,
-        invert ? styles.buttonInvert : null,
-        userStyle,
-      ]}
+      style={[styles.buttonStyle, invert ? styles.buttonInvert : null, style]}
       onPress={onPress}>
       <Text
         style={[

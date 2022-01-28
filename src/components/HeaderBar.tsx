@@ -9,7 +9,7 @@ import UserIcon from './UserIcon';
 // Stylesheets
 import {fontStyles} from './../StyleSheets/FontStyleSheet';
 
-const HeaderBar = ({titleText}) => {
+const HeaderBar = ({title}) => {
   const [userImage, setUserImage]: any = useState('');
   useEffect(() => {
     const user = auth().currentUser;
@@ -17,7 +17,7 @@ const HeaderBar = ({titleText}) => {
   }, []);
   return (
     <View style={styles.headerContainer}>
-      <Text style={fontStyles.headerMedium}>{titleText}</Text>
+      <Text style={fontStyles.headerMedium}>{title}</Text>
       <UserIcon
         image={userImage}
         onPress={() => navigationRef.navigate('UserOptions')}
