@@ -13,8 +13,8 @@ import {
 import {
   getCurrentUserDetails,
   updateUserAccountDetails,
-} from '../../api/firebase/firebaseApi';
-import {userImageUpload} from '../../api/firebase/firebaseApi';
+} from '../../api/firebase/fireStoreActions';
+import {userImageUpload} from '../../api/firebase/firebaseStorage';
 
 // Components
 import CustomBackButton from '../../components/CustomBackButton';
@@ -46,6 +46,7 @@ const ProfileScreen = () => {
     getUser();
   }, []);
 
+  const [image, setImage]: any = useState('');
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [pronouns, setPronouns] = useState('');
@@ -85,10 +86,14 @@ const ProfileScreen = () => {
       <ScrollView style={styles.scrollContainer}>
         <View style={styles.userIconContainer}>
           <UserIcon
-            onPress={() => userImageUpload()}
+            onPress={async () => {
+              const imageURL: any = await userImageUpload();
+              if (typeof imageURL === 'string') setImage({uri: imageURL});
+            }}
             userImageContainerStyle={styles.userImageContainerStyle}
             userImageStyle={styles.userImageStyle}
             userIconStyle={styles.userIconStyle}
+            image={image}
           />
         </View>
         <View style={styles.textInputContainer}>
@@ -197,7 +202,10 @@ const styles = StyleSheet.create({
     width: 70,
     height: 70,
   },
-  userImageStyle: {},
+  userImageStyle: {
+    width: 65,
+    height: 65,
+  },
   introText: {
     textAlign: 'justify',
     marginTop: 25,

@@ -1,5 +1,4 @@
 import createDataContext from './createDataContext';
-import lofftApi from '../api/lofftApi';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as RootNavigation from '../RootNavigation';
 

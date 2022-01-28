@@ -1,4 +1,5 @@
 import React, {useContext, useEffect, useState} from 'react';
+import {LogBox} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import RNBootSplash from 'react-native-bootsplash';
@@ -24,6 +25,11 @@ import ProfileScreen from './src/screens/userScreens/ProfileScreen';
 const Stack = createStackNavigator();
 
 const App = () => {
+  // Inhibit Error Message
+  LogBox.ignoreLogs([
+    "[react-native-gesture-handler] Seems like you're using an old API with gesture components, check out new Gestures system!",
+  ]);
+
   const {state, activeUser} = useContext(AuthContext);
   // Firebase initialize values
   const [initializing, setInitializing] = useState(true);

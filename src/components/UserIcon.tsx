@@ -42,8 +42,7 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
     flexDirection: 'row',
     justifyContent: 'center',
-    alignContent: 'center',
-    paddingTop: 5,
+    alignItems: 'center',
   },
   backgroundCurcle: {
     justifyContent: 'center',
