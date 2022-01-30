@@ -4,8 +4,6 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import RNBootSplash from 'react-native-bootsplash';
 import auth from '@react-native-firebase/auth';
-import firestore from '@react-native-firebase/firestore';
-import functions from '@react-native-firebase/functions';
 
 import {navigationRef} from './src/RootNavigation';
 import {Context as AuthContext} from './src/context/AuthContext';
@@ -30,33 +28,20 @@ const App = () => {
     "[react-native-gesture-handler] Seems like you're using an old API with gesture components, check out new Gestures system!",
   ]);
 
-  const {state, activeUser} = useContext(AuthContext);
   // Firebase initialize values
   const [initializing, setInitializing] = useState(true);
   const [user, setUser] = useState();
 
-  // Firebase Dev check
-  if (__DEV__) {
-    functions().useFunctionsEmulator('http://localhost:4000');
-  }
-
-  const db = firestore();
-
   // Firebase handle user state change
-  const onAuthStateChanged = userStateChange => {
-    setUser(userStateChange);
-    if (initializing) {
-      setInitializing(false);
-    }
+  const onAuthStateChanged = user => {
+    setUser(user);
+    if (initializing) setInitializing(false);
   };
 
   useEffect(() => {
-    const bootstrapAsync = async () => {
-      activeUser();
-    };
     // New Authentication code from Firebase
     const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
-    bootstrapAsync();
+    console.log(`Subscriber: ${subscriber}`);
     return subscriber;
   }, []);
 
