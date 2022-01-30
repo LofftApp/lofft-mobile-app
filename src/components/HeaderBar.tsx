@@ -14,6 +14,7 @@ const HeaderBar = ({title}) => {
   useEffect(() => {
     const user = auth().currentUser;
     if (user.photoURL) setUserImage({uri: user.photoURL});
+    console.log(userImage);
   }, []);
   return (
     <View style={styles.headerContainer}>
