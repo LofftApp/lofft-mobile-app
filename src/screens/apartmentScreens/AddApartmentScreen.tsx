@@ -60,7 +60,10 @@ const AddApartmentScreen = () => {
       </View>
       <CoreButton
         value="Add Lofft"
-        onPress={() => createLofft({name, description})}
+        onPress={() => {
+          createLofft({name, description});
+          navigation.navigate('Costs');
+        }}
       />
     </View>
   );
