@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useContext} from 'react';
 import {
   View,
   Text,
@@ -10,7 +10,8 @@ import BouncyCheckbox from 'react-native-bouncy-checkbox';
 import color from '../assets/defaultColorPallet.json';
 import {fontStyles} from '../StyleSheets/FontStyleSheet';
 import {CoreButton} from './CoreButton';
-import {emailSignup, emailSignin} from '../api/firebase/firebaseApi';
+import {Context as AuthContext} from '../context/AuthContext';
+import AlertBanner from '../components/AlertBanner';
 
 const SigninForm = ({navigation, signupForm = false}: any) => {
   const [email, setEmail] = useState('');
@@ -18,9 +19,15 @@ const SigninForm = ({navigation, signupForm = false}: any) => {
   const [checkbox, setCheckbox] = useState(false);
   const buttonValue = signupForm ? 'Sign up' : 'Sign in';
 
+  // Showing error not sure why, the context works
+  const {state, signup, signin} = useContext(AuthContext);
+
   return (
     <>
       <View style={styles.inputContainerStyle}>
+        {state.errorMessage ? (
+          <AlertBanner alertType="warning" message={state.errorMessage} />
+        ) : null}
         <TextInput
           style={[styles.inputStyle, fontStyles.bodyMedium]}
           keyboardType="email-address"
@@ -38,9 +45,6 @@ const SigninForm = ({navigation, signupForm = false}: any) => {
           onChangeText={(text: string) => setPassword(text)}
         />
       </View>
-      {/* {state.errorMessage ? (
-        <Text>Error Message: {state.errorMessage}</Text>
-      ) : null} */}
       {signupForm ? (
         <BouncyCheckbox
           text="I agree to the terms & conditions and Lofft's privacy policy"
@@ -56,13 +60,13 @@ const SigninForm = ({navigation, signupForm = false}: any) => {
       {signupForm ? (
         <CoreButton
           value={buttonValue}
-          onPress={() => emailSignup({email, password})}
+          onPress={() => signup({email, password})}
           style={{width: '100%', marginTop: 40}}
         />
       ) : (
         <CoreButton
           value={buttonValue}
-          onPress={() => emailSignin({email, password})}
+          onPress={() => signin({email, password})}
           style={{width: '100%', marginTop: 40}}
         />
       )}

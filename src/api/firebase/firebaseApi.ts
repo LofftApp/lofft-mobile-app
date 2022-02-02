@@ -7,7 +7,6 @@ if (__DEV__) {
 }
 
 export const emailSignup = ({email, password}) => {
-  console.log(`I am pushed Firebase - ${email} - ${password}`);
   auth()
     .createUserWithEmailAndPassword(email, password)
     .then(() => {
