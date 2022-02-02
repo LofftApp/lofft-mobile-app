@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, {useState, useEffect} from 'react';
 import {View, Text, StyleSheet, Platform} from 'react-native';
 import {getUser} from '../../api/firebase/firebaseApi';
@@ -37,7 +38,7 @@ const MakePayment = ({navigation, route}: any) => {
         onPress={() => navigation.goBack()}
         title="Make a payment"
       />
-      <PaymentCard />
+      <PaymentCard navigation={navigation} />
       <Text style={[styles.subHeader, fontStyles.buttonTextLarge]}>
         Recipients
       </Text>
