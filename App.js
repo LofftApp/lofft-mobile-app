@@ -20,6 +20,9 @@ import PaidConfirmationScreen from './src/screens/userScreens/PaidConfirmationSc
 import UserOptionsScreen from './src/screens/userScreens/UserOptionsScreen';
 import ProfileScreen from './src/screens/userScreens/ProfileScreen';
 
+// Appartment Screens
+import AddApartmentScreen from './src/screens/apartmentScreens/AddApartmentScreen';
+
 const Stack = createStackNavigator();
 
 const App = () => {
@@ -86,6 +89,12 @@ const App = () => {
           <Stack.Screen
             name="ProfileScreen"
             component={ProfileScreen}
+            options={{headerShown: false}}
+          />
+          {/* Apartment Management Screens */}
+          <Stack.Screen
+            name="AddApartment"
+            component={AddApartmentScreen}
             options={{headerShown: false}}
           />
         </>

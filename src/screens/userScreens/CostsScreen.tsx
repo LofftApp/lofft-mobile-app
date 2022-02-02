@@ -31,6 +31,7 @@ const CostsScreen = () => {
           <CoreButton
             value="Create"
             style={[styles.buttons, styles.mintButton]}
+            onPress={() => {}}
           />
         </View>
       </ImageBackground>
