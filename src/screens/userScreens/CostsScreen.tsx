@@ -10,6 +10,7 @@ import {CoreStyleSheet} from '../../StyleSheets/CoreDesignStyleSheet';
 import {fontStyles} from './../../StyleSheets/FontStyleSheet';
 import paymentContainerBackground from './../../assets/paymentContainer.png';
 import {CoreButton} from '../../components/CoreButton';
+import {navigationRef as navigation} from '../../RootNavigation';
 
 const CostsScreen = () => {
   return (
@@ -31,7 +32,9 @@ const CostsScreen = () => {
           <CoreButton
             value="Create"
             style={[styles.buttons, styles.mintButton]}
-            onPress={() => {}}
+            onPress={() => {
+              navigation.navigate('AddApartment');
+            }}
           />
         </View>
       </ImageBackground>
