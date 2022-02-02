@@ -57,7 +57,7 @@ const HomeScreen = ({navigation}: any) => {
           onPress={() => navigation.navigate('Signin')}
         />
         <CoreButton
-          value="Sign up"
+          value="Join"
           style={{width: '45%'}}
           onPress={() => navigation.navigate('Signup')}
         />
