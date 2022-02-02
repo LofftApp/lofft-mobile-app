@@ -1,6 +1,6 @@
 import auth from '@react-native-firebase/auth';
 import * as RootNavigation from '../../RootNavigation';
-
+// This has been replaced by, Context
 if (__DEV__) {
   console.log('Development Authentication Environment');
   auth().useEmulator('http://localhost:9099');

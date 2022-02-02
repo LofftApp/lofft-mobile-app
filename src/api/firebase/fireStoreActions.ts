@@ -88,3 +88,11 @@ export const updateUserAccountDetails = async ({
       return e;
     });
 };
+
+export const createLofft = async ({name, description}) => {
+  console.log(`Name: ${name} - Description: ${description}`);
+  await firestore()
+    .collection('Appartments')
+    .add({name, description})
+    .then(() => console.log('added'));
+};
