@@ -17,7 +17,7 @@ const SigninForm = ({navigation, signupForm = false}: any) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [checkbox, setCheckbox] = useState(false);
-  const buttonValue = signupForm ? 'Sign up' : 'Sign in';
+  const buttonValue = signupForm ? 'Join' : 'Sign in';
 
   // Showing error not sure why, the context works
   const {state, signup, signin} = useContext(AuthContext);
@@ -78,7 +78,7 @@ const SigninForm = ({navigation, signupForm = false}: any) => {
           style={styles.switchLink}
           onPress={() => navigation.navigate(signupForm ? 'Signin' : 'Signup')}>
           <Text style={[fontStyles.bodySmall, styles.switchLinkText]}>
-            {signupForm ? 'Sign in' : 'Sign up'}
+            {signupForm ? 'Sign in' : 'Join'}
           </Text>
         </TouchableOpacity>
       </View>
