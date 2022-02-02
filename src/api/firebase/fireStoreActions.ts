@@ -91,8 +91,14 @@ export const updateUserAccountDetails = async ({
 
 export const createLofft = async ({name, description}) => {
   console.log(`Name: ${name} - Description: ${description}`);
+  const currentUserDetails: any = await auth().currentUser;
   await firestore()
-    .collection('Appartments')
+    .collection('Loffts')
     .add({name, description})
-    .then(() => console.log('added'));
+    .then(async response => {
+      await firestore()
+        .collection('users')
+        .doc(currentUserDetails.uid)
+        .update({lofft: response.id});
+    });
 };
