@@ -1,38 +1,19 @@
-import React from 'react';
-import {View, TouchableOpacity, Text, StyleSheet} from 'react-native';
-import {fontStyles} from '../StyleSheets/FontStyleSheet';
+import React, {useState} from 'react';
+import { View, Text, StyleSheet } from 'react-native';
+import { fontStyles } from '../StyleSheets/FontStyleSheet';
 import color from '../assets/defaultColorPallet.json';
-import Icon from 'react-native-vector-icons/Ionicons';
 
-// The active Icon is used on cards but is conditional that the card is active.
-const ActiveIcon = () => {
-  return (
-    <View style={styles.activeIcon}>
-      <Text style={[fontStyles.buttonTextSmall, styles.activeIconText]}>
-        Active
-      </Text>
-    </View>
-  );
-};
+const ActiveCard = props => {
+  const [cards, setCards] = useState([props.userCards])
 
-const PaymentCard = ({navigation, active = false}: any) => {
-  return (
-    <TouchableOpacity
-      style={styles.cardContainer}
-      onPress={() => navigation.navigate('PaymentSelect')}>
-      {active ? <ActiveIcon /> : null}
+  return(
+  <View style={styles.cardContainer}>
       <View style={styles.iconRoundal}>
-        <Icon
-          style={{marginLeft: 3}}
-          name="add-outline"
-          size={35}
-          color={color.Lavendar[100]}
-        />
       </View>
       <Text style={[fontStyles.buttonTextMedium, styles.cardText]}>
-        Add new Payment method
+        Visa
       </Text>
-    </TouchableOpacity>
+  </View>
   );
 };
 
@@ -74,4 +55,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default PaymentCard;
+export default ActiveCard;

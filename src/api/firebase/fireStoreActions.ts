@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 
@@ -45,8 +46,9 @@ export const getUser = async userID => {
 };
 
 export const getCurrentUserDetails = async () => {
+  try {
   const currentUser: any = await auth().currentUser.uid;
-  let details: any = {name: undefined, pronouns: undefined, email: undefined};
+  let details: any = { name: undefined, pronouns: undefined, email: undefined, cards: undefined};
   await firestore()
     .collection('users')
     .doc(currentUser)
@@ -55,6 +57,9 @@ export const getCurrentUserDetails = async () => {
       details = querySnapShot.data();
     });
   return details;
+  } catch(error){
+    console.log(error)
+  }
 };
 
 export const updateUserAccountDetails = async ({

@@ -20,8 +20,8 @@ const PaymentSelect = ({navigation}: any) => {
   const paymentTypes = [
     {cardId: 1, type: 'Credit/debit card', checked: false, token:''},
     {cardId: 2, type: 'Paypal', checked: false, token:''},
-    { cardId: 3, type: 'Apple Pay', checked: false, token: ''},
-    { cardId: 4, type: 'SEPA direct debit', checked: false, token: ''},
+    {cardId: 3, type: 'Apple Pay', checked: false, token: ''},
+    {cardId: 4, type: 'SEPA direct debit', checked: false, token: ''},
   ];
   const [cards, setCards] = useState(paymentTypes);
 
@@ -47,7 +47,7 @@ const PaymentSelect = ({navigation}: any) => {
 
   };
 
-
+// DB storage
   const storeCards = async () => {
     try {
     const user: any = await auth().currentUser;

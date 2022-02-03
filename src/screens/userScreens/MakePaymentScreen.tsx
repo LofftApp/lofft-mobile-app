@@ -1,8 +1,9 @@
+/* eslint-disable prettier/prettier */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React, {useState, useEffect} from 'react';
 import {View, Text, StyleSheet, Platform} from 'react-native';
-import {getUser} from '../../api/firebase/firebaseApi';
-
+import { getUser, getCurrentUserDetails } from '../../api/firebase/fireStoreActions';
+import auth from '@react-native-firebase/auth';
 // StyleSheets
 import color from './../../assets/defaultColorPallet.json';
 import {CoreStyleSheet} from '../../StyleSheets/CoreDesignStyleSheet';
@@ -12,6 +13,7 @@ import {fontStyles} from '../../StyleSheets/FontStyleSheet';
 import CustomBackButton from '../../components/CustomBackButton';
 import UserIcon from '../../components/UserIcon';
 import PaymentCard from '../../components/PaymentCard';
+import ActiveCard from '../../components/ActiveCard';
 import {CoreButton} from '../../components/CoreButton';
 
 // Assets
@@ -22,12 +24,33 @@ const MakePayment = ({navigation, route}: any) => {
   const [payer] = useState(route.params.payer);
   const [paymentMethod, setPaymentMethod] = useState('Manual payment');
   const [userName, setUserName] = useState('');
+  const [userCards, setUserCards] = useState([]);
 
-  const getUserName = async () => {
-    const user = await getUser(billDetails.payer);
-    setUserName(user.name);
-  };
-  getUserName();
+
+
+
+
+  useEffect(() => {
+
+    const getUserName = async () => {
+      const user = await getUser(billDetails.payer);
+      setUserName(user.name);
+    };
+
+    const grabUserCards = async () => {
+      const user: any = await getCurrentUserDetails();
+      const checkedCards = user.cards.filter(card => card.checked);
+      setUserCards(checkedCards);
+    };
+    getUserName();
+    grabUserCards();
+  })
+
+
+
+
+
+
   return (
     <View
       style={[
@@ -38,7 +61,7 @@ const MakePayment = ({navigation, route}: any) => {
         onPress={() => navigation.goBack()}
         title="Make a payment"
       />
-      <PaymentCard navigation={navigation} />
+       {userCards.length > 0 ? <ActiveCard userCards={userCards} /> : <PaymentCard navigation={navigation} />}
       <Text style={[styles.subHeader, fontStyles.buttonTextLarge]}>
         Recipients
       </Text>
