@@ -1,14 +1,20 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable prettier/prettier */
 // React Config
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { View, StyleSheet } from "react-native";
-
+import {getUser } from '../../api/firebase/fireStoreActions';
+import { collection, getDocs, addDoc, updateDoc, doc } from "@react-native-firebase/firestore"
+import auth from '@react-native-firebase/auth';
 // Custom Config
 import color from './../../assets/defaultColorPallet.json';
 import CustomBackButton from '../../components/CustomBackButton';
 
 // Components
 import PaymentOption from '../../components/PaymentOption';
+
+// Current User
+
 
 const PaymentSelect = ({navigation}: any) => {
   const paymentTypes = [
@@ -18,6 +24,7 @@ const PaymentSelect = ({navigation}: any) => {
     {cardId: 4, type: 'SEPA direct debit', checked: false},
   ];
   const [cards, setCards] = useState(paymentTypes);
+  const [user, setUser] = useState({});
 
   const toggleRightCard = (id: any) => {
     const selectedCards = cards.map((el: any) => {
@@ -32,6 +39,22 @@ const PaymentSelect = ({navigation}: any) => {
 
   };
 
+
+useEffect(() => {
+  const grabUser = async () => {
+    const userId = await auth().currentUser.uid
+    const user = await getUser(userId)
+    setUser(user)
+  }
+
+  grabUser()
+}, [])
+
+
+
+
+
+ console.log(`Hi I am the user state ${user.name}`)
 
 
   return(

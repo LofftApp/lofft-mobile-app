@@ -41,6 +41,8 @@ const DashboardScreen = ({navigation}: any) => {
     setLoad();
   }, []);
 
+
+
   const handleWeekClick = () => {
     setWeekSelected(true);
     setMonthSelected(false);
