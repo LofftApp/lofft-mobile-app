@@ -14,14 +14,16 @@ const HeaderBar = ({title}) => {
   useEffect(() => {
     const user = auth().currentUser;
     if (user.photoURL) setUserImage({uri: user.photoURL});
-    console.log(userImage);
   }, []);
+
   return (
     <View style={styles.headerContainer}>
       <Text style={fontStyles.headerMedium}>{title}</Text>
       <UserIcon
         image={userImage}
-        onPress={() => navigationRef.navigate('UserOptions')}
+        onPress={() => {
+          navigationRef.navigate('UserOptions');
+        }}
       />
     </View>
   );

@@ -1,53 +1,20 @@
 import auth from '@react-native-firebase/auth';
-import * as RootNavigation from '../../RootNavigation';
-// This has been replaced by, Context
+
 if (__DEV__) {
   console.log('Development Authentication Environment');
-  auth().useEmulator('http://localhost:9099');
+  auth().useEmulator('http://192.168.0.123:9099');
 }
 
-export const emailSignup = ({email, password}) => {
-  auth()
-    .createUserWithEmailAndPassword(email, password)
-    .then(() => {
-      console.log('User account created & signed in!');
-
-      RootNavigation.navigate('Costs', {});
-    })
-    .catch(error => {
-      if (error.code === 'auth/email-already-in-use') {
-        console.log('That email address is already in use!');
-      }
-
-      if (error.code === 'auth/invalid-email') {
-        console.log('That email address is invalid!');
-      }
-
-      console.error(error);
-    });
+export const getCurrentUser = () => {
+  return auth().currentUser;
 };
 
-export const emailSignin = ({email, password}) => {
-  console.log(`I am pushed Firebase - ${email} - ${password}`);
-  auth()
-    .signInWithEmailAndPassword(email, password)
-    .then(() => {
-      RootNavigation.navigate('Costs', {});
-    })
-    .catch(error => {
-      if (error.code === 'auth/email-already-in-use') {
-        console.log('That email address is already in use!');
-      }
-
-      if (error.code === 'auth/invalid-email') {
-        console.log('That email address is invalid!');
-      }
-
-      console.error(error);
-    });
+export const authUserWithEmailAndPassword = (email, password) => {
+  auth().signInWithEmailAndPassword(email, password);
 };
 
-export const signout = () => {
-  auth().signOut();
-  console.log('User has been signed out');
+export const addImageToAuth = async url => {
+  auth().currentUser.updateProfile({
+    photoURL: url,
+  });
 };

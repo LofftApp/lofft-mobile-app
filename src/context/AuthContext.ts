@@ -2,12 +2,10 @@ import createDataContext from './createDataContext';
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import * as RootNavigation from '../RootNavigation';
 
 if (__DEV__) {
   console.log('Development Authentication Environment');
-  auth().useEmulator('http://localhost:9099');
-  firestore().useEmulator('localhost', 8080);
+  auth().useEmulator('http://192.168.0.123:9099');
 }
 
 const authReducer = (state, action) => {
@@ -75,7 +73,6 @@ const signin =
 const signout = dispatch => async () => {
   auth().signOut();
   dispatch({type: 'signout'});
-  RootNavigation.navigate('Home', {});
 };
 
 const activeUser = dispatch => async () => {

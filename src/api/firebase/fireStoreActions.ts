@@ -1,37 +1,13 @@
-import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
+import {getCurrentUser} from './firebaseApi';
+import {authUserWithEmailAndPassword} from './firebaseApi';
 
 if (__DEV__) {
   console.log('FireStore Development Environment');
-  auth().useEmulator('http://localhost:9099');
-  firestore().useEmulator('localhost', 8080);
+  firestore().useEmulator('192.168.0.123', 8080);
 }
 
-export const billQuery = async () => {
-  const current_user: any = await auth().currentUser.uid;
-  let total = 0;
-  let payeeData = [];
-  let returnedData = [];
-  await firestore()
-    .collection('bills')
-    .get()
-    .then(async querySnapshot => {
-      await querySnapshot.forEach(documentSnapShot => {
-        payeeData.push(documentSnapShot.data());
-      });
-      payeeData.forEach(userBill => {
-        if (
-          userBill.payees[current_user] &&
-          !userBill.payees[current_user].paid
-        ) {
-          total += userBill.payees[current_user].value;
-          returnedData.push(userBill);
-        }
-      });
-    });
-  return {total, returnedData};
-};
-
+// Update and edit user profiles.
 export const getUser = async userID => {
   let name: any;
   await firestore()
@@ -45,7 +21,7 @@ export const getUser = async userID => {
 };
 
 export const getCurrentUserDetails = async () => {
-  const currentUser: any = await auth().currentUser.uid;
+  const currentUser: any = await getCurrentUser().uid;
   let details: any = {name: undefined, pronouns: undefined, email: undefined};
   await firestore()
     .collection('users')
@@ -64,41 +40,86 @@ export const updateUserAccountDetails = async ({
   email,
   password,
 }) => {
-  const currentUserDetails: any = await auth().currentUser;
-  auth()
-    .signInWithEmailAndPassword(currentUserDetails.email, password)
-    .then(() => {
-      firestore()
-        .collection('users')
-        .doc(currentUserDetails.uid)
-        .update({
-          name: `${firstName} ${lastName}`,
-          pronouns,
-          email,
-        })
-        .then(() => {
-          auth().currentUser.updateProfile({
-            displayName: `${firstName} ${lastName}`,
-          });
-          auth().currentUser.updateEmail(email);
-        });
+  const currentUser: any = await getCurrentUser();
+  await authUserWithEmailAndPassword(currentUser.email, password);
+  firestore()
+    .collection('users')
+    .doc(currentUser.uid)
+    .update({
+      name: `${firstName} ${lastName}`,
+      pronouns,
+      email,
     })
-    .catch(e => {
-      console.log(e.code);
-      return e;
+    .then(() => {
+      currentUser.updateProfile({
+        displayName: `${firstName} ${lastName}`,
+      });
+      currentUser.updateEmail(email);
     });
 };
 
+export const uploadImageToUserProfile = async url => {
+  const currentUser: any = await getCurrentUser();
+  firestore().collection('users').doc(currentUser.uid).update({imageURI: url});
+};
+
+// Update and create Lofft Spaces
 export const createLofft = async ({name, description}) => {
-  console.log(`Name: ${name} - Description: ${description}`);
-  const currentUserDetails: any = await auth().currentUser;
+  const currentUser: any = await getCurrentUser().uid;
   await firestore()
     .collection('Loffts')
     .add({name, description})
     .then(async response => {
       await firestore()
         .collection('users')
-        .doc(currentUserDetails.uid)
+        .doc(currentUser)
         .update({lofft: response.id});
     });
+};
+
+export const getLofft = async () => {
+  const currentUser: any = await getCurrentUser();
+  let result = false;
+  await firestore()
+    .collection('users')
+    .doc(currentUser.uid)
+    .get()
+    .then(async response => {
+      if (response.data().lofft) {
+        await firestore()
+          .collection('Loffts')
+          .doc(response.data().lofft)
+          .get()
+          .then(lofftResponse => {
+            result = lofftResponse.data();
+          });
+      }
+    });
+  return result;
+};
+
+// Add and edit Bills
+export const billQuery = async () => {
+  const currentUser: any = await getCurrentUser();
+  let total = 0;
+  let payeeData = [];
+  let returnedData = [];
+  await firestore()
+    .collection('bills')
+    .get()
+    .then(async querySnapshot => {
+      await querySnapshot.forEach(documentSnapShot => {
+        payeeData.push(documentSnapShot.data());
+      });
+      payeeData.forEach(userBill => {
+        if (
+          userBill.payees[currentUser.uid] &&
+          !userBill.payees[currentUser.uid].paid
+        ) {
+          total += userBill.payees[currentUser.uid].value;
+          returnedData.push(userBill);
+        }
+      });
+    });
+  return {total, returnedData};
 };

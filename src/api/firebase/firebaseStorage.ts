@@ -1,27 +1,26 @@
 // This is the API for storing data within firebase container storage system.
-import auth from '@react-native-firebase/auth';
 import {utils} from '@react-native-firebase/app';
 import storage from '@react-native-firebase/storage';
 import {launchImageLibrary} from 'react-native-image-picker';
+import {uploadImageToUserProfile} from './fireStoreActions';
+import {getCurrentUser, addImageToAuth} from './firebaseApi';
 
 if (__DEV__) {
   console.log('Firebase Storage Environment');
-  auth().useEmulator('http://localhost:9099');
-  storage().useEmulator('localhost', 9199);
+  storage().useEmulator('192.168.0.123', 9199);
 }
 
 export const userImageUpload = async () => {
-  const currentUser: any = await auth().currentUser.uid;
+  const currentUser = await getCurrentUser();
   const result = await launchImageLibrary({mediaType: 'photo'});
-  const reference = storage().ref(`${currentUser}/userImage/profile.jpg`);
+  const reference = storage().ref(`${currentUser.uid}/userImage/profile.jpg`);
   const pathToFile = `${utils.FilePath.TEMP_DIRECTORY}/${result.assets[0].fileName}`;
   // Upload file
   await reference.putFile(pathToFile);
   const url = await reference.getDownloadURL();
   if (url) {
-    auth().currentUser.updateProfile({
-      photoURL: url,
-    });
+    addImageToAuth(url);
+    uploadImageToUserProfile(url);
     return url;
   } else {
     return {message: 'Action Cancelled'};

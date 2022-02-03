@@ -151,7 +151,7 @@ const ProfileScreen = () => {
           value="Update Account"
           style={[styles.updateButton, password ? null : styles.buttonDisabled]}
           onPress={async () => {
-            const answer = await updateUserAccountDetails({
+            await updateUserAccountDetails({
               firstName,
               lastName,
               pronouns,
@@ -159,8 +159,6 @@ const ProfileScreen = () => {
               password,
             });
             setPassword('');
-            console.log(answer);
-            // setError(true);
           }}
         />
         <CoreButton value="Delete Account" style={styles.deleteButton} />

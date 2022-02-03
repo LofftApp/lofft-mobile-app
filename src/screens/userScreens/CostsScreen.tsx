@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {View, Text, StyleSheet, Platform, ImageBackground} from 'react-native';
 
 // Components
@@ -11,8 +11,18 @@ import {fontStyles} from './../../StyleSheets/FontStyleSheet';
 import paymentContainerBackground from './../../assets/paymentContainer.png';
 import {CoreButton} from '../../components/CoreButton';
 import {navigationRef as navigation} from '../../RootNavigation';
+import {getLofft} from '../../api/firebase/fireStoreActions';
 
 const CostsScreen = () => {
+  const [lofft, setLofft] = useState(false);
+  useEffect(() => {
+    const lofftDetails = async () => {
+      const result = await getLofft();
+      setLofft(result);
+    };
+    lofftDetails();
+  }, []);
+  console.log(lofft);
   return (
     <View
       style={[
@@ -21,23 +31,41 @@ const CostsScreen = () => {
         styles.container,
       ]}>
       <HeaderBar title="Welcome" />
-      <ImageBackground
-        style={styles.pendingPaymentContainer}
-        source={paymentContainerBackground}>
-        <Text style={fontStyles.buttonTextMedium}>
-          You do not currently have a Lofft
-        </Text>
-        <View style={styles.buttonContainer}>
-          <CoreButton value="Join" style={styles.buttons} />
-          <CoreButton
-            value="Create"
-            style={[styles.buttons, styles.mintButton]}
-            onPress={() => {
-              navigation.navigate('AddApartment');
-            }}
-          />
-        </View>
-      </ImageBackground>
+      {lofft ? (
+        <ImageBackground
+          style={styles.pendingPaymentContainer}
+          source={paymentContainerBackground}>
+          <Text style={fontStyles.buttonTextMedium}>{lofft.name}</Text>
+          <View style={styles.buttonContainer}>
+            <CoreButton value="Join" style={styles.buttons} />
+            <CoreButton
+              value="Create"
+              style={[styles.buttons, styles.mintButton]}
+              onPress={() => {
+                navigation.navigate('AddApartment');
+              }}
+            />
+          </View>
+        </ImageBackground>
+      ) : (
+        <ImageBackground
+          style={styles.pendingPaymentContainer}
+          source={paymentContainerBackground}>
+          <Text style={fontStyles.buttonTextMedium}>
+            You do not currently have a Lofft
+          </Text>
+          <View style={styles.buttonContainer}>
+            <CoreButton value="Join" style={styles.buttons} />
+            <CoreButton
+              value="Create"
+              style={[styles.buttons, styles.mintButton]}
+              onPress={() => {
+                navigation.navigate('AddApartment');
+              }}
+            />
+          </View>
+        </ImageBackground>
+      )}
     </View>
   );
 };
