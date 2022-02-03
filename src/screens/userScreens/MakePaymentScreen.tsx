@@ -15,6 +15,7 @@ import UserIcon from '../../components/UserIcon';
 import PaymentCard from '../../components/PaymentCard';
 import ActiveCard from '../../components/ActiveCard';
 import {CoreButton} from '../../components/CoreButton';
+import MyCarousel from '../../components/MyCarousel';
 
 // Assets
 import userImage from '../../assets/user.jpeg';
@@ -44,7 +45,7 @@ const MakePayment = ({navigation, route}: any) => {
     };
     getUserName();
     grabUserCards();
-  })
+  },[])
 
 
 
@@ -61,7 +62,8 @@ const MakePayment = ({navigation, route}: any) => {
         onPress={() => navigation.goBack()}
         title="Make a payment"
       />
-       {userCards.length > 0 ? <ActiveCard userCards={userCards} /> : <PaymentCard navigation={navigation} />}
+      <MyCarousel userCards={userCards} />
+       {/* {userCards.length > 0 ? <ActiveCard userCards={userCards} /> : <PaymentCard navigation={navigation} />} */}
       <Text style={[styles.subHeader, fontStyles.buttonTextLarge]}>
         Recipients
       </Text>

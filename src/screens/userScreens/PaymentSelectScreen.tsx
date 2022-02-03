@@ -3,7 +3,6 @@
 // React Config
 import React, { useState, useEffect } from "react";
 import { View, StyleSheet } from "react-native";
-import {getUser } from '../../api/firebase/fireStoreActions';
 import firestore from '@react-native-firebase/firestore';
 import auth from '@react-native-firebase/auth';
 // Custom Config
@@ -22,6 +21,7 @@ const PaymentSelect = ({navigation}: any) => {
     {cardId: 2, type: 'Paypal', checked: false, token:''},
     {cardId: 3, type: 'Apple Pay', checked: false, token: ''},
     {cardId: 4, type: 'SEPA direct debit', checked: false, token: ''},
+    {cardId: 4, type: 'Google Pay', checked: false, token: '' },
   ];
   const [cards, setCards] = useState(paymentTypes);
 
