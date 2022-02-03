@@ -12,28 +12,38 @@ import CustomBackButton from '../../components/CustomBackButton';
 
 // Components
 import PaymentOption from '../../components/PaymentOption';
-
+import { CoreButton } from '../../components/CoreButton';
 // Current User
 
 
 const PaymentSelect = ({navigation}: any) => {
   const paymentTypes = [
-    {cardId: 1, type: 'Credit/debit card', checked: false},
-    {cardId: 2, type: 'Paypal', checked: false},
-    {cardId: 3, type: 'Apple Pay', checked: false},
-    {cardId: 4, type: 'SEPA direct debit', checked: false},
+    {cardId: 1, type: 'Credit/debit card', checked: false, token:""},
+    {cardId: 2, type: 'Paypal', checked: false, token:""},
+    { cardId: 3, type: 'Apple Pay', checked: false, token: ""},
+    { cardId: 4, type: 'SEPA direct debit', checked: false, token: ""},
   ];
   const [cards, setCards] = useState(paymentTypes);
   const [user, setUser] = useState({});
+  const [userpreSave, setUserForSave] = useState({});
 
   const toggleRightCard = (id: any) => {
+
+    const randomTokenMakerSim = () => {
+      const randomTokenSim = [];
+      for (let i = 0; i < 16; i++) {
+        randomTokenSim.push((Math.floor(Math.random() * 9) + 1).toString());
+      }
+      return randomTokenSim.join("");
+    }
+
     const selectedCards = cards.map((el: any) => {
       if (el.cardId === id) {
-        return {...el, checked: !el.checked};
+        return { ...el, checked: !el.checked, token: randomTokenMakerSim()};
       } else {
         return el;
       }
-    })
+    });
 
     setCards(selectedCards);
 
@@ -51,10 +61,12 @@ useEffect(() => {
 }, [])
 
 
+const saveUser = (userInput) => {
+  const userObject = userInput;
+  userObject.cards = cards
+  setUserForSave(userObject)
+}
 
-
-
- console.log(`Hi I am the user state ${user.name}`)
 
 
   return(
@@ -62,6 +74,13 @@ useEffect(() => {
       <CustomBackButton onPress={() => navigation.goBack()} title="Add Payment Method" />
       <View style={styles.paymentSelectContainer}>
         {cards.map((el, index) => <PaymentOption key={index + 1} type={el.type} cardId={el.cardId} checked={el.checked} toggleRightCard={toggleRightCard}/>)}
+      </View>
+      <View>
+        <CoreButton
+          value="Confirm Selection"
+          style={styles.button}
+          onPress={() => saveUser(user)}
+        />
       </View>
     </View>
   )
@@ -76,6 +95,9 @@ const styles = StyleSheet.create({
   },
   paymentSelectContainer:{
     marginTop:40
+  },
+  button:{
+    marginVertical: 240
   }
 });
 
