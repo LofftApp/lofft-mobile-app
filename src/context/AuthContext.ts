@@ -1,11 +1,13 @@
 import createDataContext from './createDataContext';
 import auth from '@react-native-firebase/auth';
+import firestore from '@react-native-firebase/firestore';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as RootNavigation from '../RootNavigation';
 
 if (__DEV__) {
   console.log('Development Authentication Environment');
   auth().useEmulator('http://localhost:9099');
+  firestore().useEmulator('localhost', 8080);
 }
 
 const authReducer = (state, action) => {
@@ -25,7 +27,14 @@ const signup =
   dispatch =>
   async ({email, password}) => {
     try {
-      await auth().createUserWithEmailAndPassword(email, password);
+      await auth()
+        .createUserWithEmailAndPassword(email, password)
+        .then(async response => {
+          await firestore()
+            .collection('users')
+            .doc(response.user.uid)
+            .set({email});
+        });
     } catch (error) {
       if (error.code === 'auth/email-already-in-use') {
         dispatch({
