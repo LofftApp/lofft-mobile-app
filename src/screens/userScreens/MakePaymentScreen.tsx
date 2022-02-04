@@ -18,15 +18,13 @@ import userImage from '../../assets/user.jpeg';
 
 const MakePayment = ({navigation, route}: any) => {
   const [billDetails] = useState(route.params.billDetails);
-  const [payer] = useState(route.params.payer);
   const [paymentMethod, setPaymentMethod] = useState('Manual payment');
   const [userName, setUserName] = useState('');
 
-  const getUserName = async () => {
-    const user = await getUser(billDetails.payer);
-    setUserName(user.name);
-  };
-  getUserName();
+  useEffect(() => {
+    console.log(billDetails);
+  }, []);
+
   return (
     <View
       style={[
@@ -52,7 +50,7 @@ const MakePayment = ({navigation, route}: any) => {
           {userName.split(' ')[0]}
         </Text>
         <View style={styles.moneyPill}>
-          <Text style={fontStyles.buttonTextMedium}>{payer.value}</Text>
+          <Text style={fontStyles.buttonTextMedium}>Change Me</Text>
         </View>
       </View>
       <View style={styles.buttonContainer}>
