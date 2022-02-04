@@ -72,7 +72,8 @@ export const updateUserAccountDetails = async ({
     });
 };
 
-export const uploadImageToUserProfile = async ({docId, url}) => {
+export const uploadImageToUserProfile = (docId, url) => {
+  console.log(docId);
   firestore().collection('Users').doc(docId).update({imageURI: url});
 };
 

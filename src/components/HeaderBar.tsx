@@ -2,7 +2,6 @@ import React, {useEffect, useState} from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import {navigationRef} from '../RootNavigation';
 import auth from '@react-native-firebase/auth';
-import {getUserImage} from '../api/firebase/fireStoreActions';
 
 // Components
 import UserIcon from './UserIcon';
@@ -10,18 +9,12 @@ import UserIcon from './UserIcon';
 // Stylesheets
 import {fontStyles} from './../StyleSheets/FontStyleSheet';
 
-const HeaderBar = ({title}) => {
-  const [userImage, setUserImage]: any = useState('');
-  const [currentUser] = useState(auth().currentUser);
-  useEffect(() => {
-    if (currentUser.photoURL) setUserImage({uri: currentUser.photoURL});
-  }, []);
-
+const HeaderBar = ({title, image = ''}) => {
   return (
     <View style={styles.headerContainer}>
       <Text style={fontStyles.headerMedium}>{title}</Text>
       <UserIcon
-        image={userImage}
+        image={image}
         onPress={() => {
           navigationRef.navigate('UserOptions');
         }}

@@ -19,6 +19,7 @@ import firestore from '@react-native-firebase/firestore';
 const CostsScreen = () => {
   const [lofft, setLofft] = useState(false);
   const [name, setName] = useState('');
+  const [image, setImage]: any = useState('');
   useEffect(() => {
     auth().onAuthStateChanged(user => {
       if (user) {
@@ -28,6 +29,7 @@ const CostsScreen = () => {
           .onSnapshot(snapShot => {
             const result = snapShot.docs[0].data();
             if (result.name) setName(result.name.split(' ')[0]);
+            if (result.imageURI) setImage({uri: result.imageURI});
           });
         return () => subscriber();
       } else {
@@ -43,7 +45,7 @@ const CostsScreen = () => {
         Platform.OS === 'ios' ? CoreStyleSheet.viewContainerIOSStyle : null,
         styles.container,
       ]}>
-      <HeaderBar title={name ? `Hello ${name}` : 'Welcome'} />
+      <HeaderBar title={name ? `Hello ${name}` : 'Welcome'} image={image} />
       {lofft ? (
         <ImageBackground
           style={styles.pendingPaymentContainer}

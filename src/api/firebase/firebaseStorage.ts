@@ -15,7 +15,7 @@ export const userImageUpload = async docId => {
   const url = await reference.getDownloadURL();
   if (url) {
     addImageToAuth(url);
-    uploadImageToUserProfile({docId, url});
+    uploadImageToUserProfile(docId, url);
     return url;
   } else {
     return {message: 'Action Cancelled'};

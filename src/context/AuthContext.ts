@@ -1,12 +1,6 @@
 import createDataContext from './createDataContext';
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-
-if (__DEV__) {
-  console.log('Development Authentication Environment');
-  auth().useEmulator('http://192.168.0.123:9099');
-}
 
 const authReducer = (state, action) => {
   switch (action.type) {
