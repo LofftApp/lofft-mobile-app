@@ -39,8 +39,16 @@ const MakePayment = ({navigation, route}: any) => {
     };
 
     const grabUserCards = async () => {
+      let checkedCards;
       const user: any = await getCurrentUserDetails();
-      const checkedCards = user.cards.filter(card => card.checked);
+      console.log(user)
+      if (user.cards.length > 0){
+        checkedCards = user.cards.filter(card => card.checked);
+      } else {
+        checkedCards = []
+      }
+
+
       setUserCards(checkedCards);
     };
     getUserName();
@@ -49,7 +57,7 @@ const MakePayment = ({navigation, route}: any) => {
 
 
 
-
+console.log(userCards)
 
 
   return (
@@ -62,8 +70,9 @@ const MakePayment = ({navigation, route}: any) => {
         onPress={() => navigation.goBack()}
         title="Make a payment"
       />
-      <MyCarousel userCards={userCards} />
+      <PaymentCard navigation={navigation} />
        {/* {userCards.length > 0 ? <ActiveCard userCards={userCards} /> : <PaymentCard navigation={navigation} />} */}
+      {/* {userCards.length > 0 ? <MyCarousel userCards={userCards} /> : <PaymentCard navigation={navigation} />} */}
       <Text style={[styles.subHeader, fontStyles.buttonTextLarge]}>
         Recipients
       </Text>

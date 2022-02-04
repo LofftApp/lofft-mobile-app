@@ -21,7 +21,7 @@ const PaymentSelect = ({navigation}: any) => {
     {cardId: 2, type: 'Paypal', checked: false, token:''},
     {cardId: 3, type: 'Apple Pay', checked: false, token: ''},
     {cardId: 4, type: 'SEPA direct debit', checked: false, token: ''},
-    {cardId: 4, type: 'Google Pay', checked: false, token: '' },
+    {cardId: 5, type: 'Google Pay', checked: false, token: '' },
   ];
   const [cards, setCards] = useState(paymentTypes);
 
@@ -49,8 +49,8 @@ const PaymentSelect = ({navigation}: any) => {
 
 // DB storage
   const storeCards = async () => {
-    try {
-    const user: any = await auth().currentUser;
+
+    const user: any = await auth().currentUser.uid;
         firestore()
           .collection('users')
           .doc(user.uid)
@@ -58,10 +58,6 @@ const PaymentSelect = ({navigation}: any) => {
             uid: user.uid,
             cards: cards
           })
-        }
-        catch(error){
-          console.log("Sth went wront with storing card data")
-        }
 }
 
 
@@ -95,7 +91,7 @@ const styles = StyleSheet.create({
     marginTop:40
   },
   button:{
-    marginVertical: 240
+    marginVertical: 140
   }
 });
 
