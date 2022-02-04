@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {View, Text, StyleSheet, Platform} from 'react-native';
 import getAuth from '@react-native-firebase/auth';
 
@@ -14,8 +14,8 @@ import CustomBackButton from '../../components/CustomBackButton';
 
 const PendingPaymentsScreen = ({navigation, route}: any) => {
   const [owed] = useState(route.params.owed);
-  const [details] = useState(route.params.billDetails);
-  const currentUser = getAuth().currentUser.uid;
+  const [details] = useState(route.params.bills);
+
   return (
     <View
       style={[
@@ -35,15 +35,14 @@ const PendingPaymentsScreen = ({navigation, route}: any) => {
         Pay per item
       </Text>
       {details.map((item: any) =>
-        !item.payees[currentUser].paid ? (
+        !item.paid ? (
           <ItemPendingPaymentCard
             key={item.title}
-            value={item.payees[currentUser].value}
+            value={`${item.value} €`}
             description={item.title}
             buttonAction={() =>
               navigation.navigate('MakePayment', {
                 billDetails: item,
-                payer: item.payees[currentUser],
               })
             }
           />

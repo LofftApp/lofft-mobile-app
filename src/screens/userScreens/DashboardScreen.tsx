@@ -48,9 +48,12 @@ const DashboardScreen = ({navigation}: any) => {
             const result = snapShot.docs[0].data();
             if (result.imageURI) setImage({uri: result.imageURI});
             if (result.outstanding_bills) {
-              result.outstanding_bills.forEach(bill => {
-                setBills(bill);
-                amountOwed += Number(bill.value);
+              const userBills = result.outstanding_bills;
+              setBills(userBills);
+              userBills.forEach(bill => {
+                if (!bill.paid) {
+                  amountOwed += Number(bill.value);
+                }
               });
               setOwed(amountOwed);
             }
@@ -93,6 +96,7 @@ const DashboardScreen = ({navigation}: any) => {
   const dashboardToggle = useCallback(toggled => {
     setIsDashboard(toggled);
   }, []);
+
   return (
     <View
       style={[
@@ -109,7 +113,7 @@ const DashboardScreen = ({navigation}: any) => {
             <PendingPaymentContainer
               buttonValue="Pay now"
               buttonAction={() => {
-                navigation.navigate('PayNow', {owed, billDetails});
+                navigation.navigate('PayNow', {owed, bills});
               }}
               owed={owed}
             />
