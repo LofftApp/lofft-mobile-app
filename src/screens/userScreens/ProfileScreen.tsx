@@ -42,6 +42,7 @@ const ProfileScreen = () => {
     const getUser = async () => {
       const result = await getCurrentUserDetails();
       setDocId(result.docId);
+      if (result.details.imageURI) setImage({uri: result.details.imageURI});
       if (result.details.name) {
         const nameArray = result.details.name.split(' ');
         setFirstName(nameArray[0]);

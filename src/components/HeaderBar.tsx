@@ -1,7 +1,6 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import {navigationRef} from '../RootNavigation';
-import auth from '@react-native-firebase/auth';
 
 // Components
 import UserIcon from './UserIcon';
