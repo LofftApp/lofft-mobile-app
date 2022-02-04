@@ -1,6 +1,5 @@
 import React, {useRef, useState, useEffect} from 'react';
 import Carousel, {ParallaxImage} from 'react-native-snap-carousel';
-import ActiveCard from './ActiveCard';
 import {
   View,
   Text,
@@ -10,8 +9,10 @@ import {
   Platform,
 } from 'react-native';
 
-import ActiveCardX from './ActiveCardX';
-import {useScrollToTop} from '@react-navigation/native';
+
+
+import ActiveCard from './ActiveCard';
+
 
 const {width: screenWidth} = Dimensions.get('window');
 
@@ -33,6 +34,7 @@ const MyCarousel = props => {
         {/* {props.userCards.map((el,index) => <ActiveCardX key={index} type={el.type}/>)} */}
 
           <ActiveCard type={item.type} />
+
 
       </View>
     );

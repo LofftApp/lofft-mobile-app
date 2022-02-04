@@ -46,7 +46,7 @@ export const getUser = async userID => {
 };
 
 export const getCurrentUserDetails = async () => {
-  try {
+
   const currentUser: any = await auth().currentUser.uid;
   let details: any = { name: undefined, pronouns: undefined, email: undefined, cards: undefined};
   await firestore()
@@ -57,9 +57,7 @@ export const getCurrentUserDetails = async () => {
       details = querySnapShot.data();
     });
   return details;
-  } catch(error){
-    console.log(error)
-  }
+
 };
 
 export const updateUserAccountDetails = async ({

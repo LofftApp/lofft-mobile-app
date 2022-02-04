@@ -46,7 +46,7 @@ const CardType = (props) => {
   return(
     <View>
       <Image style={styles.cardImage} source={card.image} />
-      <Text style={fontStyles.buttonTextMedium}>{card.info}</Text>
+      <Text style={fontStyles.bodyMedium}>{card.info}</Text>
     </View>
   );
 }

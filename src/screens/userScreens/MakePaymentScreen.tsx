@@ -35,30 +35,28 @@ const MakePayment = ({navigation, route}: any) => {
 
     const getUserName = async () => {
       const user = await getUser(billDetails.payer);
+
       setUserName(user.name);
     };
 
     const grabUserCards = async () => {
-      let checkedCards;
+
       const user: any = await getCurrentUserDetails();
-      console.log(user)
-      if (user.cards.length > 0){
-        checkedCards = user.cards.filter(card => card.checked);
-      } else {
-        checkedCards = []
-      }
+
+     if ("cards" in user) {
+         const checkedCards = user.cards.filter(card => card.checked);
+          setUserCards(checkedCards);
+       } else {
 
 
-      setUserCards(checkedCards);
+
+     }
     };
     getUserName();
     grabUserCards();
   },[])
 
-
-
-console.log(userCards)
-
+  console.log(userCards.length)
 
   return (
     <View
@@ -70,9 +68,10 @@ console.log(userCards)
         onPress={() => navigation.goBack()}
         title="Make a payment"
       />
-      <PaymentCard navigation={navigation} />
+
+      {/* <PaymentCard navigation={navigation} /> */}
        {/* {userCards.length > 0 ? <ActiveCard userCards={userCards} /> : <PaymentCard navigation={navigation} />} */}
-      {/* {userCards.length > 0 ? <MyCarousel userCards={userCards} /> : <PaymentCard navigation={navigation} />} */}
+      {userCards.length > 0 ? <MyCarousel userCards={userCards} /> : <PaymentCard navigation={navigation} />}
       <Text style={[styles.subHeader, fontStyles.buttonTextLarge]}>
         Recipients
       </Text>

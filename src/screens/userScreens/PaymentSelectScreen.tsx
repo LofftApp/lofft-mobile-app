@@ -21,7 +21,8 @@ const PaymentSelect = ({navigation}: any) => {
     {cardId: 2, type: 'Paypal', checked: false, token:''},
     {cardId: 3, type: 'Apple Pay', checked: false, token: ''},
     {cardId: 4, type: 'SEPA direct debit', checked: false, token: ''},
-    {cardId: 5, type: 'Google Pay', checked: false, token: '' },
+    {cardId: 5, type: 'Google Pay', checked: false, token: '' }
+
   ];
   const [cards, setCards] = useState(paymentTypes);
 
@@ -49,15 +50,19 @@ const PaymentSelect = ({navigation}: any) => {
 
 // DB storage
   const storeCards = async () => {
-
+    try{
     const user: any = await auth().currentUser.uid;
+    console.log(`Hi this is user from the PaymentSelectSceen: ${user}`)
         firestore()
           .collection('users')
-          .doc(user.uid)
+          .doc(user)
           .update({
-            uid: user.uid,
+            uid: user,
             cards: cards
           })
+    } catch(error){
+      console.log(error)
+    }
 }
 
 
@@ -73,7 +78,7 @@ const PaymentSelect = ({navigation}: any) => {
         <CoreButton
           value="Confirm Selection"
           style={styles.button}
-          onPress={() => storeCards()}
+          onPress={() => [storeCards(), navigation.goBack()]}
         />
       </View>
     </View>
