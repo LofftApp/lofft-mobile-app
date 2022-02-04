@@ -19,7 +19,7 @@ import {billQuery} from '../../api/firebase/fireStoreActions';
 import TestChartWeek from './../../components/charts/TestChartWeek';
 import TestChartMonth from './../../components/charts/TestChartMonth';
 import TestChartYear from './../../components/charts/TestChartYear';
-
+import {userDetailsUpdate} from '../../api/firebase/fireStoreActions';
 import ToggleBar from './../../components/ToggleBar';
 
 const DashboardScreen = ({navigation}: any) => {
@@ -32,14 +32,7 @@ const DashboardScreen = ({navigation}: any) => {
 
   const [billDetails, setBillDetails] = useState([]);
 
-  useEffect(() => {
-    const setLoad = async () => {
-      const result = await billQuery();
-      setBillDetails(result.returnedData);
-      setOwed(result.total);
-    };
-    setLoad();
-  }, []);
+  useEffect(() => {}, []);
 
   const handleWeekClick = () => {
     setWeekSelected(true);

@@ -88,7 +88,10 @@ const ProfileScreen = () => {
           <UserIcon
             onPress={async () => {
               const imageURL: any = await userImageUpload();
-              if (typeof imageURL === 'string') setImage({uri: imageURL});
+              if (typeof imageURL === 'string') {
+                setImage({uri: imageURL});
+                navigationRef.navigate('Costs');
+              }
             }}
             userImageContainerStyle={styles.userImageContainerStyle}
             userImageStyle={styles.userImageStyle}

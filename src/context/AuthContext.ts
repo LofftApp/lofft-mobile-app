@@ -29,7 +29,7 @@ const signup =
         .createUserWithEmailAndPassword(email, password)
         .then(async response => {
           await firestore()
-            .collection('users')
+            .collection('Users')
             .doc(response.user.uid)
             .set({email});
         });
@@ -75,18 +75,8 @@ const signout = dispatch => async () => {
   dispatch({type: 'signout'});
 };
 
-const activeUser = dispatch => async () => {
-  let userToken;
-  try {
-    userToken = await AsyncStorage.getItem('token');
-  } catch (error) {
-    return;
-  }
-  dispatch({type: 'signin', payload: userToken});
-};
-
 export const {Provider, Context} = createDataContext(
   authReducer,
-  {signin, signout, signup, activeUser},
+  {signin, signout, signup},
   {token: null, errorMessage: ''},
 );

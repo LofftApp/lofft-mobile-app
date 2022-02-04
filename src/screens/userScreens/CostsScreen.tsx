@@ -11,18 +11,31 @@ import {fontStyles} from './../../StyleSheets/FontStyleSheet';
 import paymentContainerBackground from './../../assets/paymentContainer.png';
 import {CoreButton} from '../../components/CoreButton';
 import {navigationRef as navigation} from '../../RootNavigation';
-import {getLofft} from '../../api/firebase/fireStoreActions';
+import {getLofft, userDetailsUpdate} from '../../api/firebase/fireStoreActions';
+import {getCurrentUser} from '../../api/firebase/firebaseApi';
+import firestore from '@react-native-firebase/firestore';
 
 const CostsScreen = () => {
   const [lofft, setLofft] = useState(false);
+  const [name, setName] = useState('');
+  const [userId, setUserID] = useState('');
   useEffect(() => {
-    const lofftDetails = async () => {
-      const result = await getLofft();
-      setLofft(result);
-    };
-    lofftDetails();
-  }, []);
-  console.log(lofft);
+    const currentUser = getCurrentUser();
+    setUserID(currentUser.uid);
+    const subscriber = firestore()
+      .collection('Users')
+      .where('uid', '==', currentUser.uid)
+      .onSnapshot(querySnapShot => {
+        const userDetails = querySnapShot.docs[0].data();
+        userDetails.name
+          ? setName(userDetails.name.split(' ')[0])
+          : setName('');
+        userDetails.lofft ? console.log(userDetails.lofft) : null;
+      });
+
+    return () => subscriber();
+  }, [userId]);
+
   return (
     <View
       style={[
@@ -30,7 +43,7 @@ const CostsScreen = () => {
         Platform.OS === 'ios' ? CoreStyleSheet.viewContainerIOSStyle : null,
         styles.container,
       ]}>
-      <HeaderBar title="Welcome" />
+      <HeaderBar title={name ? `Hello ${name}` : 'Welcome'} />
       {lofft ? (
         <ImageBackground
           style={styles.pendingPaymentContainer}

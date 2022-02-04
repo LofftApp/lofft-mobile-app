@@ -44,7 +44,6 @@ const App = () => {
   useEffect(() => {
     // New Authentication code from Firebase
     const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
-    console.log(`Subscriber: ${subscriber}`);
     return subscriber;
   }, []);
 
