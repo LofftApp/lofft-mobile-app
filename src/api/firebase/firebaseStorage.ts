@@ -5,7 +5,7 @@ import {launchImageLibrary} from 'react-native-image-picker';
 import {uploadImageToUserProfile} from './fireStoreActions';
 import {getCurrentUser, addImageToAuth} from './firebaseApi';
 
-export const userImageUpload = async () => {
+export const userImageUpload = async docId => {
   const currentUser = await getCurrentUser();
   const result = await launchImageLibrary({mediaType: 'photo'});
   const reference = storage().ref(`${currentUser.uid}/userImage/profile.jpg`);
@@ -15,7 +15,7 @@ export const userImageUpload = async () => {
   const url = await reference.getDownloadURL();
   if (url) {
     addImageToAuth(url);
-    uploadImageToUserProfile(url);
+    uploadImageToUserProfile({docId, url});
     return url;
   } else {
     return {message: 'Action Cancelled'};
