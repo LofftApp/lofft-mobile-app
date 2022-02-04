@@ -5,6 +5,10 @@ import {launchImageLibrary} from 'react-native-image-picker';
 import {uploadImageToUserProfile} from './fireStoreActions';
 import {getCurrentUser, addImageToAuth} from './firebaseApi';
 
+if (__DEV__) {
+  storage().useEmulator('192.168.0.123', 9199);
+}
+
 export const userImageUpload = async docId => {
   const currentUser = await getCurrentUser();
   const result = await launchImageLibrary({mediaType: 'photo'});

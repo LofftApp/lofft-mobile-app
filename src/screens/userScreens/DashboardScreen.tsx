@@ -22,6 +22,10 @@ import TestChartYear from './../../components/charts/TestChartYear';
 import {userDetailsUpdate} from '../../api/firebase/fireStoreActions';
 import ToggleBar from './../../components/ToggleBar';
 
+// Fierstore
+import auth from '@react-native-firebase/auth';
+import firestore from '@react-native-firebase/firestore';
+
 const DashboardScreen = ({navigation}: any) => {
   const [owed, setOwed] = useState(0);
 
@@ -30,9 +34,33 @@ const DashboardScreen = ({navigation}: any) => {
   const [month, setMonthSelected] = useState(false);
   const [year, setYearSelected] = useState(false);
 
-  const [billDetails, setBillDetails] = useState([]);
+  const [image, setImage]: any = useState('');
+  const [bills, setBills] = useState({});
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    auth().onAuthStateChanged(user => {
+      if (user) {
+        const subscriber = firestore()
+          .collection('Users')
+          .where('uid', '==', user.uid)
+          .onSnapshot(snapShot => {
+            let amountOwed = 0;
+            const result = snapShot.docs[0].data();
+            if (result.imageURI) setImage({uri: result.imageURI});
+            if (result.outstanding_bills) {
+              result.outstanding_bills.forEach(bill => {
+                setBills(bill);
+                amountOwed += Number(bill.value);
+              });
+              setOwed(amountOwed);
+            }
+          });
+        return () => subscriber();
+      } else {
+        console.log('Unauth');
+      }
+    });
+  }, []);
 
   const handleWeekClick = () => {
     setWeekSelected(true);
@@ -71,7 +99,7 @@ const DashboardScreen = ({navigation}: any) => {
         CoreStyleSheet.viewContainerStyle,
         Platform.OS === 'ios' ? CoreStyleSheet.viewContainerIOSStyle : null,
       ]}>
-      <HeaderBar title="Your Finances" />
+      <HeaderBar title="Your Finances" image={image} />
       <ToggleBar dashboard={dashboardToggle} />
       {isDashboard ? (
         <>

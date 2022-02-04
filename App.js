@@ -22,7 +22,7 @@ import ProfileScreen from './src/screens/userScreens/ProfileScreen';
 // FireStore
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
-import storage from '@react-native-firebase/storage';
+// import storage from '@react-native-firebase/storage';
 
 // Appartment Screens
 import AddApartmentScreen from './src/screens/apartmentScreens/AddApartmentScreen';
@@ -51,7 +51,6 @@ const App = () => {
     if (__DEV__) {
       console.log('FireStore Development Environment');
       auth().useEmulator('http://192.168.0.123:9099');
-      storage().useEmulator('192.168.0.123', 9199);
       firestore().useEmulator('192.168.0.123', 8080);
     }
     return subscriber;
