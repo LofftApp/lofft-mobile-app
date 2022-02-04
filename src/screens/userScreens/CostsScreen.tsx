@@ -22,13 +22,14 @@ const CostsScreen = () => {
   useEffect(() => {
     auth().onAuthStateChanged(user => {
       if (user) {
-        firestore()
+        const subscriber = firestore()
           .collection('Users')
           .where('uid', '==', user.uid)
           .onSnapshot(snapShot => {
             const result = snapShot.docs[0].data();
             if (result.name) setName(result.name.split(' ')[0]);
           });
+        return () => subscriber();
       } else {
         console.log('Unauth');
       }

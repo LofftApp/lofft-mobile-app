@@ -1,4 +1,4 @@
-import firestore from '@react-native-firebase/firestore';
+import firestore, {firebase} from '@react-native-firebase/firestore';
 import auth from '@react-native-firebase/auth';
 import {getCurrentUser} from './firebaseApi';
 import {authUserWithEmailAndPassword} from './firebaseApi';
@@ -34,14 +34,16 @@ export const getUser = async userID => {
 export const getCurrentUserDetails = async () => {
   const currentUser: any = await getCurrentUser().uid;
   let details: any = {};
+  let docId = '';
   await firestore()
     .collection('Users')
     .where('uid', '==', currentUser)
     .get()
     .then(querySnapShot => {
+      docId = querySnapShot.docs[0].id;
       details = querySnapShot.docs[0].data();
     });
-  return details;
+  return {docId, details};
 };
 
 export const updateUserAccountDetails = async ({
@@ -50,11 +52,13 @@ export const updateUserAccountDetails = async ({
   pronouns,
   email,
   password,
+  docId,
 }) => {
   const currentUser: any = await getCurrentUser();
   await authUserWithEmailAndPassword(currentUser.email, password);
-  db.collection('users')
-    .doc(currentUser.uid)
+  firestore()
+    .collection('Users')
+    .doc(docId)
     .update({
       name: `${firstName} ${lastName}`,
       pronouns,

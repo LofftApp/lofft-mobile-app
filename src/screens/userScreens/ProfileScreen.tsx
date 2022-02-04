@@ -28,25 +28,6 @@ import {navigationRef} from '../../RootNavigation';
 import {CoreButton} from '../../components/CoreButton';
 
 const ProfileScreen = () => {
-  useEffect(() => {
-    const getUser = async () => {
-      const result = await getCurrentUserDetails();
-      console.log(result);
-      if (result.name) {
-        const nameArray = result.name.split(' ');
-        setFirstName(nameArray[0]);
-        setLastName(nameArray[1]);
-      }
-      if (result.pronouns) {
-        setPronouns(result.pronouns);
-      }
-      if (result.email) {
-        setEmail(result.email);
-      }
-    };
-    getUser();
-  }, []);
-
   const [image, setImage]: any = useState('');
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
@@ -55,6 +36,26 @@ const ProfileScreen = () => {
   const [password, setPassword] = useState('');
   const [update, setUpdate] = useState(false);
   const [error, setError] = useState(false);
+  const [docId, setDocId] = useState('');
+
+  useEffect(() => {
+    const getUser = async () => {
+      const result = await getCurrentUserDetails();
+      setDocId(result.docId);
+      if (result.details.name) {
+        const nameArray = result.details.name.split(' ');
+        setFirstName(nameArray[0]);
+        setLastName(nameArray[1]);
+      }
+      if (result.details.pronouns) {
+        setPronouns(result.details.pronouns);
+      }
+      if (result.details.email) {
+        setEmail(result.details.email);
+      }
+    };
+    getUser();
+  }, []);
 
   return (
     <View
@@ -161,6 +162,7 @@ const ProfileScreen = () => {
               pronouns,
               email,
               password,
+              docId,
             });
             setPassword('');
           }}
