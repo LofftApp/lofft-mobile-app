@@ -13,28 +13,27 @@ import {CoreButton} from '../../components/CoreButton';
 import {navigationRef as navigation} from '../../RootNavigation';
 import {getLofft, userDetailsUpdate} from '../../api/firebase/fireStoreActions';
 import {getCurrentUser} from '../../api/firebase/firebaseApi';
+import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 
 const CostsScreen = () => {
   const [lofft, setLofft] = useState(false);
   const [name, setName] = useState('');
-  const [userId, setUserID] = useState('');
   useEffect(() => {
-    const currentUser = getCurrentUser();
-    setUserID(currentUser.uid);
-    const subscriber = firestore()
-      .collection('Users')
-      .where('uid', '==', currentUser.uid)
-      .onSnapshot(querySnapShot => {
-        const userDetails = querySnapShot.docs[0].data();
-        userDetails.name
-          ? setName(userDetails.name.split(' ')[0])
-          : setName('');
-        userDetails.lofft ? console.log(userDetails.lofft) : null;
-      });
-
-    return () => subscriber();
-  }, [userId]);
+    auth().onAuthStateChanged(user => {
+      if (user) {
+        firestore()
+          .collection('Users')
+          .where('uid', '==', user.uid)
+          .onSnapshot(snapShot => {
+            const result = snapShot.docs[0].data();
+            if (result.name) setName(result.name.split(' ')[0]);
+          });
+      } else {
+        console.log('Unauth');
+      }
+    });
+  }, []);
 
   return (
     <View

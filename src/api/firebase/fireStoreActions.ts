@@ -1,25 +1,21 @@
 import firestore from '@react-native-firebase/firestore';
+import auth from '@react-native-firebase/auth';
 import {getCurrentUser} from './firebaseApi';
 import {authUserWithEmailAndPassword} from './firebaseApi';
-import auth from '@react-native-firebase/auth';
 
-const db = firestore();
-
-if (__DEV__) {
-  console.log('FireStore Development Environment');
-  auth().useEmulator('http://192.168.0.123:9099');
-  db.useEmulator('192.168.0.123', 8080);
-}
-
-// General Listern for user profile update.
-
-export const userDetailsUpdate = userID => {
-  return db
-    .collection('Users')
-    .where('uid', '==', userID.uid)
-    .onSnapshot(querySnapShot => {
-      querySnapShot.docs[0].data();
-    });
+export const userDetailsUpdate = () => {
+  auth().onAuthStateChanged(user => {
+    if (user) {
+      firestore()
+        .collection('Users')
+        .where('uid', '==', user.uid)
+        .onSnapshot(snapShot => {
+          console.log(snapShot.docs[0].data());
+        });
+    } else {
+      console.log('Unauth');
+    }
+  });
 };
 
 // Update and edit user profiles.
@@ -29,7 +25,7 @@ export const getUser = async userID => {
     .collection('Users')
     .where('uid', '==', userID)
     .get()
-    .then(async querySnapshot => {
+    .then(querySnapshot => {
       querySnapshot;
     });
   return name;
@@ -37,13 +33,13 @@ export const getUser = async userID => {
 
 export const getCurrentUserDetails = async () => {
   const currentUser: any = await getCurrentUser().uid;
-  let details: any = {name: undefined, pronouns: undefined, email: undefined};
-  await db
-    .collection('users')
-    .doc(currentUser)
+  let details: any = {};
+  await firestore()
+    .collection('Users')
+    .where('uid', '==', currentUser)
     .get()
-    .then(async querySnapShot => {
-      details = querySnapShot.data();
+    .then(querySnapShot => {
+      details = querySnapShot.docs[0].data();
     });
   return details;
 };

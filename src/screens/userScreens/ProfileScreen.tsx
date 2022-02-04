@@ -31,6 +31,7 @@ const ProfileScreen = () => {
   useEffect(() => {
     const getUser = async () => {
       const result = await getCurrentUserDetails();
+      console.log(result);
       if (result.name) {
         const nameArray = result.name.split(' ');
         setFirstName(nameArray[0]);
