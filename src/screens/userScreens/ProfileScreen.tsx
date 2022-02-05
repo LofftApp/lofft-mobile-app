@@ -89,7 +89,8 @@ const ProfileScreen = () => {
             onPress={async () => {
               const imageURL: any = await userImageUpload(docId);
               if (typeof imageURL === 'string') {
-                navigationRef.navigate('Costs');
+                setImage({uri: imageURL});
+                setUpdate(true);
               }
             }}
             userImageContainerStyle={styles.userImageContainerStyle}

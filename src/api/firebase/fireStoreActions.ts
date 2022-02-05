@@ -78,27 +78,24 @@ export const createLofft = async ({name, description, docId}) => {
 };
 
 // Add and edit Bills
-export const billQuery = () => {
-  auth().onAuthStateChanged(async user => {
-    if (user) {
-      let total = 0;
-      let payeeData = [];
-      let returnedData = [];
-      await firestore()
-        .collection('Bills')
-        .get()
-        .then(async querySnapshot => {
-          await querySnapshot.forEach(documentSnapShot => {
-            payeeData.push(documentSnapShot.data());
-          });
-          payeeData.forEach(userBill => {
-            if (userBill.payees[user.uid] && !userBill.payees[user.uid].paid) {
-              total += userBill.payees[user.uid].value;
-              returnedData.push(userBill);
-            }
-          });
-        });
-      return {total, returnedData};
-    }
-  });
+export const billQuery = async () => {
+  let total = 0;
+  let payeeData = [];
+  let returnedData = [];
+  const user = auth().currentUser;
+  await firestore()
+    .collection('Bills')
+    .get()
+    .then(async querySnapshot => {
+      await querySnapshot.forEach(documentSnapShot => {
+        payeeData.push(documentSnapShot.data());
+      });
+      payeeData.forEach(userBill => {
+        if (userBill.payees[user.uid] && !userBill.payees[user.uid].paid) {
+          total += userBill.payees[user.uid].value;
+          returnedData.push(userBill);
+        }
+      });
+    });
+  return {total, returnedData};
 };

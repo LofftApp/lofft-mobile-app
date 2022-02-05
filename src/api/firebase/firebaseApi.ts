@@ -7,7 +7,10 @@ export const signup = ({email, password}) => {
     auth()
       .createUserWithEmailAndPassword(email, password)
       .then(response => {
-        firestore().collection('Users').doc(response.user.uid).set({email});
+        firestore()
+          .collection('Users')
+          .doc(response.user.uid)
+          .set({uid: response.user.uid, email});
       });
   } catch (error) {
     if (error.code === 'auth/email-already-in-use') {

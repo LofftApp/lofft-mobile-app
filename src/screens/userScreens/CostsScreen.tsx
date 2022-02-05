@@ -11,7 +11,6 @@ import {fontStyles} from './../../StyleSheets/FontStyleSheet';
 import paymentContainerBackground from './../../assets/paymentContainer.png';
 import {CoreButton} from '../../components/CoreButton';
 import {navigationRef as navigation} from '../../RootNavigation';
-import {getLofft, userDetailsUpdate} from '../../api/firebase/fireStoreActions';
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 
@@ -21,23 +20,17 @@ const CostsScreen = () => {
   const [image, setImage]: any = useState('');
   const [docId, setDocId]: any = useState('');
   useEffect(() => {
-    auth().onAuthStateChanged(user => {
-      if (user) {
-        const subscriber = firestore()
-          .collection('Users')
-          .where('uid', '==', user.uid)
-          .onSnapshot(snapShot => {
-            setDocId(snapShot.docs[0].id);
-            const result = snapShot.docs[0].data();
-            if (result.name) setName(result.name.split(' ')[0]);
-            if (result.imageURI) setImage({uri: result.imageURI});
-            if (result.lofft) setLofft(result.lofft);
-          });
-        return () => subscriber();
-      } else {
-        console.log('Unauth');
-      }
-    });
+    const unsubscribe = firestore()
+      .collection('Users')
+      .where('uid', '==', auth().currentUser.uid)
+      .onSnapshot(snapShot => {
+        setDocId(snapShot.docs[0].id);
+        const result = snapShot.docs[0].data();
+        if (result.name) setName(result.name.split(' ')[0]);
+        if (result.imageURI) setImage({uri: result.imageURI});
+        if (result.lofft) setLofft(result.lofft);
+      });
+    return () => unsubscribe();
   }, []);
 
   return (
