@@ -20,6 +20,7 @@ import auth from '@react-native-firebase/auth';
 // Components
 import CustomBackButton from '../../components/CustomBackButton';
 import UserIcon from '../../components/UserIcon';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 // Stylesheets
 import color from './../../assets/defaultColorPallet.json';
@@ -35,7 +36,6 @@ const ProfileScreen = () => {
   const [pronouns, setPronouns] = useState('');
   const [email, setEmail] = useState('');
   const [update, setUpdate] = useState(false);
-  const [error, setError] = useState(false);
   const [docId, setDocId] = useState('');
 
   useEffect(() => {
@@ -80,6 +80,7 @@ const ProfileScreen = () => {
           <Text style={[fontStyles.bodyMedium, styles.notificationText]}>
             Your profile has been updated
           </Text>
+          <Icon name="close-outline" size={30} color={color.White[80]} />
         </TouchableOpacity>
       ) : null}
       <ScrollView style={styles.scrollContainer}>
@@ -136,20 +137,26 @@ const ProfileScreen = () => {
             autoCapitalize="none"
           />
         </View>
-        <CoreButton
-          value="Update Account"
-          style={styles.updateButton}
-          onPress={async () => {
-            await updateUserAccountDetails({
-              firstName,
-              lastName,
-              pronouns,
-              email,
-              docId,
-            });
-          }}
-        />
-        <CoreButton value="Delete Account" style={styles.deleteButton} />
+        <View style={styles.buttonContainer}>
+          <CoreButton
+            value="Update Account"
+            style={[styles.button, styles.updateButton]}
+            onPress={async () => {
+              await updateUserAccountDetails({
+                firstName,
+                lastName,
+                pronouns,
+                email,
+                docId,
+              });
+              setUpdate(true);
+            }}
+          />
+          <CoreButton
+            value="Delete Account"
+            style={[styles.button, styles.deleteButton]}
+          />
+        </View>
       </ScrollView>
     </View>
   );
@@ -162,6 +169,9 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     backgroundColor: color.Mint[80],
     marginVertical: 10,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
   notificationText: {
     color: color.White[100],
@@ -202,20 +212,19 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: color.Black[30],
   },
+  buttonContainer: {
+    marginTop: 50,
+  },
+  button: {
+    marginVertical: 5,
+  },
   updateButton: {
-    marginTop: 25,
     backgroundColor: color.Mint[100],
     borderColor: color.Mint[100],
   },
   deleteButton: {
-    marginTop: 25,
     backgroundColor: color.Tomato[100],
     borderColor: color.Tomato[100],
-    marginBottom: 55,
-  },
-  buttonDisabled: {
-    backgroundColor: color.Mint[30],
-    borderColor: color.Mint[10],
   },
   errorNotification: {
     backgroundColor: color.Tomato[80],

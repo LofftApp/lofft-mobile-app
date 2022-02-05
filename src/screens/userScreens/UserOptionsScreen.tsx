@@ -70,8 +70,8 @@ const styles = StyleSheet.create({
   },
   textStyle: {},
   logoutButton: {
-    backgroundColor: color.Tomato[100],
-    borderColor: color.Tomato[100],
+    backgroundColor: color.Black[30],
+    borderColor: color.Black[10],
   },
   buttonContainer: {
     flex: 1,
