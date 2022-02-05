@@ -4,22 +4,6 @@ import color from './../assets/defaultColorPallet.json';
 import {CoreButton} from '../components/CoreButton';
 import HomeCarosel from '../components/HomeCarosel';
 import PaginationBar from '../components/PaginationBar';
-// import {credentials} from './../api/Auth0/authCredentials';
-
-// Auth
-// import Auth0 from 'react-native-auth0';
-// const auth0 = new Auth0(credentials);
-
-// const authSignup = () => {
-//   auth0.webAuth
-//     .authorize({
-//       scope: 'openid profile email',
-//     })
-//     .then(credentials => {
-//       const token = credentials.accessToken;
-//       console.log(credentials);
-//     });
-// };
 
 const HomeScreen = ({navigation}: any) => {
   const [screen, setScreen] = useState(0);
@@ -53,12 +37,12 @@ const HomeScreen = ({navigation}: any) => {
         <CoreButton
           value="Sign in"
           invert={true}
-          style={{width: '45%'}}
+          style={styles.button}
           onPress={() => navigation.navigate('Signin')}
         />
         <CoreButton
-          value="Join"
-          style={{width: '45%'}}
+          value="Sign up"
+          style={styles.button}
           onPress={() => navigation.navigate('Signup')}
         />
       </View>
@@ -82,6 +66,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'flex-end',
     justifyContent: 'space-evenly',
+  },
+  button: {
+    width: '45%',
   },
 });
 
