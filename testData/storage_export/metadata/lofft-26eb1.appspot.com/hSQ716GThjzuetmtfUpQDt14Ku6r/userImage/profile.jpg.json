@@ -3,17 +3,17 @@
   "bucket": "lofft-26eb1.appspot.com",
   "contentType": "image/jpeg",
   "metageneration": 1,
-  "generation": 1644008777302,
+  "generation": 1644059481122,
   "storageClass": "STANDARD",
   "etag": "someETag",
   "contentDisposition": "inline",
   "contentEncoding": "identity",
   "downloadTokens": [
-    "d9601c15-662c-4502-9e30-b22edc7d4977"
+    "37a0c0d1-6916-4cf3-9b17-9554b933d094"
   ],
-  "timeCreated": "2022-02-04T21:06:17.301Z",
-  "updated": "2022-02-04T21:06:17.325Z",
-  "size": 2275045,
-  "md5Hash": "mpyAcx7PRQEtOxS+Pyi4yw==",
-  "crc32c": "4022247750"
+  "timeCreated": "2022-02-05T11:11:21.121Z",
+  "updated": "2022-02-05T11:11:21.155Z",
+  "size": 3425899,
+  "md5Hash": "/5Rh2rLehmK2hW6x+4Hk6Q==",
+  "crc32c": "2021808142"
 }

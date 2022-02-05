@@ -50,8 +50,8 @@ const App = () => {
     const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
     if (__DEV__) {
       console.log('FireStore Development Environment');
-      auth().useEmulator('http://192.168.0.123:9099');
-      firestore().useEmulator('192.168.0.123', 8080);
+      auth().useEmulator('http://localhost:9099');
+      firestore().useEmulator('localhost', 8080);
     }
     return subscriber;
   }, []);

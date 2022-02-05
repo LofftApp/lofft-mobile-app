@@ -6,7 +6,7 @@ import {uploadImageToUserProfile} from './fireStoreActions';
 import {getCurrentUser, addImageToAuth} from './firebaseApi';
 
 if (__DEV__) {
-  storage().useEmulator('192.168.0.123', 9199);
+  storage().useEmulator('localhost', 9199);
 }
 
 export const userImageUpload = async docId => {
