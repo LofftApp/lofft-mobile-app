@@ -5,16 +5,16 @@ import {View, Text, StyleSheet, Platform, ImageBackground} from 'react-native';
 import HeaderBar from '../../components/HeaderBar';
 
 // Stylesheets
-import color from './../../assets/defaultColorPallet.json';
+import color from '../../assets/defaultColorPallet.json';
 import {CoreStyleSheet} from '../../StyleSheets/CoreDesignStyleSheet';
-import {fontStyles} from './../../StyleSheets/FontStyleSheet';
+import {fontStyles} from '../../StyleSheets/FontStyleSheet';
 import paymentContainerBackground from './../../assets/paymentContainer.png';
 import {CoreButton} from '../../components/CoreButton';
 import {navigationRef as navigation} from '../../RootNavigation';
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 
-const CostsScreen = () => {
+const HomeScreen = () => {
   const [lofft, setLofft] = useState(false);
   const [name, setName] = useState('');
   const [image, setImage]: any = useState('');
@@ -43,29 +43,26 @@ const CostsScreen = () => {
       <HeaderBar title={name ? `Hello ${name}` : 'Welcome'} image={image} />
       {lofft ? (
         <ImageBackground
-          style={styles.pendingPaymentContainer}
+          style={[styles.apartmentContainer, styles.apartmentPresent]}
           source={paymentContainerBackground}>
           <Text style={fontStyles.buttonTextMedium}>{lofft.name}</Text>
           <View style={styles.buttonContainer}>
-            <CoreButton value="Join" style={styles.buttons} />
-            <CoreButton
-              value="Create"
-              style={[styles.buttons, styles.mintButton]}
-              onPress={() => {
-                navigation.navigate('AddApartment');
-              }}
-            />
+            <CoreButton value="Manage" style={styles.buttons} />
           </View>
         </ImageBackground>
       ) : (
         <ImageBackground
-          style={styles.pendingPaymentContainer}
+          style={styles.apartmentContainer}
           source={paymentContainerBackground}>
           <Text style={fontStyles.buttonTextMedium}>
             You do not currently have a Lofft
           </Text>
           <View style={styles.buttonContainer}>
-            <CoreButton value="Join" style={styles.buttons} />
+            <CoreButton
+              value="Join"
+              style={styles.buttons}
+              onPress={() => navigation.navigate('JoinApartment')}
+            />
             <CoreButton
               value="Create"
               style={[styles.buttons, styles.mintButton]}
@@ -96,7 +93,7 @@ const styles = StyleSheet.create({
     backgroundColor: color.Mint[100],
     borderColor: color.Mint[100],
   },
-  pendingPaymentContainer: {
+  apartmentContainer: {
     justifyContent: 'space-between',
     alignItems: 'center',
     height: 172,
@@ -108,6 +105,9 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
     borderRadius: 16,
   },
+  apartmentPresent: {
+    alignItems: 'flex-start',
+  },
 });
 
-export default CostsScreen;
+export default HomeScreen;
