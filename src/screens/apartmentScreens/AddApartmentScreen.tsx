@@ -10,9 +10,10 @@ import {CoreStyleSheet} from '../../StyleSheets/CoreDesignStyleSheet';
 import {fontStyles} from './../../StyleSheets/FontStyleSheet';
 import {CoreButton} from '../../components/CoreButton';
 
-const AddApartmentScreen = () => {
+const AddApartmentScreen = ({route}) => {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
+  const [docId] = useState(route.params.docId);
   return (
     <View
       style={[
@@ -61,7 +62,7 @@ const AddApartmentScreen = () => {
       <CoreButton
         value="Add Lofft"
         onPress={() => {
-          createLofft({name, description});
+          createLofft({name, description, docId});
           navigation.navigate('Costs');
         }}
       />

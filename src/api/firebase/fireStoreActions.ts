@@ -87,29 +87,27 @@ export const getUserImage = async userID => {
 };
 
 // Update and create Lofft Spaces
-export const createLofft = async ({name, description}) => {
-  const currentUser: any = await getCurrentUser().uid;
-  await db
+export const createLofft = async ({name, description, docId}) => {
+  await firestore()
     .collection('Loffts')
     .add({name, description})
     .then(async response => {
-      await db
-        .collection('users')
-        .doc(currentUser)
-        .update({lofft: response.id});
+      await firestore()
+        .collection('Users')
+        .doc(docId)
+        .update({lofft: {lofft_id: response.id, name, description}});
     });
 };
 
 export const getLofft = async () => {
-  const currentUser: any = await getCurrentUser();
-  let result = false;
-  await db
+  let result: any = false;
+  await firestore()
     .collection('users')
     .doc(currentUser.uid)
     .get()
     .then(async response => {
       if (response.data().lofft) {
-        await db
+        await firestore()
           .collection('Loffts')
           .doc(response.data().lofft)
           .get()

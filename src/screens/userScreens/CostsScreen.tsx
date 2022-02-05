@@ -12,7 +12,6 @@ import paymentContainerBackground from './../../assets/paymentContainer.png';
 import {CoreButton} from '../../components/CoreButton';
 import {navigationRef as navigation} from '../../RootNavigation';
 import {getLofft, userDetailsUpdate} from '../../api/firebase/fireStoreActions';
-import {getCurrentUser} from '../../api/firebase/firebaseApi';
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 
@@ -20,6 +19,7 @@ const CostsScreen = () => {
   const [lofft, setLofft] = useState(false);
   const [name, setName] = useState('');
   const [image, setImage]: any = useState('');
+  const [docId, setDocId]: any = useState('');
   useEffect(() => {
     auth().onAuthStateChanged(user => {
       if (user) {
@@ -27,9 +27,11 @@ const CostsScreen = () => {
           .collection('Users')
           .where('uid', '==', user.uid)
           .onSnapshot(snapShot => {
+            setDocId(snapShot.docs[0].id);
             const result = snapShot.docs[0].data();
             if (result.name) setName(result.name.split(' ')[0]);
             if (result.imageURI) setImage({uri: result.imageURI});
+            if (result.lofft) setLofft(result.lofft);
           });
         return () => subscriber();
       } else {
@@ -75,7 +77,7 @@ const CostsScreen = () => {
               value="Create"
               style={[styles.buttons, styles.mintButton]}
               onPress={() => {
-                navigation.navigate('AddApartment');
+                navigation.navigate('AddApartment', {docId});
               }}
             />
           </View>
