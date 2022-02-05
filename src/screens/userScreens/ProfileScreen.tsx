@@ -15,6 +15,7 @@ import {
   updateUserAccountDetails,
 } from '../../api/firebase/fireStoreActions';
 import {userImageUpload} from '../../api/firebase/firebaseStorage';
+import auth from '@react-native-firebase/auth';
 
 // Components
 import CustomBackButton from '../../components/CustomBackButton';
@@ -33,14 +34,13 @@ const ProfileScreen = () => {
   const [lastName, setLastName] = useState('');
   const [pronouns, setPronouns] = useState('');
   const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
   const [update, setUpdate] = useState(false);
   const [error, setError] = useState(false);
   const [docId, setDocId] = useState('');
 
   useEffect(() => {
-    const getUser = async () => {
-      const result = await getCurrentUserDetails();
+    const getUser = async user => {
+      const result = await getCurrentUserDetails(user);
       setDocId(result.docId);
       if (result.details.imageURI) setImage({uri: result.details.imageURI});
       if (result.details.name) {
@@ -55,7 +55,12 @@ const ProfileScreen = () => {
         setEmail(result.details.email);
       }
     };
-    getUser();
+
+    auth().onAuthStateChanged(user => {
+      if (user) {
+        getUser(user);
+      }
+    });
   }, []);
 
   return (
@@ -77,22 +82,12 @@ const ProfileScreen = () => {
           </Text>
         </TouchableOpacity>
       ) : null}
-      {error ? (
-        <TouchableOpacity
-          style={[styles.notification, styles.errorNotification]}
-          onPress={() => setError(false)}>
-          <Text style={[fontStyles.bodyMedium, styles.notificationText]}>
-            Please use a correct password
-          </Text>
-        </TouchableOpacity>
-      ) : null}
       <ScrollView style={styles.scrollContainer}>
         <View style={styles.userIconContainer}>
           <UserIcon
             onPress={async () => {
               const imageURL: any = await userImageUpload(docId);
               if (typeof imageURL === 'string') {
-                setImage({uri: imageURL});
                 navigationRef.navigate('Costs');
               }
             }}
@@ -141,31 +136,17 @@ const ProfileScreen = () => {
             autoCapitalize="none"
           />
         </View>
-        <View style={styles.textInputContainer}>
-          <Text style={fontStyles.buttonTextMedium}>Password</Text>
-          <TextInput
-            style={[fontStyles.bodyMedium, styles.inputField]}
-            value={password}
-            onChangeText={text => setPassword(text)}
-            autoCorrect={false}
-            secureTextEntry={true}
-            autoCapitalize="none"
-          />
-        </View>
         <CoreButton
-          disabled={password ? false : true}
           value="Update Account"
-          style={[styles.updateButton, password ? null : styles.buttonDisabled]}
+          style={styles.updateButton}
           onPress={async () => {
             await updateUserAccountDetails({
               firstName,
               lastName,
               pronouns,
               email,
-              password,
               docId,
             });
-            setPassword('');
           }}
         />
         <CoreButton value="Delete Account" style={styles.deleteButton} />

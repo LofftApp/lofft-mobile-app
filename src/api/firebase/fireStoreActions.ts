@@ -1,7 +1,6 @@
-import firestore, {firebase} from '@react-native-firebase/firestore';
+import firestore from '@react-native-firebase/firestore';
 import auth from '@react-native-firebase/auth';
 import {getCurrentUser} from './firebaseApi';
-import {authUserWithEmailAndPassword} from './firebaseApi';
 
 export const userDetailsUpdate = () => {
   auth().onAuthStateChanged(user => {
@@ -19,25 +18,13 @@ export const userDetailsUpdate = () => {
 };
 
 // Update and edit user profiles.
-export const getUser = async userID => {
-  let name: any;
-  await db
-    .collection('Users')
-    .where('uid', '==', userID)
-    .get()
-    .then(querySnapshot => {
-      querySnapshot;
-    });
-  return name;
-};
 
-export const getCurrentUserDetails = async () => {
-  const currentUser: any = await getCurrentUser().uid;
+export const getCurrentUserDetails = async user => {
   let details: any = {};
   let docId = '';
   await firestore()
     .collection('Users')
-    .where('uid', '==', currentUser)
+    .where('uid', '==', user.uid)
     .get()
     .then(querySnapShot => {
       docId = querySnapShot.docs[0].id;
@@ -51,39 +38,30 @@ export const updateUserAccountDetails = async ({
   lastName,
   pronouns,
   email,
-  password,
   docId,
 }) => {
-  const currentUser: any = await getCurrentUser();
-  await authUserWithEmailAndPassword(currentUser.email, password);
-  firestore()
-    .collection('Users')
-    .doc(docId)
-    .update({
-      name: `${firstName} ${lastName}`,
-      pronouns,
-      email,
-    })
-    .then(() => {
-      currentUser.updateProfile({
-        displayName: `${firstName} ${lastName}`,
-      });
-      currentUser.updateEmail(email);
-    });
+  auth().onAuthStateChanged(user => {
+    if (user) {
+      firestore()
+        .collection('Users')
+        .doc(docId)
+        .update({
+          name: `${firstName} ${lastName}`,
+          pronouns,
+          email,
+        })
+        .then(() => {
+          user.updateProfile({
+            displayName: `${firstName} ${lastName}`,
+          });
+          user.updateEmail(email);
+        });
+    }
+  });
 };
 
 export const uploadImageToUserProfile = (docId, url) => {
-  console.log(docId);
   firestore().collection('Users').doc(docId).update({imageURI: url});
-};
-
-export const getUserImage = async userID => {
-  firestore()
-    .collection('users')
-    .doc(userID)
-    .onSnapshot(documentSnapshot => {
-      return documentSnapshot.data().imageURI;
-    });
 };
 
 // Update and create Lofft Spaces
@@ -99,48 +77,28 @@ export const createLofft = async ({name, description, docId}) => {
     });
 };
 
-export const getLofft = async () => {
-  let result: any = false;
-  await firestore()
-    .collection('users')
-    .doc(currentUser.uid)
-    .get()
-    .then(async response => {
-      if (response.data().lofft) {
-        await firestore()
-          .collection('Loffts')
-          .doc(response.data().lofft)
-          .get()
-          .then(lofftResponse => {
-            result = lofftResponse.data();
-          });
-      }
-    });
-  return result;
-};
-
 // Add and edit Bills
-export const billQuery = async () => {
-  const currentUser: any = await getCurrentUser();
-  let total = 0;
-  let payeeData = [];
-  let returnedData = [];
-  await db
-    .collection('bills')
-    .get()
-    .then(async querySnapshot => {
-      await querySnapshot.forEach(documentSnapShot => {
-        payeeData.push(documentSnapShot.data());
-      });
-      payeeData.forEach(userBill => {
-        if (
-          userBill.payees[currentUser.uid] &&
-          !userBill.payees[currentUser.uid].paid
-        ) {
-          total += userBill.payees[currentUser.uid].value;
-          returnedData.push(userBill);
-        }
-      });
-    });
-  return {total, returnedData};
+export const billQuery = () => {
+  auth().onAuthStateChanged(async user => {
+    if (user) {
+      let total = 0;
+      let payeeData = [];
+      let returnedData = [];
+      await firestore()
+        .collection('Bills')
+        .get()
+        .then(async querySnapshot => {
+          await querySnapshot.forEach(documentSnapShot => {
+            payeeData.push(documentSnapShot.data());
+          });
+          payeeData.forEach(userBill => {
+            if (userBill.payees[user.uid] && !userBill.payees[user.uid].paid) {
+              total += userBill.payees[user.uid].value;
+              returnedData.push(userBill);
+            }
+          });
+        });
+      return {total, returnedData};
+    }
+  });
 };
