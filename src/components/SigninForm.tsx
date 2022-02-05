@@ -5,14 +5,12 @@ import {
   TextInput,
   TouchableOpacity,
   StyleSheet,
-  KeyboardAvoidingView,
 } from 'react-native';
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
 import color from '../assets/defaultColorPallet.json';
 import {fontStyles} from '../StyleSheets/FontStyleSheet';
 import {CoreButton} from './CoreButton';
-import {Context as AuthContext} from '../context/AuthContext';
-import AlertBanner from '../components/AlertBanner';
+import {signup, signin} from '../api/firebase/firebaseApi';
 
 const SigninForm = ({navigation, signupForm = false}: any) => {
   const [email, setEmail] = useState('');
@@ -20,15 +18,9 @@ const SigninForm = ({navigation, signupForm = false}: any) => {
   const [checkbox, setCheckbox] = useState(false);
   const buttonValue = signupForm ? 'Sign up' : 'Sign in';
 
-  // Showing error not sure why, the context works
-  const {state, signup, signin} = useContext(AuthContext);
-
   return (
     <View style={styles.container}>
       <View style={styles.inputContainerStyle}>
-        {state.errorMessage ? (
-          <AlertBanner alertType="warning" message={state.errorMessage} />
-        ) : null}
         <TextInput
           style={[styles.inputStyle, fontStyles.bodyMedium]}
           keyboardType="email-address"

@@ -5,8 +5,6 @@ import {createStackNavigator} from '@react-navigation/stack';
 import RNBootSplash from 'react-native-bootsplash';
 
 import {navigationRef} from './src/RootNavigation';
-import {Context as AuthContext} from './src/context/AuthContext';
-import {Provider as AuthProvider} from './src/context/AuthContext';
 // Screens
 import {UserComponents} from './src/components/UserComponents';
 import HomeScreen from './src/screens/HomeScreen';
@@ -131,12 +129,10 @@ const App = () => {
 
 export default () => {
   return (
-    <AuthProvider>
-      <NavigationContainer
-        ref={navigationRef}
-        onReady={() => RNBootSplash.hide()}>
-        <App />
-      </NavigationContainer>
-    </AuthProvider>
+    <NavigationContainer
+      ref={navigationRef}
+      onReady={() => RNBootSplash.hide()}>
+      <App />
+    </NavigationContainer>
   );
 };

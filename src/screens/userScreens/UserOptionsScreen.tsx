@@ -1,6 +1,6 @@
-import React, {useContext} from 'react';
+import React from 'react';
 import {View, Text, StyleSheet, Platform, TouchableOpacity} from 'react-native';
-import {Context as AuthContext} from '../../context/AuthContext';
+import {signout} from '../../api/firebase/firebaseApi';
 
 // Components
 import CustomBackButton from '../../components/CustomBackButton';
@@ -13,7 +13,6 @@ import {navigationRef} from '../../RootNavigation';
 import {CoreButton} from '../../components/CoreButton';
 
 const UserOptionsScreen = () => {
-  const {signout} = useContext(AuthContext);
   return (
     <View
       style={[
