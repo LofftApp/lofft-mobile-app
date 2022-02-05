@@ -19,8 +19,12 @@ import {billQuery} from '../../api/firebase/fireStoreActions';
 import TestChartWeek from './../../components/charts/TestChartWeek';
 import TestChartMonth from './../../components/charts/TestChartMonth';
 import TestChartYear from './../../components/charts/TestChartYear';
-
+import {userDetailsUpdate} from '../../api/firebase/fireStoreActions';
 import ToggleBar from './../../components/ToggleBar';
+
+// Fierstore
+import auth from '@react-native-firebase/auth';
+import firestore from '@react-native-firebase/firestore';
 
 const DashboardScreen = ({navigation}: any) => {
   const [owed, setOwed] = useState(0);
@@ -30,15 +34,35 @@ const DashboardScreen = ({navigation}: any) => {
   const [month, setMonthSelected] = useState(false);
   const [year, setYearSelected] = useState(false);
 
-  const [billDetails, setBillDetails] = useState([]);
+  const [image, setImage]: any = useState('');
+  const [bills, setBills] = useState({});
 
   useEffect(() => {
-    const setLoad = async () => {
-      const result = await billQuery();
-      setBillDetails(result.returnedData);
-      setOwed(result.total);
-    };
-    setLoad();
+    auth().onAuthStateChanged(user => {
+      if (user) {
+        const subscriber = firestore()
+          .collection('Users')
+          .where('uid', '==', user.uid)
+          .onSnapshot(snapShot => {
+            let amountOwed = 0;
+            const result = snapShot.docs[0].data();
+            if (result.imageURI) setImage({uri: result.imageURI});
+            if (result.outstanding_bills) {
+              const userBills = result.outstanding_bills;
+              setBills(userBills);
+              userBills.forEach(bill => {
+                if (!bill.paid) {
+                  amountOwed += Number(bill.value);
+                }
+              });
+              setOwed(amountOwed);
+            }
+          });
+        return () => subscriber();
+      } else {
+        console.log('Unauth');
+      }
+    });
   }, []);
 
   const handleWeekClick = () => {
@@ -72,13 +96,14 @@ const DashboardScreen = ({navigation}: any) => {
   const dashboardToggle = useCallback(toggled => {
     setIsDashboard(toggled);
   }, []);
+
   return (
     <View
       style={[
         CoreStyleSheet.viewContainerStyle,
         Platform.OS === 'ios' ? CoreStyleSheet.viewContainerIOSStyle : null,
       ]}>
-      <HeaderBar title="Your Finances" />
+      <HeaderBar title="Your Finances" image={image} />
       <ToggleBar dashboard={dashboardToggle} />
       {isDashboard ? (
         <>
@@ -88,7 +113,7 @@ const DashboardScreen = ({navigation}: any) => {
             <PendingPaymentContainer
               buttonValue="Pay now"
               buttonAction={() => {
-                navigation.navigate('PayNow', {owed, billDetails});
+                navigation.navigate('PayNow', {owed, bills});
               }}
               owed={owed}
             />

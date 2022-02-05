@@ -1,5 +1,5 @@
-import React from 'react';
-import {View, Text, StyleSheet, Platform} from 'react-native';
+import React, {useState, useEffect} from 'react';
+import {View, Text, StyleSheet, Platform, ImageBackground} from 'react-native';
 
 // Components
 import HeaderBar from '../../components/HeaderBar';
@@ -8,8 +8,38 @@ import HeaderBar from '../../components/HeaderBar';
 import color from './../../assets/defaultColorPallet.json';
 import {CoreStyleSheet} from '../../StyleSheets/CoreDesignStyleSheet';
 import {fontStyles} from './../../StyleSheets/FontStyleSheet';
+import paymentContainerBackground from './../../assets/paymentContainer.png';
+import {CoreButton} from '../../components/CoreButton';
+import {navigationRef as navigation} from '../../RootNavigation';
+import {getLofft, userDetailsUpdate} from '../../api/firebase/fireStoreActions';
+import auth from '@react-native-firebase/auth';
+import firestore from '@react-native-firebase/firestore';
 
 const CostsScreen = () => {
+  const [lofft, setLofft] = useState(false);
+  const [name, setName] = useState('');
+  const [image, setImage]: any = useState('');
+  const [docId, setDocId]: any = useState('');
+  useEffect(() => {
+    auth().onAuthStateChanged(user => {
+      if (user) {
+        const subscriber = firestore()
+          .collection('Users')
+          .where('uid', '==', user.uid)
+          .onSnapshot(snapShot => {
+            setDocId(snapShot.docs[0].id);
+            const result = snapShot.docs[0].data();
+            if (result.name) setName(result.name.split(' ')[0]);
+            if (result.imageURI) setImage({uri: result.imageURI});
+            if (result.lofft) setLofft(result.lofft);
+          });
+        return () => subscriber();
+      } else {
+        console.log('Unauth');
+      }
+    });
+  }, []);
+
   return (
     <View
       style={[
@@ -17,18 +47,42 @@ const CostsScreen = () => {
         Platform.OS === 'ios' ? CoreStyleSheet.viewContainerIOSStyle : null,
         styles.container,
       ]}>
-      <HeaderBar title="Hello James" />
-      <View style={styles.notification}>
-        <Text style={[fontStyles.bodyMedium, styles.notificationText]}>
-          welcome to Lofft - Finish creating your profile
-        </Text>
-      </View>
-      <View style={[styles.notification, styles.appNotification]}>
-        <Text style={[fontStyles.bodyMedium, styles.notificationText]}>
-          It does not look like you're apart of a Lofft, find your perfect
-          shared appartment through our app.
-        </Text>
-      </View>
+      <HeaderBar title={name ? `Hello ${name}` : 'Welcome'} image={image} />
+      {lofft ? (
+        <ImageBackground
+          style={styles.pendingPaymentContainer}
+          source={paymentContainerBackground}>
+          <Text style={fontStyles.buttonTextMedium}>{lofft.name}</Text>
+          <View style={styles.buttonContainer}>
+            <CoreButton value="Join" style={styles.buttons} />
+            <CoreButton
+              value="Create"
+              style={[styles.buttons, styles.mintButton]}
+              onPress={() => {
+                navigation.navigate('AddApartment');
+              }}
+            />
+          </View>
+        </ImageBackground>
+      ) : (
+        <ImageBackground
+          style={styles.pendingPaymentContainer}
+          source={paymentContainerBackground}>
+          <Text style={fontStyles.buttonTextMedium}>
+            You do not currently have a Lofft
+          </Text>
+          <View style={styles.buttonContainer}>
+            <CoreButton value="Join" style={styles.buttons} />
+            <CoreButton
+              value="Create"
+              style={[styles.buttons, styles.mintButton]}
+              onPress={() => {
+                navigation.navigate('AddApartment', {docId});
+              }}
+            />
+          </View>
+        </ImageBackground>
+      )}
     </View>
   );
 };
@@ -37,19 +91,29 @@ const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
   },
-  notification: {
+  buttonContainer: {
     width: '100%',
-    padding: 15,
-    borderRadius: 12,
-    backgroundColor: color.Mint[80],
-    marginVertical: 10,
+    flexDirection: 'row',
+    justifyContent: 'space-around',
   },
-  notificationText: {
-    color: color.White[100],
-    textAlign: 'justify',
+  buttons: {
+    width: 150,
   },
-  appNotification: {
-    backgroundColor: color.Gold[80],
+  mintButton: {
+    backgroundColor: color.Mint[100],
+    borderColor: color.Mint[100],
+  },
+  pendingPaymentContainer: {
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    height: 172,
+    width: '100%',
+    marginVertical: 16,
+    paddingVertical: 16,
+    borderWidth: 1,
+    borderColor: color.White[0],
+    overflow: 'hidden',
+    borderRadius: 16,
   },
 });
 

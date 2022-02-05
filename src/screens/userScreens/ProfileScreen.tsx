@@ -28,24 +28,6 @@ import {navigationRef} from '../../RootNavigation';
 import {CoreButton} from '../../components/CoreButton';
 
 const ProfileScreen = () => {
-  useEffect(() => {
-    const getUser = async () => {
-      const result = await getCurrentUserDetails();
-      if (result.name) {
-        const nameArray = result.name.split(' ');
-        setFirstName(nameArray[0]);
-        setLastName(nameArray[1]);
-      }
-      if (result.pronouns) {
-        setPronouns(result.pronouns);
-      }
-      if (result.email) {
-        setEmail(result.email);
-      }
-    };
-    getUser();
-  }, []);
-
   const [image, setImage]: any = useState('');
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
@@ -54,6 +36,27 @@ const ProfileScreen = () => {
   const [password, setPassword] = useState('');
   const [update, setUpdate] = useState(false);
   const [error, setError] = useState(false);
+  const [docId, setDocId] = useState('');
+
+  useEffect(() => {
+    const getUser = async () => {
+      const result = await getCurrentUserDetails();
+      setDocId(result.docId);
+      if (result.details.imageURI) setImage({uri: result.details.imageURI});
+      if (result.details.name) {
+        const nameArray = result.details.name.split(' ');
+        setFirstName(nameArray[0]);
+        setLastName(nameArray[1]);
+      }
+      if (result.details.pronouns) {
+        setPronouns(result.details.pronouns);
+      }
+      if (result.details.email) {
+        setEmail(result.details.email);
+      }
+    };
+    getUser();
+  }, []);
 
   return (
     <View
@@ -87,8 +90,11 @@ const ProfileScreen = () => {
         <View style={styles.userIconContainer}>
           <UserIcon
             onPress={async () => {
-              const imageURL: any = await userImageUpload();
-              if (typeof imageURL === 'string') setImage({uri: imageURL});
+              const imageURL: any = await userImageUpload(docId);
+              if (typeof imageURL === 'string') {
+                setImage({uri: imageURL});
+                navigationRef.navigate('Costs');
+              }
             }}
             userImageContainerStyle={styles.userImageContainerStyle}
             userImageStyle={styles.userImageStyle}
@@ -151,16 +157,15 @@ const ProfileScreen = () => {
           value="Update Account"
           style={[styles.updateButton, password ? null : styles.buttonDisabled]}
           onPress={async () => {
-            const answer = await updateUserAccountDetails({
+            await updateUserAccountDetails({
               firstName,
               lastName,
               pronouns,
               email,
               password,
+              docId,
             });
             setPassword('');
-            console.log(answer);
-            // setError(true);
           }}
         />
         <CoreButton value="Delete Account" style={styles.deleteButton} />

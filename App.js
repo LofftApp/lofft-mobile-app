@@ -3,7 +3,6 @@ import {LogBox} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import RNBootSplash from 'react-native-bootsplash';
-import auth from '@react-native-firebase/auth';
 
 import {navigationRef} from './src/RootNavigation';
 import {Context as AuthContext} from './src/context/AuthContext';
@@ -19,6 +18,14 @@ import PaymentConfirmationScreen from './src/screens/userScreens/PaymentConfirma
 import PaidConfirmationScreen from './src/screens/userScreens/PaidConfirmationScreen';
 import UserOptionsScreen from './src/screens/userScreens/UserOptionsScreen';
 import ProfileScreen from './src/screens/userScreens/ProfileScreen';
+
+// FireStore
+import auth from '@react-native-firebase/auth';
+import firestore from '@react-native-firebase/firestore';
+// import storage from '@react-native-firebase/storage';
+
+// Appartment Screens
+import AddApartmentScreen from './src/screens/apartmentScreens/AddApartmentScreen';
 
 const Stack = createStackNavigator();
 
@@ -41,7 +48,11 @@ const App = () => {
   useEffect(() => {
     // New Authentication code from Firebase
     const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
-    console.log(`Subscriber: ${subscriber}`);
+    if (__DEV__) {
+      console.log('FireStore Development Environment');
+      auth().useEmulator('http://localhost:9099');
+      firestore().useEmulator('localhost', 8080);
+    }
     return subscriber;
   }, []);
 
@@ -86,6 +97,12 @@ const App = () => {
           <Stack.Screen
             name="ProfileScreen"
             component={ProfileScreen}
+            options={{headerShown: false}}
+          />
+          {/* Apartment Management Screens */}
+          <Stack.Screen
+            name="AddApartment"
+            component={AddApartmentScreen}
             options={{headerShown: false}}
           />
         </>

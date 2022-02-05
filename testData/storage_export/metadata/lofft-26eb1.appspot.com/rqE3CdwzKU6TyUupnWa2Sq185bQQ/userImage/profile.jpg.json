@@ -1,0 +1,19 @@
+{
+  "name": "rqE3CdwzKU6TyUupnWa2Sq185bQQ/userImage/profile.jpg",
+  "bucket": "lofft-26eb1.appspot.com",
+  "contentType": "image/jpeg",
+  "metageneration": 1,
+  "generation": 1644059545603,
+  "storageClass": "STANDARD",
+  "etag": "someETag",
+  "contentDisposition": "inline",
+  "contentEncoding": "identity",
+  "downloadTokens": [
+    "86d32f89-373a-44ca-9f35-cda1bc9139bc"
+  ],
+  "timeCreated": "2022-02-05T11:12:25.602Z",
+  "updated": "2022-02-05T11:12:25.653Z",
+  "size": 6246673,
+  "md5Hash": "A/qaTbI5Bw7ZOWOsJyurpA==",
+  "crc32c": "1208575867"
+}
