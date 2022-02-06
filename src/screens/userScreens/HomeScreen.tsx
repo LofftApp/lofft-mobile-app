@@ -44,9 +44,24 @@ const HomeScreen = () => {
         <ImageBackground
           style={[styles.apartmentContainer, styles.apartmentPresent]}
           source={paymentContainerBackground}>
-          <Text style={fontStyles.buttonTextMedium}>{lofft.name}</Text>
+          <View style={styles.apartmentNameBar}>
+            <Text style={fontStyles.buttonTextMedium}>{lofft.name}</Text>
+            {lofft.pending ? (
+              <View style={styles.statusButton}>
+                <Text style={[fontStyles.buttonTextSmall, styles.pendingText]}>
+                  Pending
+                </Text>
+              </View>
+            ) : null}
+          </View>
           <View style={styles.buttonContainer}>
-            <CoreButton value="Manage" style={styles.buttons} />
+            {lofft.pending ? (
+              <Text style={fontStyles.buttonTextSmall}>
+                Your request to join a lofft is pending
+              </Text>
+            ) : (
+              <CoreButton value="Manage" style={styles.buttons} />
+            )}
           </View>
         </ImageBackground>
       ) : (
@@ -98,15 +113,28 @@ const styles = StyleSheet.create({
     height: 172,
     width: '100%',
     marginVertical: 16,
-    paddingVertical: 16,
+    padding: 16,
     borderWidth: 1,
     borderColor: color.White[0],
     overflow: 'hidden',
     borderRadius: 16,
   },
+  apartmentNameBar: {
+    width: '100%',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
   apartmentPresent: {
     alignItems: 'flex-start',
   },
+  statusButton: {
+    borderWidth: 2,
+    borderColor: color.Mint[50],
+    borderRadius: 4,
+    padding: 3,
+    backgroundColor: color.Mint[50],
+  },
+  pendingText: {color: color.White[80]},
 });
 
 export default HomeScreen;

@@ -98,16 +98,19 @@ export const joinLofft = async lofftId => {
   const user = await getCurrentUserDetails(currentUser);
   const lofftRoute = await firestore().collection('Loffts').doc(lofftId);
   const lofft = (await lofftRoute.get()).data();
-  lofftRoute
-    .update({users: firestore.FieldValue.arrayUnion(user.docId)})
-    .then(response => {
-      console.log(response);
-    });
+  lofftRoute.update({
+    pendingUsers: firestore.FieldValue.arrayUnion(user.docId),
+  });
   await firestore()
     .collection('Users')
     .doc(user.docId)
     .update({
-      lofft: {lofftId, name: lofft.name, description: lofft.description},
+      lofft: {
+        lofftId,
+        name: lofft.name,
+        description: lofft.description,
+        pending: true,
+      },
     });
   return true;
 };
