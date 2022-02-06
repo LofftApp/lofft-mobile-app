@@ -32,6 +32,7 @@ const HomeScreen = () => {
       });
     return () => unsubscribe();
   }, []);
+  console.log(lofft);
   return (
     <View
       style={[
@@ -67,7 +68,9 @@ const HomeScreen = () => {
               <CoreButton
                 value="View"
                 style={styles.buttons}
-                onPress={() => navigation.navigate('ViewApartment')}
+                onPress={() =>
+                  navigation.navigate('ViewApartment', {lofft: lofft.lofftId})
+                }
               />
             )}
           </View>
