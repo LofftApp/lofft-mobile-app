@@ -63,3 +63,6 @@ buck-out/
 firebase-debug.log*
 firestore-debug.log*
 ui-debug.log*
+*.rules
+firestore.indexes.json
+firebase.json
