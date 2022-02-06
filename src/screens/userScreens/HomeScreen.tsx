@@ -42,7 +42,11 @@ const HomeScreen = () => {
       <HeaderBar title={name ? `Hello ${name}` : 'Welcome'} image={image} />
       {lofft ? (
         <ImageBackground
-          style={[styles.apartmentContainer, styles.apartmentPresent]}
+          style={[
+            styles.apartmentContainer,
+            styles.apartmentPresent,
+            {width: '100%'},
+          ]}
           source={paymentContainerBackground}>
           <View style={styles.apartmentNameBar}>
             <Text style={fontStyles.buttonTextMedium}>{lofft.name}</Text>
@@ -111,7 +115,6 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     height: 172,
-    width: '100%',
     marginVertical: 16,
     padding: 16,
     borderWidth: 1,
