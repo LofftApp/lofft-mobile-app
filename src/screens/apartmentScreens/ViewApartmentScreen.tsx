@@ -30,6 +30,7 @@ const ViewApartmentScreen = ({route}) => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [address, setAddress] = useState('');
+  const [tenants, setTenants] = useState([]);
 
   useEffect(() => {
     const unsubscribe = firestore()
@@ -40,6 +41,17 @@ const ViewApartmentScreen = ({route}) => {
         setTitle(lofft.name);
         setDescription(lofft.description);
         if (lofft.address) setAddress(lofft.address);
+        lofft.users.forEach(async user => {
+          const queryUser = await firestore()
+            .collection('Users')
+            .doc(user)
+            .get();
+          const response = queryUser.data();
+          setTenants([
+            ...tenants,
+            {name: response.name, imageURI: response.imageURI},
+          ]);
+        });
       });
     return () => unsubscribe();
   }, []);
@@ -54,63 +66,85 @@ const ViewApartmentScreen = ({route}) => {
         <CustomBackButton title="Lofft" onPress={() => navigation.goBack()} />
       </View>
       {/* Banner Background */}
-      <ImageBackground style={styles.headerBanner} source={shapesBackground}>
-        {/* Title Text and address container */}
-        <View style={styles.title}>
-          <View>
-            {edit ? (
-              <TextInput
-                value={title}
-                style={[fontStyles.headerMedium, styles.inputField]}
-                onChangeText={e => {
-                  setTitle(e);
-                }}
-              />
-            ) : (
-              <Text style={fontStyles.headerMedium}>{title}</Text>
-            )}
-            {/* Address Section */}
-            {edit ? (
-              <View style={styles.addField}>
+      <ImageBackground
+        source={shapesBackground}
+        style={styles.imageBannerBackground}>
+        <View style={styles.headerUpload}>
+          <Text>🏳️‍🌈 🌱</Text>
+          {admin ? (
+            <Icon name="image-outline" size={25} color={color.Black[30]} />
+          ) : null}
+        </View>
+        <View style={styles.headerBanner}>
+          {/* Title Text and address container */}
+          <View style={styles.title}>
+            <View>
+              {edit ? (
                 <TextInput
-                  style={[fontStyles.bodySmall, styles.inputField]}
-                  value={address}
-                  onChangeText={e => setAddress(e)}
-                  placeholder="Address line 1"
+                  value={title}
+                  style={[fontStyles.headerMedium, styles.inputField]}
+                  onChangeText={e => {
+                    setTitle(e);
+                  }}
                 />
-              </View>
-            ) : address ? (
-              <View style={styles.addressBar}>
-                <Text style={[fontStyles.bodySmall, styles.address]}>
-                  {address}
-                </Text>
-              </View>
+              ) : (
+                <Text style={fontStyles.headerMedium}>{title}</Text>
+              )}
+              {/* Address Section */}
+              {edit ? (
+                <View style={styles.addField}>
+                  <TextInput
+                    style={[fontStyles.bodySmall, styles.inputField]}
+                    value={address}
+                    onChangeText={e => setAddress(e)}
+                    placeholder="Address line 1"
+                  />
+                </View>
+              ) : address ? (
+                <View style={styles.addressBar}>
+                  <Text style={[fontStyles.bodySmall, styles.address]}>
+                    {address}
+                  </Text>
+                </View>
+              ) : null}
+            </View>
+            {/* Toggle Edit mode if admin */}
+            {admin ? (
+              <TouchableOpacity
+                onPress={() => {
+                  edit ? setEdit(false) : setEdit(true);
+                }}>
+                <Icon
+                  name="settings-outline"
+                  size={25}
+                  color={color.Black[30]}
+                />
+              </TouchableOpacity>
             ) : null}
           </View>
-          {/* Toggle Edit mode if admin */}
-          {admin ? (
-            <TouchableOpacity
-              onPress={() => {
-                edit ? setEdit(false) : setEdit(true);
-              }}>
-              <Icon name="settings-outline" size={25} color={color.Black[30]} />
-            </TouchableOpacity>
-          ) : null}
         </View>
       </ImageBackground>
       <View style={styles.body}>
+        {/* Lofft Description Section */}
         <View style={styles.desciptionContainer}>
           {edit ? (
             <TextInput
               value={description}
               style={[fontStyles.bodySmall, styles.inputField]}
+              multiline
               onChangeText={e => {
                 setDescription(e);
               }}
             />
           ) : (
-            <Text style={fontStyles.bodySmall}>{description}</Text>
+            <Text style={[fontStyles.bodySmall, styles.description]}>
+              {description}
+            </Text>
           )}
+        </View>
+        {/* User/Tennants */}
+        <View style={styles.userWindow}>
+          <Text>Tenants</Text>
         </View>
       </View>
     </View>
@@ -121,17 +155,21 @@ const styles = StyleSheet.create({
   overidePresets: {
     paddingHorizontal: 0,
   },
-  headerBanner: {
+  imageBannerBackground: {
     backgroundColor: color.Mint[10],
-    paddingHorizontal: 0,
-    width: '100%',
-    paddingTop: 65,
-    paddingBottom: 10,
+    paddingVertical: 10,
+    marginTop: 25,
+  },
+  headerBanner: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'flex-end',
-    marginTop: 15,
-    height: 180,
+    height: 150,
+  },
+  headerUpload: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingHorizontal: 25,
   },
   body: {
     paddingHorizontal: 25,
@@ -164,14 +202,15 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginTop: 15,
   },
-  address: {
-    // textAlign: 'right',
-  },
+  address: {},
   addressBar: {
     paddingLeft: 10,
-    // width: '60%',
-    // alignItems: 'flex-end',
-    // alignSelf: 'flex-end',
+  },
+  description: {
+    textAlign: 'justify',
+  },
+  userWindow: {
+    marginTop: 15,
   },
 });
 

@@ -32,7 +32,6 @@ const HomeScreen = () => {
       });
     return () => unsubscribe();
   }, []);
-  console.log(lofft);
   return (
     <View
       style={[
