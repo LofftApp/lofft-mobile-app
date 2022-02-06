@@ -10,7 +10,7 @@ import {
 import {navigationRef as navigation} from '../../RootNavigation';
 
 // Firebase
-import {findLofft} from '../../api/firebase/fireStoreActions';
+import {findLofft, joinLofft} from '../../api/firebase/fireStoreActions';
 
 // StyleSheets
 import color from '../../assets/defaultColorPallet.json';
@@ -26,7 +26,7 @@ import paymentContainerBackground from './../../assets/paymentContainer.png';
 
 const JoinApartmentScreen = () => {
   const [formInput, setFormInput] = useState('');
-  const [results, setResults]: any = useState();
+  const [lofft, setLofft]: any = useState();
   return (
     <View
       style={[
@@ -54,27 +54,35 @@ const JoinApartmentScreen = () => {
               style={styles.buttons}
               onPress={() => {
                 const search = async () => {
-                  setResults(await findLofft(formInput));
+                  const response: any = await findLofft(formInput);
+                  setLofft({id: response.id, data: response.data()});
                 };
                 search();
-                console.log(results);
               }}
             />
           </View>
         </ImageBackground>
       </View>
       <View>
-        {results ? (
+        {lofft ? (
           <>
             <Text style={fontStyles.headerSmall}>Results</Text>
             <View style={styles.lofftCard}>
               <View>
-                <Text style={fontStyles.headerSmall}>{results.name}</Text>
-                <Text style={fontStyles.bodyMedium}>{results.description}</Text>
+                <Text style={fontStyles.headerSmall}>{lofft.data.name}</Text>
+                <Text style={fontStyles.bodyMedium}>
+                  {lofft.data.description}
+                </Text>
               </View>
               <CoreButton
                 value="Join"
                 style={[styles.buttons, styles.smallButton]}
+                onPress={() => {
+                  const response = joinLofft(lofft.id);
+                  if (response) {
+                    navigation.goBack();
+                  }
+                }}
               />
             </View>
           </>

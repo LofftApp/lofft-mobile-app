@@ -15,7 +15,7 @@ import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 
 const HomeScreen = () => {
-  const [lofft, setLofft] = useState(false);
+  const [lofft, setLofft]: any = useState(false);
   const [name, setName] = useState('');
   const [image, setImage]: any = useState('');
   const [docId, setDocId]: any = useState('');
@@ -32,7 +32,6 @@ const HomeScreen = () => {
       });
     return () => unsubscribe();
   }, []);
-
   return (
     <View
       style={[

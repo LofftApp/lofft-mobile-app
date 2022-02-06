@@ -81,15 +81,35 @@ export const createLofft = async ({name, description, docId}) => {
 export const findLofft = async param => {
   const result = await firestore().collection('Loffts').doc(param).get();
   if (result.exists) {
-    return result.data();
+    return result;
   } else {
     const nameSearch = await firestore()
       .collection('Loffts')
       .where('name', '==', param)
       .get();
 
-    return nameSearch.docs.length > 0 ? nameSearch.docs[0].data() : false;
+    return nameSearch.docs.length > 0 ? nameSearch.docs[0] : false;
   }
+};
+
+// Join a lofft from Search
+export const joinLofft = async lofftId => {
+  const currentUser = auth().currentUser;
+  const user = await getCurrentUserDetails(currentUser);
+  const lofftRoute = await firestore().collection('Loffts').doc(lofftId);
+  const lofft = (await lofftRoute.get()).data();
+  lofftRoute
+    .update({users: firestore.FieldValue.arrayUnion(user.docId)})
+    .then(response => {
+      console.log(response);
+    });
+  await firestore()
+    .collection('Users')
+    .doc(user.docId)
+    .update({
+      lofft: {lofftId, name: lofft.name, description: lofft.description},
+    });
+  return true;
 };
 
 // Add and edit Bills
