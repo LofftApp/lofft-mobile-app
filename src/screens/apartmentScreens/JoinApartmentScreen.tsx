@@ -1,6 +1,16 @@
 import React, {useState} from 'react';
-import {View, Text, StyleSheet, TextInput, Platform} from 'react-native';
+import {
+  View,
+  StyleSheet,
+  Text,
+  TextInput,
+  Platform,
+  ImageBackground,
+} from 'react-native';
 import {navigationRef as navigation} from '../../RootNavigation';
+
+// Firebase
+import {findLofft} from '../../api/firebase/fireStoreActions';
 
 // StyleSheets
 import color from '../../assets/defaultColorPallet.json';
@@ -11,8 +21,12 @@ import {fontStyles} from '../../StyleSheets/FontStyleSheet';
 import CustomBackButton from '../../components/CustomBackButton';
 import {CoreButton} from '../../components/CoreButton';
 
+// Images
+import paymentContainerBackground from './../../assets/paymentContainer.png';
+
 const JoinApartmentScreen = () => {
   const [formInput, setFormInput] = useState('');
+  const [results, setResults]: any = useState();
   return (
     <View
       style={[
@@ -24,42 +38,66 @@ const JoinApartmentScreen = () => {
         title="Join a Lofft"
       />
       <View style={styles.pageContainer}>
-        <Text style={fontStyles.bodyMedium}>
-          To join a Lofft, please enter the Loffts name of unique code below
-        </Text>
-        <View style={styles.inputContainer}>
+        <ImageBackground
+          style={styles.inputContainer}
+          source={paymentContainerBackground}>
           <TextInput
             style={[styles.formField, fontStyles.bodyMedium]}
-            placeholder="Name / Lofft ID"
+            placeholder="Enter Name or Lofft ID"
             autoCapitalize="none"
             value={formInput}
             onChangeText={e => setFormInput(e)}
           />
-        </View>
+          <View style={styles.buttonContainer}>
+            <CoreButton
+              value="Search"
+              style={styles.buttons}
+              onPress={() => {
+                const search = async () => {
+                  setResults(await findLofft(formInput));
+                };
+                search();
+              }}
+            />
+          </View>
+        </ImageBackground>
       </View>
+      {results ? (
+        <View>
+          <Text style={fontStyles.headerSmall}>Results</Text>
+        </View>
+      ) : null}
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   pageContainer: {
-    flex: 1,
     paddingVertical: 15,
     marginVertical: 20,
   },
   inputContainer: {
     backgroundColor: color.Lavendar[30],
-    height: 100,
+    height: 172,
     borderRadius: 12,
     paddingHorizontal: 10,
-    justifyContent: 'center',
+    justifyContent: 'space-around',
+    overflow: 'hidden',
   },
   formField: {
-    height: 40,
+    height: 60,
     width: '100%',
     backgroundColor: color.White[80],
     borderRadius: 12,
     paddingHorizontal: 15,
+  },
+  buttonContainer: {
+    width: '100%',
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+  },
+  buttons: {
+    width: 150,
   },
 });
 

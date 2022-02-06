@@ -77,6 +77,21 @@ export const createLofft = async ({name, description, docId}) => {
     });
 };
 
+// Find a loft space through search
+export const findLofft = async param => {
+  const result = await firestore().collection('Loffts').doc(param).get();
+  if (result.exists) {
+    return "I'm Here";
+  } else {
+    const nameSearch = await firestore()
+      .collection('Loffts')
+      .where('name', '==', param)
+      .get();
+
+    return nameSearch.docs.length > 0 ? nameSearch.docs : false;
+  }
+};
+
 // Add and edit Bills
 export const billQuery = async () => {
   let total = 0;
