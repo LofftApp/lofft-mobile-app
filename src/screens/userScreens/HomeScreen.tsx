@@ -64,7 +64,11 @@ const HomeScreen = () => {
                 Your request to join a lofft is pending
               </Text>
             ) : (
-              <CoreButton value="Manage" style={styles.buttons} />
+              <CoreButton
+                value="View"
+                style={styles.buttons}
+                onPress={() => navigation.navigate('ViewApartment')}
+              />
             )}
           </View>
         </ImageBackground>
