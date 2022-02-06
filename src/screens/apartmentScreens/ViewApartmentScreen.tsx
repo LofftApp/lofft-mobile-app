@@ -22,6 +22,7 @@ import {fontStyles} from '../../StyleSheets/FontStyleSheet';
 
 // Components
 import CustomBackButton from '../../components/CustomBackButton';
+import UserIcon from '../../components/UserIcon';
 
 const ViewApartmentScreen = ({route}) => {
   const [lofftId] = useState(route.params.lofft);
@@ -31,30 +32,33 @@ const ViewApartmentScreen = ({route}) => {
   const [description, setDescription] = useState('');
   const [address, setAddress] = useState('');
   const [tenants, setTenants] = useState([]);
-
+  console.log(lofftId);
   useEffect(() => {
+    setTenants([]);
     const unsubscribe = firestore()
       .collection('Loffts')
       .doc(lofftId)
       .onSnapshot(snapShot => {
         const lofft = snapShot.data();
+        console.log(lofft);
         setTitle(lofft.name);
         setDescription(lofft.description);
         if (lofft.address) setAddress(lofft.address);
-        lofft.users.forEach(async user => {
-          const queryUser = await firestore()
-            .collection('Users')
-            .doc(user)
-            .get();
-          const response = queryUser.data();
-          setTenants([
-            ...tenants,
-            {name: response.name, imageURI: response.imageURI},
-          ]);
-        });
+        if (lofft.users)
+          lofft.users.forEach(async user => {
+            let userToAdd = {};
+            const queryUser = await firestore()
+              .collection('Users')
+              .doc(user)
+              .get();
+            const response = queryUser.data();
+            userToAdd = {name: response.name, imageURI: response.imageURI};
+            setTenants(tenants => [...tenants, userToAdd]);
+          });
       });
     return () => unsubscribe();
   }, []);
+  console.log(tenants);
   return (
     <View
       style={[
@@ -144,7 +148,24 @@ const ViewApartmentScreen = ({route}) => {
         </View>
         {/* User/Tennants */}
         <View style={styles.userWindow}>
-          <Text>Tenants</Text>
+          <View style={styles.tenantSection}>
+            {tenants.map(t => {
+              return (
+                <View style={styles.userCard}>
+                  <UserIcon
+                    image={{uri: t.imageURI}}
+                    onPress={() => {}}
+                    userIconStyle={styles.userIconStyle}
+                    userImageContainerStyle={styles.userImageContainerStyle}
+                    userImageStyle={styles.userImageStyle}
+                  />
+                  <Text style={fontStyles.buttonTextMedium}>
+                    {t.name.split(' ')[0]}
+                  </Text>
+                </View>
+              );
+            })}
+          </View>
         </View>
       </View>
     </View>
@@ -211,6 +232,28 @@ const styles = StyleSheet.create({
   },
   userWindow: {
     marginTop: 15,
+  },
+  tenantSection: {
+    width: '100%',
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+    marginTop: 15,
+  },
+  userCard: {
+    alignItems: 'center',
+    marginHorizontal: 10,
+  },
+  userIconStyle: {
+    width: 75,
+    height: 75,
+  },
+  userImageContainerStyle: {
+    width: 60,
+    height: 60,
+  },
+  userImageStyle: {
+    width: 60,
+    height: 60,
   },
 });
 

@@ -73,7 +73,7 @@ export const createLofft = async ({name, description, docId}) => {
       await firestore()
         .collection('Users')
         .doc(docId)
-        .update({lofft: {lofft_id: response.id, name, description}});
+        .update({lofft: {lofftId: response.id, name, description}});
     });
 };
 
