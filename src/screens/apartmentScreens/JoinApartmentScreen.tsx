@@ -57,16 +57,31 @@ const JoinApartmentScreen = () => {
                   setResults(await findLofft(formInput));
                 };
                 search();
+                console.log(results);
               }}
             />
           </View>
         </ImageBackground>
       </View>
-      {results ? (
-        <View>
-          <Text style={fontStyles.headerSmall}>Results</Text>
-        </View>
-      ) : null}
+      <View>
+        {results ? (
+          <>
+            <Text style={fontStyles.headerSmall}>Results</Text>
+            <View style={styles.lofftCard}>
+              <View>
+                <Text style={fontStyles.headerSmall}>{results.name}</Text>
+                <Text style={fontStyles.bodyMedium}>{results.description}</Text>
+              </View>
+              <CoreButton
+                value="Join"
+                style={[styles.buttons, styles.smallButton]}
+              />
+            </View>
+          </>
+        ) : (
+          <Text style={fontStyles.headerSmall}>There are no results</Text>
+        )}
+      </View>
     </View>
   );
 };
@@ -91,6 +106,13 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     paddingHorizontal: 15,
   },
+  lofftCard: {
+    height: 150,
+    justifyContent: 'space-between',
+    backgroundColor: color.Blue[10],
+    borderRadius: 12,
+    padding: 5,
+  },
   buttonContainer: {
     width: '100%',
     flexDirection: 'row',
@@ -98,6 +120,14 @@ const styles = StyleSheet.create({
   },
   buttons: {
     width: 150,
+  },
+  smallButton: {
+    alignSelf: 'flex-end',
+    width: 80,
+    height: 30,
+    borderRadius: 5,
+    backgroundColor: color.Mint['80'],
+    borderColor: color.Mint['80'],
   },
 });
 

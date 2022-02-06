@@ -81,14 +81,14 @@ export const createLofft = async ({name, description, docId}) => {
 export const findLofft = async param => {
   const result = await firestore().collection('Loffts').doc(param).get();
   if (result.exists) {
-    return "I'm Here";
+    return result.data();
   } else {
     const nameSearch = await firestore()
       .collection('Loffts')
       .where('name', '==', param)
       .get();
 
-    return nameSearch.docs.length > 0 ? nameSearch.docs : false;
+    return nameSearch.docs.length > 0 ? nameSearch.docs[0].data() : false;
   }
 };
 
