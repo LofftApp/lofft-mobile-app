@@ -10,25 +10,17 @@ if (__DEV__) {
   storage().useEmulator('localhost', 9199);
 }
 
-export const userImageUpload = docId => {
-  const response = url => {
+export const userImageUpload = async docId => {
+  const user = auth().currentUser;
+  const result = await launchImageLibrary({mediaType: 'photo'});
+  const reference = storage().ref(`${user.uid}/userImage/profile.jpg`);
+  const pathToFile = `${utils.FilePath.TEMP_DIRECTORY}/${result.assets[0].fileName}`;
+  // Upload file
+  await reference.putFile(pathToFile);
+  const url = await reference.getDownloadURL();
+  if (url) {
+    addImageToAuth(url);
+    uploadImageToUserProfile(docId, url);
     return url;
-  };
-  auth().onAuthStateChanged(async user => {
-    if (user) {
-      const result = await launchImageLibrary({mediaType: 'photo'});
-      const reference = storage().ref(`${user.uid}/userImage/profile.jpg`);
-      const pathToFile = `${utils.FilePath.TEMP_DIRECTORY}/${result.assets[0].fileName}`;
-      // Upload file
-      await reference.putFile(pathToFile);
-      const url = await reference.getDownloadURL();
-      if (url) {
-        addImageToAuth(url);
-        uploadImageToUserProfile(docId, url);
-        response(url);
-      } else {
-        return {message: 'Action Cancelled'};
-      }
-    }
-  });
+  }
 };
