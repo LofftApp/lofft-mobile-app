@@ -15,7 +15,10 @@ import shapesBackground from './../../assets/backgroundShapes/mint.png';
 
 // Firestore
 import firestore from '@react-native-firebase/firestore';
-import {confirmUserLofft} from '../../api/firebase/fireStoreActions';
+import {
+  confirmUserLofft,
+  updateLofft,
+} from '../../api/firebase/fireStoreActions';
 
 // stylesheets
 import color from '../../assets/defaultColorPallet.json';
@@ -30,7 +33,7 @@ const ViewApartmentScreen = ({route}) => {
   const [lofftId] = useState(route.params.lofft);
   const [admin] = useState(true);
   const [edit, setEdit] = useState(false);
-  const [title, setTitle] = useState('');
+  const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [address, setAddress] = useState('');
   const [tenants, setTenants] = useState([]);
@@ -67,7 +70,7 @@ const ViewApartmentScreen = ({route}) => {
         const userList = [];
         setTenants([]);
         const lofft = queryData.data();
-        setTitle(lofft.name);
+        setName(lofft.name);
         setDescription(lofft.description);
         if (lofft.address) setAddress(lofft.address);
         if (lofft.users.length > 0) userList.push(lofft.users);
@@ -117,14 +120,14 @@ const ViewApartmentScreen = ({route}) => {
             <View>
               {edit ? (
                 <TextInput
-                  value={title}
+                  value={name}
                   style={[fontStyles.headerMedium, styles.inputField]}
                   onChangeText={e => {
-                    setTitle(e);
+                    setName(e);
                   }}
                 />
               ) : (
-                <Text style={fontStyles.headerMedium}>{title}</Text>
+                <Text style={fontStyles.headerMedium}>{name}</Text>
               )}
               {/* Address Section */}
               {edit ? (
@@ -146,16 +149,30 @@ const ViewApartmentScreen = ({route}) => {
             </View>
             {/* Toggle Edit mode if admin */}
             {admin ? (
-              <TouchableOpacity
-                onPress={() => {
-                  edit ? setEdit(false) : setEdit(true);
-                }}>
-                <Icon
-                  name="settings-outline"
-                  size={25}
-                  color={color.Black[30]}
-                />
-              </TouchableOpacity>
+              edit ? (
+                <TouchableOpacity
+                  onPress={() => {
+                    updateLofft(lofftId, name, description, address);
+                    edit ? setEdit(false) : setEdit(true);
+                  }}>
+                  <Icon
+                    name="checkmark-outline"
+                    size={25}
+                    color={color.Black[30]}
+                  />
+                </TouchableOpacity>
+              ) : (
+                <TouchableOpacity
+                  onPress={() => {
+                    edit ? setEdit(false) : setEdit(true);
+                  }}>
+                  <Icon
+                    name="settings-outline"
+                    size={25}
+                    color={color.Black[30]}
+                  />
+                </TouchableOpacity>
+              )
             ) : null}
           </View>
         </View>
@@ -182,7 +199,6 @@ const ViewApartmentScreen = ({route}) => {
         <View style={styles.userWindow}>
           <View style={styles.tenantSection}>
             {tenants.map(t => {
-              console.log(t);
               return (
                 <View style={styles.userCard} key={t.name}>
                   <UserIcon

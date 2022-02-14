@@ -131,6 +131,12 @@ export const confirmUserLofft = (userId, lofftId) => {
   lofft.update({pendingUsers: firestore.FieldValue.arrayRemove(userId)});
 };
 
+// Edit lofft details
+export const updateLofft = (id, name, description, address) => {
+  firestore().collection('Loffts').doc(id).update({name, description, address});
+  console.log('Update complete');
+};
+
 // Add and edit Bills
 export const billQuery = async () => {
   let total = 0;
