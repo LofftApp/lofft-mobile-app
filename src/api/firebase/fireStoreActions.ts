@@ -115,6 +115,22 @@ export const joinLofft = async lofftId => {
   return true;
 };
 
+export const findTenants = async users => {
+  users.map(async user => {
+    const response = await firestore().collection('Users').doc(user).get();
+    response.data();
+  });
+};
+
+// Confirm new member
+export const confirmUserLofft = (userId, lofftId) => {
+  console.log(`user: ${userId}, lofft: ${lofftId}`);
+  firestore().collection('Users').doc(userId).update({'lofft.pending': false});
+  const lofft = firestore().collection('Loffts').doc(lofftId);
+  lofft.update({users: firestore.FieldValue.arrayUnion(userId)});
+  lofft.update({pendingUsers: firestore.FieldValue.arrayRemove(userId)});
+};
+
 // Add and edit Bills
 export const billQuery = async () => {
   let total = 0;

@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   ImageBackground,
   TextInput,
+  Alert,
 } from 'react-native';
 import {navigationRef as navigation} from '../../RootNavigation';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -14,6 +15,7 @@ import shapesBackground from './../../assets/backgroundShapes/mint.png';
 
 // Firestore
 import firestore from '@react-native-firebase/firestore';
+import {confirmUserLofft} from '../../api/firebase/fireStoreActions';
 
 // stylesheets
 import color from '../../assets/defaultColorPallet.json';
@@ -32,33 +34,63 @@ const ViewApartmentScreen = ({route}) => {
   const [description, setDescription] = useState('');
   const [address, setAddress] = useState('');
   const [tenants, setTenants] = useState([]);
-  console.log(lofftId);
+  const [update, setUpdate] = useState(false);
+
+  const showAlert = (userId, lofftId) =>
+    Alert.alert('Approve user', 'My Alert Msg', [
+      {
+        text: 'Confirm',
+        onPress: () => {
+          confirmUserLofft(userId, lofftId);
+          update ? setUpdate(false) : setUpdate(true);
+        },
+        style: 'default',
+      },
+      {
+        text: 'Reject',
+        onPress: () => Alert.alert('Cancel Pressed'),
+        style: 'destructive',
+      },
+      {
+        text: 'Cancel',
+        onPress: () => Alert.alert('Cancel Pressed'),
+        style: 'cancel',
+      },
+    ]);
+
   useEffect(() => {
-    setTenants([]);
-    const unsubscribe = firestore()
+    firestore()
       .collection('Loffts')
       .doc(lofftId)
-      .onSnapshot(snapShot => {
-        const lofft = snapShot.data();
-        console.log(lofft);
+      .get()
+      .then(queryData => {
+        const userList = [];
+        setTenants([]);
+        const lofft = queryData.data();
         setTitle(lofft.name);
         setDescription(lofft.description);
         if (lofft.address) setAddress(lofft.address);
-        if (lofft.users)
-          lofft.users.forEach(async user => {
-            let userToAdd = {};
-            const queryUser = await firestore()
-              .collection('Users')
-              .doc(user)
-              .get();
-            const response = queryUser.data();
-            userToAdd = {name: response.name, imageURI: response.imageURI};
-            setTenants(tenants => [...tenants, userToAdd]);
-          });
+        if (lofft.users.length > 0) userList.push(lofft.users);
+        if (lofft.pendingUsers.length > 0) userList.push(lofft.pendingUsers);
+        const usersList = userList.join().split(',');
+        usersList.forEach(async user => {
+          const response = await firestore()
+            .collection('Users')
+            .doc(user)
+            .get();
+          const userData = response.data();
+          setTenants(tenants => [
+            ...tenants,
+            {
+              name: userData.name,
+              imageURI: userData.imageURI,
+              id: user,
+              pending: userData.lofft.pending,
+            },
+          ]);
+        });
       });
-    return () => unsubscribe();
-  }, []);
-  console.log(tenants);
+  }, [update]);
   return (
     <View
       style={[
@@ -150,18 +182,22 @@ const ViewApartmentScreen = ({route}) => {
         <View style={styles.userWindow}>
           <View style={styles.tenantSection}>
             {tenants.map(t => {
+              console.log(t);
               return (
-                <View style={styles.userCard}>
+                <View style={styles.userCard} key={t.name}>
                   <UserIcon
-                    image={{uri: t.imageURI}}
-                    onPress={() => {}}
+                    image={t.imageURI ? {uri: t.imageURI} : ''}
+                    onPress={() => showAlert(t.id, lofftId)}
                     userIconStyle={styles.userIconStyle}
                     userImageContainerStyle={styles.userImageContainerStyle}
                     userImageStyle={styles.userImageStyle}
+                    disabled={t.pending ? false : true}
                   />
-                  <Text style={fontStyles.buttonTextMedium}>
+                  <Text
+                    style={[fontStyles.buttonTextMedium, styles.userCardText]}>
                     {t.name.split(' ')[0]}
                   </Text>
+                  {t.pending ? <Text>Pending</Text> : null}
                 </View>
               );
             })}
@@ -236,24 +272,26 @@ const styles = StyleSheet.create({
   tenantSection: {
     width: '100%',
     flexDirection: 'row',
-    justifyContent: 'space-evenly',
+    justifyContent: 'space-around',
     marginTop: 15,
   },
   userCard: {
     alignItems: 'center',
     marginHorizontal: 10,
   },
+  userCardText: {marginVertical: 10},
   userIconStyle: {
-    width: 75,
-    height: 75,
+    width: 85,
+    height: 85,
   },
   userImageContainerStyle: {
-    width: 60,
-    height: 60,
+    width: 70,
+    height: 70,
+    borderColor: color.White[0],
   },
   userImageStyle: {
-    width: 60,
-    height: 60,
+    width: 70,
+    height: 70,
   },
 });
 
