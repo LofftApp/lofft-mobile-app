@@ -28,6 +28,7 @@ import {fontStyles} from '../../StyleSheets/FontStyleSheet';
 // Components
 import CustomBackButton from '../../components/CustomBackButton';
 import UserIcon from '../../components/UserIcon';
+import HeaderImageBanner from '../../components/HeaderImageBanner';
 
 const ViewApartmentScreen = ({route}) => {
   const [lofftId] = useState(route.params.lofft);
@@ -94,6 +95,7 @@ const ViewApartmentScreen = ({route}) => {
         });
       });
   }, [update]);
+
   return (
     <View
       style={[
@@ -105,78 +107,15 @@ const ViewApartmentScreen = ({route}) => {
         <CustomBackButton title="Lofft" onPress={() => navigation.goBack()} />
       </View>
       {/* Banner Background */}
-      <ImageBackground
-        source={shapesBackground}
-        style={styles.imageBannerBackground}>
-        <View style={styles.headerUpload}>
-          <Text>🏳️‍🌈 🌱</Text>
-          {admin ? (
-            <Icon name="image-outline" size={25} color={color.Black[30]} />
-          ) : null}
-        </View>
-        <View style={styles.headerBanner}>
-          {/* Title Text and address container */}
-          <View style={styles.title}>
-            <View>
-              {edit ? (
-                <TextInput
-                  value={name}
-                  style={[fontStyles.headerMedium, styles.inputField]}
-                  onChangeText={e => {
-                    setName(e);
-                  }}
-                />
-              ) : (
-                <Text style={fontStyles.headerMedium}>{name}</Text>
-              )}
-              {/* Address Section */}
-              {edit ? (
-                <View style={styles.addField}>
-                  <TextInput
-                    style={[fontStyles.bodySmall, styles.inputField]}
-                    value={address}
-                    onChangeText={e => setAddress(e)}
-                    placeholder="Address line 1"
-                  />
-                </View>
-              ) : address ? (
-                <View style={styles.addressBar}>
-                  <Text style={[fontStyles.bodySmall, styles.address]}>
-                    {address}
-                  </Text>
-                </View>
-              ) : null}
-            </View>
-            {/* Toggle Edit mode if admin */}
-            {admin ? (
-              edit ? (
-                <TouchableOpacity
-                  onPress={() => {
-                    updateLofft(lofftId, name, description, address);
-                    edit ? setEdit(false) : setEdit(true);
-                  }}>
-                  <Icon
-                    name="checkmark-outline"
-                    size={25}
-                    color={color.Black[30]}
-                  />
-                </TouchableOpacity>
-              ) : (
-                <TouchableOpacity
-                  onPress={() => {
-                    edit ? setEdit(false) : setEdit(true);
-                  }}>
-                  <Icon
-                    name="settings-outline"
-                    size={25}
-                    color={color.Black[30]}
-                  />
-                </TouchableOpacity>
-              )
-            ) : null}
-          </View>
-        </View>
-      </ImageBackground>
+      <HeaderImageBanner
+        nameParameters={{name, setNameValue: e => setName(e)}}
+        subInfo={{value: address, setSubInfoValue: e => setAddress(e)}}
+        editState={{edit, setEditValue: () => setEdit(true)}}
+        updateButton={() => {
+          updateLofft(lofftId, name, description, address);
+          edit ? setEdit(false) : setEdit(true);
+        }}
+      />
       <View style={styles.body}>
         {/* Lofft Description Section */}
         <View style={styles.desciptionContainer}>
@@ -228,56 +167,11 @@ const styles = StyleSheet.create({
   overidePresets: {
     paddingHorizontal: 0,
   },
-  imageBannerBackground: {
-    backgroundColor: color.Mint[10],
-    paddingVertical: 10,
-    marginTop: 25,
-  },
-  headerBanner: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'flex-end',
-    height: 150,
-  },
-  headerUpload: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    paddingHorizontal: 25,
-  },
   body: {
     paddingHorizontal: 25,
   },
-  textArea: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    width: '100%',
-  },
-  title: {
-    width: '100%',
-    paddingHorizontal: 25,
-    justifyContent: 'space-between',
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  inputField: {
-    paddingTop: 0,
-    paddingBottom: 0,
-    paddingVertical: 10,
-    backgroundColor: color.Lavendar[10],
-    marginTop: 0,
-  },
   desciptionContainer: {
     marginTop: 25,
-  },
-  addField: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginTop: 15,
-  },
-  address: {},
-  addressBar: {
-    paddingLeft: 10,
   },
   description: {
     textAlign: 'justify',
