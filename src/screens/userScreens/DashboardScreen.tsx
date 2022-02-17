@@ -8,9 +8,14 @@ import {fontStyles} from './../../StyleSheets/FontStyleSheet';
 
 // Components
 import HeaderBar from '../../components/HeaderBar';
-import MoneyActionButton from './../../components/MoneyActionButton';
+import ActionButton from '../../components/buttons/ActionButton';
 import PendingPaymentContainer from './../../components/PendingPaymentContainer';
 import ZeroPendingPaymentsContainer from '../../components/ZeroPendingPayments';
+
+// Assets
+import sendButtonBackground from './../../assets/sendButtonBackground.png';
+import requestButtonBackground from './../../assets/requestButtonBackground.png';
+import requestIcon from './../../assets/requestIcon.png';
 
 // API Interactions
 // import {my_bills} from './../../context/BillsQuery';
@@ -120,8 +125,17 @@ const DashboardScreen = ({navigation}: any) => {
           )}
 
           <View style={styles.moneyActionContainer}>
-            <MoneyActionButton />
-            <MoneyActionButton requestAction={true} />
+            <ActionButton
+              text="Send"
+              backgroundImage={sendButtonBackground}
+              iconName="send-outline"
+              buttonColor={color.Mint[100]}
+            />
+            <ActionButton
+              text="Request"
+              backgroundImage={requestButtonBackground}
+              customIcon={requestIcon}
+            />
           </View>
           <View style={styles.chartPillContainer}>
             <Text style={fontStyles.buttonTextLarge}>Your Stats</Text>

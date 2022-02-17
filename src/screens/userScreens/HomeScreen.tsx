@@ -3,6 +3,11 @@ import {View, Text, StyleSheet, Platform, ImageBackground} from 'react-native';
 
 // Components
 import HeaderBar from '../../components/HeaderBar';
+import ActionButton from '../../components/buttons/ActionButton';
+
+// Assets
+import sendButtonBackground from './../../assets/sendButtonBackground.png';
+import requestButtonBackground from './../../assets/requestButtonBackground.png';
 
 // Stylesheets
 import color from '../../assets/defaultColorPallet.json';
@@ -97,6 +102,20 @@ const HomeScreen = () => {
           </View>
         </ImageBackground>
       )}
+      <View style={styles.actionButtonContainer}>
+        <ActionButton
+          text="Find"
+          backgroundImage={sendButtonBackground}
+          iconName="search-outline"
+          buttonColor={color.Mint[100]}
+        />
+        <ActionButton
+          text="Manage"
+          backgroundImage={requestButtonBackground}
+          iconName="flask-outline"
+          buttonColor={color.Gold[100]}
+        />
+      </View>
     </View>
   );
 };
@@ -121,7 +140,8 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     height: 172,
-    marginVertical: 16,
+    marginTop: 16,
+    marginBottom: 10,
     padding: 16,
     borderWidth: 1,
     borderColor: color.White[0],
@@ -144,6 +164,11 @@ const styles = StyleSheet.create({
     backgroundColor: color.Mint[50],
   },
   pendingText: {color: color.White[80]},
+  actionButtonContainer: {
+    width: '100%',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
 });
 
 export default HomeScreen;
