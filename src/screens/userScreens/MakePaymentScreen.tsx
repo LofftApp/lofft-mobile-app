@@ -1,6 +1,5 @@
 import React, {useState, useEffect} from 'react';
 import {View, Text, StyleSheet, Platform} from 'react-native';
-import {getUser} from '../../api/firebase/firebaseApi';
 
 // StyleSheets
 import color from './../../assets/defaultColorPallet.json';
@@ -8,13 +7,16 @@ import {CoreStyleSheet} from '../../StyleSheets/CoreDesignStyleSheet';
 import {fontStyles} from '../../StyleSheets/FontStyleSheet';
 
 // Components
-import CustomBackButton from '../../components/CustomBackButton';
-import UserIcon from '../../components/UserIcon';
-import PaymentCard from '../../components/PaymentCard';
-import {CoreButton} from '../../components/CoreButton';
+import CustomBackButton from '../../components/buttons/CustomBackButton';
+import UserIcon from '../../components/iconsAndContainers/UserIcon';
+import PaymentCard from '../../components/cards/PaymentCard';
+import {CoreButton} from '../../components/buttons/CoreButton';
 
 // Assets
 import userImage from '../../assets/user.jpeg';
+
+// Firebase
+import {getUser} from '../../api/firebase/firebaseApi';
 
 const MakePayment = ({navigation, route}: any) => {
   const [billDetails] = useState(route.params.billDetails);

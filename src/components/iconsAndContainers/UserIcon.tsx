@@ -1,6 +1,6 @@
 import React from 'react';
 import {TouchableOpacity, View, Image, StyleSheet} from 'react-native';
-import color from './../assets/defaultColorPallet.json';
+import color from './../../assets/defaultColorPallet.json';
 
 import Icon from 'react-native-vector-icons/Ionicons';
 

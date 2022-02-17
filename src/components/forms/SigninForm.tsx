@@ -7,10 +7,10 @@ import {
   StyleSheet,
 } from 'react-native';
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
-import color from '../assets/defaultColorPallet.json';
-import {fontStyles} from '../StyleSheets/FontStyleSheet';
-import {CoreButton} from './CoreButton';
-import {signup, signin} from '../api/firebase/firebaseApi';
+import color from '../../assets/defaultColorPallet.json';
+import {fontStyles} from '../../StyleSheets/FontStyleSheet';
+import {CoreButton} from './../buttons/CoreButton';
+import {signup, signin} from '../../api/firebase/firebaseApi';
 
 const SigninForm = ({navigation, signupForm = false}: any) => {
   const [email, setEmail] = useState('');

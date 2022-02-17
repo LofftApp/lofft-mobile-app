@@ -1,14 +1,18 @@
 import React, {useState} from 'react';
 import {View, Text, StyleSheet, Platform, TextInput} from 'react-native';
-import CustomBackButton from '../../components/CustomBackButton';
 import {navigationRef as navigation} from './../../RootNavigation';
-import {createLofft} from '../../api/firebase/fireStoreActions';
 
 // StyleSheets
 import color from './../../assets/defaultColorPallet.json';
 import {CoreStyleSheet} from '../../StyleSheets/CoreDesignStyleSheet';
 import {fontStyles} from './../../StyleSheets/FontStyleSheet';
-import {CoreButton} from '../../components/CoreButton';
+
+// Components
+import {CoreButton} from '../../components/buttons/CoreButton';
+import CustomBackButton from '../../components/buttons/CustomBackButton';
+
+// Firebase
+import {createLofft} from '../../api/firebase/fireStoreActions';
 
 const AddApartmentScreen = ({route}) => {
   const [name, setName] = useState('');

@@ -1,21 +1,23 @@
 import React, {useState, useEffect} from 'react';
 import {View, Text, StyleSheet, Platform, ImageBackground} from 'react-native';
+import {navigationRef as navigation} from '../../RootNavigation';
 
 // Components
-import HeaderBar from '../../components/HeaderBar';
+import HeaderBar from '../../components/bannersAndBars/HeaderBar';
 import ActionButton from '../../components/buttons/ActionButton';
+import {CoreButton} from '../../components/buttons/CoreButton';
 
 // Assets
 import sendButtonBackground from './../../assets/sendButtonBackground.png';
 import requestButtonBackground from './../../assets/requestButtonBackground.png';
+import paymentContainerBackground from './../../assets/paymentContainer.png';
 
 // Stylesheets
 import color from '../../assets/defaultColorPallet.json';
 import {CoreStyleSheet} from '../../StyleSheets/CoreDesignStyleSheet';
 import {fontStyles} from '../../StyleSheets/FontStyleSheet';
-import paymentContainerBackground from './../../assets/paymentContainer.png';
-import {CoreButton} from '../../components/CoreButton';
-import {navigationRef as navigation} from '../../RootNavigation';
+
+// Firebase
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 

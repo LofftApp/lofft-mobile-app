@@ -7,10 +7,11 @@ import {CoreStyleSheet} from '../../StyleSheets/CoreDesignStyleSheet';
 import {fontStyles} from './../../StyleSheets/FontStyleSheet';
 
 // Components
-import HeaderBar from '../../components/HeaderBar';
+import HeaderBar from '../../components/bannersAndBars/HeaderBar';
 import ActionButton from '../../components/buttons/ActionButton';
-import PendingPaymentContainer from './../../components/PendingPaymentContainer';
-import ZeroPendingPaymentsContainer from '../../components/ZeroPendingPayments';
+import PendingPaymentContainer from './../../components/iconsAndContainers/PendingPaymentContainer';
+import ZeroPendingPaymentsContainer from '../../components/iconsAndContainers/ZeroPendingPayments';
+import ToggleBar from './../../components/bannersAndBars/ToggleBar';
 
 // Assets
 import sendButtonBackground from './../../assets/sendButtonBackground.png';
@@ -25,7 +26,6 @@ import TestChartWeek from './../../components/charts/TestChartWeek';
 import TestChartMonth from './../../components/charts/TestChartMonth';
 import TestChartYear from './../../components/charts/TestChartYear';
 import {userDetailsUpdate} from '../../api/firebase/fireStoreActions';
-import ToggleBar from './../../components/ToggleBar';
 
 // Fierstore
 import auth from '@react-native-firebase/auth';

@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, TouchableOpacity, Text, StyleSheet} from 'react-native';
-import {fontStyles} from '../StyleSheets/FontStyleSheet';
-import color from './../assets/defaultColorPallet.json';
+import {fontStyles} from '../../StyleSheets/FontStyleSheet';
+import color from '../../assets/defaultColorPallet.json';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 // The active Icon is used on cards but is conditional that the card is active.

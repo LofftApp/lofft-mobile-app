@@ -4,8 +4,8 @@ import {View, Platform} from 'react-native';
 // StyleSheets
 import {CoreStyleSheet} from '../../StyleSheets/CoreDesignStyleSheet';
 // Components
-import CustomBackButton from './../../components/CustomBackButton';
-import SigninForm from './../../components/SigninForm';
+import CustomBackButton from './../../components/buttons/CustomBackButton';
+import SigninForm from './../../components/forms/SigninForm';
 
 const SignupScreen = ({navigation}: any) => {
   return (

@@ -1,9 +1,9 @@
 import React, {useState} from 'react';
 import {View, StyleSheet} from 'react-native';
 import color from './../assets/defaultColorPallet.json';
-import {CoreButton} from '../components/CoreButton';
-import HomeCarosel from '../components/HomeCarosel';
-import PaginationBar from '../components/PaginationBar';
+import {CoreButton} from '../components/buttons/CoreButton';
+import HomeCarosel from '../components/bannersAndBars/HomeCarosel';
+import PaginationBar from '../components/bannersAndBars/PaginationBar';
 
 const HomeScreen = ({navigation}: any) => {
   const [screen, setScreen] = useState(0);

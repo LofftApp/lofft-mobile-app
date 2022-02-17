@@ -1,12 +1,12 @@
 import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
-import {navigationRef} from '../RootNavigation';
+import {navigationRef} from '../../RootNavigation';
 
 // Components
-import UserIcon from './UserIcon';
+import UserIcon from '../iconsAndContainers/UserIcon';
 
 // Stylesheets
-import {fontStyles} from './../StyleSheets/FontStyleSheet';
+import {fontStyles} from '../../StyleSheets/FontStyleSheet';
 
 const HeaderBar = ({title, image = ''}) => {
   return (
