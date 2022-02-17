@@ -24,6 +24,8 @@ import firestore from '@react-native-firebase/firestore';
 
 // Appartment Screens
 import AddApartmentScreen from './src/screens/apartmentScreens/AddApartmentScreen';
+import JoinApartmentScreen from './src/screens/apartmentScreens/JoinApartmentScreen';
+import ViewApartmentScreen from './src/screens/apartmentScreens/ViewApartmentScreen';
 
 const Stack = createStackNavigator();
 
@@ -92,8 +94,18 @@ const App = () => {
           />
           {/* Apartment Management Screens */}
           <Stack.Screen
+            name="ViewApartment"
+            component={ViewApartmentScreen}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
             name="AddApartment"
             component={AddApartmentScreen}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="JoinApartment"
+            component={JoinApartmentScreen}
             options={{headerShown: false}}
           />
         </>

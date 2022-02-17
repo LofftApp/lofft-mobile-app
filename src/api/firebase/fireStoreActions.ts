@@ -73,8 +73,68 @@ export const createLofft = async ({name, description, docId}) => {
       await firestore()
         .collection('Users')
         .doc(docId)
-        .update({lofft: {lofft_id: response.id, name, description}});
+        .update({lofft: {lofftId: response.id, name, description}});
     });
+};
+
+// Find a loft space through search
+export const findLofft = async param => {
+  const result = await firestore().collection('Loffts').doc(param).get();
+  if (result.exists) {
+    return result;
+  } else {
+    const nameSearch = await firestore()
+      .collection('Loffts')
+      .where('name', '==', param)
+      .get();
+
+    return nameSearch.docs.length > 0 ? nameSearch.docs[0] : false;
+  }
+};
+
+// Join a lofft from Search
+export const joinLofft = async lofftId => {
+  const currentUser = auth().currentUser;
+  const user = await getCurrentUserDetails(currentUser);
+  const lofftRoute = await firestore().collection('Loffts').doc(lofftId);
+  const lofft = (await lofftRoute.get()).data();
+  lofftRoute.update({
+    pendingUsers: firestore.FieldValue.arrayUnion(user.docId),
+  });
+  await firestore()
+    .collection('Users')
+    .doc(user.docId)
+    .update({
+      lofft: {
+        lofftId,
+        name: lofft.name,
+        description: lofft.description,
+        pending: true,
+      },
+    });
+  return true;
+};
+
+export const findTenants = async users => {
+  users.map(async user => {
+    const response = await firestore().collection('Users').doc(user).get();
+    response.data();
+  });
+};
+
+// Confirm new member
+export const confirmUserLofft = (userId, lofftId) => {
+  console.log(`user: ${userId}, lofft: ${lofftId}`);
+  firestore().collection('Users').doc(userId).update({'lofft.pending': false});
+  const lofft = firestore().collection('Loffts').doc(lofftId);
+  lofft.update({users: firestore.FieldValue.arrayUnion(userId)});
+  lofft.update({pendingUsers: firestore.FieldValue.arrayRemove(userId)});
+};
+
+// Edit lofft details
+export const updateLofft = (id, name, description, address) => {
+  firestore().collection('Loffts').doc(id).update({name, description, address});
+  console.log('Update complete');
 };
 
 // Add and edit Bills

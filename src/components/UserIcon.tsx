@@ -10,11 +10,13 @@ const UserIcon = ({
   userImageContainerStyle = {},
   userImageStyle = {},
   onPress = {},
+  disabled = false,
 }: any) => {
   return (
     <TouchableOpacity
       style={[styles.backgroundCurcle, userIconStyle]}
-      onPress={onPress}>
+      onPress={onPress}
+      disabled={disabled}>
       <View style={[styles.imageContainer, userImageContainerStyle]}>
         {image === '' ? (
           <Icon name="person-outline" size={45} color={color.Lavendar[100]} />

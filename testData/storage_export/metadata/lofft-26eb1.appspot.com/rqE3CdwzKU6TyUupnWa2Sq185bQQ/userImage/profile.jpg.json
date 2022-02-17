@@ -3,16 +3,16 @@
   "bucket": "lofft-26eb1.appspot.com",
   "contentType": "image/jpeg",
   "metageneration": 1,
-  "generation": 1644075388608,
+  "generation": 1644147353452,
   "storageClass": "STANDARD",
   "etag": "someETag",
   "contentDisposition": "inline",
   "contentEncoding": "identity",
   "downloadTokens": [
-    "c9f4ae49-65a0-4305-93c0-338d3ed86585"
+    "c19cca25-95e8-42be-bfbd-31f401c27ef7"
   ],
-  "timeCreated": "2022-02-05T15:36:28.607Z",
-  "updated": "2022-02-05T15:36:28.649Z",
+  "timeCreated": "2022-02-06T11:35:53.451Z",
+  "updated": "2022-02-06T11:35:53.489Z",
   "size": 3425899,
   "md5Hash": "/5Rh2rLehmK2hW6x+4Hk6Q==",
   "crc32c": "2021808142"
