@@ -8,6 +8,7 @@ import {
   Platform,
   TextInput,
 } from 'react-native';
+import {navigationRef} from '../../RootNavigation';
 
 // Firebase
 import {
@@ -21,13 +22,12 @@ import auth from '@react-native-firebase/auth';
 import CustomBackButton from '../../components/buttons/CustomBackButton';
 import UserIcon from '../../components/iconsAndContainers/UserIcon';
 import Icon from 'react-native-vector-icons/Ionicons';
+import {CoreButton} from '../../components/buttons/CoreButton';
 
 // Stylesheets
 import color from './../../assets/defaultColorPallet.json';
 import {CoreStyleSheet} from '../../StyleSheets/CoreDesignStyleSheet';
 import {fontStyles} from './../../StyleSheets/FontStyleSheet';
-import {navigationRef} from '../../RootNavigation';
-import {CoreButton} from '../../components/buttons/CoreButton';
 
 const ProfileScreen = () => {
   const [image, setImage]: any = useState('');

@@ -116,6 +116,7 @@ const HomeScreen = () => {
           backgroundImage={requestButtonBackground}
           iconName="flask-outline"
           buttonColor={color.Gold[100]}
+          onPress={() => navigation.navigate('ManageLofft')}
         />
       </View>
     </View>

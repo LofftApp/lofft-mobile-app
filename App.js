@@ -16,6 +16,7 @@ import PaymentConfirmationScreen from './src/screens/userScreens/PaymentConfirma
 import PaidConfirmationScreen from './src/screens/userScreens/PaidConfirmationScreen';
 import UserOptionsScreen from './src/screens/userScreens/UserOptionsScreen';
 import ProfileScreen from './src/screens/userScreens/ProfileScreen';
+import ManageLofftScreen from './src/screens/userScreens/ManageLofftScreen';
 
 // FireStore
 import auth from '@react-native-firebase/auth';
@@ -106,6 +107,11 @@ const App = () => {
           <Stack.Screen
             name="JoinApartment"
             component={JoinApartmentScreen}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="ManageLofft"
+            component={ManageLofftScreen}
             options={{headerShown: false}}
           />
         </>
