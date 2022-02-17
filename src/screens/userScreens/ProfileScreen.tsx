@@ -18,8 +18,8 @@ import {userImageUpload} from '../../api/firebase/firebaseStorage';
 import auth from '@react-native-firebase/auth';
 
 // Components
-import CustomBackButton from '../../components/CustomBackButton';
-import UserIcon from '../../components/UserIcon';
+import CustomBackButton from '../../components/buttons/CustomBackButton';
+import UserIcon from '../../components/iconsAndContainers/UserIcon';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 // Stylesheets
@@ -27,7 +27,7 @@ import color from './../../assets/defaultColorPallet.json';
 import {CoreStyleSheet} from '../../StyleSheets/CoreDesignStyleSheet';
 import {fontStyles} from './../../StyleSheets/FontStyleSheet';
 import {navigationRef} from '../../RootNavigation';
-import {CoreButton} from '../../components/CoreButton';
+import {CoreButton} from '../../components/buttons/CoreButton';
 
 const ProfileScreen = () => {
   const [image, setImage]: any = useState('');

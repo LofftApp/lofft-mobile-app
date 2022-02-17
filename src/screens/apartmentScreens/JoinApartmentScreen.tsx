@@ -18,8 +18,8 @@ import {CoreStyleSheet} from '../../StyleSheets/CoreDesignStyleSheet';
 import {fontStyles} from '../../StyleSheets/FontStyleSheet';
 
 // Componenets
-import CustomBackButton from '../../components/CustomBackButton';
-import {CoreButton} from '../../components/CoreButton';
+import CustomBackButton from '../../components/buttons/CustomBackButton';
+import {CoreButton} from '../../components/buttons/CoreButton';
 
 // Images
 import paymentContainerBackground from './../../assets/paymentContainer.png';

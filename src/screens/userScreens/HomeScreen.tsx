@@ -1,16 +1,23 @@
 import React, {useState, useEffect} from 'react';
 import {View, Text, StyleSheet, Platform, ImageBackground} from 'react-native';
+import {navigationRef as navigation} from '../../RootNavigation';
 
 // Components
-import HeaderBar from '../../components/HeaderBar';
+import HeaderBar from '../../components/bannersAndBars/HeaderBar';
+import ActionButton from '../../components/buttons/ActionButton';
+import {CoreButton} from '../../components/buttons/CoreButton';
+
+// Assets
+import sendButtonBackground from './../../assets/sendButtonBackground.png';
+import requestButtonBackground from './../../assets/requestButtonBackground.png';
+import paymentContainerBackground from './../../assets/paymentContainer.png';
 
 // Stylesheets
 import color from '../../assets/defaultColorPallet.json';
 import {CoreStyleSheet} from '../../StyleSheets/CoreDesignStyleSheet';
 import {fontStyles} from '../../StyleSheets/FontStyleSheet';
-import paymentContainerBackground from './../../assets/paymentContainer.png';
-import {CoreButton} from '../../components/CoreButton';
-import {navigationRef as navigation} from '../../RootNavigation';
+
+// Firebase
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 
@@ -97,6 +104,20 @@ const HomeScreen = () => {
           </View>
         </ImageBackground>
       )}
+      <View style={styles.actionButtonContainer}>
+        <ActionButton
+          text="Find"
+          backgroundImage={sendButtonBackground}
+          iconName="search-outline"
+          buttonColor={color.Mint[100]}
+        />
+        <ActionButton
+          text="Manage"
+          backgroundImage={requestButtonBackground}
+          iconName="flask-outline"
+          buttonColor={color.Gold[100]}
+        />
+      </View>
     </View>
   );
 };
@@ -121,7 +142,8 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     height: 172,
-    marginVertical: 16,
+    marginTop: 16,
+    marginBottom: 10,
     padding: 16,
     borderWidth: 1,
     borderColor: color.White[0],
@@ -144,6 +166,11 @@ const styles = StyleSheet.create({
     backgroundColor: color.Mint[50],
   },
   pendingText: {color: color.White[80]},
+  actionButtonContainer: {
+    width: '100%',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
 });
 
 export default HomeScreen;

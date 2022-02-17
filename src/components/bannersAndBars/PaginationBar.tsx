@@ -1,15 +1,15 @@
-import React from "react";
-import { View, StyleSheet } from "react-native";
-import color from "./../assets/defaultColorPallet.json";
+import React from 'react';
+import {View, StyleSheet} from 'react-native';
+import color from '../../assets/defaultColorPallet.json';
 
-const PaginationBar = ({ screen }: any) => {
+const PaginationBar = ({screen}: any) => {
   const blobs = [1, 2, 3, 4];
   return (
     <View style={styles.pagination}>
       {blobs.map((i, index) => {
         const active =
           index === screen
-            ? { width: 29, backgroundColor: color.Lavendar[50] }
+            ? {width: 29, backgroundColor: color.Lavendar[50]}
             : null;
         return <View style={[styles.paginationBlob, active]} key={index} />;
       })}
@@ -19,9 +19,9 @@ const PaginationBar = ({ screen }: any) => {
 
 const styles = StyleSheet.create({
   pagination: {
-    width: "100%",
-    flexDirection: "row",
-    justifyContent: "center",
+    width: '100%',
+    flexDirection: 'row',
+    justifyContent: 'center',
   },
   paginationBlob: {
     width: 11,

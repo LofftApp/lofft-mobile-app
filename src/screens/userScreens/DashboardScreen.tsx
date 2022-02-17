@@ -7,10 +7,16 @@ import {CoreStyleSheet} from '../../StyleSheets/CoreDesignStyleSheet';
 import {fontStyles} from './../../StyleSheets/FontStyleSheet';
 
 // Components
-import HeaderBar from '../../components/HeaderBar';
-import MoneyActionButton from './../../components/MoneyActionButton';
-import PendingPaymentContainer from './../../components/PendingPaymentContainer';
-import ZeroPendingPaymentsContainer from '../../components/ZeroPendingPayments';
+import HeaderBar from '../../components/bannersAndBars/HeaderBar';
+import ActionButton from '../../components/buttons/ActionButton';
+import PendingPaymentContainer from './../../components/iconsAndContainers/PendingPaymentContainer';
+import ZeroPendingPaymentsContainer from '../../components/iconsAndContainers/ZeroPendingPayments';
+import ToggleBar from './../../components/bannersAndBars/ToggleBar';
+
+// Assets
+import sendButtonBackground from './../../assets/sendButtonBackground.png';
+import requestButtonBackground from './../../assets/requestButtonBackground.png';
+import requestIcon from './../../assets/requestIcon.png';
 
 // API Interactions
 // import {my_bills} from './../../context/BillsQuery';
@@ -20,7 +26,6 @@ import TestChartWeek from './../../components/charts/TestChartWeek';
 import TestChartMonth from './../../components/charts/TestChartMonth';
 import TestChartYear from './../../components/charts/TestChartYear';
 import {userDetailsUpdate} from '../../api/firebase/fireStoreActions';
-import ToggleBar from './../../components/ToggleBar';
 
 // Fierstore
 import auth from '@react-native-firebase/auth';
@@ -120,8 +125,17 @@ const DashboardScreen = ({navigation}: any) => {
           )}
 
           <View style={styles.moneyActionContainer}>
-            <MoneyActionButton />
-            <MoneyActionButton requestAction={true} />
+            <ActionButton
+              text="Send"
+              backgroundImage={sendButtonBackground}
+              iconName="send-outline"
+              buttonColor={color.Mint[100]}
+            />
+            <ActionButton
+              text="Request"
+              backgroundImage={requestButtonBackground}
+              customIcon={requestIcon}
+            />
           </View>
           <View style={styles.chartPillContainer}>
             <Text style={fontStyles.buttonTextLarge}>Your Stats</Text>

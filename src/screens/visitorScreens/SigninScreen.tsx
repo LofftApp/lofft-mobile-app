@@ -5,8 +5,8 @@ import {View, Platform} from 'react-native';
 import {CoreStyleSheet} from '../../StyleSheets/CoreDesignStyleSheet';
 
 // Components
-import SigninForm from './../../components/SigninForm';
-import CustomBackButton from './../../components/CustomBackButton';
+import SigninForm from './../../components/forms/SigninForm';
+import CustomBackButton from './../../components/buttons/CustomBackButton';
 
 const SigninScreen = ({navigation}: any) => {
   return (

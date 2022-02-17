@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useCallback} from 'react';
+import React, {useState} from 'react';
 import {
   View,
   Text,
@@ -7,33 +7,33 @@ import {
   StyleSheet,
   Dimensions,
 } from 'react-native';
-import {fontStyles} from '../StyleSheets/FontStyleSheet';
-import color from './../assets/defaultColorPallet.json';
+import {fontStyles} from '../../StyleSheets/FontStyleSheet';
+import color from '../../assets/defaultColorPallet.json';
 
 const {width} = Dimensions.get('screen');
 
 const DATA = [
   {
     colorRef: 'Mint',
-    imageUri: require('./../assets/handsHome.png'),
+    imageUri: require('./../../assets/handsHome.png'),
     headerText: 'Meet your people',
     text: "We match you with the flatmates that suit you best. You choose what's important to you.",
   },
   {
     colorRef: 'Gold',
-    imageUri: require('./../assets/moneyHome.png'),
+    imageUri: require('./../../assets/moneyHome.png'),
     headerText: 'No more 🤯 because of 💶',
     text: 'Lofft makes it easy to split bills and manage shared household finances.',
   },
   {
     colorRef: 'Lavendar',
-    imageUri: require('./../assets/eyesHome.png'),
+    imageUri: require('./../../assets/eyesHome.png'),
     headerText: 'Discover great flatshares',
     text: "No matter if you're looking for a flat or offering up your own space. Lofft makes the process pleasant and straight forward",
   },
   {
     colorRef: 'Blue',
-    imageUri: require('./../assets/peopleHome.png'),
+    imageUri: require('./../../assets/peopleHome.png'),
     headerText: 'Find the Lofft of your life',
     text: 'The new way to manage shared flats and accommodation - together',
   },
