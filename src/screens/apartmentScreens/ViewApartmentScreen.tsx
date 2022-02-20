@@ -8,6 +8,7 @@ import {
   ImageBackground,
   TextInput,
   Alert,
+  FlatList,
 } from 'react-native';
 import {navigationRef as navigation} from '../../RootNavigation';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -38,6 +39,7 @@ const ViewApartmentScreen = ({route}) => {
   const [address, setAddress] = useState('');
   const [tenants, setTenants] = useState([]);
   const [update, setUpdate] = useState(false);
+  const [rooms, setRooms] = useState([]);
 
   const showAlert = (userId, lofftId) =>
     Alert.alert('Approve user', 'My Alert Msg', [
@@ -70,11 +72,13 @@ const ViewApartmentScreen = ({route}) => {
         const userList = [];
         setTenants([]);
         const lofft = queryData.data();
+        console.log(lofft);
         setName(lofft.name);
         setDescription(lofft.description);
         if (lofft.address) setAddress(lofft.address);
         if (lofft.users.length > 0) userList.push(lofft.users);
         if (lofft.pendingUsers.length > 0) userList.push(lofft.pendingUsers);
+        if (lofft.rooms) setRooms(lofft.rooms);
         const usersList = userList.join().split(',');
         usersList.forEach(async user => {
           const response = await firestore()
@@ -218,6 +222,14 @@ const ViewApartmentScreen = ({route}) => {
               );
             })}
           </View>
+        </View>
+        <Text style={fontStyles.headerSmall}>Rooms</Text>
+        <View>
+          <FlatList
+            data={rooms}
+            renderItem={rooms.name}
+            keyExtractor={room => room.renter}
+          />
         </View>
       </View>
     </View>
