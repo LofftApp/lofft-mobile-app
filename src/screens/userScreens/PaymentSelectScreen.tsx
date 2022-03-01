@@ -52,7 +52,7 @@ const PaymentSelect = ({navigation}: any) => {
   const storeCards = async () => {
     try{
     const user: any = await auth().currentUser.uid;
-    console.log(`Hi this is user from the PaymentSelectSceen: ${user}`)
+
         firestore()
           .collection('users')
           .doc(user)
