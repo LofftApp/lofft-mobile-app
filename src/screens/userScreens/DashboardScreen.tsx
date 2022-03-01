@@ -70,6 +70,8 @@ const DashboardScreen = ({navigation}: any) => {
     });
   }, []);
 
+
+
   const handleWeekClick = () => {
     setWeekSelected(true);
     setMonthSelected(false);

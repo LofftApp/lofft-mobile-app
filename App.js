@@ -12,6 +12,7 @@ import SigninScreen from './src/screens/visitorScreens/SigninScreen';
 import SignupScreen from './src/screens/visitorScreens/SignupScreen';
 import PendingPaymentsScreen from './src/screens/userScreens/PendingPaymentsScreen';
 import MakePaymentScreen from './src/screens/userScreens/MakePaymentScreen';
+import PaymentSelectScreen from './src/screens/userScreens/PaymentSelectScreen';
 import PaymentConfirmationScreen from './src/screens/userScreens/PaymentConfirmationScreen';
 import PaidConfirmationScreen from './src/screens/userScreens/PaidConfirmationScreen';
 import UserOptionsScreen from './src/screens/userScreens/UserOptionsScreen';
@@ -77,10 +78,16 @@ const App = () => {
             options={{headerShown: false}}
           />
           <Stack.Screen
+            name="PaymentSelect"
+            component={PaymentSelectScreen}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
             name="PaymentConfirmation"
             component={PaidConfirmationScreen}
             options={{headerShown: false}}
           />
+
           {/* Settings and Profile Management */}
           <Stack.Screen
             name="UserOptions"

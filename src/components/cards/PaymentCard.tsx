@@ -15,9 +15,11 @@ const ActiveIcon = () => {
   );
 };
 
-const PaymentCard = ({active = false}: any) => {
+const PaymentCard = ({navigation, active = false}: any) => {
   return (
-    <TouchableOpacity style={styles.cardContainer}>
+    <TouchableOpacity
+      style={styles.cardContainer}
+      onPress={() => navigation.navigate('PaymentSelect')}>
       {active ? <ActiveIcon /> : null}
       <View style={styles.iconRoundal}>
         <Icon
