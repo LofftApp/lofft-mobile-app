@@ -9,10 +9,7 @@ import {
   Platform,
 } from 'react-native';
 
-
-
 import ActiveCard from './ActiveCard';
-
 
 const {width: screenWidth} = Dimensions.get('window');
 
@@ -32,10 +29,7 @@ const MyCarousel = props => {
     return (
       <View style={styles.item}>
         {/* {props.userCards.map((el,index) => <ActiveCardX key={index} type={el.type}/>)} */}
-
-          <ActiveCard type={item.type} />
-
-
+        <ActiveCard type={item.type} />
       </View>
     );
   };
@@ -52,17 +46,22 @@ const MyCarousel = props => {
         renderItem={renderItem}
         hasParallaxImages={false}
       />
+
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flex: 2,
+    display: 'flex',
+    flexDirection: 'row',
   },
   item: {
     width: screenWidth - 60,
     height: screenWidth - 60,
+    display: 'flex',
+    flexDirection: 'row',
   },
 });
 

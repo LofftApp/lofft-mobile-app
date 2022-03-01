@@ -32,31 +32,25 @@ const MakePayment = ({navigation, route}: any) => {
 
 
   useEffect(() => {
-
     const getUserName = async () => {
       const user = await getUser(billDetails.payer);
-
       setUserName(user.name);
     };
 
     const grabUserCards = async () => {
-
       const user: any = await getCurrentUserDetails();
-
-     if ("cards" in user) {
+      if ("cards" in user) {
          const checkedCards = user.cards.filter(card => card.checked);
           setUserCards(checkedCards);
        } else {
-
-
-
-     }
+      // Nothing going on here
+      }
     };
     getUserName();
     grabUserCards();
   },[])
 
-  console.log(userCards.length)
+
 
   return (
     <View
