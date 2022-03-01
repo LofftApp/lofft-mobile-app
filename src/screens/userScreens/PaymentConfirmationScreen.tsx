@@ -14,8 +14,8 @@ import {fontStyles} from '../../StyleSheets/FontStyleSheet';
 import {CoreStyleSheet} from '../../StyleSheets/CoreDesignStyleSheet';
 
 // Components
-import CustomBackButton from '../../components/CustomBackButton';
-import {CoreButton} from '../../components/CoreButton';
+import CustomBackButton from '../../components/buttons/CustomBackButton';
+import {CoreButton} from '../../components/buttons/CoreButton';
 
 const PaymentConfirmationScreen = ({navigation, route}: any) => {
   const [nowActive, setNowActive] = useState(true);

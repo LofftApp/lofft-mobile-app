@@ -1,15 +1,10 @@
 import React from 'react';
 import {TouchableOpacity, StyleSheet, View, Text} from 'react-native';
-import color from '../assets/defaultColorPallet.json';
+import color from '../../assets/defaultColorPallet.json';
 import Icon from 'react-native-vector-icons/Ionicons';
-import {fontStyles} from '../StyleSheets/FontStyleSheet';
-import {navigationRef} from '../RootNavigation';
+import {fontStyles} from '../../StyleSheets/FontStyleSheet';
 
-const CustomBackButton = ({
-  onPress = navigationRef.goBack(),
-  title = '',
-  close = false,
-}: any) => {
+const CustomBackButton = ({onPress, title = '', close = false}: any) => {
   return (
     <View
       style={[

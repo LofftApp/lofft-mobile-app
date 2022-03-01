@@ -6,7 +6,7 @@ import color from '../assets/defaultColorPallet.json';
 
 // Screens
 import DashboardScreen from './../screens/userScreens/DashboardScreen';
-import CostsScreen from './../screens/userScreens/CostsScreen';
+import CostsScreen from '../screens/userScreens/HomeScreen';
 import ApartmentScreen from './../screens/userScreens/ApartmentScreen';
 import SettingsScreen from './../screens/userScreens/SettingsScreen';
 

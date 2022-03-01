@@ -1,16 +1,10 @@
-/* eslint-disable prettier/prettier */
-/* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable quotes */
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {LogBox} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import RNBootSplash from 'react-native-bootsplash';
-import auth from '@react-native-firebase/auth';
 
 import {navigationRef} from './src/RootNavigation';
-import {Context as AuthContext} from './src/context/AuthContext';
-import {Provider as AuthProvider} from './src/context/AuthContext';
 // Screens
 import {UserComponents} from './src/components/UserComponents';
 import HomeScreen from './src/screens/HomeScreen';
@@ -24,6 +18,16 @@ import PaidConfirmationScreen from './src/screens/userScreens/PaidConfirmationSc
 import UserOptionsScreen from './src/screens/userScreens/UserOptionsScreen';
 import ProfileScreen from './src/screens/userScreens/ProfileScreen';
 
+// FireStore
+import auth from '@react-native-firebase/auth';
+import firestore from '@react-native-firebase/firestore';
+// import storage from '@react-native-firebase/storage';
+
+// Appartment Screens
+import AddApartmentScreen from './src/screens/apartmentScreens/AddApartmentScreen';
+import JoinApartmentScreen from './src/screens/apartmentScreens/JoinApartmentScreen';
+import ViewApartmentScreen from './src/screens/apartmentScreens/ViewApartmentScreen';
+
 const Stack = createStackNavigator();
 
 const App = () => {
@@ -33,23 +37,20 @@ const App = () => {
   ]);
 
   // Firebase initialize values
-  const [initializing, setInitializing] = useState(true);
-  const [user, setUser] = useState();
-
-  // Firebase handle user state change
-  const onAuthStateChanged = user => {
-    setUser(user);
-    if (initializing) setInitializing(false);
-  };
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
     // New Authentication code from Firebase
-    const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
-    console.log(`Subscriber: ${subscriber}`);
-    return subscriber;
+    const unsubscribe = auth().onAuthStateChanged(user => {
+      user ? setUser(user) : setUser(null);
+    });
+    if (__DEV__) {
+      console.log('FireStore Development Environment');
+      auth().useEmulator('http://localhost:9099');
+      firestore().useEmulator('localhost', 8080);
+    }
+    return () => unsubscribe();
   }, []);
-
-  if (initializing) return null;
 
   return (
     <Stack.Navigator initialRouteName="UserComponents, {screen: 'Costs'}">
@@ -79,7 +80,7 @@ const App = () => {
           <Stack.Screen
             name="PaymentSelect"
             component={PaymentSelectScreen}
-            options={{ headerShown: false }}
+            options={{headerShown: false}}
           />
           <Stack.Screen
             name="PaymentConfirmation"
@@ -96,6 +97,22 @@ const App = () => {
           <Stack.Screen
             name="ProfileScreen"
             component={ProfileScreen}
+            options={{headerShown: false}}
+          />
+          {/* Apartment Management Screens */}
+          <Stack.Screen
+            name="ViewApartment"
+            component={ViewApartmentScreen}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="AddApartment"
+            component={AddApartmentScreen}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="JoinApartment"
+            component={JoinApartmentScreen}
             options={{headerShown: false}}
           />
         </>
@@ -124,12 +141,10 @@ const App = () => {
 
 export default () => {
   return (
-    <AuthProvider>
-      <NavigationContainer
-        ref={navigationRef}
-        onReady={() => RNBootSplash.hide()}>
-        <App />
-      </NavigationContainer>
-    </AuthProvider>
+    <NavigationContainer
+      ref={navigationRef}
+      onReady={() => RNBootSplash.hide()}>
+      <App />
+    </NavigationContainer>
   );
 };

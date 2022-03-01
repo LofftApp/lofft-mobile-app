@@ -1,54 +1,46 @@
 import auth from '@react-native-firebase/auth';
-import * as RootNavigation from '../../RootNavigation';
+import firestore from '@react-native-firebase/firestore';
 
-if (__DEV__) {
-  console.log('Development Authentication Environment');
-  auth().useEmulator('http://localhost:9099');
-}
-
-export const emailSignup = ({email, password}) => {
-  console.log(`I am pushed Firebase - ${email} - ${password}`);
-  auth()
-    .createUserWithEmailAndPassword(email, password)
-    .then(() => {
-      console.log('User account created & signed in!');
-
-      RootNavigation.navigate('Costs', {});
-    })
-    .catch(error => {
-      if (error.code === 'auth/email-already-in-use') {
-        console.log('That email address is already in use!');
-      }
-
-      if (error.code === 'auth/invalid-email') {
-        console.log('That email address is invalid!');
-      }
-
-      console.error(error);
-    });
+// Authentication Signin, Signup and Signout Methods
+export const signup = ({email, password}) => {
+  try {
+    auth()
+      .createUserWithEmailAndPassword(email, password)
+      .then(response => {
+        firestore()
+          .collection('Users')
+          .doc(response.user.uid)
+          .set({uid: response.user.uid, email});
+      });
+  } catch (error) {
+    if (error.code === 'auth/email-already-in-use') {
+      console.log('This e-mail is already registered');
+    }
+    if (error.code === 'auth/invalid-email') {
+      console.log('Please use a valid e-mail');
+    }
+  }
 };
 
-export const emailSignin = ({email, password}) => {
-  console.log(`I am pushed Firebase - ${email} - ${password}`);
-  auth()
-    .signInWithEmailAndPassword(email, password)
-    .then(() => {
-      RootNavigation.navigate('Costs', {});
-    })
-    .catch(error => {
-      if (error.code === 'auth/email-already-in-use') {
-        console.log('That email address is already in use!');
-      }
-
-      if (error.code === 'auth/invalid-email') {
-        console.log('That email address is invalid!');
-      }
-
-      console.error(error);
-    });
+export const signin = ({email, password}) => {
+  try {
+    auth().signInWithEmailAndPassword(email, password);
+  } catch (error) {
+    if (error.code === 'auth/email-already-in-use') {
+      console.log('This e-mail is already registered');
+    }
+    if (error.code === 'auth/invalid-email') {
+      console.log('Please use a valid e-mail');
+    }
+  }
 };
 
 export const signout = () => {
   auth().signOut();
-  console.log('User has been signed out');
+};
+
+export const addImageToAuth = async url => {
+  auth().currentUser.updateProfile({
+    photoURL: url,
+  });
 };

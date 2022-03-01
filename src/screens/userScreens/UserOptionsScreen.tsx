@@ -3,14 +3,14 @@ import {View, Text, StyleSheet, Platform, TouchableOpacity} from 'react-native';
 import {signout} from '../../api/firebase/firebaseApi';
 
 // Components
-import CustomBackButton from '../../components/CustomBackButton';
+import CustomBackButton from '../../components/buttons/CustomBackButton';
+import {CoreButton} from '../../components/buttons/CoreButton';
 
 // Stylesheets
 import color from './../../assets/defaultColorPallet.json';
 import {CoreStyleSheet} from '../../StyleSheets/CoreDesignStyleSheet';
 import {fontStyles} from './../../StyleSheets/FontStyleSheet';
 import {navigationRef} from '../../RootNavigation';
-import {CoreButton} from '../../components/CoreButton';
 
 const UserOptionsScreen = () => {
   return (
@@ -69,8 +69,8 @@ const styles = StyleSheet.create({
   },
   textStyle: {},
   logoutButton: {
-    backgroundColor: color.Tomato[100],
-    borderColor: color.Tomato[100],
+    backgroundColor: color.Black[30],
+    borderColor: color.Black[10],
   },
   buttonContainer: {
     flex: 1,
