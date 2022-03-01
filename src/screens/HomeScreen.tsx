@@ -1,25 +1,9 @@
 import React, {useState} from 'react';
 import {View, StyleSheet} from 'react-native';
 import color from './../assets/defaultColorPallet.json';
-import {CoreButton} from '../components/CoreButton';
-import HomeCarosel from '../components/HomeCarosel';
-import PaginationBar from '../components/PaginationBar';
-// import {credentials} from './../api/Auth0/authCredentials';
-
-// Auth
-// import Auth0 from 'react-native-auth0';
-// const auth0 = new Auth0(credentials);
-
-// const authSignup = () => {
-//   auth0.webAuth
-//     .authorize({
-//       scope: 'openid profile email',
-//     })
-//     .then(credentials => {
-//       const token = credentials.accessToken;
-//       console.log(credentials);
-//     });
-// };
+import {CoreButton} from '../components/buttons/CoreButton';
+import HomeCarosel from '../components/bannersAndBars/HomeCarosel';
+import PaginationBar from '../components/bannersAndBars/PaginationBar';
 
 const HomeScreen = ({navigation}: any) => {
   const [screen, setScreen] = useState(0);
@@ -53,12 +37,12 @@ const HomeScreen = ({navigation}: any) => {
         <CoreButton
           value="Sign in"
           invert={true}
-          style={{width: '45%'}}
+          style={styles.button}
           onPress={() => navigation.navigate('Signin')}
         />
         <CoreButton
           value="Sign up"
-          style={{width: '45%'}}
+          style={styles.button}
           onPress={() => navigation.navigate('Signup')}
         />
       </View>
@@ -82,6 +66,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'flex-end',
     justifyContent: 'space-evenly',
+  },
+  button: {
+    width: '45%',
   },
 });
 

@@ -7,10 +7,16 @@ import {CoreStyleSheet} from '../../StyleSheets/CoreDesignStyleSheet';
 import {fontStyles} from './../../StyleSheets/FontStyleSheet';
 
 // Components
-import HeaderBar from '../../components/HeaderBar';
-import MoneyActionButton from './../../components/MoneyActionButton';
-import PendingPaymentContainer from './../../components/PendingPaymentContainer';
-import ZeroPendingPaymentsContainer from '../../components/ZeroPendingPayments';
+import HeaderBar from '../../components/bannersAndBars/HeaderBar';
+import ActionButton from '../../components/buttons/ActionButton';
+import PendingPaymentContainer from './../../components/iconsAndContainers/PendingPaymentContainer';
+import ZeroPendingPaymentsContainer from '../../components/iconsAndContainers/ZeroPendingPayments';
+import ToggleBar from './../../components/bannersAndBars/ToggleBar';
+
+// Assets
+import sendButtonBackground from './../../assets/sendButtonBackground.png';
+import requestButtonBackground from './../../assets/requestButtonBackground.png';
+import requestIcon from './../../assets/requestIcon.png';
 
 // API Interactions
 // import {my_bills} from './../../context/BillsQuery';
@@ -19,8 +25,11 @@ import {billQuery} from '../../api/firebase/fireStoreActions';
 import TestChartWeek from './../../components/charts/TestChartWeek';
 import TestChartMonth from './../../components/charts/TestChartMonth';
 import TestChartYear from './../../components/charts/TestChartYear';
+import {userDetailsUpdate} from '../../api/firebase/fireStoreActions';
 
-import ToggleBar from './../../components/ToggleBar';
+// Fierstore
+import auth from '@react-native-firebase/auth';
+import firestore from '@react-native-firebase/firestore';
 
 const DashboardScreen = ({navigation}: any) => {
   const [owed, setOwed] = useState(0);
@@ -30,15 +39,35 @@ const DashboardScreen = ({navigation}: any) => {
   const [month, setMonthSelected] = useState(false);
   const [year, setYearSelected] = useState(false);
 
-  const [billDetails, setBillDetails] = useState([]);
+  const [image, setImage]: any = useState('');
+  const [bills, setBills] = useState({});
 
   useEffect(() => {
-    const setLoad = async () => {
-      const result = await billQuery();
-      setBillDetails(result.returnedData);
-      setOwed(result.total);
-    };
-    setLoad();
+    auth().onAuthStateChanged(user => {
+      if (user) {
+        const subscriber = firestore()
+          .collection('Users')
+          .where('uid', '==', user.uid)
+          .onSnapshot(snapShot => {
+            let amountOwed = 0;
+            const result = snapShot.docs[0].data();
+            if (result.imageURI) setImage({uri: result.imageURI});
+            if (result.outstanding_bills) {
+              const userBills = result.outstanding_bills;
+              setBills(userBills);
+              userBills.forEach(bill => {
+                if (!bill.paid) {
+                  amountOwed += Number(bill.value);
+                }
+              });
+              setOwed(amountOwed);
+            }
+          });
+        return () => subscriber();
+      } else {
+        console.log('Unauth');
+      }
+    });
   }, []);
 
 
@@ -74,13 +103,14 @@ const DashboardScreen = ({navigation}: any) => {
   const dashboardToggle = useCallback(toggled => {
     setIsDashboard(toggled);
   }, []);
+
   return (
     <View
       style={[
         CoreStyleSheet.viewContainerStyle,
         Platform.OS === 'ios' ? CoreStyleSheet.viewContainerIOSStyle : null,
       ]}>
-      <HeaderBar title="Your Finances" />
+      <HeaderBar title="Your Finances" image={image} />
       <ToggleBar dashboard={dashboardToggle} />
       {isDashboard ? (
         <>
@@ -90,15 +120,24 @@ const DashboardScreen = ({navigation}: any) => {
             <PendingPaymentContainer
               buttonValue="Pay now"
               buttonAction={() => {
-                navigation.navigate('PayNow', {owed, billDetails});
+                navigation.navigate('PayNow', {owed, bills});
               }}
               owed={owed}
             />
           )}
 
           <View style={styles.moneyActionContainer}>
-            <MoneyActionButton />
-            <MoneyActionButton requestAction={true} />
+            <ActionButton
+              text="Send"
+              backgroundImage={sendButtonBackground}
+              iconName="send-outline"
+              buttonColor={color.Mint[100]}
+            />
+            <ActionButton
+              text="Request"
+              backgroundImage={requestButtonBackground}
+              customIcon={requestIcon}
+            />
           </View>
           <View style={styles.chartPillContainer}>
             <Text style={fontStyles.buttonTextLarge}>Your Stats</Text>

@@ -2,37 +2,30 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React, {useState, useEffect} from 'react';
 import {View, Text, StyleSheet, Platform} from 'react-native';
-import { getUser, getCurrentUserDetails } from '../../api/firebase/fireStoreActions';
-import auth from '@react-native-firebase/auth';
 // StyleSheets
 import color from './../../assets/defaultColorPallet.json';
 import {CoreStyleSheet} from '../../StyleSheets/CoreDesignStyleSheet';
 import {fontStyles} from '../../StyleSheets/FontStyleSheet';
 
 // Components
-import CustomBackButton from '../../components/CustomBackButton';
-import UserIcon from '../../components/UserIcon';
-import PaymentCard from '../../components/PaymentCard';
-import ActiveCard from '../../components/ActiveCard';
-import {CoreButton} from '../../components/CoreButton';
-import MyCarousel from '../../components/MyCarousel';
+import CustomBackButton from '../../components/buttons/CustomBackButton';
+import UserIcon from '../../components/iconsAndContainers/UserIcon';
+import PaymentCard from '../../components/cards/PaymentCard';
+import {CoreButton} from '../../components/buttons/CoreButton';
 
 // Assets
 import userImage from '../../assets/user.jpeg';
 
+// Firebase
+import {getUser} from '../../api/firebase/firebaseApi';
+
 const MakePayment = ({navigation, route}: any) => {
   const [billDetails] = useState(route.params.billDetails);
-  const [payer] = useState(route.params.payer);
   const [paymentMethod, setPaymentMethod] = useState('Manual payment');
   const [userName, setUserName] = useState('');
   const [userCards, setUserCards] = useState([]);
 
-
-
-
-
   useEffect(() => {
-
     const getUserName = async () => {
       const user = await getUser(billDetails.payer);
 
@@ -40,23 +33,23 @@ const MakePayment = ({navigation, route}: any) => {
     };
 
     const grabUserCards = async () => {
-
       const user: any = await getCurrentUserDetails();
 
-     if ("cards" in user) {
-         const checkedCards = user.cards.filter(card => card.checked);
-          setUserCards(checkedCards);
-       } else {
-
-
-
-     }
+      if ('cards' in user) {
+        const checkedCards = user.cards.filter(card => card.checked);
+        setUserCards(checkedCards);
+      } else {
+      }
     };
     getUserName();
     grabUserCards();
-  },[])
+  }, []);
 
-  console.log(userCards.length)
+  console.log(userCards.length);
+
+  useEffect(() => {
+    console.log(billDetails);
+  }, []);
 
   return (
     <View
@@ -70,8 +63,12 @@ const MakePayment = ({navigation, route}: any) => {
       />
 
       {/* <PaymentCard navigation={navigation} /> */}
-       {/* {userCards.length > 0 ? <ActiveCard userCards={userCards} /> : <PaymentCard navigation={navigation} />} */}
-      {userCards.length > 0 ? <MyCarousel userCards={userCards} /> : <PaymentCard navigation={navigation} />}
+      {/* {userCards.length > 0 ? <ActiveCard userCards={userCards} /> : <PaymentCard navigation={navigation} />} */}
+      {userCards.length > 0 ? (
+        <MyCarousel userCards={userCards} />
+      ) : (
+        <PaymentCard navigation={navigation} />
+      )}
       <Text style={[styles.subHeader, fontStyles.buttonTextLarge]}>
         Recipients
       </Text>
@@ -86,7 +83,7 @@ const MakePayment = ({navigation, route}: any) => {
           {userName.split(' ')[0]}
         </Text>
         <View style={styles.moneyPill}>
-          <Text style={fontStyles.buttonTextMedium}>{payer.value}</Text>
+          <Text style={fontStyles.buttonTextMedium}>Change Me</Text>
         </View>
       </View>
       <View style={styles.buttonContainer}>

@@ -15,45 +15,53 @@ import {
   updateUserAccountDetails,
 } from '../../api/firebase/fireStoreActions';
 import {userImageUpload} from '../../api/firebase/firebaseStorage';
+import auth from '@react-native-firebase/auth';
 
 // Components
-import CustomBackButton from '../../components/CustomBackButton';
-import UserIcon from '../../components/UserIcon';
+import CustomBackButton from '../../components/buttons/CustomBackButton';
+import UserIcon from '../../components/iconsAndContainers/UserIcon';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 // Stylesheets
 import color from './../../assets/defaultColorPallet.json';
 import {CoreStyleSheet} from '../../StyleSheets/CoreDesignStyleSheet';
 import {fontStyles} from './../../StyleSheets/FontStyleSheet';
 import {navigationRef} from '../../RootNavigation';
-import {CoreButton} from '../../components/CoreButton';
+import {CoreButton} from '../../components/buttons/CoreButton';
 
 const ProfileScreen = () => {
-  useEffect(() => {
-    const getUser = async () => {
-      const result = await getCurrentUserDetails();
-      if (result.name) {
-        const nameArray = result.name.split(' ');
-        setFirstName(nameArray[0]);
-        setLastName(nameArray[1]);
-      }
-      if (result.pronouns) {
-        setPronouns(result.pronouns);
-      }
-      if (result.email) {
-        setEmail(result.email);
-      }
-    };
-    getUser();
-  }, []);
-
   const [image, setImage]: any = useState('');
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [pronouns, setPronouns] = useState('');
   const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
   const [update, setUpdate] = useState(false);
-  const [error, setError] = useState(false);
+  const [docId, setDocId] = useState('');
+
+  useEffect(() => {
+    const getUser = async user => {
+      const result = await getCurrentUserDetails(user);
+      setDocId(result.docId);
+      if (result.details.imageURI) setImage({uri: result.details.imageURI});
+      if (result.details.name) {
+        const nameArray = result.details.name.split(' ');
+        setFirstName(nameArray[0]);
+        setLastName(nameArray[1]);
+      }
+      if (result.details.pronouns) {
+        setPronouns(result.details.pronouns);
+      }
+      if (result.details.email) {
+        setEmail(result.details.email);
+      }
+    };
+
+    auth().onAuthStateChanged(user => {
+      if (user) {
+        getUser(user);
+      }
+    });
+  }, []);
 
   return (
     <View
@@ -72,23 +80,18 @@ const ProfileScreen = () => {
           <Text style={[fontStyles.bodyMedium, styles.notificationText]}>
             Your profile has been updated
           </Text>
-        </TouchableOpacity>
-      ) : null}
-      {error ? (
-        <TouchableOpacity
-          style={[styles.notification, styles.errorNotification]}
-          onPress={() => setError(false)}>
-          <Text style={[fontStyles.bodyMedium, styles.notificationText]}>
-            Please use a correct password
-          </Text>
+          <Icon name="close-outline" size={30} color={color.White[80]} />
         </TouchableOpacity>
       ) : null}
       <ScrollView style={styles.scrollContainer}>
         <View style={styles.userIconContainer}>
           <UserIcon
             onPress={async () => {
-              const imageURL: any = await userImageUpload();
-              if (typeof imageURL === 'string') setImage({uri: imageURL});
+              const imageURL: any = await userImageUpload(docId);
+              if (typeof imageURL === 'string') {
+                setImage({uri: imageURL});
+                setUpdate(true);
+              }
             }}
             userImageContainerStyle={styles.userImageContainerStyle}
             userImageStyle={styles.userImageStyle}
@@ -135,35 +138,26 @@ const ProfileScreen = () => {
             autoCapitalize="none"
           />
         </View>
-        <View style={styles.textInputContainer}>
-          <Text style={fontStyles.buttonTextMedium}>Password</Text>
-          <TextInput
-            style={[fontStyles.bodyMedium, styles.inputField]}
-            value={password}
-            onChangeText={text => setPassword(text)}
-            autoCorrect={false}
-            secureTextEntry={true}
-            autoCapitalize="none"
+        <View style={styles.buttonContainer}>
+          <CoreButton
+            value="Update Account"
+            style={[styles.button, styles.updateButton]}
+            onPress={async () => {
+              await updateUserAccountDetails({
+                firstName,
+                lastName,
+                pronouns,
+                email,
+                docId,
+              });
+              setUpdate(true);
+            }}
+          />
+          <CoreButton
+            value="Delete Account"
+            style={[styles.button, styles.deleteButton]}
           />
         </View>
-        <CoreButton
-          disabled={password ? false : true}
-          value="Update Account"
-          style={[styles.updateButton, password ? null : styles.buttonDisabled]}
-          onPress={async () => {
-            const answer = await updateUserAccountDetails({
-              firstName,
-              lastName,
-              pronouns,
-              email,
-              password,
-            });
-            setPassword('');
-            console.log(answer);
-            // setError(true);
-          }}
-        />
-        <CoreButton value="Delete Account" style={styles.deleteButton} />
       </ScrollView>
     </View>
   );
@@ -176,6 +170,9 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     backgroundColor: color.Mint[80],
     marginVertical: 10,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
   notificationText: {
     color: color.White[100],
@@ -216,20 +213,19 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: color.Black[30],
   },
+  buttonContainer: {
+    marginTop: 50,
+  },
+  button: {
+    marginVertical: 5,
+  },
   updateButton: {
-    marginTop: 25,
     backgroundColor: color.Mint[100],
     borderColor: color.Mint[100],
   },
   deleteButton: {
-    marginTop: 25,
     backgroundColor: color.Tomato[100],
     borderColor: color.Tomato[100],
-    marginBottom: 55,
-  },
-  buttonDisabled: {
-    backgroundColor: color.Mint[30],
-    borderColor: color.Mint[10],
   },
   errorNotification: {
     backgroundColor: color.Tomato[80],
