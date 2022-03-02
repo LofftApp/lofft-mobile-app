@@ -70,7 +70,7 @@ const ProfileScreen = () => {
   }, []);
 
   return (
-    <View>
+    <View style={styles.pageContainer}>
       <ImageBackground source={blueBackground} style={styles.headerBackground}>
         <CustomBackButton style={styles.backButton} neutral={true} />
         <View style={styles.imageHeaderContainer}>
@@ -81,17 +81,27 @@ const ProfileScreen = () => {
         </View>
       </ImageBackground>
       <View style={CoreStyleSheet.viewContainerStyle}>
-        <View style={[styles.pill]}>
-          <Text style={[fontStyles.bodyExtraSmall, styles.fontColor]}>
-            Looking
-          </Text>
+        <View>
+          <View style={[styles.pill]}>
+            <Text style={[fontStyles.bodyExtraSmall, styles.fontColor]}>
+              Looking
+            </Text>
+          </View>
         </View>
+        <Text style={[fontStyles.bodySmall, styles.userText]}>
+          Hi, i’m hans, I recently moved to Berlin and am looking for a Lofft
+          space. I am Vegan and love a few drinks and to party most weekend. I
+          am looking for a lofft that is social and active.{' '}
+        </Text>
       </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
+  pageContainer: {
+    flex: 1,
+  },
   headerBackground: {
     width: '100%',
     height: 200,
@@ -131,6 +141,11 @@ const styles = StyleSheet.create({
   },
   fontColor: {
     color: color.Lavendar[100],
+  },
+  userText: {
+    textAlign: 'justify',
+    color: color.Black[50],
+    marginVertical: 15,
   },
 });
 
