@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { View, ImageBackground, Text, StyleSheet, Platform } from 'react-native';
+import { List } from 'react-native-paper';
 
 // Components
 import HeaderBar from '../../components/bannersAndBars/HeaderBar';
@@ -21,11 +22,13 @@ const ManagementScreen = ({ navigation, route }: any) => {
   const [image, setImage]: any = useState('');
   // Hooks
   const [pollsactivated, setPollsactivated] = useState(true);
+  const [expanded, setExpanded] = React.useState(true);
 
   const buttonToggle = useCallback(toggled => {
     setPollsactivated(toggled);
   }, []);
 
+  const handlePress = () => setExpanded(!expanded);
 
 
   return(
@@ -45,15 +48,26 @@ const ManagementScreen = ({ navigation, route }: any) => {
       <NewPollContainer
         buttonValue="Create New Poll"
         buttonAction={() => navigation.navigate('')}
-
       />
 
+      <List.Section>
+        <List.Accordion
+          title={<Text style={fontStyles.buttonTextLarge}>Active Polls</Text>}
+          style={styles.accordionContainer}>
+          <Text>Hello</Text>
+        </List.Accordion>
+      </List.Section>
     </View>
   )
 }
 
 const styles = StyleSheet.create({
+  accordionContainer:{
+    backgroundColor: 'white',
+    display: 'flex',
+    justifyContent: 'flex-start',
 
+  }
 });
 
 export default ManagementScreen;
