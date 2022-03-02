@@ -17,7 +17,7 @@ import getAuth from '@react-native-firebase/auth';
 const PendingPaymentsScreen = ({navigation, route}: any) => {
   const [owed] = useState(route.params.owed);
   const [details] = useState(route.params.bills);
-
+  console.log(details);
   return (
     <View
       style={[
