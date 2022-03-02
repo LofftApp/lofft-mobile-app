@@ -93,6 +93,13 @@ const ProfileScreen = () => {
           space. I am Vegan and love a few drinks and to party most weekend. I
           am looking for a lofft that is social and active.{' '}
         </Text>
+        <Text style={fontStyles.buttonTextMedium}>Previous Loffts</Text>
+        <View style={styles.noLofftContainer}>
+          <Text style={styles.noLofftText}>👀</Text>
+          <Text style={styles.noLofftText}>Nothing to see here</Text>
+          <Text style={styles.noLofftText}>He's a newbie</Text>
+          <Text style={styles.noLofftText}>...........</Text>
+        </View>
       </View>
     </View>
   );
@@ -146,6 +153,15 @@ const styles = StyleSheet.create({
     textAlign: 'justify',
     color: color.Black[50],
     marginVertical: 15,
+  },
+  noLofftContainer: {
+    width: '100%',
+    alignItems: 'center',
+    paddingVertical: 15,
+  },
+  noLofftText: {
+    color: color.Black[50],
+    verticalMargin: 3,
   },
 });
 
