@@ -100,6 +100,12 @@ const ProfileScreen = () => {
           <Text style={styles.noLofftText}>He's a newbie</Text>
           <Text style={styles.noLofftText}>...........</Text>
         </View>
+        <Text style={fontStyles.buttonTextMedium}>Photo Library</Text>
+        <View style={styles.noLofftContainer}>
+          <View style={styles.addImageButton}>
+            <Icon name="add-outline" size={60} color={color.Black[30]} />
+          </View>
+        </View>
       </View>
     </View>
   );
@@ -162,6 +168,15 @@ const styles = StyleSheet.create({
   noLofftText: {
     color: color.Black[50],
     verticalMargin: 3,
+  },
+  addImageButton: {
+    width: 95,
+    height: 95,
+    backgroundColor: color.Black[10],
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 8,
+    alignSelf: 'flex-start',
   },
 });
 
