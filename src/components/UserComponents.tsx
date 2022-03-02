@@ -7,7 +7,8 @@ import color from '../assets/defaultColorPallet.json';
 // Screens
 import DashboardScreen from './../screens/userScreens/DashboardScreen';
 import CostsScreen from '../screens/userScreens/HomeScreen';
-import ApartmentScreen from './../screens/userScreens/ApartmentScreen';
+import ManagementScreen from '../screens/userScreens/ManagementScreen'
+// import ApartmentScreen from './../screens/userScreens/ApartmentScreen';
 import SettingsScreen from './../screens/userScreens/SettingsScreen';
 
 const BottomTab = createBottomTabNavigator();
@@ -32,8 +33,8 @@ export const UserComponents = () => {
         }}
       />
       <BottomTab.Screen
-        name="Appartment"
-        component={ApartmentScreen}
+        name="Managment"
+        component={ManagementScreen}
         options={{
           tabBarIcon: ({color}) => (
             <Icon name="pizza-outline" color={color} size={30} />
