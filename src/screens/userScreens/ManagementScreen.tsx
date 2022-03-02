@@ -11,10 +11,11 @@ import HalfBackgroundImage from './../../assets/banner-background-half.png';
 import color from '../../assets/defaultColorPallet.json';
 import { CoreStyleSheet } from '../../StyleSheets/CoreDesignStyleSheet';
 import { fontStyles } from '../../StyleSheets/FontStyleSheet';
+import NewPollContainer from '../../components/iconsAndContainers/NewPollContainer';
 
 
 
-const ManagementScreen = ({ navigation }: any) => {
+const ManagementScreen = ({ navigation, route }: any) => {
 
   // User Hooks
   const [image, setImage]: any = useState('');
@@ -41,26 +42,18 @@ const ManagementScreen = ({ navigation }: any) => {
         dashboard={buttonToggle}
       />
 
-      <View style={styles.newPollContainer}>
-        <ImageBackground
-          source={HalfBackgroundImage}
-          style={styles.ItemPendingPayment}>
-        </ImageBackground>
-      </View>
+      <NewPollContainer
+        buttonValue="Create New Poll"
+        buttonAction={() => navigation.navigate('')}
+
+      />
 
     </View>
   )
 }
 
 const styles = StyleSheet.create({
-  newPollContainer:{
-    paddingVertical: 16,
-    height: 85,
-    marginTop: 20,
-    overflow: 'hidden',
-    borderRadius: 16,
-    backgroundColor: color.Lavendar[10],
-  }
+
 });
 
 export default ManagementScreen;
