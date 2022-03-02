@@ -1,12 +1,14 @@
 import React, {useState, useEffect} from 'react';
 import {
   View,
+  ImageBackground,
   ScrollView,
   Text,
   StyleSheet,
   TouchableOpacity,
   Platform,
   TextInput,
+  Image,
 } from 'react-native';
 
 // Firebase
@@ -28,6 +30,10 @@ import {CoreStyleSheet} from '../../StyleSheets/CoreDesignStyleSheet';
 import {fontStyles} from './../../StyleSheets/FontStyleSheet';
 import {navigationRef} from '../../RootNavigation';
 import {CoreButton} from '../../components/buttons/CoreButton';
+
+// Images
+import blueBackground from '../../assets/backgroundShapes/blue.png';
+import userImage from '../../assets/user.jpeg';
 
 const ProfileScreen = () => {
   const [image, setImage]: any = useState('');
@@ -64,171 +70,67 @@ const ProfileScreen = () => {
   }, []);
 
   return (
-    <View
-      style={[
-        CoreStyleSheet.viewContainerStyle,
-        Platform.OS === 'ios' ? CoreStyleSheet.viewContainerIOSStyle : null,
-      ]}>
-      <CustomBackButton
-        onPress={() => navigationRef.goBack()}
-        title="Update Profile"
-      />
-      {update ? (
-        <TouchableOpacity
-          style={styles.notification}
-          onPress={() => setUpdate(false)}>
-          <Text style={[fontStyles.bodyMedium, styles.notificationText]}>
-            Your profile has been updated
+    <View>
+      <ImageBackground source={blueBackground} style={styles.headerBackground}>
+        <CustomBackButton style={styles.backButton} neutral={true} />
+        <View style={styles.imageHeaderContainer}>
+          <Text style={[fontStyles.headerMedium, styles.header]}>
+            Hans Müller
           </Text>
-          <Icon name="close-outline" size={30} color={color.White[80]} />
-        </TouchableOpacity>
-      ) : null}
-      <ScrollView style={styles.scrollContainer}>
-        <View style={styles.userIconContainer}>
-          <UserIcon
-            onPress={async () => {
-              const imageURL: any = await userImageUpload(docId);
-              if (typeof imageURL === 'string') {
-                setImage({uri: imageURL});
-                setUpdate(true);
-              }
-            }}
-            userImageContainerStyle={styles.userImageContainerStyle}
-            userImageStyle={styles.userImageStyle}
-            userIconStyle={styles.userIconStyle}
-            image={image}
-          />
+          <Image source={userImage} style={styles.userImage} />
         </View>
-        <View style={styles.textInputContainer}>
-          <Text style={fontStyles.buttonTextMedium}>First Name</Text>
-          <TextInput
-            style={[fontStyles.bodyMedium, styles.inputField]}
-            value={firstName}
-            onChangeText={text => setFirstName(text)}
-            autoCorrect={false}
-          />
+      </ImageBackground>
+      <View style={CoreStyleSheet.viewContainerStyle}>
+        <View style={[styles.pill]}>
+          <Text style={[fontStyles.bodyExtraSmall, styles.fontColor]}>
+            Looking
+          </Text>
         </View>
-        <View style={styles.textInputContainer}>
-          <Text style={fontStyles.buttonTextMedium}>Last Name</Text>
-          <TextInput
-            style={[fontStyles.bodyMedium, styles.inputField]}
-            value={lastName}
-            onChangeText={text => setLastName(text)}
-            autoCorrect={false}
-          />
-        </View>
-        <View style={styles.textInputContainer}>
-          <Text style={fontStyles.buttonTextMedium}>Pronouns</Text>
-          <TextInput
-            style={[fontStyles.bodyMedium, styles.inputField]}
-            value={pronouns}
-            onChangeText={text => setPronouns(text)}
-            autoCorrect={false}
-            autoCapitalize="none"
-          />
-        </View>
-        <View style={styles.textInputContainer}>
-          <Text style={fontStyles.buttonTextMedium}>E-mail</Text>
-          <TextInput
-            style={[fontStyles.bodyMedium, styles.inputField]}
-            value={email}
-            onChangeText={text => setEmail(text)}
-            autoCorrect={false}
-            keyboardType="email-address"
-            autoCapitalize="none"
-          />
-        </View>
-        <View style={styles.buttonContainer}>
-          <CoreButton
-            value="Update Account"
-            style={[styles.button, styles.updateButton]}
-            onPress={async () => {
-              await updateUserAccountDetails({
-                firstName,
-                lastName,
-                pronouns,
-                email,
-                docId,
-              });
-              setUpdate(true);
-            }}
-          />
-          <CoreButton
-            value="Delete Account"
-            style={[styles.button, styles.deleteButton]}
-          />
-        </View>
-      </ScrollView>
+      </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  notification: {
+  headerBackground: {
     width: '100%',
-    padding: 15,
-    borderRadius: 12,
-    backgroundColor: color.Mint[80],
-    marginVertical: 10,
+    height: 200,
+    backgroundColor: color.Blue[10],
+  },
+  backButton: {
+    marginHorizontal: 15,
+    marginTop: 35,
+  },
+  imageHeaderContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'center',
-  },
-  notificationText: {
-    color: color.White[100],
-    textAlign: 'justify',
-  },
-  scrollContainer: {
     flex: 1,
-    paddingTop: 15,
+    alignItems: 'flex-end',
+    paddingBottom: 10,
+    paddingHorizontal: 15,
   },
-  userIconContainer: {
-    width: '100%',
-    paddingVertical: 15,
-    flexDirection: 'row',
-    justifyContent: 'center',
+  header: {
+    // alignSelf: 'flex-end',
   },
-  userIconStyle: {
+  userImage: {
     width: 90,
     height: 90,
+    borderWidth: 4,
+    borderColor: color.Blue[100],
+    borderRadius: 75,
   },
-  userImageContainerStyle: {
-    width: 70,
-    height: 70,
+  pill: {
+    width: 78,
+    height: 19,
+    borderWidth: 1,
+    borderColor: color.Lavendar[100],
+    borderRadius: 6,
+    backgroundColor: color.Lavendar[5],
+    justifyContent: 'center',
+    alignItems: 'center',
   },
-  userImageStyle: {
-    width: 65,
-    height: 65,
-  },
-  introText: {
-    textAlign: 'justify',
-    marginTop: 25,
-  },
-  textInputContainer: {
-    marginTop: 15,
-  },
-  inputField: {
-    backgroundColor: color.White[100],
-    height: 50,
-    borderBottomWidth: 1,
-    borderBottomColor: color.Black[30],
-  },
-  buttonContainer: {
-    marginTop: 50,
-  },
-  button: {
-    marginVertical: 5,
-  },
-  updateButton: {
-    backgroundColor: color.Mint[100],
-    borderColor: color.Mint[100],
-  },
-  deleteButton: {
-    backgroundColor: color.Tomato[100],
-    borderColor: color.Tomato[100],
-  },
-  errorNotification: {
-    backgroundColor: color.Tomato[80],
+  fontColor: {
+    color: color.Lavendar[100],
   },
 });
 
