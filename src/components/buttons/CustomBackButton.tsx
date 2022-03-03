@@ -4,12 +4,19 @@ import color from '../../assets/defaultColorPallet.json';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {fontStyles} from '../../StyleSheets/FontStyleSheet';
 
-const CustomBackButton = ({onPress, title = '', close = false}: any) => {
+const CustomBackButton = ({
+  onPress,
+  title = '',
+  close = false,
+  style = {},
+  neutral = false,
+}: any) => {
   return (
     <View
       style={[
         styles.headerContainer,
         close ? styles.headerContainClose : null,
+        style,
       ]}>
       <Text
         style={[
@@ -20,12 +27,23 @@ const CustomBackButton = ({onPress, title = '', close = false}: any) => {
         {title}
       </Text>
       <TouchableOpacity
-        style={[styles.button, close ? styles.closeButton : styles.backButton]}
+        style={[
+          styles.button,
+          close
+            ? styles.closeButton
+            : neutral
+            ? styles.neutral
+            : styles.backButton,
+        ]}
         onPress={onPress}>
         {close ? (
           <Icon name="close" size={45} color={color.Black[50]} />
         ) : (
-          <Icon name="chevron-back" size={45} color={color.Lavendar[80]} />
+          <Icon
+            name="chevron-back"
+            size={45}
+            color={neutral ? color.Black[50] : color.Lavendar[80]}
+          />
         )}
       </TouchableOpacity>
     </View>
@@ -65,6 +83,9 @@ const styles = StyleSheet.create({
   headerRight: {
     marginLeft: 0,
     marginRight: -48,
+  },
+  neutral: {
+    backgroundColor: color.White[30],
   },
 });
 

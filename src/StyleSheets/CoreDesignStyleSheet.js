@@ -4,6 +4,7 @@ import color from './../assets/defaultColorPallet.json';
 export const CoreStyleSheet = StyleSheet.create({
   viewContainerStyle: {
     backgroundColor: color.White[100],
+    height: '100%',
     flex: 1,
     paddingHorizontal: 25,
     paddingTop: 15,
