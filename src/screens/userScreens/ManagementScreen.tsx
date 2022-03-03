@@ -1,19 +1,18 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { View, ImageBackground, Text, StyleSheet, Platform, SafeAreaView, ScrollView, StatusBar } from 'react-native';
+import { View, Text, StyleSheet, Platform, SafeAreaView, ScrollView } from 'react-native';
 import { List } from 'react-native-paper';
 
 // Components
 import HeaderBar from '../../components/bannersAndBars/HeaderBar';
 import ToggleBar from './../../components/bannersAndBars/ToggleBar';
 import PollCard from '../../components/cards/PollCard';
-import ActionButton from '../../components/buttons/ActionButton';
-import HalfBackgroundImage from './../../assets/banner-background-half.png';
+import NewPollContainer from '../../components/iconsAndContainers/NewPollContainer';
+
 
 // StyleSheets
-import color from '../../assets/defaultColorPallet.json';
 import { CoreStyleSheet } from '../../StyleSheets/CoreDesignStyleSheet';
 import { fontStyles } from '../../StyleSheets/FontStyleSheet';
-import NewPollContainer from '../../components/iconsAndContainers/NewPollContainer';
+
 
 
 
@@ -55,7 +54,7 @@ const ManagementScreen = ({ navigation, route }: any) => {
 
       <NewPollContainer
         buttonValue="Create New Poll"
-        buttonAction={() => navigation.navigate('')}
+            buttonAction={() => navigation.navigate('MakeNewPoll')}
       />
 
       <List.Section>

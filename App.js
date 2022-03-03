@@ -27,6 +27,7 @@ import firestore from '@react-native-firebase/firestore';
 import AddApartmentScreen from './src/screens/apartmentScreens/AddApartmentScreen';
 import JoinApartmentScreen from './src/screens/apartmentScreens/JoinApartmentScreen';
 import ViewApartmentScreen from './src/screens/apartmentScreens/ViewApartmentScreen';
+import MakeNewPollScreen from './src/screens/userScreens/MakeNewPollScreen';
 
 const Stack = createStackNavigator();
 
@@ -87,6 +88,14 @@ const App = () => {
             component={PaidConfirmationScreen}
             options={{headerShown: false}}
           />
+
+          <Stack.Screen
+            name="MakeNewPoll"
+            component={MakeNewPollScreen}
+            options={{ headerShown: false }}
+          />
+
+          {/* Management Screens */}
 
           {/* Settings and Profile Management */}
           <Stack.Screen
