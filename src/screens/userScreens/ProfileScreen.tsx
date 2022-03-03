@@ -37,7 +37,7 @@ import blueBackground from '../../assets/backgroundShapes/blue.png';
 import userImage from '../../assets/user.jpeg';
 
 const ProfileScreen = () => {
-  const [image, setImage]: any = useState('');
+  const [image, setImage]: any = useState({});
   const [name, setName] = useState('');
   const [tags, setTags] = useState([]);
   const [description, setDescription] = useState('There is no description');
@@ -83,10 +83,14 @@ const ProfileScreen = () => {
   return (
     <View style={styles.pageContainer}>
       <ImageBackground source={blueBackground} style={styles.headerBackground}>
-        <CustomBackButton style={styles.backButton} neutral={true} />
+        <CustomBackButton
+          style={styles.backButton}
+          neutral={true}
+          onPress={() => navigationRef.goBack()}
+        />
         <View style={styles.imageHeaderContainer}>
           <Text style={[fontStyles.headerMedium, styles.header]}>{name}</Text>
-          <Image source={userImage} style={styles.userImage} />
+          <Image source={image} style={styles.userImage} />
         </View>
       </ImageBackground>
       <View style={CoreStyleSheet.viewContainerStyle}>
@@ -100,7 +104,7 @@ const ProfileScreen = () => {
         <Text style={[fontStyles.bodySmall, styles.userText]}>
           {description}
         </Text>
-        <Text style={fontStyles.buttonTextMedium}>Previous Loffts</Text>
+        <Text style={fontStyles.buttonTextMedium}>Loffts</Text>
         <View style={styles.noLofftContainer}>
           <Text style={styles.noLofftText}>👀</Text>
           <Text style={styles.noLofftText}>Nothing to see here</Text>
