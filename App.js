@@ -28,6 +28,7 @@ import AddApartmentScreen from './src/screens/apartmentScreens/AddApartmentScree
 import JoinApartmentScreen from './src/screens/apartmentScreens/JoinApartmentScreen';
 import ViewApartmentScreen from './src/screens/apartmentScreens/ViewApartmentScreen';
 import MakeNewPollScreen from './src/screens/userScreens/MakeNewPollScreen';
+import MakeNewEventScreen from './src/screens/userScreens/MakeNewEventScreen';
 
 const Stack = createStackNavigator();
 
@@ -89,13 +90,20 @@ const App = () => {
             options={{headerShown: false}}
           />
 
+          {/* Management Screens */}
+
           <Stack.Screen
             name="MakeNewPoll"
             component={MakeNewPollScreen}
             options={{ headerShown: false }}
           />
 
-          {/* Management Screens */}
+          <Stack.Screen
+            name="MakeNewEvent"
+            component={MakeNewEventScreen}
+            options={{ headerShown: false }}
+          />
+
 
           {/* Settings and Profile Management */}
           <Stack.Screen

@@ -122,7 +122,7 @@ console.log(`Date is being fetched and assigned into setdate state: ${date}`)
                   value="Add new event"
                   style={styles.button}
                   invert
-                  onPress={() => navigation.navigate('')}
+                  onPress={() => navigation.navigate('MakeNewEvent')}
                 />
               </View>
             </>
