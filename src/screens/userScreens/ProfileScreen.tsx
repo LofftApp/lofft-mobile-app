@@ -5,23 +5,15 @@ import {
   ScrollView,
   Text,
   StyleSheet,
-  TouchableOpacity,
-  Platform,
-  TextInput,
   Image,
 } from 'react-native';
 
 // Firebase
-import {
-  getCurrentUserDetails,
-  updateUserAccountDetails,
-} from '../../api/firebase/fireStoreActions';
-import {userImageUpload} from '../../api/firebase/firebaseStorage';
+import {getCurrentUserDetails} from '../../api/firebase/fireStoreActions';
 import auth from '@react-native-firebase/auth';
 
 // Components
 import CustomBackButton from '../../components/buttons/CustomBackButton';
-import UserIcon from '../../components/iconsAndContainers/UserIcon';
 import Icon from 'react-native-vector-icons/Ionicons';
 import TagIcon from '../../components/iconsAndContainers/TagIcon';
 
@@ -30,11 +22,9 @@ import color from './../../assets/defaultColorPallet.json';
 import {CoreStyleSheet} from '../../StyleSheets/CoreDesignStyleSheet';
 import {fontStyles} from './../../StyleSheets/FontStyleSheet';
 import {navigationRef} from '../../RootNavigation';
-import {CoreButton} from '../../components/buttons/CoreButton';
 
 // Images
 import blueBackground from '../../assets/backgroundShapes/blue.png';
-import userImage from '../../assets/user.jpeg';
 
 const ProfileScreen = () => {
   const [image, setImage]: any = useState({});
@@ -93,7 +83,7 @@ const ProfileScreen = () => {
           <Image source={image} style={styles.userImage} />
         </View>
       </ImageBackground>
-      <View style={CoreStyleSheet.viewContainerStyle}>
+      <ScrollView style={CoreStyleSheet.viewContainerStyle}>
         <View style={styles.pillContainer}>
           {tags.map(tag => {
             return (
@@ -108,7 +98,7 @@ const ProfileScreen = () => {
         <View style={styles.noLofftContainer}>
           <Text style={styles.noLofftText}>👀</Text>
           <Text style={styles.noLofftText}>Nothing to see here</Text>
-          <Text style={styles.noLofftText}>He's a newbie</Text>
+          <Text style={styles.noLofftText}>They're a newbie</Text>
           <Text style={styles.noLofftText}>...........</Text>
         </View>
         <Text style={fontStyles.buttonTextMedium}>Photo Library</Text>
@@ -147,7 +137,7 @@ const ProfileScreen = () => {
           </View>
           {/* Add Spotify / Apple Music API here */}
         </View>
-      </View>
+      </ScrollView>
     </View>
   );
 };
