@@ -40,6 +40,7 @@ const ProfileScreen = () => {
   const [image, setImage]: any = useState('');
   const [name, setName] = useState('');
   const [tags, setTags] = useState([]);
+  const [description, setDescription] = useState('There is no description');
 
   useEffect(() => {
     setTags([]);
@@ -49,18 +50,27 @@ const ProfileScreen = () => {
       if (result.details.name) {
         setName(result.details.name);
       }
-      if (result.details.pronouns) {
-        setTags(tags => [
-          ...tags,
-          {value: result.details.pronouns, color: 'Mint'},
-        ]);
-      }
       if (result.details.status) {
         setTags(tags => [
           ...tags,
           {value: result.details.status, color: 'Lavendar'},
         ]);
       }
+      if (result.details.pronouns) {
+        setTags(tags => [
+          ...tags,
+          {value: result.details.pronouns, color: 'Mint'},
+        ]);
+      }
+      if (result.details.profile.description) {
+        setDescription(result.details.profile.description);
+      }
+      // if (result.details.profile.diet) {
+      //   setTags(tags => [
+      //     ...tags,
+      //     {value: result.details.profile.diet, color: 'Gold'},
+      //   ]);
+      // }
     };
 
     auth().onAuthStateChanged(user => {
@@ -88,9 +98,7 @@ const ProfileScreen = () => {
           })}
         </View>
         <Text style={[fontStyles.bodySmall, styles.userText]}>
-          Hi, i’m hans, I recently moved to Berlin and am looking for a Lofft
-          space. I am Vegan and love a few drinks and to party most weekend. I
-          am looking for a lofft that is social and active.{' '}
+          {description}
         </Text>
         <Text style={fontStyles.buttonTextMedium}>Previous Loffts</Text>
         <View style={styles.noLofftContainer}>
