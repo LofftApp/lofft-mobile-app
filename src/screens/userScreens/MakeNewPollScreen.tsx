@@ -6,6 +6,8 @@ import {
   TextInput,
   Pressable,
   TouchableOpacity,
+  SafeAreaView,
+  ScrollView,
 } from 'react-native';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 
@@ -13,6 +15,7 @@ import {Colors} from 'react-native/Libraries/NewAppScreen';
 import HeaderBar from '../../components/bannersAndBars/HeaderBar';
 import AddButtonPoll from '../../components/buttons/AddButtonPoll';
 import CustomBackButton from '../../components/buttons/CustomBackButton';
+import { CoreButton } from '../../components/buttons/CoreButton';
 
 // Styles
 import {CoreStyleSheet} from '../../StyleSheets/CoreDesignStyleSheet';
@@ -107,6 +110,10 @@ const MakeNewPollScreen = ({navigation, route}) => {
         CoreStyleSheet.viewContainerStyle,
         Platform.OS === 'ios' ? CoreStyleSheet.viewContainerIOSStyle : null,
       ]}>
+      <SafeAreaView style={styles.container}>
+        <ScrollView
+          style={styles.scrollView}
+          showsVerticalScrollIndicator={false}>
       <CustomBackButton
         onPress={() => navigation.goBack()}
         title="Create new poll"
@@ -192,6 +199,26 @@ const MakeNewPollScreen = ({navigation, route}) => {
           </TouchableOpacity>
         </View>
       </View>
+
+      <View style={styles.actionButtonContainer}>
+      <CoreButton
+        value="Post the poll!"
+        style={styles.button}
+        onPress={() =>
+          navigation.navigate('', {
+
+          })
+        }
+      />
+      <CoreButton
+        value="Cancel"
+        style={styles.button}
+        invert
+        onPress={() => navigation.navigate('')}
+      />
+      </View>
+        </ScrollView>
+      </SafeAreaView>
     </View>
   );
 };
@@ -292,6 +319,12 @@ const styles = StyleSheet.create({
     borderRadius: 6,
     paddingVertical: 14,
     width: 158,
+  },
+  actionButtonContainer:{
+  marginTop: 30,
+  },
+  button: {
+    marginVertical: 5,
   },
 });
 
