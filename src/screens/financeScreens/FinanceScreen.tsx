@@ -2,16 +2,16 @@ import React, {useState, useEffect, useCallback} from 'react';
 import {Pressable, View, Text, StyleSheet, Platform} from 'react-native';
 
 // StyleSheets
-import color from './../../assets/defaultColorPallet.json';
+import color from '../../assets/defaultColorPallet.json';
 import {CoreStyleSheet} from '../../StyleSheets/CoreDesignStyleSheet';
-import {fontStyles} from './../../StyleSheets/FontStyleSheet';
+import {fontStyles} from '../../StyleSheets/FontStyleSheet';
 
 // Components
 import HeaderBar from '../../components/bannersAndBars/HeaderBar';
 import ActionButton from '../../components/buttons/ActionButton';
-import PendingPaymentContainer from './../../components/iconsAndContainers/PendingPaymentContainer';
+import PendingPaymentContainer from '../../components/iconsAndContainers/PendingPaymentContainer';
 import ZeroPendingPaymentsContainer from '../../components/iconsAndContainers/ZeroPendingPayments';
-import ToggleBar from './../../components/bannersAndBars/ToggleBar';
+import ToggleBar from '../../components/bannersAndBars/ToggleBar';
 
 // Assets
 import sendButtonBackground from './../../assets/sendButtonBackground.png';
@@ -22,16 +22,15 @@ import requestIcon from './../../assets/requestIcon.png';
 // import {my_bills} from './../../context/BillsQuery';
 import {billQuery} from '../../api/firebase/fireStoreActions';
 
-import TestChartWeek from './../../components/charts/TestChartWeek';
-import TestChartMonth from './../../components/charts/TestChartMonth';
-import TestChartYear from './../../components/charts/TestChartYear';
-import {userDetailsUpdate} from '../../api/firebase/fireStoreActions';
+import TestChartWeek from '../../components/charts/TestChartWeek';
+import TestChartMonth from '../../components/charts/TestChartMonth';
+import TestChartYear from '../../components/charts/TestChartYear';
 
 // Fierstore
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 
-const DashboardScreen = ({navigation}: any) => {
+const FinanceScreen = ({navigation}: any) => {
   const [owed, setOwed] = useState(0);
 
   // Chart Options
@@ -69,8 +68,6 @@ const DashboardScreen = ({navigation}: any) => {
       }
     });
   }, []);
-
-
 
   const handleWeekClick = () => {
     setWeekSelected(true);
@@ -111,7 +108,11 @@ const DashboardScreen = ({navigation}: any) => {
         Platform.OS === 'ios' ? CoreStyleSheet.viewContainerIOSStyle : null,
       ]}>
       <HeaderBar title="Your Finances" image={image} />
-      <ToggleBar optionA="Dashboard" optionB="History" dashboard={dashboardToggle} />
+      <ToggleBar
+        optionA="Dashboard"
+        optionB="History"
+        dashboard={dashboardToggle}
+      />
       {isDashboard ? (
         <>
           {owed === 0 ? (
@@ -262,4 +263,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default DashboardScreen;
+export default FinanceScreen;
