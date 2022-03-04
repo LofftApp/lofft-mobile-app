@@ -111,7 +111,7 @@ const DashboardScreen = ({navigation}: any) => {
         Platform.OS === 'ios' ? CoreStyleSheet.viewContainerIOSStyle : null,
       ]}>
       <HeaderBar title="Your Finances" image={image} />
-      <ToggleBar dashboard={dashboardToggle} />
+      <ToggleBar optionA="Dashboard" optionB="History" dashboard={dashboardToggle} />
       {isDashboard ? (
         <>
           {owed === 0 ? (

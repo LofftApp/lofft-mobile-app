@@ -3,7 +3,8 @@ import {Text, View, TouchableOpacity, StyleSheet} from 'react-native';
 import {fontStyles} from '../../StyleSheets/FontStyleSheet';
 import color from '../../assets/defaultColorPallet.json';
 
-const ToggleBar = ({dashboard}: any) => {
+const ToggleBar = ({dashboard, optionA, optionB}) => {
+
   const [toggled, setToggled] = useState(true);
   return (
     <View style={styles.togglePillContainer}>
@@ -19,7 +20,7 @@ const ToggleBar = ({dashboard}: any) => {
             styles.textStyle,
             toggled ? styles.activeText : null,
           ]}>
-          Dashboard
+          {optionA}
         </Text>
       </TouchableOpacity>
       <TouchableOpacity
@@ -34,7 +35,7 @@ const ToggleBar = ({dashboard}: any) => {
             styles.textStyle,
             toggled ? null : styles.activeText,
           ]}>
-          History
+          {optionB}
         </Text>
       </TouchableOpacity>
     </View>
