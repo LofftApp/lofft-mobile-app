@@ -8,9 +8,7 @@ import {
   ScrollView,
   Alert,
 } from 'react-native';
-import {navigationRef as navigation} from '../../RootNavigation';
 import Icon from 'react-native-vector-icons/Ionicons';
-import shapesBackground from './../../assets/backgroundShapes/mint.png';
 
 // Firestore
 import firestore from '@react-native-firebase/firestore';
@@ -23,20 +21,24 @@ import {fontStyles} from '../../StyleSheets/FontStyleSheet';
 
 // Components
 import CustomBackButton from '../../components/buttons/CustomBackButton';
-// import UserIcon from '../../components/iconsAndContainers/UserIcon';
+import UserIcon from '../../components/iconsAndContainers/UserIcon';
 import {navigationRef} from '../../RootNavigation';
+import TagIcon from '../../components/iconsAndContainers/TagIcon';
 
 // Images
-import blueBackground from '../../assets/backgroundShapes/lavendar.png';
+import blueBackground from '../../assets/backgroundShapes/mint.png';
 
 const ViewApartmentScreen = ({route}) => {
   const [lofftId] = useState(route.params.lofft);
+  const [admin] = useState(true);
+  const [edit, setEdit] = useState(false);
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [address, setAddress] = useState('');
   const [tenants, setTenants] = useState([]);
   const [update, setUpdate] = useState(false);
   const [image, setImage]: any = useState({});
+  const [tags, setTags]: any = useState([]);
 
   const showAlert = (userId, lofftId) =>
     Alert.alert('Approve user', 'My Alert Msg', [
@@ -61,6 +63,7 @@ const ViewApartmentScreen = ({route}) => {
     ]);
 
   useEffect(() => {
+    setTags([]);
     firestore()
       .collection('Loffts')
       .doc(lofftId)
@@ -74,6 +77,9 @@ const ViewApartmentScreen = ({route}) => {
         if (lofft.address) setAddress(lofft.address);
         if (lofft.users.length > 0) userList.push(lofft.users);
         if (lofft.pendingUsers.length > 0) userList.push(lofft.pendingUsers);
+        if (lofft.status) {
+          setTags(tags => [...tags, {value: lofft.status, color: 'Lavendar'}]);
+        }
         const usersList = userList.join().split(',');
         usersList.forEach(async user => {
           const response = await firestore()
@@ -103,26 +109,45 @@ const ViewApartmentScreen = ({route}) => {
         />
         <View style={styles.imageHeaderContainer}>
           <Text style={[fontStyles.headerMedium, styles.header]}>{name}</Text>
-          <Image source={image} style={styles.userImage} />
+          <Text style={styles.address}>{address}</Text>
+          {/* <Image source={image} style={styles.userImage} /> */}
         </View>
       </ImageBackground>
       <ScrollView style={CoreStyleSheet.viewContainerStyle}>
-        {/* <View style={styles.pillContainer}>
+        <View style={styles.pillContainer}>
           {tags.map(tag => {
             return (
               <TagIcon text={tag.value} key={tag.value} userColor={tag.color} />
             );
           })}
-        </View> */}
+        </View>
         <Text style={[fontStyles.bodySmall, styles.userText]}>
           {description}
         </Text>
-        <Text style={fontStyles.buttonTextMedium}>Loffts</Text>
-        <View style={styles.noLofftContainer}>
-          <Text style={styles.noLofftText}>👀</Text>
-          <Text style={styles.noLofftText}>Nothing to see here</Text>
-          <Text style={styles.noLofftText}>They're a newbie</Text>
-          <Text style={styles.noLofftText}>...........</Text>
+        <Text style={fontStyles.buttonTextMedium}>Co-livers</Text>
+        {/* User/Tennants */}
+        <View style={styles.userWindow}>
+          <View style={styles.tenantSection}>
+            {tenants.map(t => {
+              return (
+                <View style={styles.userCard} key={t.name}>
+                  <UserIcon
+                    image={t.imageURI ? {uri: t.imageURI} : ''}
+                    onPress={() => showAlert(t.id, lofftId)}
+                    userIconStyle={styles.userIconStyle}
+                    userImageContainerStyle={styles.userImageContainerStyle}
+                    userImageStyle={styles.userImageStyle}
+                    disabled={t.pending ? false : true}
+                  />
+                  <Text
+                    style={[fontStyles.buttonTextMedium, styles.userCardText]}>
+                    {t.name.split(' ')[0]}
+                  </Text>
+                  {t.pending ? <Text>Pending</Text> : null}
+                </View>
+              );
+            })}
+          </View>
         </View>
         <Text style={fontStyles.buttonTextMedium}>Photo Library</Text>
         <View style={styles.noLofftContainer}>
@@ -172,7 +197,7 @@ const styles = StyleSheet.create({
   headerBackground: {
     width: '100%',
     height: 200,
-    backgroundColor: color.Lavendar[10],
+    backgroundColor: color.Mint[10],
   },
   backButton: {
     marginHorizontal: 15,
@@ -182,23 +207,24 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   imageHeaderContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
     flex: 1,
-    alignItems: 'flex-end',
+    justifyContent: 'flex-end',
     paddingBottom: 10,
     paddingHorizontal: 15,
   },
   header: {
     maxWidth: '60%',
   },
-  userImage: {
-    width: 90,
-    height: 90,
-    borderWidth: 4,
-    borderColor: color.Lavendar[100],
-    borderRadius: 75,
+  address: {
+    color: color.Black[50],
   },
+  // userImage: {
+  //   width: 90,
+  //   height: 90,
+  //   borderWidth: 4,
+  //   borderColor: color.Lavendar[100],
+  //   borderRadius: 75,
+  // },
   pill: {
     width: 78,
     height: 19,
@@ -250,6 +276,33 @@ const styles = StyleSheet.create({
   },
   hobbyText: {
     marginHorizontal: 20,
+  },
+  userCard: {
+    alignItems: 'center',
+    marginHorizontal: 10,
+  },
+  userWindow: {
+    marginTop: 15,
+  },
+  tenantSection: {
+    width: '100%',
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    marginVertical: 25,
+  },
+  userCardText: {marginVertical: 10},
+  userIconStyle: {
+    width: 85,
+    height: 85,
+  },
+  userImageContainerStyle: {
+    width: 70,
+    height: 70,
+    borderColor: color.White[0],
+  },
+  userImageStyle: {
+    width: 70,
+    height: 70,
   },
 });
 
