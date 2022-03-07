@@ -14,12 +14,13 @@ import HeaderBar from '../../components/bannersAndBars/HeaderBar';
 import ToggleBar from './../../components/bannersAndBars/ToggleBar';
 import PollCard from '../../components/cards/PollCard';
 import NewPollContainer from '../../components/iconsAndContainers/NewPollContainer';
+import CalendarManagement from '../../components/calendar/CalendarManagement';
+import { CoreButton } from '../../components/buttons/CoreButton';
 
 // StyleSheets
 import {CoreStyleSheet} from '../../StyleSheets/CoreDesignStyleSheet';
 import {fontStyles} from '../../StyleSheets/FontStyleSheet';
-import CalendarManagement from '../../components/calendar/CalendarManagement';
-import {CoreButton} from '../../components/buttons/CoreButton';
+
 
 const ManagementScreen = ({navigation, route}: any) => {
   // User Hooks
@@ -140,7 +141,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
   },
   buttonContainer: {
-    marginVertical: 170,
+    marginVertical: 120,
   },
   button: {
     marginVertical: 5,

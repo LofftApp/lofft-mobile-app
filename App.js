@@ -17,6 +17,9 @@ import PaymentConfirmationScreen from './src/screens/userScreens/PaymentConfirma
 import PaidConfirmationScreen from './src/screens/userScreens/PaidConfirmationScreen';
 import UserOptionsScreen from './src/screens/userScreens/UserOptionsScreen';
 import ProfileScreen from './src/screens/userScreens/ProfileScreen';
+import MakeNewPollScreen from './src/screens/userScreens/MakeNewPollScreen';
+import MakeNewEventScreen from './src/screens/userScreens/MakeNewEventScreen';
+import DeadlineScreen from './src/screens/userScreens/DeadlineScreen';
 
 // FireStore
 import auth from '@react-native-firebase/auth';
@@ -27,8 +30,7 @@ import firestore from '@react-native-firebase/firestore';
 import AddApartmentScreen from './src/screens/apartmentScreens/AddApartmentScreen';
 import JoinApartmentScreen from './src/screens/apartmentScreens/JoinApartmentScreen';
 import ViewApartmentScreen from './src/screens/apartmentScreens/ViewApartmentScreen';
-import MakeNewPollScreen from './src/screens/userScreens/MakeNewPollScreen';
-import MakeNewEventScreen from './src/screens/userScreens/MakeNewEventScreen';
+
 
 const Stack = createStackNavigator();
 
@@ -104,6 +106,11 @@ const App = () => {
             options={{ headerShown: false }}
           />
 
+          <Stack.Screen
+            name="MakeDeadlinePoll"
+            component={DeadlineScreen}
+            options={{ headerShown: false }}
+          />
 
           {/* Settings and Profile Management */}
           <Stack.Screen
