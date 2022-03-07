@@ -3,22 +3,16 @@ import {
   View,
   Text,
   StyleSheet,
-  Platform,
-  TouchableOpacity,
   ImageBackground,
-  TextInput,
+  Image,
+  ScrollView,
   Alert,
 } from 'react-native';
-import {navigationRef as navigation} from '../../RootNavigation';
 import Icon from 'react-native-vector-icons/Ionicons';
-import shapesBackground from './../../assets/backgroundShapes/mint.png';
 
 // Firestore
 import firestore from '@react-native-firebase/firestore';
-import {
-  confirmUserLofft,
-  updateLofft,
-} from '../../api/firebase/fireStoreActions';
+import {confirmUserLofft} from '../../api/firebase/fireStoreActions';
 
 // stylesheets
 import color from '../../assets/defaultColorPallet.json';
@@ -28,6 +22,11 @@ import {fontStyles} from '../../StyleSheets/FontStyleSheet';
 // Components
 import CustomBackButton from '../../components/buttons/CustomBackButton';
 import UserIcon from '../../components/iconsAndContainers/UserIcon';
+import {navigationRef} from '../../RootNavigation';
+import TagIcon from '../../components/iconsAndContainers/TagIcon';
+
+// Images
+import blueBackground from '../../assets/backgroundShapes/mint.png';
 
 const ViewApartmentScreen = ({route}) => {
   const [lofftId] = useState(route.params.lofft);
@@ -38,6 +37,8 @@ const ViewApartmentScreen = ({route}) => {
   const [address, setAddress] = useState('');
   const [tenants, setTenants] = useState([]);
   const [update, setUpdate] = useState(false);
+  const [image, setImage]: any = useState({});
+  const [tags, setTags]: any = useState([]);
 
   const showAlert = (userId, lofftId) =>
     Alert.alert('Approve user', 'My Alert Msg', [
@@ -62,6 +63,7 @@ const ViewApartmentScreen = ({route}) => {
     ]);
 
   useEffect(() => {
+    setTags([]);
     firestore()
       .collection('Loffts')
       .doc(lofftId)
@@ -75,6 +77,9 @@ const ViewApartmentScreen = ({route}) => {
         if (lofft.address) setAddress(lofft.address);
         if (lofft.users.length > 0) userList.push(lofft.users);
         if (lofft.pendingUsers.length > 0) userList.push(lofft.pendingUsers);
+        if (lofft.status) {
+          setTags(tags => [...tags, {value: lofft.status, color: 'Lavendar'}]);
+        }
         const usersList = userList.join().split(',');
         usersList.forEach(async user => {
           const response = await firestore()
@@ -95,106 +100,31 @@ const ViewApartmentScreen = ({route}) => {
       });
   }, [update]);
   return (
-    <View
-      style={[
-        CoreStyleSheet.viewContainerStyle,
-        Platform.OS === 'ios' ? CoreStyleSheet.viewContainerIOSStyle : null,
-        styles.overidePresets,
-      ]}>
-      <View style={{paddingHorizontal: 25}}>
-        <CustomBackButton title="Lofft" onPress={() => navigation.goBack()} />
-      </View>
-      {/* Banner Background */}
-      <ImageBackground
-        source={shapesBackground}
-        style={styles.imageBannerBackground}>
-        <View style={styles.headerUpload}>
-          <Text>🏳️‍🌈 🌱</Text>
-          {admin ? (
-            <Icon name="image-outline" size={25} color={color.Black[30]} />
-          ) : null}
-        </View>
-        <View style={styles.headerBanner}>
-          {/* Title Text and address container */}
-          <View style={styles.title}>
-            <View>
-              {edit ? (
-                <TextInput
-                  value={name}
-                  style={[fontStyles.headerMedium, styles.inputField]}
-                  onChangeText={e => {
-                    setName(e);
-                  }}
-                />
-              ) : (
-                <Text style={fontStyles.headerMedium}>{name}</Text>
-              )}
-              {/* Address Section */}
-              {edit ? (
-                <View style={styles.addField}>
-                  <TextInput
-                    style={[fontStyles.bodySmall, styles.inputField]}
-                    value={address}
-                    onChangeText={e => setAddress(e)}
-                    placeholder="Address line 1"
-                  />
-                </View>
-              ) : address ? (
-                <View style={styles.addressBar}>
-                  <Text style={[fontStyles.bodySmall, styles.address]}>
-                    {address}
-                  </Text>
-                </View>
-              ) : null}
-            </View>
-            {/* Toggle Edit mode if admin */}
-            {admin ? (
-              edit ? (
-                <TouchableOpacity
-                  onPress={() => {
-                    updateLofft(lofftId, name, description, address);
-                    edit ? setEdit(false) : setEdit(true);
-                  }}>
-                  <Icon
-                    name="checkmark-outline"
-                    size={25}
-                    color={color.Black[30]}
-                  />
-                </TouchableOpacity>
-              ) : (
-                <TouchableOpacity
-                  onPress={() => {
-                    edit ? setEdit(false) : setEdit(true);
-                  }}>
-                  <Icon
-                    name="settings-outline"
-                    size={25}
-                    color={color.Black[30]}
-                  />
-                </TouchableOpacity>
-              )
-            ) : null}
-          </View>
+    <View style={styles.pageContainer}>
+      <ImageBackground source={blueBackground} style={styles.headerBackground}>
+        <CustomBackButton
+          style={styles.backButton}
+          neutral={true}
+          onPress={() => navigationRef.goBack()}
+        />
+        <View style={styles.imageHeaderContainer}>
+          <Text style={[fontStyles.headerMedium, styles.header]}>{name}</Text>
+          <Text style={styles.address}>{address}</Text>
+          {/* <Image source={image} style={styles.userImage} /> */}
         </View>
       </ImageBackground>
-      <View style={styles.body}>
-        {/* Lofft Description Section */}
-        <View style={styles.desciptionContainer}>
-          {edit ? (
-            <TextInput
-              value={description}
-              style={[fontStyles.bodySmall, styles.inputField]}
-              multiline
-              onChangeText={e => {
-                setDescription(e);
-              }}
-            />
-          ) : (
-            <Text style={[fontStyles.bodySmall, styles.description]}>
-              {description}
-            </Text>
-          )}
+      <ScrollView style={CoreStyleSheet.viewContainerStyle}>
+        <View style={styles.pillContainer}>
+          {tags.map(tag => {
+            return (
+              <TagIcon text={tag.value} key={tag.value} userColor={tag.color} />
+            );
+          })}
         </View>
+        <Text style={[fontStyles.bodySmall, styles.userText]}>
+          {description}
+        </Text>
+        <Text style={fontStyles.buttonTextMedium}>Co-livers</Text>
         {/* User/Tennants */}
         <View style={styles.userWindow}>
           <View style={styles.tenantSection}>
@@ -219,68 +149,137 @@ const ViewApartmentScreen = ({route}) => {
             })}
           </View>
         </View>
-      </View>
+        <Text style={fontStyles.buttonTextMedium}>Photo Library</Text>
+        <View style={styles.noLofftContainer}>
+          <View style={styles.addImageButton}>
+            <Icon name="add-outline" size={60} color={color.Black[30]} />
+          </View>
+        </View>
+        <Text style={fontStyles.buttonTextMedium}>Hobbies</Text>
+        <View style={styles.hobbyContaner}>
+          <View style={styles.hobby}>
+            <Icon name="megaphone-outline" size={36} color={color.Black[100]} />
+            <Text style={[fontStyles.bodySmall, styles.hobbyText]}>
+              Politics
+            </Text>
+          </View>
+          <View style={styles.hobby}>
+            <Icon
+              name="restaurant-outline"
+              size={36}
+              color={color.Black[100]}
+            />
+            <Text style={[fontStyles.bodySmall, styles.hobbyText]}>Cookng</Text>
+          </View>
+          <View style={styles.hobby}>
+            <Icon name="fast-food-outline" size={36} color={color.Black[100]} />
+            <Text style={[fontStyles.bodySmall, styles.hobbyText]}>
+              Eating Out
+            </Text>
+          </View>
+          <View style={styles.hobby}>
+            <Icon name="happy-outline" size={36} color={color.Black[100]} />
+            <Text style={[fontStyles.bodySmall, styles.hobbyText]}>
+              Meditation
+            </Text>
+          </View>
+          {/* Add Spotify / Apple Music API here */}
+        </View>
+      </ScrollView>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  overidePresets: {
-    paddingHorizontal: 0,
+  pageContainer: {
+    flex: 1,
   },
-  imageBannerBackground: {
+  headerBackground: {
+    width: '100%',
+    height: 200,
     backgroundColor: color.Mint[10],
-    paddingVertical: 10,
-    marginTop: 25,
   },
-  headerBanner: {
+  backButton: {
+    marginHorizontal: 15,
+    marginTop: 35,
+  },
+  pillContainer: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'flex-end',
-    height: 150,
   },
-  headerUpload: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    paddingHorizontal: 25,
+  imageHeaderContainer: {
+    flex: 1,
+    justifyContent: 'flex-end',
+    paddingBottom: 10,
+    paddingHorizontal: 15,
   },
-  body: {
-    paddingHorizontal: 25,
+  header: {
+    maxWidth: '60%',
   },
-  textArea: {
-    flexDirection: 'row',
+  address: {
+    color: color.Black[50],
+  },
+  // userImage: {
+  //   width: 90,
+  //   height: 90,
+  //   borderWidth: 4,
+  //   borderColor: color.Lavendar[100],
+  //   borderRadius: 75,
+  // },
+  pill: {
+    width: 78,
+    height: 19,
+    borderWidth: 1,
+    borderColor: color.Lavendar[100],
+    borderRadius: 6,
+    backgroundColor: color.Lavendar[5],
+    justifyContent: 'center',
     alignItems: 'center',
-    width: '100%',
+    marginRight: 15,
   },
-  title: {
-    width: '100%',
-    paddingHorizontal: 25,
-    justifyContent: 'space-between',
-    flexDirection: 'row',
-    alignItems: 'center',
+  fontColor: {
+    color: color.Lavendar[100],
   },
-  inputField: {
-    paddingTop: 0,
-    paddingBottom: 0,
-    paddingVertical: 10,
-    backgroundColor: color.Lavendar[10],
-    marginTop: 0,
-  },
-  desciptionContainer: {
-    marginTop: 25,
-  },
-  addField: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginTop: 15,
-  },
-  address: {},
-  addressBar: {
-    paddingLeft: 10,
-  },
-  description: {
+  userText: {
     textAlign: 'justify',
+    color: color.Black[50],
+    marginVertical: 15,
+  },
+  noLofftContainer: {
+    width: '100%',
+    alignItems: 'center',
+    paddingVertical: 15,
+  },
+  noLofftText: {
+    color: color.Black[50],
+    marginVertical: 3,
+  },
+  addImageButton: {
+    width: 95,
+    height: 95,
+    backgroundColor: color.Black[10],
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 8,
+    alignSelf: 'flex-start',
+  },
+  hobbyContaner: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'space-between',
+  },
+  hobby: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginVertical: 10,
+    flexBasis: '50%',
+  },
+  hobbyText: {
+    marginHorizontal: 20,
+  },
+  userCard: {
+    alignItems: 'center',
+    marginHorizontal: 10,
   },
   userWindow: {
     marginTop: 15,
@@ -289,11 +288,7 @@ const styles = StyleSheet.create({
     width: '100%',
     flexDirection: 'row',
     justifyContent: 'space-around',
-    marginTop: 15,
-  },
-  userCard: {
-    alignItems: 'center',
-    marginHorizontal: 10,
+    marginVertical: 25,
   },
   userCardText: {marginVertical: 10},
   userIconStyle: {
