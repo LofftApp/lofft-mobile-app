@@ -121,7 +121,7 @@ const FinanceScreen = ({navigation}: any) => {
             <PendingPaymentContainer
               buttonValue="Pay now"
               buttonAction={() => {
-                navigation.navigate('BillOverview', {owed, bills});
+                navigation.navigate('PendingPayments', {owed, bills});
               }}
               owed={owed}
             />

@@ -92,7 +92,7 @@ const MakePayment = ({navigation, route}: any) => {
           value="See Summary"
           style={styles.button}
           onPress={() =>
-            navigation.navigate('ConfirmPayment', {
+            navigation.navigate('BillOverview', {
               recipient: userName,
               billDetails: billDetails,
               paymentMethod: paymentMethod,

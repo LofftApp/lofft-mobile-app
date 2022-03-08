@@ -72,7 +72,7 @@ const App = () => {
             options={{headerShown: false}}
           />
           <Stack.Screen
-            name="PayNow"
+            name="PendingPayments"
             component={PendingPaymentsScreen}
             options={{headerShown: false}}
           />
