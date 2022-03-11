@@ -1,3 +1,4 @@
+// Bill Summary is the first page in the flow of bill payments.
 import React, {useState} from 'react';
 import {
   View,
@@ -9,7 +10,7 @@ import {
 } from 'react-native';
 
 // StyleSheet
-import color from './../../assets/defaultColorPallet.json';
+import color from '../../assets/defaultColorPallet.json';
 import {fontStyles} from '../../StyleSheets/FontStyleSheet';
 import {CoreStyleSheet} from '../../StyleSheets/CoreDesignStyleSheet';
 
@@ -17,12 +18,14 @@ import {CoreStyleSheet} from '../../StyleSheets/CoreDesignStyleSheet';
 import CustomBackButton from '../../components/buttons/CustomBackButton';
 import {CoreButton} from '../../components/buttons/CoreButton';
 
-const PaymentConfirmationScreen = ({navigation, route}: any) => {
+const BillOverviewsScreen = ({navigation, route}: any) => {
   const [nowActive, setNowActive] = useState(true);
   const [schedActive, setSchedActive] = useState(false);
   const [recipient] = useState(route.params.recipient);
-  const [billDetails] = useState(route.params.billDetails);
+  const [billDetails] = useState(route.params.bills);
   const [paymentMethod] = useState(route.params.paymentMethod);
+  console.log(route.params);
+  console.log(billDetails);
   return (
     <View
       style={[
@@ -34,7 +37,7 @@ const PaymentConfirmationScreen = ({navigation, route}: any) => {
         <View style={styles.inputFieldContainer}>
           <Text style={[fontStyles.buttonTextMedium]}>Paying</Text>
           <TextInput
-            value={billDetails.title}
+            // value={billDetails.title}
             style={[styles.inputField, fontStyles.bodyMedium]}
           />
         </View>
@@ -95,10 +98,10 @@ const PaymentConfirmationScreen = ({navigation, route}: any) => {
         </Text>
         <View style={styles.inputFieldContainer}>
           <Text style={[fontStyles.buttonTextMedium]}>
-            {recipient.split(' ')[0]}
+            {/* {recipient.split(' ')[0]} */}
           </Text>
           <TextInput
-            value={String(billDetails.value)}
+            // value={String(billDetails.value)}
             style={[styles.inputField, fontStyles.bodyMedium]}
           />
         </View>
@@ -108,7 +111,7 @@ const PaymentConfirmationScreen = ({navigation, route}: any) => {
             style={styles.button}
             onPress={() => {
               navigation.navigate('PaymentConfirmation', {
-                recipient: recipient.split(' ')[0],
+                // recipient: recipient.split(' ')[0],
               });
             }}
           />
@@ -179,4 +182,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default PaymentConfirmationScreen;
+export default BillOverviewsScreen;

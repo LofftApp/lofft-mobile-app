@@ -44,3 +44,7 @@ export const addImageToAuth = async url => {
     photoURL: url,
   });
 };
+
+export const getUser = user => {
+  console.log(`user: ${user}`);
+};

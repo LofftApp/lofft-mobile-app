@@ -5,9 +5,9 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import color from '../assets/defaultColorPallet.json';
 
 // Screens
-import DashboardScreen from './../screens/userScreens/DashboardScreen';
+import FinanceScreen from './../screens/financeScreens/FinanceScreen';
 import CostsScreen from '../screens/userScreens/HomeScreen';
-import ManagementScreen from '../screens/userScreens/ManagementScreen'
+import ManagementScreen from '../screens/userScreens/ManagementScreen';
 // import ApartmentScreen from './../screens/userScreens/ApartmentScreen';
 import SettingsScreen from './../screens/userScreens/SettingsScreen';
 
@@ -44,7 +44,7 @@ export const UserComponents = () => {
       />
       <BottomTab.Screen
         name="Costs"
-        component={DashboardScreen}
+        component={FinanceScreen}
         options={{
           tabBarIcon: ({color}) => (
             <Icon name="cash-outline" color={color} size={30} />
