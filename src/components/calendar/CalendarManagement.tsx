@@ -18,6 +18,7 @@ const CalendarManagement = ({fetchdate}) => {
 
   return(
     <Calendar
+      disableMonthChange={true}
       theme={{
         backgroundColor: '#ffffff',
         calendarBackground: '#ffffff',
