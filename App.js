@@ -10,16 +10,18 @@ import {UserComponents} from './src/components/UserComponents';
 import HomeScreen from './src/screens/HomeScreen';
 import SigninScreen from './src/screens/visitorScreens/SigninScreen';
 import SignupScreen from './src/screens/visitorScreens/SignupScreen';
-import PendingPaymentsScreen from './src/screens/userScreens/PendingPaymentsScreen';
-import MakePaymentScreen from './src/screens/userScreens/MakePaymentScreen';
-import PaymentSelectScreen from './src/screens/userScreens/PaymentSelectScreen';
-import PaymentConfirmationScreen from './src/screens/userScreens/PaymentConfirmationScreen';
-import PaidConfirmationScreen from './src/screens/userScreens/PaidConfirmationScreen';
 import UserOptionsScreen from './src/screens/userScreens/UserOptionsScreen';
 import ProfileScreen from './src/screens/userScreens/ProfileScreen';
 import MakeNewPollScreen from './src/screens/userScreens/MakeNewPollScreen';
 import MakeNewEventScreen from './src/screens/userScreens/MakeNewEventScreen';
 import DeadlineScreen from './src/screens/userScreens/DeadlineScreen';
+
+// Finance Screens
+import BillOverviewsScreen from './src/screens/financeScreens/BillOverviewsScreen';
+import PendingPaymentsScreen from './src/screens/financeScreens/PendingPaymentsScreen';
+import MakePaymentScreen from './src/screens/financeScreens/MakePaymentScreen';
+import PaymentSelectScreen from './src/screens/financeScreens/PaymentSelectScreen';
+import PaidConfirmationScreen from './src/screens/financeScreens/PaidConfirmationScreen';
 
 // FireStore
 import auth from '@react-native-firebase/auth';
@@ -67,6 +69,11 @@ const App = () => {
             options={{headerShown: false}}
           />
           <Stack.Screen
+            name="BillOverview"
+            component={BillOverviewsScreen}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
             name="PayNow"
             component={PendingPaymentsScreen}
             options={{headerShown: false}}
@@ -74,11 +81,6 @@ const App = () => {
           <Stack.Screen
             name="MakePayment"
             component={MakePaymentScreen}
-            options={{headerShown: false}}
-          />
-          <Stack.Screen
-            name="ConfirmPayment"
-            component={PaymentConfirmationScreen}
             options={{headerShown: false}}
           />
           <Stack.Screen
@@ -97,21 +99,19 @@ const App = () => {
           <Stack.Screen
             name="MakeNewPoll"
             component={MakeNewPollScreen}
-            options={{ headerShown: false }}
+            options={{headerShown: false}}
           />
 
           <Stack.Screen
             name="MakeNewEvent"
             component={MakeNewEventScreen}
-            options={{ headerShown: false }}
+            options={{headerShown: false}}
           />
-
           <Stack.Screen
             name="MakeDeadlinePoll"
             component={DeadlineScreen}
             options={{ headerShown: false }}
           />
-
           {/* Settings and Profile Management */}
           <Stack.Screen
             name="UserOptions"
