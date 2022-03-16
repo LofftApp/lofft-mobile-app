@@ -29,7 +29,8 @@ const MakePayment = ({navigation, route}: any) => {
   useEffect(() => {
     const getUserName = async () => {
       console.log(billDetails);
-      const user = await getUser(billDetails.payer);
+      const user = await getUser(billDetails.recipients);
+      console.log(user);
       // setUserName(user.name);
     };
 
@@ -60,7 +61,7 @@ const MakePayment = ({navigation, route}: any) => {
       ]}>
       <CustomBackButton
         onPress={() => navigation.goBack()}
-        title="Make a payment"
+        title={billDetails.title}
       />
 
       {/* <PaymentCard navigation={navigation} /> */}
@@ -92,7 +93,7 @@ const MakePayment = ({navigation, route}: any) => {
           value="See Summary"
           style={styles.button}
           onPress={() =>
-            navigation.navigate('ConfirmPayment', {
+            navigation.navigate('BillOverview', {
               recipient: userName,
               billDetails: billDetails,
               paymentMethod: paymentMethod,
