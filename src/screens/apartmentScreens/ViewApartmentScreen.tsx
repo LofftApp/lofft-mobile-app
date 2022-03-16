@@ -81,6 +81,7 @@ const ViewApartmentScreen = ({route}) => {
           setTags(tags => [...tags, {value: lofft.status, color: 'Lavendar'}]);
         }
         const usersList = userList.join().split(',');
+        console.log(usersList);
         usersList.forEach(async user => {
           const response = await firestore()
             .collection('Users')
@@ -128,22 +129,22 @@ const ViewApartmentScreen = ({route}) => {
         {/* User/Tennants */}
         <View style={styles.userWindow}>
           <View style={styles.tenantSection}>
-            {tenants.map(t => {
+            {tenants.map(tenant => {
               return (
-                <View style={styles.userCard} key={t.name}>
+                <View style={styles.userCard} key={tenant.name}>
                   <UserIcon
-                    image={t.imageURI ? {uri: t.imageURI} : ''}
-                    onPress={() => showAlert(t.id, lofftId)}
+                    image={tenant.imageURI ? {uri: tenant.imageURI} : ''}
+                    onPress={() => showAlert(tenant.id, lofftId)}
                     userIconStyle={styles.userIconStyle}
                     userImageContainerStyle={styles.userImageContainerStyle}
                     userImageStyle={styles.userImageStyle}
-                    disabled={t.pending ? false : true}
+                    disabled={tenant.pending ? false : true}
                   />
                   <Text
                     style={[fontStyles.buttonTextMedium, styles.userCardText]}>
-                    {t.name.split(' ')[0]}
+                    {tenant.name ? tenant.name.split(' ')[0] : null}
                   </Text>
-                  {t.pending ? <Text>Pending</Text> : null}
+                  {tenant.pending ? <Text>Pending</Text> : null}
                 </View>
               );
             })}
