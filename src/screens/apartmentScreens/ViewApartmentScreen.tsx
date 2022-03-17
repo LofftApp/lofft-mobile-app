@@ -11,6 +11,7 @@ import {
 import Icon from 'react-native-vector-icons/Ionicons';
 
 // Firestore
+import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 import {confirmUserLofft} from '../../api/firebase/fireStoreActions';
 
@@ -30,7 +31,7 @@ import blueBackground from '../../assets/backgroundShapes/mint.png';
 
 const ViewApartmentScreen = ({route}) => {
   const [lofftId] = useState(route.params.lofft);
-  const [admin] = useState(true);
+  const [admin, setAdmin] = useState(false);
   const [edit, setEdit] = useState(false);
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
@@ -78,6 +79,13 @@ const ViewApartmentScreen = ({route}) => {
         if (lofft.users) {
           lofft.users.forEach(user => {
             userList.push(user.user_id);
+            if (
+              user.user_id === auth().currentUser.uid &&
+              user.admin === true
+            ) {
+              setAdmin(true);
+              console.log(user.admin);
+            }
           });
         }
         if (lofft.pendingUsers) userList.push(lofft.pendingUsers);
@@ -113,9 +121,13 @@ const ViewApartmentScreen = ({route}) => {
           onPress={() => navigationRef.goBack()}
         />
         <View style={styles.imageHeaderContainer}>
-          <Text style={[fontStyles.headerMedium, styles.header]}>{name}</Text>
-          <Text style={styles.address}>{address}</Text>
-          {/* <Image source={image} style={styles.userImage} /> */}
+          <View style={styles.headerDetailsContainer}>
+            <Text style={[fontStyles.headerMedium, styles.header]}>{name}</Text>
+            <Text style={styles.address}>{address}</Text>
+          </View>
+          {admin ? (
+            <Icon name="settings-outline" size={30} color={color.Black[30]} />
+          ) : null}
         </View>
       </ImageBackground>
       <ScrollView style={CoreStyleSheet.viewContainerStyle}>
@@ -213,9 +225,14 @@ const styles = StyleSheet.create({
   },
   imageHeaderContainer: {
     flex: 1,
-    justifyContent: 'flex-end',
+    justifyContent: 'space-between',
+    alignItems: 'flex-end',
+    flexDirection: 'row',
     paddingBottom: 10,
     paddingHorizontal: 15,
+  },
+  headerDetailsContainer: {
+    flex: 1,
   },
   header: {
     maxWidth: '60%',
