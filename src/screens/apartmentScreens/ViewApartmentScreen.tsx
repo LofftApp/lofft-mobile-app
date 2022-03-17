@@ -289,12 +289,13 @@ const styles = StyleSheet.create({
   },
   editForm: {
     flexDirection: 'row',
-    backgroundColor: color.Black[10],
+    backgroundColor: color.Black[5],
     paddingHorizontal: 5,
     lineHeight: 0,
+    borderRadius: 4,
   },
   address: {
-    marginVertical: 2,
+    // marginVertical: 2,
     color: color.Black[50],
   },
   pill: {
