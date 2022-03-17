@@ -68,7 +68,13 @@ export const uploadImageToUserProfile = (docId, url) => {
 export const createLofft = async ({name, description, docId}) => {
   await firestore()
     .collection('Loffts')
-    .add({name, description})
+    .add({
+      name,
+      description,
+      users: [auth().currentUser.uid],
+      lead_tenant: [auth().currentUser.uid],
+      pending_users: [],
+    })
     .then(async response => {
       await firestore()
         .collection('Users')
