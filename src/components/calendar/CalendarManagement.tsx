@@ -19,11 +19,9 @@ const CalendarManagement = ({fetchdate}) => {
   const getSelectedDayEvents = date => {
     let markedDate = {};
     markedDate[date] = {selected: true};
-    console.log(`Hello from within the function ${markedDate}`);
     setdate(markedDate);
   };
 
-  console.log(`Hello from state ${date}`);
 
   return (
     <Calendar
@@ -33,7 +31,7 @@ const CalendarManagement = ({fetchdate}) => {
         calendarBackground: '#ffffff',
         textSectionTitleColor: 'black',
         textSectionTitleDisabledColor: '#d9e1e8',
-        selectedDayBackgroundColor: '#87E5C7',
+        selectedDayBackgroundColor: '#724EFA',
         selectedDayTextColor: '#ffffff',
         todayTextColor: '#724EFA',
         dayTextColor: '#2d4150',
