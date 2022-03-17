@@ -75,8 +75,8 @@ const ViewApartmentScreen = ({route}) => {
         setName(lofft.name);
         setDescription(lofft.description);
         if (lofft.address) setAddress(lofft.address);
-        if (lofft.users.length > 0) userList.push(lofft.users);
-        if (lofft.pendingUsers.length > 0) userList.push(lofft.pendingUsers);
+        if (lofft.users) userList.push(lofft.users);
+        if (lofft.pendingUsers) userList.push(lofft.pendingUsers);
         if (lofft.status) {
           setTags(tags => [...tags, {value: lofft.status, color: 'Lavendar'}]);
         }
@@ -131,7 +131,7 @@ const ViewApartmentScreen = ({route}) => {
           <View style={styles.tenantSection}>
             {tenants.map(tenant => {
               return (
-                <View style={styles.userCard} key={tenant.name}>
+                <View style={styles.userCard} key={tenant.id}>
                   <UserIcon
                     image={tenant.imageURI ? {uri: tenant.imageURI} : ''}
                     onPress={() => showAlert(tenant.id, lofftId)}
