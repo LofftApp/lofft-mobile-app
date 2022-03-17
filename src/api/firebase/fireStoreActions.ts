@@ -71,8 +71,7 @@ export const createLofft = async ({name, description, docId}) => {
     .add({
       name,
       description,
-      users: [auth().currentUser.uid],
-      lead_tenant: [auth().currentUser.uid],
+      users: [{user_id: auth().currentUser.uid, admin: true}],
       pending_users: [],
     })
     .then(async response => {

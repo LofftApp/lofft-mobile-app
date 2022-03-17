@@ -75,7 +75,11 @@ const ViewApartmentScreen = ({route}) => {
         setName(lofft.name);
         setDescription(lofft.description);
         if (lofft.address) setAddress(lofft.address);
-        if (lofft.users) userList.push(lofft.users);
+        if (lofft.users) {
+          lofft.users.forEach(user => {
+            userList.push(user.user_id);
+          });
+        }
         if (lofft.pendingUsers) userList.push(lofft.pendingUsers);
         if (lofft.status) {
           setTags(tags => [...tags, {value: lofft.status, color: 'Lavendar'}]);
