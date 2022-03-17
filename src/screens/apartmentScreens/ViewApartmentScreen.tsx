@@ -7,6 +7,8 @@ import {
   Image,
   ScrollView,
   Alert,
+  TextInput,
+  TouchableOpacity,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 
@@ -35,7 +37,7 @@ const ViewApartmentScreen = ({route}) => {
   const [edit, setEdit] = useState(false);
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
-  const [address, setAddress] = useState('');
+  const [address, setAddress] = useState('this is an address');
   const [tenants, setTenants] = useState([]);
   const [update, setUpdate] = useState(false);
   const [image, setImage]: any = useState({});
@@ -122,11 +124,50 @@ const ViewApartmentScreen = ({route}) => {
         />
         <View style={styles.imageHeaderContainer}>
           <View style={styles.headerDetailsContainer}>
-            <Text style={[fontStyles.headerMedium, styles.header]}>{name}</Text>
-            <Text style={styles.address}>{address}</Text>
+            {edit ? (
+              <TextInput
+                value={name}
+                style={[fontStyles.headerMedium, styles.editForm]}
+                onChangeText={t => {
+                  setName(t);
+                }}
+              />
+            ) : (
+              <Text style={[fontStyles.headerMedium]}>{name}</Text>
+            )}
+            {edit ? (
+              <TextInput
+                value={address}
+                style={[
+                  fontStyles.bodyExtraSmall,
+                  styles.address,
+                  styles.editForm,
+                ]}
+                onChangeText={t => {
+                  setAddress(t);
+                }}
+              />
+            ) : (
+              <Text style={[fontStyles.bodyExtraSmall, styles.address]}>
+                {address}
+              </Text>
+            )}
           </View>
-          {admin ? (
-            <Icon name="settings-outline" size={30} color={color.Black[30]} />
+          {edit && admin ? (
+            <View>
+              <Icon
+                name="checkmark-outline"
+                size={30}
+                color={color.Black[30]}
+              />
+              <TouchableOpacity onPress={() => setEdit(false)}>
+                <Icon name="close-outline" size={30} color={color.Black[30]} />
+              </TouchableOpacity>
+            </View>
+          ) : admin ? (
+            <TouchableOpacity onPress={() => setEdit(true)}>
+              <Icon name="settings-outline" size={30} color={color.Black[30]} />
+            </TouchableOpacity>
           ) : null}
         </View>
       </ImageBackground>
@@ -138,9 +179,21 @@ const ViewApartmentScreen = ({route}) => {
             );
           })}
         </View>
-        <Text style={[fontStyles.bodySmall, styles.userText]}>
-          {description}
-        </Text>
+        {edit ? (
+          <TextInput
+            value={description}
+            style={[fontStyles.bodySmall, styles.userText, styles.editForm]}
+            multiline={true}
+            onChangeText={t => {
+              setDescription(t);
+            }}
+          />
+        ) : (
+          <Text style={[fontStyles.bodySmall, styles.userText]}>
+            {description}
+          </Text>
+        )}
+
         <Text style={fontStyles.buttonTextMedium}>Co-livers</Text>
         {/* User/Tennants */}
         <View style={styles.userWindow}>
@@ -234,19 +287,16 @@ const styles = StyleSheet.create({
   headerDetailsContainer: {
     flex: 1,
   },
-  header: {
-    maxWidth: '60%',
+  editForm: {
+    flexDirection: 'row',
+    backgroundColor: color.Black[10],
+    paddingHorizontal: 5,
+    lineHeight: 0,
   },
   address: {
+    marginVertical: 2,
     color: color.Black[50],
   },
-  // userImage: {
-  //   width: 90,
-  //   height: 90,
-  //   borderWidth: 4,
-  //   borderColor: color.Lavendar[100],
-  //   borderRadius: 75,
-  // },
   pill: {
     width: 78,
     height: 19,
