@@ -12,9 +12,7 @@ import SigninScreen from './src/screens/visitorScreens/SigninScreen';
 import SignupScreen from './src/screens/visitorScreens/SignupScreen';
 import UserOptionsScreen from './src/screens/userScreens/UserOptionsScreen';
 import ProfileScreen from './src/screens/userScreens/ProfileScreen';
-import MakeNewPollScreen from './src/screens/userScreens/MakeNewPollScreen';
-import MakeNewEventScreen from './src/screens/userScreens/MakeNewEventScreen';
-import DeadlineScreen from './src/screens/userScreens/DeadlineScreen';
+
 
 // Finance Screens
 import BillOverviewsScreen from './src/screens/financeScreens/BillOverviewsScreen';
@@ -22,6 +20,11 @@ import PendingPaymentsScreen from './src/screens/financeScreens/PendingPaymentsS
 import MakePaymentScreen from './src/screens/financeScreens/MakePaymentScreen';
 import PaymentSelectScreen from './src/screens/financeScreens/PaymentSelectScreen';
 import PaidConfirmationScreen from './src/screens/financeScreens/PaidConfirmationScreen';
+
+// Management Screens
+import MakeNewPollScreen from './src/screens/managementScreens/MakeNewPollScreen';
+import MakeNewEventScreen from './src/screens/managementScreens/MakeNewEventScreen';
+import DeadlineScreen from './src/screens/managementScreens/DeadlineScreen';
 
 // FireStore
 import auth from '@react-native-firebase/auth';

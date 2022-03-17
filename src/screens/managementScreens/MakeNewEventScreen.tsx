@@ -1,9 +1,15 @@
 import React, {useState} from 'react';
-import {Text, View, StyleSheet, ImageBackground, TextInput} from 'react-native';
+import {
+  Text,
+  View,
+  StyleSheet,
+  ImageBackground,
+  TextInput,
+  Platform,
+} from 'react-native';
+import {Switch} from 'react-native-paper';
 
 // Components
-import HeaderBar from '../../components/bannersAndBars/HeaderBar';
-import AddButtonPoll from '../../components/buttons/AddButtonPoll';
 import CustomBackButton from '../../components/buttons/CustomBackButton';
 import {CoreButton} from '../../components/buttons/CoreButton';
 
@@ -19,8 +25,10 @@ const MakeNewEventScreen = ({navigation}) => {
   const [date, setDate] = useState('');
   const [fromdate, setfromDate] = useState('');
   const [untildate, setuntilDate] = useState('');
-  const [informFlatmates, setinformFlatmates] = useState('');
+  const [informFlatmates, setinformFlatmates] = useState(false);
   const [description, setdescription] = useState('');
+
+  const onToggleSwitch = () => setinformFlatmates(!informFlatmates);
 
   return (
     <View
@@ -90,17 +98,50 @@ const MakeNewEventScreen = ({navigation}) => {
               <View style={styles.timeBreaker} />
               <View style={styles.timeinputContainer}>
                 <Text style={fontStyles.buttonTextSmall}>Until:</Text>
-              <TextInput
-                style={[styles.timeInputForm, fontStyles.bodyMedium]}
-                placeholder=""
-                autoCapitalize="none"
-                value={untildate}
-                onChangeText={text => setuntilDate(text)}
-              />
+                <TextInput
+                  style={[styles.timeInputForm, fontStyles.bodyMedium]}
+                  placeholder=""
+                  autoCapitalize="none"
+                  value={description}
+                  onChangeText={text => setdescription(text)}
+                />
               </View>
             </View>
           </View>
+
+          <View style={styles.inputToggleContainer}>
+            <Text style={[fontStyles.buttonTextMedium, {flex: 1}]}>
+              Let your flatmates know?
+            </Text>
+            <Switch
+              color="#724EFA"
+              value={informFlatmates}
+              onValueChange={onToggleSwitch}
+            />
+          </View>
+
+          <View style={styles.descriptionContainer}>
+            <Text style={[fontStyles.buttonTextMedium, {flex: 0.2}]}>
+              Description
+            </Text>
+            <TextInput
+              style={[styles.descriptionInputForm, fontStyles.bodyMedium]}
+              placeholder=""
+              autoCapitalize="none"
+              value={untildate}
+              onChangeText={text => setuntilDate(text)}
+              multiline={true}
+            />
+          </View>
         </ImageBackground>
+      </View>
+
+      <View style={styles.actionButtonContainer}>
+        <CoreButton
+          value="Next"
+          style={styles.button}
+          onPress={() => navigation.navigate('', {})}
+        />
       </View>
     </View>
   );
@@ -125,15 +166,15 @@ const styles = StyleSheet.create({
   InputContainer: {
     display: 'flex',
     flexDirection: 'row',
-    alignItems: 'center',
-    marginTop: 10,
+
+    marginTop: 19,
     marginHorizontal: 14,
   },
 
   inputStyle: {
     backgroundColor: color.White[100],
     flex: 2,
-    padding: 10,
+    padding: 12,
     marginLeft: 21,
     borderRadius: 8,
   },
@@ -160,11 +201,37 @@ const styles = StyleSheet.create({
     marginTop: 5,
     backgroundColor: color.White[100],
     borderRadius: 8,
-    padding: 10,
+    padding: 12,
   },
 
   timeBreaker: {
     flex: 0.2,
+  },
+  inputToggleContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    marginTop: 26,
+    marginHorizontal: 14,
+    alignItems: 'center',
+  },
+
+  descriptionContainer: {
+    flex: 1,
+    marginHorizontal: 14,
+    marginTop: 20,
+  },
+
+  descriptionInputForm: {
+    backgroundColor: color.White[100],
+    flex: 0.7,
+    borderRadius: 8,
+    padding: 10,
+  },
+  actionButtonContainer: {
+    marginTop: 20,
+  },
+  button: {
+    marginVertical: 5,
   },
 });
 
