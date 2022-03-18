@@ -11,6 +11,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
+import values from '../../data/hobbiesAndValues.json';
 
 // Firestore
 import auth from '@react-native-firebase/auth';
@@ -173,11 +174,17 @@ const ViewApartmentScreen = ({route}) => {
       </ImageBackground>
       <ScrollView style={CoreStyleSheet.viewContainerStyle}>
         <View style={styles.pillContainer}>
-          {tags.map(tag => {
-            return (
-              <TagIcon text={tag.value} key={tag.value} userColor={tag.color} />
-            );
-          })}
+          {edit
+            ? null
+            : tags.map(tag => {
+                return (
+                  <TagIcon
+                    text={tag.value}
+                    key={tag.value}
+                    userColor={tag.color}
+                  />
+                );
+              })}
         </View>
         {edit ? (
           <TextInput
@@ -227,32 +234,16 @@ const ViewApartmentScreen = ({route}) => {
         </View>
         <Text style={fontStyles.buttonTextMedium}>Hobbies</Text>
         <View style={styles.hobbyContaner}>
-          <View style={styles.hobby}>
-            <Icon name="megaphone-outline" size={36} color={color.Black[100]} />
-            <Text style={[fontStyles.bodySmall, styles.hobbyText]}>
-              Politics
-            </Text>
-          </View>
-          <View style={styles.hobby}>
-            <Icon
-              name="restaurant-outline"
-              size={36}
-              color={color.Black[100]}
-            />
-            <Text style={[fontStyles.bodySmall, styles.hobbyText]}>Cookng</Text>
-          </View>
-          <View style={styles.hobby}>
-            <Icon name="fast-food-outline" size={36} color={color.Black[100]} />
-            <Text style={[fontStyles.bodySmall, styles.hobbyText]}>
-              Eating Out
-            </Text>
-          </View>
-          <View style={styles.hobby}>
-            <Icon name="happy-outline" size={36} color={color.Black[100]} />
-            <Text style={[fontStyles.bodySmall, styles.hobbyText]}>
-              Meditation
-            </Text>
-          </View>
+          {Object.entries(values).map(([k, v]) => {
+            return (
+              <View style={[styles.hobby]}>
+                <Icon name={v.icon} size={36} color={color.Black[100]} />
+                <Text style={[fontStyles.bodySmall, styles.hobbyText]}>
+                  {v.value_en}
+                </Text>
+              </View>
+            );
+          })}
           {/* Add Spotify / Apple Music API here */}
         </View>
       </ScrollView>
@@ -343,7 +334,7 @@ const styles = StyleSheet.create({
   hobby: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     marginVertical: 10,
     flexBasis: '50%',
   },

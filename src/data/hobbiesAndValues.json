@@ -1,0 +1,22 @@
+{
+  "LGBTQ": {
+    "value_en": "LGBTQ*",
+    "icon": "flag-outline"
+  },
+  "Activism": {
+    "value_en": "Activism",
+    "icon": "megaphone-outline"
+  },
+  "Cooking": {
+    "value_en": "Cooking",
+    "icon": "restaurant-outline"
+  },
+  "EatingOut": {
+    "value_en": "Eating Out",
+    "icon": "fast-food-outline"
+  },
+  "Meditation": {
+    "value_en": "Meditation",
+    "icon": "happy-outline"
+  }
+}

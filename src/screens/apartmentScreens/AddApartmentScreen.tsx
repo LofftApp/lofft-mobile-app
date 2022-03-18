@@ -46,22 +46,7 @@ const AddApartmentScreen = ({route}) => {
             onChangeText={c => setDescription(c)}
           />
         </View>
-        {/* <View style={styles.fieldContainer}>
-          <Text style={fontStyles.buttonTextMedium}>Address 1</Text>
-          <TextInput style={[fontStyles.bodyMedium, styles.formInput]} />
-        </View>
-        <View style={styles.fieldContainer}>
-          <Text style={fontStyles.buttonTextMedium}>Address 2</Text>
-          <TextInput style={[fontStyles.bodyMedium, styles.formInput]} />
-        </View>
-        <View style={styles.fieldContainer}>
-          <Text style={fontStyles.buttonTextMedium}>City</Text>
-          <TextInput style={[fontStyles.bodyMedium, styles.formInput]} />
-        </View>
-        <View style={styles.fieldContainer}>
-          <Text style={fontStyles.buttonTextMedium}>State</Text>
-          <TextInput style={[fontStyles.bodyMedium, styles.formInput]} />
-        </View> */}
+        <Text style={fontStyles.buttonTextMedium}>Values and Hobbies</Text>
       </View>
       <CoreButton
         value="Add Lofft"
