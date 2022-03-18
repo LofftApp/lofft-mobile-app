@@ -16,7 +16,10 @@ import values from '../../data/hobbiesAndValues.json';
 // Firestore
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
-import {confirmUserLofft} from '../../api/firebase/fireStoreActions';
+import {
+  confirmUserLofft,
+  updateLofft,
+} from '../../api/firebase/fireStoreActions';
 
 // stylesheets
 import color from '../../assets/defaultColorPallet.json';
@@ -161,11 +164,21 @@ const ViewApartmentScreen = ({route}) => {
           </View>
           {edit && admin ? (
             <View>
-              <Icon
-                name="checkmark-outline"
-                size={30}
-                color={color.Black[30]}
-              />
+              <TouchableOpacity
+                onPress={() => {
+                  setName(newName);
+                  setAddress(newAddress);
+                  setTags(newTags);
+                  setDescription(newDescription);
+                  updateLofft(lofftId, newName, newDescription, newAddress);
+                  setEdit(false);
+                }}>
+                <Icon
+                  name="checkmark-outline"
+                  size={30}
+                  color={color.Black[30]}
+                />
+              </TouchableOpacity>
               <TouchableOpacity onPress={() => setEdit(false)}>
                 <Icon name="close-outline" size={30} color={color.Black[30]} />
               </TouchableOpacity>
@@ -248,7 +261,7 @@ const ViewApartmentScreen = ({route}) => {
         <View style={styles.hobbyContaner}>
           {Object.entries(values).map(([k, v]) => {
             return (
-              <View style={[styles.hobby]}>
+              <View style={[styles.hobby]} key={k}>
                 <Icon name={v.icon} size={36} color={color.Black[100]} />
                 <Text style={[fontStyles.bodySmall, styles.hobbyText]}>
                   {v.value_en}
