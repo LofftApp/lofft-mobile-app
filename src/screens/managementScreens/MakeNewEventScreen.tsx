@@ -16,7 +16,7 @@ import {CoreButton} from '../../components/buttons/CoreButton';
 // Styles
 import {CoreStyleSheet} from '../../StyleSheets/CoreDesignStyleSheet';
 import {fontStyles} from '../../StyleSheets/FontStyleSheet';
-import color from './../../assets/defaultColorPallet.json';
+import color from '../../assets/defaultColorPallet.json';
 import HalfBackgroundImage from './../../assets/banner-background-half.png';
 
 const MakeNewEventScreen = ({navigation}) => {
@@ -140,7 +140,7 @@ const MakeNewEventScreen = ({navigation}) => {
         <CoreButton
           value="Next"
           style={styles.button}
-          onPress={() => navigation.navigate('', {})}
+          onPress={() => navigation.navigate('AddFriendsToEvent', {})}
         />
       </View>
     </View>

@@ -24,6 +24,7 @@ import PaidConfirmationScreen from './src/screens/financeScreens/PaidConfirmatio
 // Management Screens
 import MakeNewPollScreen from './src/screens/managementScreens/MakeNewPollScreen';
 import MakeNewEventScreen from './src/screens/managementScreens/MakeNewEventScreen';
+import AddFriendsScreen from './src/screens/managementScreens/AddFriendsScreen';
 import DeadlineScreen from './src/screens/managementScreens/DeadlineScreen';
 
 // FireStore
@@ -110,6 +111,13 @@ const App = () => {
             component={MakeNewEventScreen}
             options={{headerShown: false}}
           />
+
+          <Stack.Screen
+            name="AddFriendsToEvent"
+            component={AddFriendsScreen}
+            options={{ headerShown: false }}
+          />
+
           <Stack.Screen
             name="MakeDeadlinePoll"
             component={DeadlineScreen}

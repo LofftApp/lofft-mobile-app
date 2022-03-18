@@ -20,7 +20,7 @@ import {CoreButton} from '../../components/buttons/CoreButton';
 // Styles
 import {CoreStyleSheet} from '../../StyleSheets/CoreDesignStyleSheet';
 import {fontStyles} from '../../StyleSheets/FontStyleSheet';
-import color from './../../assets/defaultColorPallet.json';
+import color from '../../assets/defaultColorPallet.json';
 
 const MakeNewPollScreen = ({navigation, route}) => {
   const [question, setQuestion] = useState('');
