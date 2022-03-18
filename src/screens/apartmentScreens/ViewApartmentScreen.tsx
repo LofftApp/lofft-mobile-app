@@ -37,12 +37,16 @@ const ViewApartmentScreen = ({route}) => {
   const [admin, setAdmin] = useState(false);
   const [edit, setEdit] = useState(false);
   const [name, setName] = useState('');
+  const [newName, setNewName] = useState('');
   const [description, setDescription] = useState('');
-  const [address, setAddress] = useState('this is an address');
+  const [newDescription, setNewDescription] = useState('');
+  const [address, setAddress] = useState('');
+  const [newAddress, setNewAddress] = useState('');
   const [tenants, setTenants] = useState([]);
   const [update, setUpdate] = useState(false);
   const [image, setImage]: any = useState({});
   const [tags, setTags]: any = useState([]);
+  const [newTags, setNewTags]: any = useState([]);
 
   const showAlert = (userId, lofftId) =>
     Alert.alert('Approve user', 'My Alert Msg', [
@@ -127,10 +131,10 @@ const ViewApartmentScreen = ({route}) => {
           <View style={styles.headerDetailsContainer}>
             {edit ? (
               <TextInput
-                value={name}
+                value={newName}
                 style={[fontStyles.headerMedium, styles.editForm]}
                 onChangeText={t => {
-                  setName(t);
+                  setNewName(t);
                 }}
               />
             ) : (
@@ -138,14 +142,15 @@ const ViewApartmentScreen = ({route}) => {
             )}
             {edit ? (
               <TextInput
-                value={address}
+                value={newAddress}
+                placeholder="Address"
                 style={[
                   fontStyles.bodyExtraSmall,
                   styles.address,
                   styles.editForm,
                 ]}
                 onChangeText={t => {
-                  setAddress(t);
+                  setNewAddress(t);
                 }}
               />
             ) : (
@@ -166,7 +171,14 @@ const ViewApartmentScreen = ({route}) => {
               </TouchableOpacity>
             </View>
           ) : admin ? (
-            <TouchableOpacity onPress={() => setEdit(true)}>
+            <TouchableOpacity
+              onPress={() => {
+                setEdit(true);
+                setNewName(name);
+                setNewAddress(address);
+                setNewTags(tags);
+                setNewDescription(description);
+              }}>
               <Icon name="settings-outline" size={30} color={color.Black[30]} />
             </TouchableOpacity>
           ) : null}
@@ -188,11 +200,11 @@ const ViewApartmentScreen = ({route}) => {
         </View>
         {edit ? (
           <TextInput
-            value={description}
+            value={newDescription}
             style={[fontStyles.bodySmall, styles.userText, styles.editForm]}
             multiline={true}
             onChangeText={t => {
-              setDescription(t);
+              setNewDescription(t);
             }}
           />
         ) : (
@@ -232,7 +244,7 @@ const ViewApartmentScreen = ({route}) => {
             <Icon name="add-outline" size={60} color={color.Black[30]} />
           </View>
         </View>
-        <Text style={fontStyles.buttonTextMedium}>Hobbies</Text>
+        <Text style={fontStyles.buttonTextMedium}>Hobbies & Values</Text>
         <View style={styles.hobbyContaner}>
           {Object.entries(values).map(([k, v]) => {
             return (
