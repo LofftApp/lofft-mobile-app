@@ -125,13 +125,15 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   hobby: {
-    // borderWidth: 2,
-    // borderColor: 'red',
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'flex-start',
     marginVertical: 5,
+    paddingLeft: 10,
+    paddingVertical: 5,
     flexBasis: '48%',
+    borderRadius: 4,
+    backgroundColor: color.Lavendar[5],
   },
   hobbyText: {
     marginHorizontal: 20,
