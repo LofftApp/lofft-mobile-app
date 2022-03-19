@@ -1,6 +1,15 @@
 import React, {useState} from 'react';
-import {View, Text, StyleSheet, Platform, TextInput} from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  Platform,
+  TextInput,
+  TouchableOpacity,
+} from 'react-native';
 import {navigationRef as navigation} from './../../RootNavigation';
+import Icon from 'react-native-vector-icons/Ionicons';
+import values from '../../data/hobbiesAndValues.json';
 
 // StyleSheets
 import color from './../../assets/defaultColorPallet.json';
@@ -18,6 +27,8 @@ const AddApartmentScreen = ({route}) => {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [docId] = useState(route.params.docId);
+  const [selectedHobbies, setSelectedHobbies] = useState([]);
+
   return (
     <View
       style={[
@@ -46,7 +57,39 @@ const AddApartmentScreen = ({route}) => {
             onChangeText={c => setDescription(c)}
           />
         </View>
-        <Text style={fontStyles.buttonTextMedium}>Values and Hobbies</Text>
+        <View style={styles.fieldContainer}>
+          <Text style={fontStyles.buttonTextMedium}>Values and Hobbies</Text>
+          <View style={styles.hobbyContaner}>
+            {Object.entries(values).map(([k, v]) => {
+              return (
+                <TouchableOpacity
+                  style={[
+                    styles.hobby,
+                    selectedHobbies.includes(k) ? styles.active : null,
+                  ]}
+                  key={k}
+                  onPress={() => {
+                    if (!selectedHobbies.includes(k)) {
+                      setSelectedHobbies(selectedHobbies => [
+                        ...selectedHobbies,
+                        k,
+                      ]);
+                    } else {
+                      const result = selectedHobbies.filter(el => {
+                        return el !== k;
+                      });
+                      setSelectedHobbies(result);
+                    }
+                  }}>
+                  <Icon name={v.icon} size={36} color={color.Black[100]} />
+                  <Text style={[fontStyles.bodySmall, styles.hobbyText]}>
+                    {v.value_en}
+                  </Text>
+                </TouchableOpacity>
+              );
+            })}
+          </View>
+        </View>
       </View>
       <CoreButton
         value="Add Lofft"
@@ -75,6 +118,26 @@ const styles = StyleSheet.create({
   fieldContainer: {
     width: '100%',
     marginTop: 15,
+  },
+  hobbyContaner: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'space-between',
+  },
+  hobby: {
+    // borderWidth: 2,
+    // borderColor: 'red',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+    marginVertical: 5,
+    flexBasis: '48%',
+  },
+  hobbyText: {
+    marginHorizontal: 20,
+  },
+  active: {
+    backgroundColor: color.Lavendar[30],
   },
 });
 
