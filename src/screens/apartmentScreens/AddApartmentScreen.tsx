@@ -28,7 +28,6 @@ const AddApartmentScreen = ({route}) => {
   const [description, setDescription] = useState('');
   const [docId] = useState(route.params.docId);
   const [selectedHobbies, setSelectedHobbies] = useState([]);
-
   return (
     <View
       style={[
@@ -94,7 +93,16 @@ const AddApartmentScreen = ({route}) => {
       <CoreButton
         value="Add Lofft"
         onPress={() => {
-          createLofft({name, description, docId});
+          let userHobbies = values;
+          selectedHobbies.forEach(hobby => {
+            userHobbies[hobby].active = true;
+          });
+          createLofft({
+            name,
+            description,
+            docId,
+            hobbiesAndValues: userHobbies,
+          });
           navigation.navigate('Costs');
         }}
       />
