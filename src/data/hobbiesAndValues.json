@@ -18,5 +18,9 @@
   "Meditation": {
     "value_en": "Meditation",
     "icon": "happy-outline"
+  },
+  "Happyness": {
+    "value_en": "Happyness",
+    "icon": "happy-outline"
   }
 }

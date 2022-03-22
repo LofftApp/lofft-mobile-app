@@ -11,7 +11,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
-import values from '../../data/hobbiesAndValues.json';
+// import values from '../../data/hobbiesAndValues.json';
 
 // Firestore
 import auth from '@react-native-firebase/auth';
@@ -49,6 +49,7 @@ const ViewApartmentScreen = ({route}) => {
   const [update, setUpdate] = useState(false);
   const [image, setImage]: any = useState({});
   const [tags, setTags]: any = useState([]);
+  const [values, setValues] = useState({});
   const [newTags, setNewTags]: any = useState([]);
 
   const showAlert = (userId, lofftId) =>
@@ -94,7 +95,6 @@ const ViewApartmentScreen = ({route}) => {
               user.admin === true
             ) {
               setAdmin(true);
-              console.log(user.admin);
             }
           });
         }
@@ -102,8 +102,8 @@ const ViewApartmentScreen = ({route}) => {
         if (lofft.status) {
           setTags(tags => [...tags, {value: lofft.status, color: 'Lavendar'}]);
         }
+        if (lofft.hobbiesAndValues) setValues(lofft.hobbiesAndValues);
         const usersList = userList.join().split(',');
-        console.log(usersList);
         usersList.forEach(async user => {
           const response = await firestore()
             .collection('Users')
