@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -7,7 +7,12 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import color from '../assets/defaultColorPallet.json';
 import {fontStyles} from '../StyleSheets/FontStyleSheet';
 
-const HobbiesAndValues = ({values, selectHobby, selectedHobbies}) => {
+const HobbiesAndValues = ({
+  values,
+  selectHobby,
+  selectedHobbies,
+  edit = false,
+}) => {
   return (
     <View style={styles.hobbyContaner}>
       {Object.entries(values).map(([k, v]) => {
@@ -15,7 +20,10 @@ const HobbiesAndValues = ({values, selectHobby, selectedHobbies}) => {
           <TouchableOpacity
             style={[
               styles.hobby,
-              selectedHobbies.includes(k) || v.active ? styles.active : null,
+              edit ? styles.edit : null,
+              edit && (selectedHobbies.includes(k) || v.active)
+                ? styles.active
+                : null,
             ]}
             key={k}
             onPress={() => {
@@ -47,10 +55,13 @@ const styles = StyleSheet.create({
     paddingVertical: 5,
     flexBasis: '48%',
     borderRadius: 4,
-    backgroundColor: color.Lavendar[5],
+    // backgroundColor: color.Lavendar[5],
   },
   hobbyText: {
     marginHorizontal: 20,
+  },
+  edit: {
+    backgroundColor: color.Lavendar[5],
   },
   active: {
     backgroundColor: color.Lavendar[30],

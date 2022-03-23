@@ -31,6 +31,7 @@ import CustomBackButton from '../../components/buttons/CustomBackButton';
 import UserIcon from '../../components/iconsAndContainers/UserIcon';
 import {navigationRef} from '../../RootNavigation';
 import TagIcon from '../../components/iconsAndContainers/TagIcon';
+import HobbiesAndValues from '../../components/HobbiesAndValues';
 
 // Images
 import blueBackground from '../../assets/backgroundShapes/mint.png';
@@ -52,6 +53,18 @@ const ViewApartmentScreen = ({route}) => {
   const [values, setValues] = useState({});
   const [newValues, setNewValues] = useState({});
   const [newTags, setNewTags]: any = useState([]);
+
+  const [selectedHobbies, setSelectedHobbies] = useState([]);
+  const selectHobby = key => {
+    if (!selectedHobbies.includes(key)) {
+      setSelectedHobbies(selectedHobbies => [...selectedHobbies, key]);
+    } else {
+      const result = selectedHobbies.filter(el => {
+        return el !== key;
+      });
+      setSelectedHobbies(result);
+    }
+  };
 
   const showAlert = (userId, lofftId) =>
     Alert.alert('Approve user', 'My Alert Msg', [
@@ -263,51 +276,13 @@ const ViewApartmentScreen = ({route}) => {
           </View>
         </View>
         <Text style={fontStyles.buttonTextMedium}>Hobbies & Values</Text>
-        <View style={styles.hobbyContaner}>
-          {edit ? (
-            <>
-              {Object.entries(newValues).map(([k, v]) => {
-                return (
-                  <TouchableOpacity
-                    style={[styles.hobby, v.active ? styles.active : null]}
-                    key={k}
-                    onPress={() => {
-                      // if (!selectedHobbies.includes(k)) {
-                      //   setSelectedHobbies(selectedHobbies => [
-                      //     ...selectedHobbies,
-                      //     k,
-                      //   ]);
-                      // } else {
-                      //   const result = selectedHobbies.filter(el => {
-                      //     return el !== k;
-                      //   });
-                      //   setSelectedHobbies(result);
-                      // }
-                    }}>
-                    <Icon name={v.icon} size={36} color={color.Black[100]} />
-                    <Text style={[fontStyles.bodySmall, styles.hobbyText]}>
-                      {v.value_en}
-                    </Text>
-                  </TouchableOpacity>
-                );
-              })}
-            </>
-          ) : (
-            <>
-              {Object.entries(values).map(([k, v]) => {
-                return (
-                  <View style={[styles.hobby]} key={k}>
-                    <Icon name={v.icon} size={36} color={color.Black[100]} />
-                    <Text style={[fontStyles.bodySmall, styles.hobbyText]}>
-                      {v.value_en}
-                    </Text>
-                  </View>
-                );
-              })}
-            </>
-          )}
-          {/* Add Spotify / Apple Music API here */}
-        </View>
+        <HobbiesAndValues
+          values={values}
+          selectHobby={k => selectHobby(k)}
+          selectedHobbies={selectedHobbies}
+          edit={edit}
+        />
+        {/* Add Spotify / Apple Music API here */}
       </ScrollView>
     </View>
   );
@@ -432,9 +407,6 @@ const styles = StyleSheet.create({
   userImageStyle: {
     width: 70,
     height: 70,
-  },
-  active: {
-    backgroundColor: color.Lavendar[30],
   },
 });
 

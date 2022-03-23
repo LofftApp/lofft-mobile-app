@@ -65,6 +65,7 @@ const AddApartmentScreen = ({route}) => {
             values={values}
             selectHobby={k => selectHobby(k)}
             selectedHobbies={selectedHobbies}
+            edit={true}
           />
         </View>
       </View>
