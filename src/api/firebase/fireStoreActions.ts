@@ -1,6 +1,7 @@
 import firestore from '@react-native-firebase/firestore';
 import auth from '@react-native-firebase/auth';
 import {getCurrentUser} from './firebaseApi';
+import values from '../../data/hobbiesAndValues.json';
 
 export const userDetailsUpdate = () => {
   auth().onAuthStateChanged(user => {
@@ -65,7 +66,12 @@ export const uploadImageToUserProfile = (docId, url) => {
 };
 
 // Update and create Lofft Spaces
-export const createLofft = async ({name, description, docId}) => {
+export const createLofft = async ({
+  name,
+  description,
+  docId,
+  hobbiesAndValues,
+}) => {
   await firestore()
     .collection('Loffts')
     .add({
@@ -73,6 +79,7 @@ export const createLofft = async ({name, description, docId}) => {
       description,
       users: [{user_id: auth().currentUser.uid, admin: true}],
       pending_users: [],
+      hobbiesAndValues,
     })
     .then(async response => {
       await firestore()
@@ -137,8 +144,11 @@ export const confirmUserLofft = (userId, lofftId) => {
 };
 
 // Edit lofft details
-export const updateLofft = (id, name, description, address) => {
-  firestore().collection('Loffts').doc(id).update({name, description, address});
+export const updateLofft = (id, name, description, address, values) => {
+  firestore()
+    .collection('Loffts')
+    .doc(id)
+    .update({name, description, address, hobbiesAndValues: values});
   console.log('Update complete');
 };
 
