@@ -16,25 +16,26 @@ const HobbiesAndValues = ({
   return (
     <View style={styles.hobbyContaner}>
       {Object.entries(values).map(([k, v]) => {
-        return (
-          <TouchableOpacity
-            style={[
-              styles.hobby,
-              edit ? styles.edit : null,
-              edit && (selectedHobbies.includes(k) || v.active)
-                ? styles.active
-                : null,
-            ]}
-            key={k}
-            onPress={() => {
-              selectHobby(k);
-            }}>
-            <Icon name={v.icon} size={36} color={color.Black[100]} />
-            <Text style={[fontStyles.bodySmall, styles.hobbyText]}>
-              {v.value_en}
-            </Text>
-          </TouchableOpacity>
-        );
+        if (v.active || edit) {
+          return (
+            <TouchableOpacity
+              style={[
+                styles.hobby,
+                edit ? styles.edit : null,
+                edit && selectedHobbies.includes(k) ? styles.active : null,
+              ]}
+              key={k}
+              onPress={() => {
+                selectHobby(k);
+              }}
+              disabled={!edit}>
+              <Icon name={v.icon} size={36} color={color.Black[100]} />
+              <Text style={[fontStyles.bodySmall, styles.hobbyText]}>
+                {v.value_en}
+              </Text>
+            </TouchableOpacity>
+          );
+        }
       })}
     </View>
   );

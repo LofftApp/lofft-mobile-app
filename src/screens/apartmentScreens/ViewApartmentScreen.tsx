@@ -118,6 +118,13 @@ const ViewApartmentScreen = ({route}) => {
         }
         if (lofft.hobbiesAndValues) {
           setValues(lofft.hobbiesAndValues);
+          Object.entries(lofft.hobbiesAndValues).forEach(([k, v]) => {
+            if (v.active) {
+              if (!selectedHobbies.includes(k)) {
+                setSelectedHobbies(selectedHobbies => [...selectedHobbies, k]);
+              }
+            }
+          });
         }
         const usersList = userList.join().split(',');
         usersList.forEach(async user => {
@@ -182,12 +189,21 @@ const ViewApartmentScreen = ({route}) => {
             <View>
               <TouchableOpacity
                 onPress={() => {
+                  Object.entries(values).forEach(([k, v]) => {
+                    v.active = selectedHobbies.includes(k);
+                  });
                   setName(newName);
                   setAddress(newAddress);
                   setTags(newTags);
                   setDescription(newDescription);
-                  setValues(newValues);
-                  updateLofft(lofftId, newName, newDescription, newAddress);
+                  setValues(values);
+                  updateLofft(
+                    lofftId,
+                    newName,
+                    newDescription,
+                    newAddress,
+                    values,
+                  );
                   setEdit(false);
                 }}>
                 <Icon
@@ -208,7 +224,6 @@ const ViewApartmentScreen = ({route}) => {
                 setNewAddress(address);
                 setNewTags(tags);
                 setNewDescription(description);
-                setNewValues(values);
               }}>
               <Icon name="settings-outline" size={30} color={color.Black[30]} />
             </TouchableOpacity>
