@@ -4,7 +4,6 @@ import {
   Text,
   StyleSheet,
   ImageBackground,
-  Image,
   ScrollView,
   Alert,
   TextInput,
@@ -35,6 +34,7 @@ import HobbiesAndValues from '../../components/HobbiesAndValues';
 
 // Images
 import blueBackground from '../../assets/backgroundShapes/mint.png';
+import EditPageButton from '../../components/buttons/EditPageButton';
 
 const ViewApartmentScreen = ({route}) => {
   const [lofftId] = useState(route.params.lofft);
@@ -185,49 +185,30 @@ const ViewApartmentScreen = ({route}) => {
               </Text>
             )}
           </View>
-          {edit && admin ? (
-            <View>
-              <TouchableOpacity
-                onPress={() => {
-                  Object.entries(values).forEach(([k, v]) => {
-                    v.active = selectedHobbies.includes(k);
-                  });
-                  setName(newName);
-                  setAddress(newAddress);
-                  setTags(newTags);
-                  setDescription(newDescription);
-                  setValues(values);
-                  updateLofft(
-                    lofftId,
-                    newName,
-                    newDescription,
-                    newAddress,
-                    values,
-                  );
-                  setEdit(false);
-                }}>
-                <Icon
-                  name="checkmark-outline"
-                  size={30}
-                  color={color.Black[30]}
-                />
-              </TouchableOpacity>
-              <TouchableOpacity onPress={() => setEdit(false)}>
-                <Icon name="close-outline" size={30} color={color.Black[30]} />
-              </TouchableOpacity>
-            </View>
-          ) : admin ? (
-            <TouchableOpacity
-              onPress={() => {
-                setEdit(true);
-                setNewName(name);
-                setNewAddress(address);
-                setNewTags(tags);
-                setNewDescription(description);
-              }}>
-              <Icon name="settings-outline" size={30} color={color.Black[30]} />
-            </TouchableOpacity>
-          ) : null}
+          <EditPageButton
+            edit={edit}
+            admin={admin}
+            onPressSave={() => {
+              Object.entries(values).forEach(([k, v]) => {
+                v.active = selectedHobbies.includes(k);
+              });
+              setName(newName);
+              setAddress(newAddress);
+              setTags(newTags);
+              setDescription(newDescription);
+              setValues(values);
+              updateLofft(lofftId, newName, newDescription, newAddress, values);
+              setEdit(false);
+            }}
+            onPressCancel={() => setEdit(false)}
+            onPressEdit={() => {
+              setEdit(true);
+              setNewName(name);
+              setNewAddress(address);
+              setNewTags(tags);
+              setNewDescription(description);
+            }}
+          />
         </View>
       </ImageBackground>
       <ScrollView style={CoreStyleSheet.viewContainerStyle}>

@@ -159,6 +159,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   imageHeaderContainer: {
+    borderWidth: 2,
+    borderColor: 'red',
     flexDirection: 'row',
     justifyContent: 'space-between',
     flex: 1,
