@@ -50,6 +50,7 @@ const ViewApartmentScreen = ({route}) => {
   const [image, setImage]: any = useState({});
   const [tags, setTags]: any = useState([]);
   const [values, setValues] = useState({});
+  const [newValues, setNewValues] = useState({});
   const [newTags, setNewTags]: any = useState([]);
 
   const showAlert = (userId, lofftId) =>
@@ -102,7 +103,9 @@ const ViewApartmentScreen = ({route}) => {
         if (lofft.status) {
           setTags(tags => [...tags, {value: lofft.status, color: 'Lavendar'}]);
         }
-        if (lofft.hobbiesAndValues) setValues(lofft.hobbiesAndValues);
+        if (lofft.hobbiesAndValues) {
+          setValues(lofft.hobbiesAndValues);
+        }
         const usersList = userList.join().split(',');
         usersList.forEach(async user => {
           const response = await firestore()
@@ -170,6 +173,7 @@ const ViewApartmentScreen = ({route}) => {
                   setAddress(newAddress);
                   setTags(newTags);
                   setDescription(newDescription);
+                  setValues(newValues);
                   updateLofft(lofftId, newName, newDescription, newAddress);
                   setEdit(false);
                 }}>
@@ -191,6 +195,7 @@ const ViewApartmentScreen = ({route}) => {
                 setNewAddress(address);
                 setNewTags(tags);
                 setNewDescription(description);
+                setNewValues(values);
               }}>
               <Icon name="settings-outline" size={30} color={color.Black[30]} />
             </TouchableOpacity>
@@ -259,16 +264,48 @@ const ViewApartmentScreen = ({route}) => {
         </View>
         <Text style={fontStyles.buttonTextMedium}>Hobbies & Values</Text>
         <View style={styles.hobbyContaner}>
-          {Object.entries(values).map(([k, v]) => {
-            return (
-              <View style={[styles.hobby]} key={k}>
-                <Icon name={v.icon} size={36} color={color.Black[100]} />
-                <Text style={[fontStyles.bodySmall, styles.hobbyText]}>
-                  {v.value_en}
-                </Text>
-              </View>
-            );
-          })}
+          {edit ? (
+            <>
+              {Object.entries(newValues).map(([k, v]) => {
+                return (
+                  <TouchableOpacity
+                    style={[styles.hobby, v.active ? styles.active : null]}
+                    key={k}
+                    onPress={() => {
+                      // if (!selectedHobbies.includes(k)) {
+                      //   setSelectedHobbies(selectedHobbies => [
+                      //     ...selectedHobbies,
+                      //     k,
+                      //   ]);
+                      // } else {
+                      //   const result = selectedHobbies.filter(el => {
+                      //     return el !== k;
+                      //   });
+                      //   setSelectedHobbies(result);
+                      // }
+                    }}>
+                    <Icon name={v.icon} size={36} color={color.Black[100]} />
+                    <Text style={[fontStyles.bodySmall, styles.hobbyText]}>
+                      {v.value_en}
+                    </Text>
+                  </TouchableOpacity>
+                );
+              })}
+            </>
+          ) : (
+            <>
+              {Object.entries(values).map(([k, v]) => {
+                return (
+                  <View style={[styles.hobby]} key={k}>
+                    <Icon name={v.icon} size={36} color={color.Black[100]} />
+                    <Text style={[fontStyles.bodySmall, styles.hobbyText]}>
+                      {v.value_en}
+                    </Text>
+                  </View>
+                );
+              })}
+            </>
+          )}
           {/* Add Spotify / Apple Music API here */}
         </View>
       </ScrollView>
@@ -311,7 +348,6 @@ const styles = StyleSheet.create({
     borderRadius: 4,
   },
   address: {
-    // marginVertical: 2,
     color: color.Black[50],
   },
   pill: {
@@ -360,8 +396,12 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'flex-start',
-    marginVertical: 10,
-    flexBasis: '50%',
+    marginVertical: 5,
+    paddingLeft: 10,
+    paddingVertical: 5,
+    flexBasis: '48%',
+    borderRadius: 4,
+    backgroundColor: color.Lavendar[5],
   },
   hobbyText: {
     marginHorizontal: 20,
@@ -392,6 +432,9 @@ const styles = StyleSheet.create({
   userImageStyle: {
     width: 70,
     height: 70,
+  },
+  active: {
+    backgroundColor: color.Lavendar[30],
   },
 });
 
