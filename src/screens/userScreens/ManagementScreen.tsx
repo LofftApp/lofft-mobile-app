@@ -15,12 +15,11 @@ import ToggleBar from './../../components/bannersAndBars/ToggleBar';
 import PollCard from '../../components/cards/PollCard';
 import NewPollContainer from '../../components/iconsAndContainers/NewPollContainer';
 import CalendarManagement from '../../components/calendar/CalendarManagement';
-import { CoreButton } from '../../components/buttons/CoreButton';
+import {CoreButton} from '../../components/buttons/CoreButton';
 
 // StyleSheets
 import {CoreStyleSheet} from '../../StyleSheets/CoreDesignStyleSheet';
 import {fontStyles} from '../../StyleSheets/FontStyleSheet';
-
 
 const ManagementScreen = ({navigation, route}: any) => {
   // User Hooks
@@ -28,9 +27,7 @@ const ManagementScreen = ({navigation, route}: any) => {
   // Hooks
   const [pollsactivated, setPollsactivated] = useState(true);
   const [expanded, setExpanded] = useState(true);
-  const [date, setdate] = useState("")
-
-
+  const [date, setdate] = useState('');
 
   const buttonToggle = useCallback(toggled => {
     setPollsactivated(toggled);
@@ -38,11 +35,11 @@ const ManagementScreen = ({navigation, route}: any) => {
 
   const handlePress = () => setExpanded(!expanded);
 
-  const fetchdate = (dateInput) => {
+  const fetchdate = dateInput => {
     setdate(dateInput);
-  }
+  };
 
-console.log(`Date is being fetched and assigned into setdate state: ${date}`)
+  console.log(`Date is being fetched and assigned into setdate state: ${date}`);
 
   return (
     <View
@@ -117,13 +114,13 @@ console.log(`Date is being fetched and assigned into setdate state: ${date}`)
             </>
           ) : (
             <>
-                <CalendarManagement fetchdate={fetchdate} />
+              <CalendarManagement fetchdate={fetchdate} />
               <View style={styles.buttonContainer}>
                 <CoreButton
                   value="Add new event"
                   style={styles.button}
                   invert
-                  onPress={() => navigation.navigate('MakeNewEvent')}
+                  onPress={() => navigation.navigate('MakeNewEvent', {date})}
                 />
               </View>
             </>
