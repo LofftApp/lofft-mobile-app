@@ -33,6 +33,4 @@ const EditPageButton = ({
   );
 };
 
-const styles = StyleSheet.create({});
-
 export default EditPageButton;
