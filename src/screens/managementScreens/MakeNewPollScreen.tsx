@@ -21,6 +21,7 @@ import {CoreButton} from '../../components/buttons/CoreButton';
 import {CoreStyleSheet} from '../../StyleSheets/CoreDesignStyleSheet';
 import {fontStyles} from '../../StyleSheets/FontStyleSheet';
 import color from '../../assets/defaultColorPallet.json';
+import ToggleBar from '../../components/bannersAndBars/ToggleBar';
 
 const MakeNewPollScreen = ({navigation, route}) => {
   const [question, setQuestion] = useState('');
@@ -108,6 +109,9 @@ const MakeNewPollScreen = ({navigation, route}) => {
     setDeadline(dateFormated);
   };
 
+  const activateNoDeadline = () => {
+    setDeadline('');
+  };
 
   console.log(refInputs.current); // Tracking input of questions asked as an array
   console.log(multipleAnwser);
@@ -155,7 +159,6 @@ const MakeNewPollScreen = ({navigation, route}) => {
                 style={styles.dateContainer}
                 onPress={() =>
                   navigation.navigate('MakeDeadlinePoll', {
-
                     fetchdate: {fetchdate},
                   })
                 }>
@@ -165,11 +168,18 @@ const MakeNewPollScreen = ({navigation, route}) => {
                 </Text>
               </Pressable>
 
-              <Pressable style={styles.deadlineButton}>
+              <Pressable
+                style={
+                  deadline ? styles.deadlineButton : styles.deadlineButtonActive
+                }
+                onPress={() => activateNoDeadline()}>
                 <Text
                   style={[
                     fontStyles.buttonTextSmall,
-                    {color: color.Lavendar[50]},
+                    {flex: 0.5},
+                    deadline
+                      ? {color: color.Lavendar[50]}
+                      : {color: color.Lavendar[100]},
                   ]}>
                   No deadline
                 </Text>
@@ -222,13 +232,13 @@ const MakeNewPollScreen = ({navigation, route}) => {
             <CoreButton
               value="Post the poll!"
               style={styles.button}
-              onPress={() => navigation.navigate('', {})}
+              onPress={() => navigation.navigate('PollConfirmation')}
             />
             <CoreButton
               value="Cancel"
               style={styles.button}
               invert
-              onPress={() => navigation.navigate('')}
+              onPress={() => navigation.navigate('Managment')}
             />
           </View>
         </ScrollView>
@@ -287,14 +297,14 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginTop: 15,
+    flex: 1,
   },
   dateContainer: {
     backgroundColor: color.Lavendar[10],
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 6,
-    paddingVertical: 14,
-    paddingHorizontal: 40,
+    flex: 0.9,
   },
   dateInputStyle: {
     color: color.Black[30],
@@ -306,6 +316,16 @@ const styles = StyleSheet.create({
     paddingVertical: 14,
     paddingHorizontal: 40,
     borderColor: color.Lavendar[50],
+    borderStyle: 'solid',
+    borderWidth: 2,
+  },
+  deadlineButtonActive: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 6,
+    paddingVertical: 14,
+    paddingHorizontal: 40,
+    borderColor: color.Lavendar[100],
     borderStyle: 'solid',
     borderWidth: 2,
   },

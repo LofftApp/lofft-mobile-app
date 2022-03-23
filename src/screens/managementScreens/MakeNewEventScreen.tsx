@@ -19,14 +19,15 @@ import {fontStyles} from '../../StyleSheets/FontStyleSheet';
 import color from '../../assets/defaultColorPallet.json';
 import HalfBackgroundImage from './../../assets/banner-background-half.png';
 
-const MakeNewEventScreen = ({navigation}) => {
+const MakeNewEventScreen = ({navigation, route}) => {
   const [title, setTitle] = useState('');
   const [location, setLocation] = useState('');
-  const [date, setDate] = useState('');
+  const [date, setDate] = useState(route.params.date);
   const [fromdate, setfromDate] = useState('');
   const [untildate, setuntilDate] = useState('');
   const [informFlatmates, setinformFlatmates] = useState(false);
   const [description, setdescription] = useState('');
+
 
   const onToggleSwitch = () => setinformFlatmates(!informFlatmates);
 
@@ -166,7 +167,7 @@ const styles = StyleSheet.create({
   InputContainer: {
     display: 'flex',
     flexDirection: 'row',
-
+    alignItems:'center',
     marginTop: 19,
     marginHorizontal: 14,
   },

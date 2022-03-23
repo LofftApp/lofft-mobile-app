@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Text, View, StyleSheet, Platform} from 'react-native';
+import {Text, View, StyleSheet, Platform, TouchableOpacity} from 'react-native';
 
 // Sample Images
 import adam from '../../../assets/sampleFaces/adam.jpg';
@@ -26,25 +26,47 @@ const importedFriends = [
 
 const AddFriendsScreen = ({navigation}) => {
   const [friends, setFriends] = useState(importedFriends);
+  const [allFriendsSelect, setAllFriendsSelect] = useState(false);
 
-
-  const selectFriends = (id) => {
-    console.log(id);
-    console.log(friends);
-
-
+  const selectFriends = id => {
     const clickedFriends = friends.map(el => {
       if (el.id === id) {
-      return {...el, selected: !el.selected};
+        return {...el, selected: !el.selected};
       } else {
-      return el;
-       }
+        return el;
+      }
     });
-
-
 
     setFriends(clickedFriends);
   };
+
+const toggleFriends = () => {
+  let allFriendsSelected;
+
+  setAllFriendsSelect(!allFriendsSelect)
+
+  if (allFriendsSelect) {
+    allFriendsSelected = friends.map(el => {
+      return { ...el, selected: true };
+    });
+  } else {
+    allFriendsSelected = friends.map(el => {
+      return { ...el, selected: false };
+    });
+  }
+
+  setFriends(allFriendsSelected)
+}
+
+  // if (allFriendsSelect) {
+  //   const selectAllFriends = () => {
+  //     const selectAllFriends = friends.map(el => {
+  //       return {...el, selected: true};
+  //     });
+  //     setAllFriendsSelect(true);
+  //     setFriends(selectAllFriends);
+  //   };
+  // }
 
   return (
     <View
@@ -63,11 +85,11 @@ const AddFriendsScreen = ({navigation}) => {
             <Text style={[fontStyles.buttonTextMedium, {width: '50%'}]}>
               Who do you want to invite?
             </Text>
-            <CoreButton
-              newcolor="blue"
-              value="Create New Poll"
-              style={styles.addFriendsButton}
-            />
+            <TouchableOpacity
+              style={[styles.buttonStyle]}
+              onPress={() => toggleFriends()}>
+              <Text style={[fontStyles.buttonTextMedium, styles.buttonTextStyle]}>{allFriendsSelect ? 'Select all' : 'Unselect'}</Text>
+            </TouchableOpacity>
           </View>
 
           <View style={styles.chooseFriendsContainer}>
@@ -83,6 +105,20 @@ const AddFriendsScreen = ({navigation}) => {
             ))}
           </View>
         </View>
+      </View>
+
+      <View style={styles.actionButtonContainer}>
+        <CoreButton
+          value="Confirm"
+          style={styles.button}
+          onPress={() => navigation.navigate('EventConfirmation')}
+        />
+        <CoreButton
+          value="Cancel"
+          style={styles.button}
+          invert
+          onPress={() => navigation.navigate('Managment')}
+        />
       </View>
     </View>
   );
@@ -112,12 +148,32 @@ const styles = StyleSheet.create({
     backgroundColor: color.White[100],
     flex: 1,
   },
+  buttonStyle: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: color.White[100],
+    borderColor: color.Lavendar[100],
+    borderRadius: 16,
+    borderWidth: 2,
+    marginLeft: 19,
+    flex:1,
+    paddingVertical: 10,
+  },
+  buttonTextStyle: {
+    color: color.Lavendar[100],
+  },
   chooseFriendsContainer: {
     marginHorizontal: 14,
     flexDirection: 'row',
     justifyContent: 'space-between',
     flexWrap: 'wrap',
     marginTop: 40,
+  },
+  actionButtonContainer: {
+    marginTop: 30,
+  },
+  button: {
+    marginVertical: 5,
   },
 });
 

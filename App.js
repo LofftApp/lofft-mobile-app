@@ -26,6 +26,8 @@ import MakeNewPollScreen from './src/screens/managementScreens/MakeNewPollScreen
 import MakeNewEventScreen from './src/screens/managementScreens/MakeNewEventScreen';
 import AddFriendsScreen from './src/screens/managementScreens/AddFriendsScreen';
 import DeadlineScreen from './src/screens/managementScreens/DeadlineScreen';
+import EventConfirmationScreen from './src/screens/managementScreens/EventConfirmationScreen';
+import PollConfirmationScreen from './src/screens/managementScreens/PollConfirmationScreen';
 
 // FireStore
 import auth from '@react-native-firebase/auth';
@@ -98,6 +100,7 @@ const App = () => {
             options={{headerShown: false}}
           />
 
+
           {/* Management Screens */}
 
           <Stack.Screen
@@ -119,10 +122,24 @@ const App = () => {
           />
 
           <Stack.Screen
+            name="EventConfirmation"
+            component={EventConfirmationScreen}
+            options={{ headerShown: false }}
+          />
+
+          <Stack.Screen
+            name="PollConfirmation"
+            component={PollConfirmationScreen}
+            options={{ headerShown: false }}
+          />
+
+          <Stack.Screen
             name="MakeDeadlinePoll"
             component={DeadlineScreen}
             options={{ headerShown: false }}
           />
+
+
           {/* Settings and Profile Management */}
           <Stack.Screen
             name="UserOptions"
