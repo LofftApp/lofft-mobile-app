@@ -1,4 +1,4 @@
-import firestore from '@react-native-firebase/firestore';
+import firestore, {doc, getDoc} from '@react-native-firebase/firestore';
 import auth from '@react-native-firebase/auth';
 import {getCurrentUser} from './firebaseApi';
 
@@ -163,4 +163,34 @@ export const billQuery = async () => {
       });
     });
   return {total, returnedData};
+};
+
+
+// Create Event
+export const addEvent = async (title, location) => {
+  const currentUser = auth().currentUser;
+  const user = await getCurrentUserDetails(currentUser);
+  const loftId = user.details.lofft.lofftId;
+
+  let currentEvent = {
+    title: '',
+    location: '',
+  };
+
+  currentEvent.title = title;
+  currentEvent.location = location;
+
+  const docRef = await firestore().collection('Managements').doc(loftId);
+
+  docRef.get().then(docSnapshot => {
+    if (docSnapshot.exists) {
+      docRef.update({
+        events: firestore.FieldValue.arrayUnion(currentEvent),
+      });
+    } else {
+      docRef.set({
+        // Seting up only collection id with Loft Id
+      });
+    }
+  });
 };

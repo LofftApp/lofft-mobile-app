@@ -19,6 +19,8 @@ import {fontStyles} from '../../StyleSheets/FontStyleSheet';
 import color from '../../assets/defaultColorPallet.json';
 import HalfBackgroundImage from './../../assets/banner-background-half.png';
 
+// Firestore
+
 const MakeNewEventScreen = ({navigation, route}) => {
   const [title, setTitle] = useState('');
   const [location, setLocation] = useState('');
@@ -27,7 +29,6 @@ const MakeNewEventScreen = ({navigation, route}) => {
   const [untildate, setuntilDate] = useState('');
   const [informFlatmates, setinformFlatmates] = useState(false);
   const [description, setdescription] = useState('');
-
 
   const onToggleSwitch = () => setinformFlatmates(!informFlatmates);
 
@@ -141,7 +142,9 @@ const MakeNewEventScreen = ({navigation, route}) => {
         <CoreButton
           value="Next"
           style={styles.button}
-          onPress={() => navigation.navigate('AddFriendsToEvent', {})}
+          onPress={() =>
+            navigation.navigate('AddFriendsToEvent', {title, location})
+          }
         />
       </View>
     </View>
@@ -167,7 +170,7 @@ const styles = StyleSheet.create({
   InputContainer: {
     display: 'flex',
     flexDirection: 'row',
-    alignItems:'center',
+    alignItems: 'center',
     marginTop: 19,
     marginHorizontal: 14,
   },
