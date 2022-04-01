@@ -16,6 +16,7 @@ import auth from '@react-native-firebase/auth';
 import CustomBackButton from '../../components/buttons/CustomBackButton';
 import Icon from 'react-native-vector-icons/Ionicons';
 import TagIcon from '../../components/iconsAndContainers/TagIcon';
+import EditPageButton from '../../components/buttons/EditPageButton';
 
 // Stylesheets
 import color from './../../assets/defaultColorPallet.json';
@@ -25,35 +26,47 @@ import {navigationRef} from '../../RootNavigation';
 
 // Images
 import blueBackground from '../../assets/backgroundShapes/blue.png';
+import imagePlaceholder from '../../assets/user.jpeg';
 
 const ProfileScreen = () => {
-  const [image, setImage]: any = useState({});
+  const [edit, setEdit] = useState(false);
+  const [admin, setAdmin] = useState(false);
   const [name, setName] = useState('');
+  const [newName, setNewName] = useState('');
   const [tags, setTags] = useState([]);
-  const [description, setDescription] = useState('There is no description');
+  const [newTags, setNewTags] = useState([]);
+  const [userImage, setUserImage] = useState({});
+  const [description, setDescription] = useState('');
+  const [newDescription, setNewDescription] = useState('');
+  const [values, setValues] = useState({});
 
   useEffect(() => {
     setTags([]);
     const getUser = async user => {
       const result = await getCurrentUserDetails(user);
-      if (result.details.imageURI) setImage({uri: result.details.imageURI});
+      result.details.imageURI
+        ? setUserImage(result.details.imageURI)
+        : setUserImage(imagePlaceholder);
       if (result.details.name) {
         setName(result.details.name);
       }
-      if (result.details.status) {
-        setTags(tags => [
-          ...tags,
-          {value: result.details.status, color: 'Lavendar'},
-        ]);
-      }
-      if (result.details.pronouns) {
-        setTags(tags => [
-          ...tags,
-          {value: result.details.pronouns, color: 'Mint'},
-        ]);
-      }
-      if (result.details.profile.description) {
+      // if (result.details.status) {
+      //   setTags(tags => [
+      //     ...tags,
+      //     {value: result.details.status, color: 'Lavendar'},
+      //   ]);
+      // }
+      // if (result.details.pronouns) {
+      //   setTags(tags => [
+      //     ...tags,
+      //     {value: result.details.pronouns, color: 'Mint'},
+      //   ]);
+      // }
+      if (result.details.profile && result.details.profile.description) {
         setDescription(result.details.profile.description);
+      }
+      if (auth().currentUser.uid === result.details.uid) {
+        setAdmin(true);
       }
       // if (result.details.profile.diet) {
       //   setTags(tags => [
@@ -79,8 +92,29 @@ const ProfileScreen = () => {
           onPress={() => navigationRef.goBack()}
         />
         <View style={styles.imageHeaderContainer}>
-          <Text style={[fontStyles.headerMedium, styles.header]}>{name}</Text>
-          <Image source={image} style={styles.userImage} />
+          <Image source={userImage} style={styles.userImage} />
+          <EditPageButton
+            edit={edit}
+            admin={admin}
+            onPressSave={() => {
+              Object.entries(values).forEach(([k, v]) => {
+                v.active = selectedHobbies.includes(k);
+              });
+              setName(newName);
+              setTags(newTags);
+              setDescription(newDescription);
+              setValues(values);
+              // updateLofft(lofftId, newName, newDescription, newAddress, values);
+              setEdit(false);
+            }}
+            onPressCancel={() => setEdit(false)}
+            onPressEdit={() => {
+              setEdit(true);
+              setNewName(name);
+              setNewTags(tags);
+              setNewDescription(description);
+            }}
+          />
         </View>
       </ImageBackground>
       <ScrollView style={CoreStyleSheet.viewContainerStyle}>
@@ -91,6 +125,7 @@ const ProfileScreen = () => {
             );
           })}
         </View>
+        <Text style={[fontStyles.headerMedium]}>{name}</Text>
         <Text style={[fontStyles.bodySmall, styles.userText]}>
           {description}
         </Text>
@@ -159,17 +194,12 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   imageHeaderContainer: {
-    borderWidth: 2,
-    borderColor: 'red',
     flexDirection: 'row',
     justifyContent: 'space-between',
     flex: 1,
     alignItems: 'flex-end',
     paddingBottom: 10,
     paddingHorizontal: 15,
-  },
-  header: {
-    maxWidth: '60%',
   },
   userImage: {
     width: 90,

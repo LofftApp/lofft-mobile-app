@@ -48,10 +48,10 @@ const ViewApartmentScreen = ({route}) => {
   const [newAddress, setNewAddress] = useState('');
   const [tenants, setTenants] = useState([]);
   const [update, setUpdate] = useState(false);
-  const [image, setImage]: any = useState({});
+  // const [image, setImage]: any = useState({});
   const [tags, setTags]: any = useState([]);
   const [values, setValues] = useState({});
-  const [newValues, setNewValues] = useState({});
+  // const [newValues, setNewValues] = useState({});
   const [newTags, setNewTags]: any = useState([]);
 
   const [selectedHobbies, setSelectedHobbies] = useState([]);
