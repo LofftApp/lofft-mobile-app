@@ -31,6 +31,7 @@ import UserIcon from '../../components/iconsAndContainers/UserIcon';
 import {navigationRef} from '../../RootNavigation';
 import TagIcon from '../../components/iconsAndContainers/TagIcon';
 import HobbiesAndValues from '../../components/HobbiesAndValues';
+import EditableTextField from '../../components/inputFields/EditableTextFields';
 
 // Images
 import blueBackground from '../../assets/backgroundShapes/mint.png';
@@ -155,35 +156,21 @@ const ViewApartmentScreen = ({route}) => {
         />
         <View style={styles.imageHeaderContainer}>
           <View style={styles.headerDetailsContainer}>
-            {edit ? (
-              <TextInput
-                value={newName}
-                style={[fontStyles.headerMedium, styles.editForm]}
-                onChangeText={t => {
-                  setNewName(t);
-                }}
-              />
-            ) : (
-              <Text style={[fontStyles.headerMedium]}>{name}</Text>
-            )}
-            {edit ? (
-              <TextInput
-                value={newAddress}
-                placeholder="Address"
-                style={[
-                  fontStyles.bodyExtraSmall,
-                  styles.address,
-                  styles.editForm,
-                ]}
-                onChangeText={t => {
-                  setNewAddress(t);
-                }}
-              />
-            ) : (
-              <Text style={[fontStyles.bodyExtraSmall, styles.address]}>
-                {address}
-              </Text>
-            )}
+            <EditableTextField
+              value={name}
+              edit={edit}
+              fontStyle={fontStyles.headerMedium}
+              newValue={newName}
+              onChangeText={t => setNewName(t)}
+            />
+            <EditableTextField
+              value={address}
+              edit={edit}
+              placeholder="Address"
+              newValue={newAddress}
+              fontStyle={fontStyles.bodyMedium}
+              onChangeText={t => setNewAddress(t)}
+            />
           </View>
           <EditPageButton
             edit={edit}
@@ -225,21 +212,15 @@ const ViewApartmentScreen = ({route}) => {
                 );
               })}
         </View>
-        {edit ? (
-          <TextInput
-            value={newDescription}
-            style={[fontStyles.bodySmall, styles.userText, styles.editForm]}
-            multiline={true}
-            onChangeText={t => {
-              setNewDescription(t);
-            }}
-          />
-        ) : (
-          <Text style={[fontStyles.bodySmall, styles.userText]}>
-            {description}
-          </Text>
-        )}
-
+        <EditableTextField
+          edit={edit}
+          value={description}
+          newValue={newDescription}
+          fontStyle={fontStyles.bodySmall}
+          textStyle={styles.userText}
+          multiline={true}
+          onChangeText={t => setNewDescription(t)}
+        />
         <Text style={fontStyles.buttonTextMedium}>Co-livers</Text>
         {/* User/Tennants */}
         <View style={styles.userWindow}>

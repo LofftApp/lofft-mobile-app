@@ -17,6 +17,7 @@ import CustomBackButton from '../../components/buttons/CustomBackButton';
 import Icon from 'react-native-vector-icons/Ionicons';
 import TagIcon from '../../components/iconsAndContainers/TagIcon';
 import EditPageButton from '../../components/buttons/EditPageButton';
+import HobbiesAndValues from '../../components/HobbiesAndValues';
 
 // Stylesheets
 import color from './../../assets/defaultColorPallet.json';
@@ -39,6 +40,18 @@ const ProfileScreen = () => {
   const [description, setDescription] = useState('');
   const [newDescription, setNewDescription] = useState('');
   const [values, setValues] = useState({});
+
+  const [selectedHobbies, setSelectedHobbies] = useState([]);
+  const selectHobby = key => {
+    if (!selectedHobbies.includes(key)) {
+      setSelectedHobbies(selectedHobbies => [...selectedHobbies, key]);
+    } else {
+      const result = selectedHobbies.filter(el => {
+        return el !== key;
+      });
+      setSelectedHobbies(result);
+    }
+  };
 
   useEffect(() => {
     setTags([]);
@@ -67,6 +80,16 @@ const ProfileScreen = () => {
       }
       if (auth().currentUser.uid === result.details.uid) {
         setAdmin(true);
+      }
+      if (result.details.hobbiesAndValues) {
+        setValues(result.details.hobbiesAndValues);
+        Object.entries(result.details.hobbiesAndValues).forEach(([k, v]) => {
+          if (v.active) {
+            if (!selectedHobbies.includes(k)) {
+              setSelectedHobbies(selectedHobbies => [...selectedHobbies, k]);
+            }
+          }
+        });
       }
       // if (result.details.profile.diet) {
       //   setTags(tags => [
@@ -142,36 +165,14 @@ const ProfileScreen = () => {
             <Icon name="add-outline" size={60} color={color.Black[30]} />
           </View>
         </View>
-        <Text style={fontStyles.buttonTextMedium}>Hobbies</Text>
-        <View style={styles.hobbyContaner}>
-          <View style={styles.hobby}>
-            <Icon name="megaphone-outline" size={36} color={color.Black[100]} />
-            <Text style={[fontStyles.bodySmall, styles.hobbyText]}>
-              Politics
-            </Text>
-          </View>
-          <View style={styles.hobby}>
-            <Icon
-              name="restaurant-outline"
-              size={36}
-              color={color.Black[100]}
-            />
-            <Text style={[fontStyles.bodySmall, styles.hobbyText]}>Cookng</Text>
-          </View>
-          <View style={styles.hobby}>
-            <Icon name="fast-food-outline" size={36} color={color.Black[100]} />
-            <Text style={[fontStyles.bodySmall, styles.hobbyText]}>
-              Eating Out
-            </Text>
-          </View>
-          <View style={styles.hobby}>
-            <Icon name="happy-outline" size={36} color={color.Black[100]} />
-            <Text style={[fontStyles.bodySmall, styles.hobbyText]}>
-              Meditation
-            </Text>
-          </View>
-          {/* Add Spotify / Apple Music API here */}
-        </View>
+        <Text style={fontStyles.buttonTextMedium}>Hobbies & Values</Text>
+        <HobbiesAndValues
+          values={values}
+          selectHobby={k => selectHobby(k)}
+          selectedHobbies={selectedHobbies}
+          edit={edit}
+        />
+        {/* Add Spotify / Apple Music API here */}
       </ScrollView>
     </View>
   );
