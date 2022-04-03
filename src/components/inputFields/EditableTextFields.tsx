@@ -15,7 +15,6 @@ const EditableTextField = ({
   inputFieldStyle = null,
   onChangeText = null,
 }) => {
-  console.log(edit);
   return (
     <>
       {edit ? (

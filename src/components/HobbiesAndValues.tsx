@@ -13,6 +13,7 @@ const HobbiesAndValues = ({
   selectedHobbies,
   edit = false,
 }) => {
+  // console.log(values);
   return (
     <View style={styles.hobbyContaner}>
       {Object.entries(values).map(([k, v]) => {

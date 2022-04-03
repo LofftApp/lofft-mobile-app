@@ -6,11 +6,9 @@ import {
   ImageBackground,
   ScrollView,
   Alert,
-  TextInput,
-  TouchableOpacity,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
-// import values from '../../data/hobbiesAndValues.json';
+import storedHobbiesAndValues from '../../data/hobbiesAndValues.json';
 
 // Firestore
 import auth from '@react-native-firebase/auth';
@@ -117,7 +115,7 @@ const ViewApartmentScreen = ({route}) => {
         if (lofft.status) {
           setTags(tags => [...tags, {value: lofft.status, color: 'Lavendar'}]);
         }
-        if (lofft.hobbiesAndValues) {
+        if (lofft.hobbiesAndValues.length > 0) {
           setValues(lofft.hobbiesAndValues);
           Object.entries(lofft.hobbiesAndValues).forEach(([k, v]) => {
             if (v.active) {
@@ -126,6 +124,9 @@ const ViewApartmentScreen = ({route}) => {
               }
             }
           });
+        } else {
+          console.log(storedHobbiesAndValues);
+          setValues(storedHobbiesAndValues);
         }
         const usersList = userList.join().split(',');
         usersList.forEach(async user => {
