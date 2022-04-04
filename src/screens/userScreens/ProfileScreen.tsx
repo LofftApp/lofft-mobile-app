@@ -7,6 +7,7 @@ import {
   StyleSheet,
   Image,
 } from 'react-native';
+import storedHobbiesAndValues from '../../data/hobbiesAndValues.json';
 
 // Firebase
 import {getCurrentUserDetails} from '../../api/firebase/fireStoreActions';
@@ -28,6 +29,7 @@ import {navigationRef} from '../../RootNavigation';
 // Images
 import blueBackground from '../../assets/backgroundShapes/blue.png';
 import imagePlaceholder from '../../assets/user.jpeg';
+import EditableTextField from '../../components/inputFields/EditableTextFields';
 
 const ProfileScreen = () => {
   const [edit, setEdit] = useState(false);
@@ -90,6 +92,8 @@ const ProfileScreen = () => {
             }
           }
         });
+      } else {
+        setValues(storedHobbiesAndValues);
       }
       // if (result.details.profile.diet) {
       //   setTags(tags => [
@@ -148,10 +152,29 @@ const ProfileScreen = () => {
             );
           })}
         </View>
-        <Text style={[fontStyles.headerMedium]}>{name}</Text>
-        <Text style={[fontStyles.bodySmall, styles.userText]}>
-          {description}
-        </Text>
+        {name || edit ? (
+          <EditableTextField
+            placeholder="Name"
+            edit={edit}
+            value={name}
+            newValue={newName}
+            fontStyle={fontStyles.headerSmall}
+            multiline={true}
+            onChangeText={t => setNewName(t)}
+          />
+        ) : null}
+        {description || edit ? (
+          <EditableTextField
+            placeholder="Description"
+            edit={edit}
+            value={description}
+            newValue={newDescription}
+            fontStyle={fontStyles.bodySmall}
+            multiline={true}
+            onChangeText={t => setNewDescription(t)}
+          />
+        ) : null}
+
         <Text style={fontStyles.buttonTextMedium}>Loffts</Text>
         <View style={styles.noLofftContainer}>
           <Text style={styles.noLofftText}>👀</Text>

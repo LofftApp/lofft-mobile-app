@@ -13,7 +13,6 @@ const HobbiesAndValues = ({
   selectedHobbies,
   edit = false,
 }) => {
-  // console.log(values);
   return (
     <View style={styles.hobbyContaner}>
       {Object.entries(values).map(([k, v]) => {
@@ -23,7 +22,10 @@ const HobbiesAndValues = ({
               style={[
                 styles.hobby,
                 edit ? styles.edit : null,
-                edit && selectedHobbies.includes(k) ? styles.active : null,
+                (edit && selectedHobbies.includes(k)) ||
+                (edit && selectedHobbies.includes(k) && v.active)
+                  ? styles.active
+                  : null,
               ]}
               key={k}
               onPress={() => {
