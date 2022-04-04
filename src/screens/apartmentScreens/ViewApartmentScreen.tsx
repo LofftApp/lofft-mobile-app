@@ -115,7 +115,7 @@ const ViewApartmentScreen = ({route}) => {
         if (lofft.status) {
           setTags(tags => [...tags, {value: lofft.status, color: 'Lavendar'}]);
         }
-        if (lofft.hobbiesAndValues && lofft.hobbiesAndValues.length > 0) {
+        if (lofft.hobbiesAndValues) {
           setValues(lofft.hobbiesAndValues);
           Object.entries(lofft.hobbiesAndValues).forEach(([k, v]) => {
             if (v.active) {
@@ -252,7 +252,6 @@ const ViewApartmentScreen = ({route}) => {
             <Icon name="add-outline" size={60} color={color.Black[30]} />
           </View>
         </View>
-        <Text style={fontStyles.buttonTextMedium}>Hobbies & Values</Text>
         <HobbiesAndValues
           values={values}
           selectHobby={k => selectHobby(k)}

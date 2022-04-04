@@ -34,30 +34,31 @@ export const getCurrentUserDetails = async user => {
   return {docId, details};
 };
 
-export const updateUserAccountDetails = async ({
-  firstName,
-  lastName,
-  pronouns,
-  email,
+// Edit user profiles
+export const updateUser = (
   docId,
-}) => {
+  name = null,
+  description = '',
+  hobbiesAndValues = {},
+) => {
+  console.log(name);
   auth().onAuthStateChanged(user => {
-    if (user) {
-      firestore()
-        .collection('Users')
-        .doc(docId)
-        .update({
-          name: `${firstName} ${lastName}`,
-          pronouns,
-          email,
-        })
-        .then(() => {
-          user.updateProfile({
-            displayName: `${firstName} ${lastName}`,
-          });
-          user.updateEmail(email);
+    firestore()
+      .collection('Users')
+      .doc(docId)
+      .update({
+        name,
+        // email,
+        userProfile: {
+          description,
+          hobbiesAndValues,
+        },
+      })
+      .then(() => {
+        user.updateProfile({
+          displayName: name,
         });
-    }
+      });
   });
 };
 

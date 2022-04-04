@@ -14,33 +14,37 @@ const HobbiesAndValues = ({
   edit = false,
 }) => {
   return (
-    <View style={styles.hobbyContaner}>
-      {Object.entries(values).map(([k, v]) => {
-        if (v.active || edit) {
-          return (
-            <TouchableOpacity
-              style={[
-                styles.hobby,
-                edit ? styles.edit : null,
-                (edit && selectedHobbies.includes(k)) ||
-                (edit && selectedHobbies.includes(k) && v.active)
-                  ? styles.active
-                  : null,
-              ]}
-              key={k}
-              onPress={() => {
-                selectHobby(k);
-              }}
-              disabled={!edit}>
-              <Icon name={v.icon} size={36} color={color.Black[100]} />
-              <Text style={[fontStyles.bodySmall, styles.hobbyText]}>
-                {v.value_en}
-              </Text>
-            </TouchableOpacity>
-          );
-        }
-      })}
-    </View>
+    <>
+      <Text style={fontStyles.buttonTextMedium}>Hobbies & Values</Text>
+      <View style={styles.hobbyContaner}>
+        {Object.entries(values).map(([k, v]) => {
+          // console.log(`${k}: ${v.active}`);
+          if (v.active || edit) {
+            return (
+              <TouchableOpacity
+                style={[
+                  styles.hobby,
+                  edit ? styles.edit : null,
+                  (edit && selectedHobbies.includes(k)) ||
+                  (edit && selectedHobbies.includes(k) && v.active)
+                    ? styles.active
+                    : null,
+                ]}
+                key={k}
+                onPress={() => {
+                  selectHobby(k);
+                }}
+                disabled={!edit}>
+                <Icon name={v.icon} size={36} color={color.Black[100]} />
+                <Text style={[fontStyles.bodySmall, styles.hobbyText]}>
+                  {v.value_en}
+                </Text>
+              </TouchableOpacity>
+            );
+          }
+        })}
+      </View>
+    </>
   );
 };
 

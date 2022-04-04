@@ -12,6 +12,7 @@ import storedHobbiesAndValues from '../../data/hobbiesAndValues.json';
 // Firebase
 import {getCurrentUserDetails} from '../../api/firebase/fireStoreActions';
 import auth from '@react-native-firebase/auth';
+import {updateUser} from '../../api/firebase/fireStoreActions';
 
 // Components
 import CustomBackButton from '../../components/buttons/CustomBackButton';
@@ -32,6 +33,7 @@ import imagePlaceholder from '../../assets/user.jpeg';
 import EditableTextField from '../../components/inputFields/EditableTextFields';
 
 const ProfileScreen = () => {
+  const [docId, setDocId] = useState('');
   const [edit, setEdit] = useState(false);
   const [admin, setAdmin] = useState(false);
   const [name, setName] = useState('');
@@ -59,6 +61,7 @@ const ProfileScreen = () => {
     setTags([]);
     const getUser = async user => {
       const result = await getCurrentUserDetails(user);
+      setDocId(result.docId);
       result.details.imageURI
         ? setUserImage(result.details.imageURI)
         : setUserImage(imagePlaceholder);
@@ -77,21 +80,26 @@ const ProfileScreen = () => {
       //     {value: result.details.pronouns, color: 'Mint'},
       //   ]);
       // }
-      if (result.details.profile && result.details.profile.description) {
-        setDescription(result.details.profile.description);
+      if (
+        result.details.userProfile &&
+        result.details.userProfile.description
+      ) {
+        setDescription(result.details.userProfile.description);
       }
       if (auth().currentUser.uid === result.details.uid) {
         setAdmin(true);
       }
-      if (result.details.hobbiesAndValues) {
-        setValues(result.details.hobbiesAndValues);
-        Object.entries(result.details.hobbiesAndValues).forEach(([k, v]) => {
-          if (v.active) {
-            if (!selectedHobbies.includes(k)) {
-              setSelectedHobbies(selectedHobbies => [...selectedHobbies, k]);
+      if (result.details.userProfile.hobbiesAndValues) {
+        setValues(result.details.userProfile.hobbiesAndValues);
+        Object.entries(result.details.userProfile.hobbiesAndValues).forEach(
+          ([k, v]) => {
+            if (v.active) {
+              if (!selectedHobbies.includes(k)) {
+                setSelectedHobbies(selectedHobbies => [...selectedHobbies, k]);
+              }
             }
-          }
-        });
+          },
+        );
       } else {
         setValues(storedHobbiesAndValues);
       }
@@ -131,7 +139,7 @@ const ProfileScreen = () => {
               setTags(newTags);
               setDescription(newDescription);
               setValues(values);
-              // updateLofft(lofftId, newName, newDescription, newAddress, values);
+              updateUser(docId, newName, newDescription, values);
               setEdit(false);
             }}
             onPressCancel={() => setEdit(false)}
@@ -188,13 +196,13 @@ const ProfileScreen = () => {
             <Icon name="add-outline" size={60} color={color.Black[30]} />
           </View>
         </View>
-        <Text style={fontStyles.buttonTextMedium}>Hobbies & Values</Text>
         <HobbiesAndValues
           values={values}
           selectHobby={k => selectHobby(k)}
           selectedHobbies={selectedHobbies}
           edit={edit}
         />
+
         {/* Add Spotify / Apple Music API here */}
       </ScrollView>
     </View>
