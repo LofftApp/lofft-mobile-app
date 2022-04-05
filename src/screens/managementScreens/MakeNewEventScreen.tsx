@@ -104,8 +104,8 @@ const MakeNewEventScreen = ({navigation, route}) => {
                   style={[styles.timeInputForm, fontStyles.bodyMedium]}
                   placeholder=""
                   autoCapitalize="none"
-                  value={description}
-                  onChangeText={text => setdescription(text)}
+                  value={untildate}
+                  onChangeText={text => setuntilDate(text)}
                 />
               </View>
             </View>
@@ -130,8 +130,8 @@ const MakeNewEventScreen = ({navigation, route}) => {
               style={[styles.descriptionInputForm, fontStyles.bodyMedium]}
               placeholder=""
               autoCapitalize="none"
-              value={untildate}
-              onChangeText={text => setuntilDate(text)}
+              value={description}
+              onChangeText={text => setdescription(text)}
               multiline={true}
             />
           </View>
@@ -143,7 +143,15 @@ const MakeNewEventScreen = ({navigation, route}) => {
           value="Next"
           style={styles.button}
           onPress={() =>
-            navigation.navigate('AddFriendsToEvent', {title, location})
+            navigation.navigate('AddFriendsToEvent', {
+              title,
+              location,
+              date,
+              fromdate,
+              untildate,
+              informFlatmates,
+              description,
+            })
           }
         />
       </View>

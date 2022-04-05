@@ -23,6 +23,10 @@ import {fontStyles} from '../../StyleSheets/FontStyleSheet';
 import color from '../../assets/defaultColorPallet.json';
 import ToggleBar from '../../components/bannersAndBars/ToggleBar';
 
+// Firestore
+
+import {addPoll} from '../../api/firebase/fireStoreActions';
+
 const MakeNewPollScreen = ({navigation, route}) => {
   const [question, setQuestion] = useState('');
   // this will be attached with each input onChangeText
@@ -232,7 +236,12 @@ const MakeNewPollScreen = ({navigation, route}) => {
             <CoreButton
               value="Post the poll!"
               style={styles.button}
-              onPress={() => navigation.navigate('PollConfirmation')}
+              onPress={() =>
+                navigation.navigate(
+                  'PollConfirmation',
+                  addPoll(question, refInputs, deadline, multipleAnwser)
+                )
+              }
             />
             <CoreButton
               value="Cancel"

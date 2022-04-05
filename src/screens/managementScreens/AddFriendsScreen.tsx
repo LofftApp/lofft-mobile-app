@@ -62,16 +62,6 @@ const AddFriendsScreen = ({navigation, route}: any) => {
     setFriends(allFriendsSelected);
   };
 
-  // if (allFriendsSelect) {
-  //   const selectAllFriends = () => {
-  //     const selectAllFriends = friends.map(el => {
-  //       return {...el, selected: true};
-  //     });
-  //     setAllFriendsSelect(true);
-  //     setFriends(selectAllFriends);
-  //   };
-  // }
-
   return (
     <View
       style={[
@@ -119,7 +109,17 @@ const AddFriendsScreen = ({navigation, route}: any) => {
           value="Confirm"
           style={styles.button}
           onPress={() => {
-            navigation.navigate('EventConfirmation'), addEvent(route.params.title, route.params.location);
+            navigation.navigate('EventConfirmation'),
+              addEvent(
+                route.params.title,
+                route.params.location,
+                route.params.date,
+                route.params.fromdate,
+                route.params.untildate,
+                route.params.informFlatmates,
+                route.params.description,
+                friends,
+              );
           }}
         />
         <CoreButton

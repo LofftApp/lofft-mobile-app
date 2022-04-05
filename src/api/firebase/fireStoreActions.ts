@@ -165,20 +165,32 @@ export const billQuery = async () => {
   return {total, returnedData};
 };
 
-
 // Create Event
-export const addEvent = async (title, location) => {
+export const addEvent = async (
+  title,
+  location,
+  date,
+  from,
+  till,
+  sharewithFlatmates,
+  description,
+  inputFriends,
+) => {
   const currentUser = auth().currentUser;
   const user = await getCurrentUserDetails(currentUser);
   const loftId = user.details.lofft.lofftId;
+  const selectedFriendsOnly = inputFriends.filter(el => el.selected === true);
 
   let currentEvent = {
-    title: '',
-    location: '',
+    title: title,
+    location: location,
+    date: date,
+    from: from,
+    till: till,
+    sharewithFlatmates: sharewithFlatmates,
+    description: description,
+    selectedFriends: selectedFriendsOnly,
   };
-
-  currentEvent.title = title;
-  currentEvent.location = location;
 
   const docRef = await firestore().collection('Managements').doc(loftId);
 
@@ -189,7 +201,36 @@ export const addEvent = async (title, location) => {
       });
     } else {
       docRef.set({
-        // Seting up only collection id with Loft Id
+        // doc Ref creates doc id from Loft id 😎
+      });
+    }
+  });
+};
+
+// Create Poll
+
+export const addPoll = async (question, anwsers, deadline, multipleAnwser) => {
+  const currentUser = auth().currentUser;
+  const user = await getCurrentUserDetails(currentUser);
+  const loftId = user.details.lofft.lofftId;
+
+  let currentPoll = {
+    question: question,
+    anwsers: anwsers.current,
+    deadline: deadline,
+    multipleAnwser: multipleAnwser,
+  };
+
+  const docRef = await firestore().collection('Managements').doc(loftId);
+
+  docRef.get().then(docSnapshot => {
+    if (docSnapshot.exists) {
+      docRef.update({
+        Polls: firestore.FieldValue.arrayUnion(currentPoll),
+      });
+    } else {
+      docRef.set({
+        // doc Ref creates doc id from Loft id 😎
       });
     }
   });
