@@ -1,19 +1,17 @@
 import React from 'react';
-import { View, Text, ImageBackground, StyleSheet } from 'react-native';
+import {View, Text, ImageBackground, StyleSheet} from 'react-native';
 import color from '../../assets/defaultColorPallet.json';
-import { fontStyles } from '../../StyleSheets/FontStyleSheet';
+import {fontStyles} from '../../StyleSheets/FontStyleSheet';
 import HalfBackgroundImage from './../../assets/banner-background-half.png';
-import { CoreButton } from '../buttons/CoreButton';
+import {CoreButton} from '../buttons/CoreButton';
 
-
-const PollCard = ({buttonAction,value}) => {
-  return(
+const PollCard = ({buttonAction, value, anwsers, deadline, multipleAnwser}) => {
+  return (
     <ImageBackground
       source={HalfBackgroundImage}
       style={styles.ItemPendingPayment}>
       <View style={styles.textContainer}>
-        <Text style={[fontStyles.buttonTextSmall, styles.header]}>
-        </Text>
+        <Text style={[fontStyles.buttonTextSmall, styles.header]} />
         <Text style={[fontStyles.headerSmall, styles.value]}>{value}</Text>
       </View>
       <CoreButton
@@ -23,8 +21,8 @@ const PollCard = ({buttonAction,value}) => {
         onPress={buttonAction}
       />
     </ImageBackground>
-  )
-}
+  );
+};
 
 const styles = StyleSheet.create({
   ItemPendingPayment: {

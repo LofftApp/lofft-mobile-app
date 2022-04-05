@@ -34,7 +34,7 @@ const ManagementScreen = ({navigation, route}: any) => {
   const [pollsactivated, setPollsactivated] = useState(true);
   const [expanded, setExpanded] = useState(true);
   const [date, setdate] = useState('');
-  const [db, setDb] = useState({});
+  const [dbPoll, setDbPoll] = useState([]);
 
   const buttonToggle = useCallback(toggled => {
     setPollsactivated(toggled);
@@ -48,15 +48,17 @@ const ManagementScreen = ({navigation, route}: any) => {
 
   useEffect(() => {
     const getDataFromDB = async () => {
+      const managementArrayDB = [];
       const managementData = await getMangementData();
-      setDb(managementData);
+      managementArrayDB.push(managementData.Polls);
+      setDbPoll(managementArrayDB[0]);
     };
 
     getDataFromDB();
   }, []);
 
 
-
+  dbPoll.map(el => console.log(el.anwsers))
   return (
     <View
       style={[
@@ -91,18 +93,17 @@ const ManagementScreen = ({navigation, route}: any) => {
                   expanded={expanded}
                   onPress={handlePress}>
                   {/* !!! ATTENTION POLLCARDS ARE HARD CODED THIS WHERE DB ITTERATION WILL TAKE PLACE !!! */}
-                  <PollCard
-                    value="Example"
-                    buttonAction={() => navigation.navigate('')}
-                  />
-                  <PollCard
-                    value="Example"
-                    buttonAction={() => navigation.navigate('')}
-                  />
-                  <PollCard
-                    value="Example"
-                    buttonAction={() => navigation.navigate('')}
-                  />
+
+                  {dbPoll.map((el, index) =>
+                    <PollCard
+                      value={el.question}
+                      key={(index += 1)}
+                      anwsers={el.anwsers}
+                      deadline={el.deadline}
+                      multipleAnwser={el.multipleAnwser}
+                      buttonAction={() => navigation.navigate('')}
+                    />
+                  )}
                 </List.Accordion>
               </List.Section>
 
@@ -113,7 +114,7 @@ const ManagementScreen = ({navigation, route}: any) => {
                   }
                   style={styles.accordionContainer}>
                   {/* !!! ATTENTION POLLCARDS ARE HARD CODED THIS WHERE DB ITTERATION WILL TAKE PLACE !!! */}
-                  <PollCard
+                  {/* <PollCard
                     value="Example"
                     buttonAction={() => navigation.navigate('')}
                   />
@@ -124,7 +125,7 @@ const ManagementScreen = ({navigation, route}: any) => {
                   <PollCard
                     value="Example"
                     buttonAction={() => navigation.navigate('')}
-                  />
+                  /> */}
                 </List.Accordion>
               </List.Section>
             </>

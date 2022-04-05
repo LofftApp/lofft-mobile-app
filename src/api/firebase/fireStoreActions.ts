@@ -243,7 +243,7 @@ export const getMangementData = async () => {
   const user = await getCurrentUserDetails(currentUser);
   const loftId = user.details.lofft.lofftId;
 
-  const searchDocId = await firestore()
+  const searchDocId = firestore()
     .collection('Managements')
     .doc(loftId)
     .get()
