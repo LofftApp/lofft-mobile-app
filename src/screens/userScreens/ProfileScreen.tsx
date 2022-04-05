@@ -68,18 +68,6 @@ const ProfileScreen = () => {
       if (result.details.name) {
         setName(result.details.name);
       }
-      // if (result.details.status) {
-      //   setTags(tags => [
-      //     ...tags,
-      //     {value: result.details.status, color: 'Lavendar'},
-      //   ]);
-      // }
-      // if (result.details.pronouns) {
-      //   setTags(tags => [
-      //     ...tags,
-      //     {value: result.details.pronouns, color: 'Mint'},
-      //   ]);
-      // }
       if (
         result.details.userProfile &&
         result.details.userProfile.description
@@ -106,12 +94,24 @@ const ProfileScreen = () => {
       } else {
         setValues(storedHobbiesAndValues);
       }
-      // if (result.details.profile.diet) {
-      //   setTags(tags => [
-      //     ...tags,
-      //     {value: result.details.profile.diet, color: 'Gold'},
-      //   ]);
-      // }
+      if (result.details.status) {
+        setTags(tags => [
+          ...tags,
+          {value: result.details.status, color: 'Lavendar'},
+        ]);
+      }
+      if (result.details.userProfile.pronouns) {
+        setTags(tags => [
+          ...tags,
+          {value: result.details.userProfile.pronouns, color: 'Mint'},
+        ]);
+      }
+      if (result.details.userProfile.diet) {
+        setTags(tags => [
+          ...tags,
+          {value: result.details.userProfile.diet, color: 'Gold'},
+        ]);
+      }
     };
 
     auth().onAuthStateChanged(user => {
@@ -237,8 +237,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
   },
   userImage: {
-    width: 90,
-    height: 90,
+    width: 88,
+    height: 88,
     borderWidth: 4,
     borderColor: color.Blue[100],
     borderRadius: 75,
