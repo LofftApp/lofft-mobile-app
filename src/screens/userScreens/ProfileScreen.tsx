@@ -89,7 +89,10 @@ const ProfileScreen = () => {
       if (auth().currentUser.uid === result.details.uid) {
         setAdmin(true);
       }
-      if (result.details.userProfile.hobbiesAndValues) {
+      if (
+        result.details.userProfile &&
+        result.details.userProfile.hobbiesAndValues
+      ) {
         setValues(result.details.userProfile.hobbiesAndValues);
         Object.entries(result.details.userProfile.hobbiesAndValues).forEach(
           ([k, v]) => {
