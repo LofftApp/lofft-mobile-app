@@ -1,4 +1,4 @@
-import React, {useState, useRef} from 'react';
+import React, {useState, useRef, useEffect} from 'react';
 import {
   View,
   Text,
@@ -24,7 +24,6 @@ import color from '../../assets/defaultColorPallet.json';
 import ToggleBar from '../../components/bannersAndBars/ToggleBar';
 
 // Firestore
-
 import {addPoll} from '../../api/firebase/fireStoreActions';
 
 const MakeNewPollScreen = ({navigation, route}) => {
@@ -35,6 +34,7 @@ const MakeNewPollScreen = ({navigation, route}) => {
   const refInputs = useRef<string[]>([textValue]);
   const [deadline, setDeadline] = useState('(dd/mm/yyyy)');
   const [multipleAnwser, setmultipleAnwsers] = useState(false);
+
 
   const alpha = [
     'a',
@@ -239,7 +239,7 @@ const MakeNewPollScreen = ({navigation, route}) => {
               onPress={() =>
                 navigation.navigate(
                   'PollConfirmation',
-                  addPoll(question, refInputs, deadline, multipleAnwser)
+                  addPoll(question, refInputs, deadline, multipleAnwser),
                 )
               }
             />

@@ -235,3 +235,21 @@ export const addPoll = async (question, anwsers, deadline, multipleAnwser) => {
     }
   });
 };
+
+// Pull Managements from DB
+
+export const getMangementData = async () => {
+  const currentUser = auth().currentUser;
+  const user = await getCurrentUserDetails(currentUser);
+  const loftId = user.details.lofft.lofftId;
+
+  const searchDocId = await firestore()
+    .collection('Managements')
+    .doc(loftId)
+    .get()
+    .then(docSnapshot => {
+      return docSnapshot["_data"];
+    });
+
+  return searchDocId;
+};

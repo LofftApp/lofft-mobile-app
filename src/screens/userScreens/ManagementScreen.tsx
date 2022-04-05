@@ -1,4 +1,7 @@
+// React ⚛
 import React, {useState, useEffect, useCallback} from 'react';
+
+// React Native 📱
 import {
   View,
   Text,
@@ -9,7 +12,7 @@ import {
 } from 'react-native';
 import {List} from 'react-native-paper';
 
-// Components
+// Components 🪢
 import HeaderBar from '../../components/bannersAndBars/HeaderBar';
 import ToggleBar from './../../components/bannersAndBars/ToggleBar';
 import PollCard from '../../components/cards/PollCard';
@@ -17,9 +20,12 @@ import NewPollContainer from '../../components/iconsAndContainers/NewPollContain
 import CalendarManagement from '../../components/calendar/CalendarManagement';
 import {CoreButton} from '../../components/buttons/CoreButton';
 
-// StyleSheets
+// StyleSheets 🌈
 import {CoreStyleSheet} from '../../StyleSheets/CoreDesignStyleSheet';
 import {fontStyles} from '../../StyleSheets/FontStyleSheet';
+
+// FireStore 🔥
+import {getMangementData} from '../../api/firebase/fireStoreActions';
 
 const ManagementScreen = ({navigation, route}: any) => {
   // User Hooks
@@ -28,6 +34,7 @@ const ManagementScreen = ({navigation, route}: any) => {
   const [pollsactivated, setPollsactivated] = useState(true);
   const [expanded, setExpanded] = useState(true);
   const [date, setdate] = useState('');
+  const [db, setDb] = useState({});
 
   const buttonToggle = useCallback(toggled => {
     setPollsactivated(toggled);
@@ -39,7 +46,16 @@ const ManagementScreen = ({navigation, route}: any) => {
     setdate(dateInput);
   };
 
-  console.log(`Date is being fetched and assigned into setdate state: ${date}`);
+  useEffect(() => {
+    const getDataFromDB = async () => {
+      const managementData = await getMangementData();
+      setDb(managementData);
+    };
+
+    getDataFromDB();
+  }, []);
+
+
 
   return (
     <View
