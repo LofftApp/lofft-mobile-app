@@ -7,6 +7,8 @@ export const signup = ({email, password}) => {
     auth()
       .createUserWithEmailAndPassword(email, password)
       .then(response => {
+        const userProfile = {tags: {}, diet: ''};
+        const looking = false;
         firestore()
           .collection('Users')
           .doc(response.user.uid)
