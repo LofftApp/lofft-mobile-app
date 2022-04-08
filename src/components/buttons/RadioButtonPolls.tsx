@@ -35,7 +35,7 @@ const RadioButtonPolls = ({anwsers, selectQuestionById, questionId}) => {
                 onPress={() => [
                   setChecked(el),
                   selectQuestionById(questionId),
-                  differentApproach(),
+                  // differentApproach(),
                 ]}
                 color="#6D4FF1"
               />
