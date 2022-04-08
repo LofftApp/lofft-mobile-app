@@ -25,10 +25,7 @@ import {CoreStyleSheet} from '../../StyleSheets/CoreDesignStyleSheet';
 import {fontStyles} from '../../StyleSheets/FontStyleSheet';
 
 // FireStore 🔥
-import {
-  getMangementData,
-  getUserAnwsers,
-} from '../../api/firebase/fireStoreActions';
+import {getLofftPolls} from '../../api/firebase/fireStoreActions';
 
 // Helper Functions
 import dateCal from '../../components/helperFunctions/dateCal';
@@ -40,7 +37,7 @@ const ManagementScreen = ({navigation, route}: any) => {
   const [pollsactivated, setPollsactivated] = useState(true);
   const [expanded, setExpanded] = useState(true);
   const [date, setdate] = useState('');
-  const [dbPoll, setDbPoll] = useState([]);
+  const [polls, setPolls] = useState([]);
   const [questionId, setQuestionId] = useState('');
 
   const buttonToggle = useCallback(toggled => {
@@ -54,14 +51,14 @@ const ManagementScreen = ({navigation, route}: any) => {
   };
 
   useEffect(() => {
-    const getDataFromDB = async () => {
-      const managementArrayDB = [];
-      const managementData = await getMangementData();
-      managementArrayDB.push(managementData.Polls);
-      setDbPoll(managementArrayDB[0]);
+    const pollsData = async () => {
+      setPolls([]);
+      const result = await getLofftPolls();
+      result.forEach(poll => {
+        setPolls(polls => [...polls, poll.data()]);
+      });
     };
-
-    getDataFromDB();
+    pollsData();
   }, []);
 
   const selectQuestionById = id => {
@@ -109,12 +106,8 @@ const ManagementScreen = ({navigation, route}: any) => {
                   onPress={handlePress}>
                   {/* !!! ATTENTION POLLCARDS ARE HARD CODED THIS WHERE DB ITTERATION WILL TAKE PLACE !!! */}
 
-                  {dbPoll === undefined ? (
-                    <Text style={[fontStyles.bodyMedium, {marginLeft: 15}]}>
-                      Akward, nothing here yet....{'\n'}Create your first poll 🫀
-                    </Text>
-                  ) : (
-                    dbPoll.map((el, index) => (
+                  {polls.length > 0 ? (
+                    polls.map((el, index) => (
                       <PollCard
                         value={el.question}
                         key={index + 1}
@@ -125,18 +118,11 @@ const ManagementScreen = ({navigation, route}: any) => {
                         selectQuestionById={selectQuestionById}
                       />
                     ))
+                  ) : (
+                    <Text style={[fontStyles.bodyMedium, {marginLeft: 15}]}>
+                      Akward, nothing here yet....{'\n'}Create your first poll 🫀
+                    </Text>
                   )}
-
-                  {/* {dbPoll.map((el, index) => (
-                    <PollCard
-                      value={el.question}
-                      key={index + 1}
-                      anwsers={el.anwsers}
-                      deadline={el.deadline}
-                      multipleAnwser={el.multipleAnwser}
-                      buttonAction={() => navigation.navigate('')}
-                    />
-                  ))} */}
                 </List.Accordion>
               </List.Section>
 

@@ -249,26 +249,22 @@ export const addPoll = async (
     .add(currentPoll);
 };
 
-// Pull Managements from DB
+// Pull Lofft Poll from DB
 
-export const getMangementData = async () => {
+export const getLofftPolls = async () => {
   const currentUser = auth().currentUser;
   const user = await getCurrentUserDetails(currentUser);
   const loftId = user.details.lofft.lofftId;
 
-  const searchDocId = firestore()
+  const result = await firestore()
     .collection('Managements')
     .doc(loftId)
+    .collection('Polls')
     .get()
     .then(docSnapshot => {
-      if (docSnapshot.exists) {
-        return docSnapshot._data;
-      } else {
-        return [];
-      }
+      return docSnapshot.docs;
     });
-
-  return searchDocId;
+  return result;
 };
 
 export const differentApproach = async questionIdInput => {
