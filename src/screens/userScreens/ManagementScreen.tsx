@@ -54,23 +54,13 @@ const ManagementScreen = ({navigation, route}: any) => {
     const pollsData = async () => {
       setPolls([]);
       const result = await getLofftPolls();
+      console.log(result[0].data());
       result.forEach(poll => {
         setPolls(polls => [...polls, poll.data()]);
       });
     };
     pollsData();
   }, []);
-
-  const selectQuestionById = id => {
-    const selectedQuestion = dbPoll.filter(el => {
-      if (id === el.questionId) {
-        return el;
-      }
-    });
-
-    setQuestionId(selectedQuestion[0].questionId);
-  };
-
   return (
     <View
       style={[
@@ -115,12 +105,12 @@ const ManagementScreen = ({navigation, route}: any) => {
                         deadline={el.deadline}
                         multipleAnwser={el.multipleAnwser}
                         questionId={el.questionId}
-                        selectQuestionById={selectQuestionById}
                       />
                     ))
                   ) : (
                     <Text style={[fontStyles.bodyMedium, {marginLeft: 15}]}>
-                      Akward, nothing here yet....{'\n'}Create your first poll 🫀
+                      Awkward, nothing here yet....{'\n'}Create your first poll
+                      🫀
                     </Text>
                   )}
                 </List.Accordion>

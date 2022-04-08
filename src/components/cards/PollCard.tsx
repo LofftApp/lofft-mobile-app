@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {View, Text, ImageBackground, StyleSheet} from 'react-native';
 import color from '../../assets/defaultColorPallet.json';
 import {fontStyles} from '../../StyleSheets/FontStyleSheet';
@@ -14,16 +14,30 @@ const PollCard = ({
   questionId,
   selectQuestionById,
 }) => {
+  const [date] = useState(new Date(deadline.seconds * 1000));
+
+  const unitToTen = value => {
+    return value.toString.length === 1 ? `0${value}` : value;
+  };
+  const convertDate = date => {
+    const day = unitToTen(date.getDay());
+    const month = unitToTen(date.getMonth());
+    return `${day} - ${month} - ${date.getFullYear()}`;
+  };
+
   return (
     <ImageBackground
       source={HalfBackgroundImage}
       style={styles.ItemPendingPayment}>
       <View style={styles.textContainer}>
-        <View style={styles.deadLineStyle}>
-          <Text style={[fontStyles.buttonTextSmall, {color: color.White[100]}]}>
-            Ends {deadline}
-          </Text>
-        </View>
+        {deadline ? (
+          <View style={styles.deadLineStyle}>
+            <Text
+              style={[fontStyles.buttonTextSmall, {color: color.White[100]}]}>
+              Ends {convertDate(date)}
+            </Text>
+          </View>
+        ) : null}
         <Text style={[fontStyles.buttonTextMedium, styles.value]}>{value}</Text>
         <RadioButtonPolls
           questionId={questionId}
@@ -56,8 +70,9 @@ const styles = StyleSheet.create({
   deadLineStyle: {
     backgroundColor: color.Mint[100],
     color: color.White[100],
-    borderRadius: 20,
-    width: '40%',
+    borderRadius: 5,
+    maxWidth: '55%',
+    padding: 2,
     justifyContent: 'center',
     alignItems: 'center',
   },

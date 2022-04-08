@@ -17,6 +17,7 @@ import HeaderBar from '../../components/bannersAndBars/HeaderBar';
 import AddButtonPoll from '../../components/buttons/AddButtonPoll';
 import CustomBackButton from '../../components/buttons/CustomBackButton';
 import {CoreButton} from '../../components/buttons/CoreButton';
+import DatePicker from 'react-native-date-picker';
 
 // Styles
 import {CoreStyleSheet} from '../../StyleSheets/CoreDesignStyleSheet';
@@ -34,8 +35,12 @@ const MakeNewPollScreen = ({navigation, route}) => {
   const [numInputs, setNumInputs] = useState(2); // all our input fields are tracked with this array
   const refInputs = useRef<string[]>([textValue]);
   const [deadline, setDeadline] = useState('(dd/mm/yyyy)');
+  const [date, setDate] = useState(new Date());
+  const [open, setOpen] = useState(false);
   const [multipleAnwser, setmultipleAnwsers] = useState(false);
-  const [uniqueQuestionId, setQuestionId] = useState(Math.floor(Math.random() * 10000 + 1));
+  const [uniqueQuestionId, setQuestionId] = useState(
+    Math.floor(Math.random() * 10000 + 1),
+  );
 
   const alpha = [
     'a',
@@ -118,6 +123,15 @@ const MakeNewPollScreen = ({navigation, route}) => {
     setDeadline('');
   };
 
+  const unitToTen = value => {
+    return value.toString.length === 1 ? `0${value}` : value;
+  };
+  const convertDate = date => {
+    const day = unitToTen(date.getDay());
+    const month = unitToTen(date.getMonth());
+    return `${day} - ${month} - ${date.getFullYear()}`;
+  };
+
   // console.log(refInputs.current); // Tracking input of questions asked as an array
   // console.log(multipleAnwser);
 
@@ -160,19 +174,30 @@ const MakeNewPollScreen = ({navigation, route}) => {
           <View style={styles.deadlineContainer}>
             <Text style={fontStyles.buttonTextMedium}>Deadline</Text>
             <View style={styles.deadlineButtonOptionsContainer}>
-              <Pressable
+              <TouchableOpacity
                 style={styles.dateContainer}
-                onPress={() =>
-                  navigation.navigate('MakeDeadlinePoll', {
-                    fetchdate: {fetchdate},
-                  })
-                }>
+                onPress={() => {
+                  console.log('lets Open');
+                  setOpen(true);
+                  console.log(open);
+                }}>
                 <Text
                   style={[fontStyles.buttonTextSmall, styles.dateInputStyle]}>
-                  {deadline}
+                  {convertDate(date)}
                 </Text>
-              </Pressable>
-
+              </TouchableOpacity>
+              <DatePicker
+                modal
+                minimumDate={new Date()}
+                mode="date"
+                open={open}
+                date={date}
+                onConfirm={date => {
+                  setOpen(false);
+                  setDate(date);
+                }}
+                onCancel={() => setOpen(false)}
+              />
               <Pressable
                 style={
                   deadline ? styles.deadlineButton : styles.deadlineButtonActive
@@ -244,7 +269,7 @@ const MakeNewPollScreen = ({navigation, route}) => {
                     Math.floor(Math.random() * 10000 + 1),
                     question,
                     refInputs,
-                    deadline,
+                    date,
                     multipleAnwser,
                   ),
                 )

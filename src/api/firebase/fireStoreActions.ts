@@ -227,13 +227,12 @@ export const addPoll = async (
   deadline,
   multipleAnwser,
 ) => {
-  console.log(uniqueQuestionId);
-
   const currentUser = auth().currentUser;
   const user = await getCurrentUserDetails(currentUser);
   const loftId = user.details.lofft.lofftId;
 
   const currentPoll = {
+    createdByID: auth().currentUser.uid,
     questionID: uniqueQuestionId,
     question: question,
     anwserOptions: [{displayAnwser: anwsers.current}],
