@@ -44,6 +44,7 @@ const ProfileScreen = () => {
   const [description, setDescription] = useState('');
   const [newDescription, setNewDescription] = useState('');
   const [values, setValues] = useState({});
+  const [pronouns, setPronouns] = useState('He/Him');
 
   const [selectedHobbies, setSelectedHobbies] = useState([]);
   const selectHobby = key => {
@@ -169,7 +170,11 @@ const ProfileScreen = () => {
         </View>
       </ImageBackground>
       <ScrollView style={CoreStyleSheet.viewContainerStyle}>
+        {/* Tags */}
         <View style={styles.pillContainer}>
+          <TagIcon text="Add more" userColor="Lavendar" />
+          <TagIcon text="Looking" userColor="Gold" />
+          <TagIcon text={pronouns} userColor="Blue" />
           {tags.map(tag => {
             return (
               <TagIcon text={tag.value} key={tag.value} userColor={tag.color} />
@@ -230,6 +235,7 @@ const styles = StyleSheet.create({
   },
   pillContainer: {
     flexDirection: 'row',
+    marginBottom: 10,
   },
   imageHeaderContainer: {
     flexDirection: 'row',

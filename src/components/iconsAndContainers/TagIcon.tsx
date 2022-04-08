@@ -1,5 +1,6 @@
 import React from 'react';
 import {Text, View, StyleSheet} from 'react-native';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 // Stylesheets
 import color from '../../assets/defaultColorPallet.json';
@@ -37,17 +38,20 @@ const TagIcon = ({text, userColor}) => {
         {borderColor: pillColor, backgroundColor: pillBackgroundColor},
       ]}>
       <Text style={[fontStyles.bodySmall, {color: pillColor}]}>{text}</Text>
+      <Icon name="close-circle" size={20} color={pillColor} />
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   pill: {
-    width: 90,
+    width: 110,
     height: 25,
+    paddingHorizontal: 4,
     borderWidth: 1,
     borderRadius: 6,
-    justifyContent: 'center',
+    flexDirection: 'row',
+    justifyContent: 'space-around',
     alignItems: 'center',
     marginRight: 15,
   },

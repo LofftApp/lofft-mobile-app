@@ -20,12 +20,12 @@ const EditPageButton = ({
           <TouchableOpacity
             onPress={onPressSave}
             style={[styles.editButton, {backgroundColor: color.Mint[100]}]}>
-            <Icon name="checkmark-outline" size={30} color={color.White[100]} />
+            <Icon name="checkmark-outline" size={23} color={color.White[100]} />
           </TouchableOpacity>
           <TouchableOpacity
             onPress={onPressCancel}
             style={[styles.editButton, {backgroundColor: color.Tomato[100]}]}>
-            <Icon name="close-outline" size={30} color={color.White[100]} />
+            <Icon name="close-outline" size={23} color={color.White[100]} />
           </TouchableOpacity>
         </View>
       ) : admin ? (
