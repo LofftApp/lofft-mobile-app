@@ -233,7 +233,7 @@ export const addPoll = async (
   const user = await getCurrentUserDetails(currentUser);
   const loftId = user.details.lofft.lofftId;
 
-  let currentPoll = {
+  const currentPoll = {
     questionID: uniqueQuestionId,
     question: question,
     anwserOptions: [{displayAnwser: anwsers.current}],
@@ -242,19 +242,11 @@ export const addPoll = async (
     userInput: [],
   };
 
-  const docRef = await firestore().collection('Managements').doc(loftId);
-
-  docRef.get().then(docSnapshot => {
-    if (docSnapshot.exists) {
-      docRef.update({
-        Polls: firestore.FieldValue.arrayUnion(currentPoll),
-      });
-    } else {
-      docRef.set({
-        // doc Ref creates doc id from Loft id 😎
-      });
-    }
-  });
+  await firestore()
+    .collection('Managements')
+    .doc(loftId)
+    .collection('Polls')
+    .add(currentPoll);
 };
 
 // Pull Managements from DB
