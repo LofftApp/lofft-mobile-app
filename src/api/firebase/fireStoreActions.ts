@@ -279,17 +279,21 @@ export const getMangementData = async () => {
   return searchDocId;
 };
 
-export const differentApproach = async (questionIdInput) => {
+export const differentApproach = async questionIdInput => {
   const currentUser = auth().currentUser;
   const user = await getCurrentUserDetails(currentUser);
   const loftId = user.details.lofft.lofftId;
 
-  const docRef = await firestore().collection('Managements').doc(loftId).collection('Pollsresult').doc(questionIdInput);
+  const docRef = await firestore()
+    .collection('Managements')
+    .doc(loftId)
+    .collection('Pollsresult')
+    .doc(questionIdInput);
 
   let userAnwser = {
     userId: '123456',
-    userAnwser: 'test'
-  }
+    userAnwser: 'test',
+  };
 
   docRef.get().then(docSnapshot => {
     if (docSnapshot.exists) {
@@ -301,16 +305,17 @@ export const differentApproach = async (questionIdInput) => {
         // doc Ref creates doc id from Loft id 😎
       });
     }
-  }
+  });
 
-    const findPollResults =  await firestore()
-      .collection('Managements')
-      .doc(loftId)
-      .collection('Pollsresult')
-      .where('questionId', '==', questionIdInput)
-      .get();
+  const findPollResults = await firestore()
+    .collection('Managements')
+    .doc(loftId)
+    .collection('Pollsresult')
+    .where('questionId', '==', questionIdInput)
+    .get();
 
-      // Then retrieve data filter the right object change its content store it in the state update the state and send it back the api.
+  return findPollResults;
+  // Then retrieve data filter the right object change its content store it in the state update the state and send it back the api.
 
-//// 💩 💩💩💩💩💩💩💩💩💩💩💩💩💩💩💩💩💩💩💩💩💩💩💩💩💩💩💩💩💩💩💩💩💩💩💩
+  //// 💩 💩💩💩💩💩💩💩💩💩💩💩💩💩💩💩💩💩💩💩💩💩💩💩💩💩💩💩💩💩💩💩💩💩💩💩
 };
