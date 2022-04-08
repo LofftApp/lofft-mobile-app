@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, TouchableOpacity} from 'react-native';
+import {View, TouchableOpacity, StyleSheet} from 'react-native';
 
 // stylesheets
 import color from '../../assets/defaultColorPallet.json';
@@ -17,20 +17,36 @@ const EditPageButton = ({
     <>
       {edit && admin ? (
         <View>
-          <TouchableOpacity onPress={onPressSave}>
-            <Icon name="checkmark-outline" size={30} color={color.Black[30]} />
+          <TouchableOpacity
+            onPress={onPressSave}
+            style={[styles.editButton, {backgroundColor: color.Mint[100]}]}>
+            <Icon name="checkmark-outline" size={30} color={color.White[100]} />
           </TouchableOpacity>
-          <TouchableOpacity onPress={onPressCancel}>
-            <Icon name="close-outline" size={30} color={color.Black[30]} />
+          <TouchableOpacity
+            onPress={onPressCancel}
+            style={[styles.editButton, {backgroundColor: color.Tomato[100]}]}>
+            <Icon name="close-outline" size={30} color={color.White[100]} />
           </TouchableOpacity>
         </View>
       ) : admin ? (
-        <TouchableOpacity onPress={onPressEdit}>
-          <Icon name="settings-outline" size={30} color={color.Black[30]} />
+        <TouchableOpacity
+          onPress={onPressEdit}
+          style={[styles.editButton, {backgroundColor: color.Blue[100]}]}>
+          <Icon name="pencil-sharp" size={23} color={color.White[100]} />
         </TouchableOpacity>
       ) : null}
     </>
   );
 };
+
+const styles = StyleSheet.create({
+  editButton: {
+    width: 40,
+    height: 40,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 20,
+  },
+});
 
 export default EditPageButton;

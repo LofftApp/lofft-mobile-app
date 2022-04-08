@@ -131,28 +131,41 @@ const ProfileScreen = () => {
         />
         <View style={styles.imageHeaderContainer}>
           <Image source={userImage} style={styles.userImage} />
-          <EditPageButton
-            edit={edit}
-            admin={admin}
-            onPressSave={() => {
-              Object.entries(values).forEach(([k, v]) => {
-                v.active = selectedHobbies.includes(k);
-              });
-              setName(newName);
-              setTags(newTags);
-              setDescription(newDescription);
-              setValues(values);
-              updateUser(docId, newName, newDescription, values);
-              setEdit(false);
-            }}
-            onPressCancel={() => setEdit(false)}
-            onPressEdit={() => {
-              setEdit(true);
-              setNewName(name);
-              setNewTags(tags);
-              setNewDescription(description);
-            }}
-          />
+          <View style={styles.nameAndEditContainer}>
+            <EditPageButton
+              edit={edit}
+              admin={admin}
+              onPressSave={() => {
+                Object.entries(values).forEach(([k, v]) => {
+                  v.active = selectedHobbies.includes(k);
+                });
+                setName(newName);
+                setTags(newTags);
+                setDescription(newDescription);
+                setValues(values);
+                updateUser(docId, newName, newDescription, values);
+                setEdit(false);
+              }}
+              onPressCancel={() => setEdit(false)}
+              onPressEdit={() => {
+                setEdit(true);
+                setNewName(name);
+                setNewTags(tags);
+                setNewDescription(description);
+              }}
+            />
+            {name || edit ? (
+              <EditableTextField
+                placeholder="Name"
+                edit={edit}
+                value={name}
+                newValue={newName}
+                fontStyle={fontStyles.headerSmall}
+                multiline={true}
+                onChangeText={t => setNewName(t)}
+              />
+            ) : null}
+          </View>
         </View>
       </ImageBackground>
       <ScrollView style={CoreStyleSheet.viewContainerStyle}>
@@ -163,17 +176,7 @@ const ProfileScreen = () => {
             );
           })}
         </View>
-        {name || edit ? (
-          <EditableTextField
-            placeholder="Name"
-            edit={edit}
-            value={name}
-            newValue={newName}
-            fontStyle={fontStyles.headerSmall}
-            multiline={true}
-            onChangeText={t => setNewName(t)}
-          />
-        ) : null}
+
         {description || edit ? (
           <EditableTextField
             placeholder="Description"
@@ -242,6 +245,9 @@ const styles = StyleSheet.create({
     borderWidth: 4,
     borderColor: color.Blue[100],
     borderRadius: 75,
+  },
+  nameAndEditContainer: {
+    alignItems: 'flex-end',
   },
   pill: {
     width: 78,
