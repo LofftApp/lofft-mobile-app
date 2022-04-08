@@ -7,12 +7,12 @@ export const signup = ({email, password}) => {
     auth()
       .createUserWithEmailAndPassword(email, password)
       .then(response => {
-        const userProfile = {tags: {}, diet: ''};
+        const userProfile = {tags: {}, diet: '', pronouns: ''};
         const looking = false;
         firestore()
           .collection('Users')
           .doc(response.user.uid)
-          .set({uid: response.user.uid, email});
+          .set({uid: response.user.uid, email, userProfile, looking});
       });
   } catch (error) {
     if (error.code === 'auth/email-already-in-use') {
