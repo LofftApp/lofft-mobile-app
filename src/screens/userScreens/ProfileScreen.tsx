@@ -7,15 +7,19 @@ import {
   StyleSheet,
   Image,
 } from 'react-native';
+import storedHobbiesAndValues from '../../data/hobbiesAndValues.json';
 
 // Firebase
 import {getCurrentUserDetails} from '../../api/firebase/fireStoreActions';
 import auth from '@react-native-firebase/auth';
+import {updateUser} from '../../api/firebase/fireStoreActions';
 
 // Components
 import CustomBackButton from '../../components/buttons/CustomBackButton';
 import Icon from 'react-native-vector-icons/Ionicons';
 import TagIcon from '../../components/iconsAndContainers/TagIcon';
+import EditPageButton from '../../components/buttons/EditPageButton';
+import HobbiesAndValues from '../../components/HobbiesAndValues';
 
 // Stylesheets
 import color from './../../assets/defaultColorPallet.json';
@@ -25,35 +29,82 @@ import {navigationRef} from '../../RootNavigation';
 
 // Images
 import blueBackground from '../../assets/backgroundShapes/blue.png';
+import imagePlaceholder from '../../assets/user.jpeg';
+import EditableTextField from '../../components/inputFields/EditableTextFields';
 
 const ProfileScreen = () => {
-  const [image, setImage]: any = useState({});
+  const [docId, setDocId] = useState('');
+  const [edit, setEdit] = useState(false);
+  const [admin, setAdmin] = useState(false);
   const [name, setName] = useState('');
+  const [newName, setNewName] = useState('');
   const [tags, setTags] = useState([]);
-  const [description, setDescription] = useState('There is no description');
+  const [newTags, setNewTags] = useState([]);
+  const [userImage, setUserImage] = useState({});
+  const [description, setDescription] = useState('');
+  const [newDescription, setNewDescription] = useState('');
+  const [values, setValues] = useState({});
+
+  const [selectedHobbies, setSelectedHobbies] = useState([]);
+  const selectHobby = key => {
+    if (!selectedHobbies.includes(key)) {
+      setSelectedHobbies(selectedHobbies => [...selectedHobbies, key]);
+    } else {
+      const result = selectedHobbies.filter(el => {
+        return el !== key;
+      });
+      setSelectedHobbies(result);
+    }
+  };
 
   useEffect(() => {
     setTags([]);
     const getUser = async user => {
       const result = await getCurrentUserDetails(user);
-      if (result.details.imageURI) setImage({uri: result.details.imageURI});
+      setDocId(result.docId);
+      result.details.imageURI
+        ? setUserImage(result.details.imageURI)
+        : setUserImage(imagePlaceholder);
       if (result.details.name) {
         setName(result.details.name);
       }
-      if (result.details.status) {
-        setTags(tags => [
-          ...tags,
-          {value: result.details.status, color: 'Lavendar'},
-        ]);
+      // if (result.details.status) {
+      //   setTags(tags => [
+      //     ...tags,
+      //     {value: result.details.status, color: 'Lavendar'},
+      //   ]);
+      // }
+      // if (result.details.pronouns) {
+      //   setTags(tags => [
+      //     ...tags,
+      //     {value: result.details.pronouns, color: 'Mint'},
+      //   ]);
+      // }
+      if (
+        result.details.userProfile &&
+        result.details.userProfile.description
+      ) {
+        setDescription(result.details.userProfile.description);
       }
-      if (result.details.pronouns) {
-        setTags(tags => [
-          ...tags,
-          {value: result.details.pronouns, color: 'Mint'},
-        ]);
+      if (auth().currentUser.uid === result.details.uid) {
+        setAdmin(true);
       }
-      if (result.details.profile.description) {
-        setDescription(result.details.profile.description);
+      if (
+        result.details.userProfile &&
+        result.details.userProfile.hobbiesAndValues
+      ) {
+        setValues(result.details.userProfile.hobbiesAndValues);
+        Object.entries(result.details.userProfile.hobbiesAndValues).forEach(
+          ([k, v]) => {
+            if (v.active) {
+              if (!selectedHobbies.includes(k)) {
+                setSelectedHobbies(selectedHobbies => [...selectedHobbies, k]);
+              }
+            }
+          },
+        );
+      } else {
+        setValues(storedHobbiesAndValues);
       }
       // if (result.details.profile.diet) {
       //   setTags(tags => [
@@ -79,8 +130,29 @@ const ProfileScreen = () => {
           onPress={() => navigationRef.goBack()}
         />
         <View style={styles.imageHeaderContainer}>
-          <Text style={[fontStyles.headerMedium, styles.header]}>{name}</Text>
-          <Image source={image} style={styles.userImage} />
+          <Image source={userImage} style={styles.userImage} />
+          <EditPageButton
+            edit={edit}
+            admin={admin}
+            onPressSave={() => {
+              Object.entries(values).forEach(([k, v]) => {
+                v.active = selectedHobbies.includes(k);
+              });
+              setName(newName);
+              setTags(newTags);
+              setDescription(newDescription);
+              setValues(values);
+              updateUser(docId, newName, newDescription, values);
+              setEdit(false);
+            }}
+            onPressCancel={() => setEdit(false)}
+            onPressEdit={() => {
+              setEdit(true);
+              setNewName(name);
+              setNewTags(tags);
+              setNewDescription(description);
+            }}
+          />
         </View>
       </ImageBackground>
       <ScrollView style={CoreStyleSheet.viewContainerStyle}>
@@ -91,9 +163,29 @@ const ProfileScreen = () => {
             );
           })}
         </View>
-        <Text style={[fontStyles.bodySmall, styles.userText]}>
-          {description}
-        </Text>
+        {name || edit ? (
+          <EditableTextField
+            placeholder="Name"
+            edit={edit}
+            value={name}
+            newValue={newName}
+            fontStyle={fontStyles.headerSmall}
+            multiline={true}
+            onChangeText={t => setNewName(t)}
+          />
+        ) : null}
+        {description || edit ? (
+          <EditableTextField
+            placeholder="Description"
+            edit={edit}
+            value={description}
+            newValue={newDescription}
+            fontStyle={fontStyles.bodySmall}
+            multiline={true}
+            onChangeText={t => setNewDescription(t)}
+          />
+        ) : null}
+
         <Text style={fontStyles.buttonTextMedium}>Loffts</Text>
         <View style={styles.noLofftContainer}>
           <Text style={styles.noLofftText}>👀</Text>
@@ -107,36 +199,14 @@ const ProfileScreen = () => {
             <Icon name="add-outline" size={60} color={color.Black[30]} />
           </View>
         </View>
-        <Text style={fontStyles.buttonTextMedium}>Hobbies</Text>
-        <View style={styles.hobbyContaner}>
-          <View style={styles.hobby}>
-            <Icon name="megaphone-outline" size={36} color={color.Black[100]} />
-            <Text style={[fontStyles.bodySmall, styles.hobbyText]}>
-              Politics
-            </Text>
-          </View>
-          <View style={styles.hobby}>
-            <Icon
-              name="restaurant-outline"
-              size={36}
-              color={color.Black[100]}
-            />
-            <Text style={[fontStyles.bodySmall, styles.hobbyText]}>Cookng</Text>
-          </View>
-          <View style={styles.hobby}>
-            <Icon name="fast-food-outline" size={36} color={color.Black[100]} />
-            <Text style={[fontStyles.bodySmall, styles.hobbyText]}>
-              Eating Out
-            </Text>
-          </View>
-          <View style={styles.hobby}>
-            <Icon name="happy-outline" size={36} color={color.Black[100]} />
-            <Text style={[fontStyles.bodySmall, styles.hobbyText]}>
-              Meditation
-            </Text>
-          </View>
-          {/* Add Spotify / Apple Music API here */}
-        </View>
+        <HobbiesAndValues
+          values={values}
+          selectHobby={k => selectHobby(k)}
+          selectedHobbies={selectedHobbies}
+          edit={edit}
+        />
+
+        {/* Add Spotify / Apple Music API here */}
       </ScrollView>
     </View>
   );
@@ -165,9 +235,6 @@ const styles = StyleSheet.create({
     alignItems: 'flex-end',
     paddingBottom: 10,
     paddingHorizontal: 15,
-  },
-  header: {
-    maxWidth: '60%',
   },
   userImage: {
     width: 90,

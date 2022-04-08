@@ -7,9 +7,9 @@ export const CoreButton = ({
   value,
   invert = false,
   style,
+  textStyle = null,
   onPress,
   disabled = false,
-  newcolor,
 }: any) => {
   return (
     <TouchableOpacity
@@ -20,7 +20,8 @@ export const CoreButton = ({
         style={[
           fontStyles.buttonTextMedium,
           styles.buttonTextStyle,
-           invert ? styles.textInvertButton : null,
+          invert ? styles.textInvertButton : null,
+          textStyle,
         ]}>
         {value}
       </Text>

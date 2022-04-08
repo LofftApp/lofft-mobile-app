@@ -4,15 +4,19 @@ import {
   Text,
   StyleSheet,
   ImageBackground,
-  Image,
   ScrollView,
   Alert,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
+import storedHobbiesAndValues from '../../data/hobbiesAndValues.json';
 
 // Firestore
+import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
-import {confirmUserLofft} from '../../api/firebase/fireStoreActions';
+import {
+  confirmUserLofft,
+  updateLofft,
+} from '../../api/firebase/fireStoreActions';
 
 // stylesheets
 import color from '../../assets/defaultColorPallet.json';
@@ -24,21 +28,42 @@ import CustomBackButton from '../../components/buttons/CustomBackButton';
 import UserIcon from '../../components/iconsAndContainers/UserIcon';
 import {navigationRef} from '../../RootNavigation';
 import TagIcon from '../../components/iconsAndContainers/TagIcon';
+import HobbiesAndValues from '../../components/HobbiesAndValues';
+import EditableTextField from '../../components/inputFields/EditableTextFields';
 
 // Images
 import blueBackground from '../../assets/backgroundShapes/mint.png';
+import EditPageButton from '../../components/buttons/EditPageButton';
 
 const ViewApartmentScreen = ({route}) => {
   const [lofftId] = useState(route.params.lofft);
-  const [admin] = useState(true);
+  const [admin, setAdmin] = useState(false);
   const [edit, setEdit] = useState(false);
   const [name, setName] = useState('');
+  const [newName, setNewName] = useState('');
   const [description, setDescription] = useState('');
+  const [newDescription, setNewDescription] = useState('');
   const [address, setAddress] = useState('');
+  const [newAddress, setNewAddress] = useState('');
   const [tenants, setTenants] = useState([]);
   const [update, setUpdate] = useState(false);
-  const [image, setImage]: any = useState({});
+  // const [image, setImage]: any = useState({});
   const [tags, setTags]: any = useState([]);
+  const [values, setValues] = useState({});
+  // const [newValues, setNewValues] = useState({});
+  const [newTags, setNewTags]: any = useState([]);
+
+  const [selectedHobbies, setSelectedHobbies] = useState([]);
+  const selectHobby = key => {
+    if (!selectedHobbies.includes(key)) {
+      setSelectedHobbies(selectedHobbies => [...selectedHobbies, key]);
+    } else {
+      const result = selectedHobbies.filter(el => {
+        return el !== key;
+      });
+      setSelectedHobbies(result);
+    }
+  };
 
   const showAlert = (userId, lofftId) =>
     Alert.alert('Approve user', 'My Alert Msg', [
@@ -78,14 +103,31 @@ const ViewApartmentScreen = ({route}) => {
         if (lofft.users) {
           lofft.users.forEach(user => {
             userList.push(user.user_id);
+            if (
+              user.user_id === auth().currentUser.uid &&
+              user.admin === true
+            ) {
+              setAdmin(true);
+            }
           });
         }
         if (lofft.pendingUsers) userList.push(lofft.pendingUsers);
         if (lofft.status) {
           setTags(tags => [...tags, {value: lofft.status, color: 'Lavendar'}]);
         }
+        if (lofft.hobbiesAndValues) {
+          setValues(lofft.hobbiesAndValues);
+          Object.entries(lofft.hobbiesAndValues).forEach(([k, v]) => {
+            if (v.active) {
+              if (!selectedHobbies.includes(k)) {
+                setSelectedHobbies(selectedHobbies => [...selectedHobbies, k]);
+              }
+            }
+          });
+        } else {
+          setValues(storedHobbiesAndValues);
+        }
         const usersList = userList.join().split(',');
-        console.log(usersList);
         usersList.forEach(async user => {
           const response = await firestore()
             .collection('Users')
@@ -113,22 +155,72 @@ const ViewApartmentScreen = ({route}) => {
           onPress={() => navigationRef.goBack()}
         />
         <View style={styles.imageHeaderContainer}>
-          <Text style={[fontStyles.headerMedium, styles.header]}>{name}</Text>
-          <Text style={styles.address}>{address}</Text>
-          {/* <Image source={image} style={styles.userImage} /> */}
+          <View style={styles.headerDetailsContainer}>
+            <EditableTextField
+              value={name}
+              edit={edit}
+              fontStyle={fontStyles.headerMedium}
+              newValue={newName}
+              onChangeText={t => setNewName(t)}
+            />
+            <EditableTextField
+              value={address}
+              edit={edit}
+              placeholder="Address"
+              newValue={newAddress}
+              fontStyle={fontStyles.bodyMedium}
+              onChangeText={t => setNewAddress(t)}
+            />
+          </View>
+          <EditPageButton
+            edit={edit}
+            admin={admin}
+            onPressSave={() => {
+              Object.entries(values).forEach(([k, v]) => {
+                v.active = selectedHobbies.includes(k);
+              });
+              setName(newName);
+              setAddress(newAddress);
+              setTags(newTags);
+              setDescription(newDescription);
+              setValues(values);
+              updateLofft(lofftId, newName, newDescription, newAddress, values);
+              setEdit(false);
+            }}
+            onPressCancel={() => setEdit(false)}
+            onPressEdit={() => {
+              setEdit(true);
+              setNewName(name);
+              setNewAddress(address);
+              setNewTags(tags);
+              setNewDescription(description);
+            }}
+          />
         </View>
       </ImageBackground>
       <ScrollView style={CoreStyleSheet.viewContainerStyle}>
         <View style={styles.pillContainer}>
-          {tags.map(tag => {
-            return (
-              <TagIcon text={tag.value} key={tag.value} userColor={tag.color} />
-            );
-          })}
+          {edit
+            ? null
+            : tags.map(tag => {
+                return (
+                  <TagIcon
+                    text={tag.value}
+                    key={tag.value}
+                    userColor={tag.color}
+                  />
+                );
+              })}
         </View>
-        <Text style={[fontStyles.bodySmall, styles.userText]}>
-          {description}
-        </Text>
+        <EditableTextField
+          edit={edit}
+          value={description}
+          newValue={newDescription}
+          fontStyle={fontStyles.bodySmall}
+          textStyle={styles.userText}
+          multiline={true}
+          onChangeText={t => setNewDescription(t)}
+        />
         <Text style={fontStyles.buttonTextMedium}>Co-livers</Text>
         {/* User/Tennants */}
         <View style={styles.userWindow}>
@@ -160,36 +252,13 @@ const ViewApartmentScreen = ({route}) => {
             <Icon name="add-outline" size={60} color={color.Black[30]} />
           </View>
         </View>
-        <Text style={fontStyles.buttonTextMedium}>Hobbies</Text>
-        <View style={styles.hobbyContaner}>
-          <View style={styles.hobby}>
-            <Icon name="megaphone-outline" size={36} color={color.Black[100]} />
-            <Text style={[fontStyles.bodySmall, styles.hobbyText]}>
-              Politics
-            </Text>
-          </View>
-          <View style={styles.hobby}>
-            <Icon
-              name="restaurant-outline"
-              size={36}
-              color={color.Black[100]}
-            />
-            <Text style={[fontStyles.bodySmall, styles.hobbyText]}>Cookng</Text>
-          </View>
-          <View style={styles.hobby}>
-            <Icon name="fast-food-outline" size={36} color={color.Black[100]} />
-            <Text style={[fontStyles.bodySmall, styles.hobbyText]}>
-              Eating Out
-            </Text>
-          </View>
-          <View style={styles.hobby}>
-            <Icon name="happy-outline" size={36} color={color.Black[100]} />
-            <Text style={[fontStyles.bodySmall, styles.hobbyText]}>
-              Meditation
-            </Text>
-          </View>
-          {/* Add Spotify / Apple Music API here */}
-        </View>
+        <HobbiesAndValues
+          values={values}
+          selectHobby={k => selectHobby(k)}
+          selectedHobbies={selectedHobbies}
+          edit={edit}
+        />
+        {/* Add Spotify / Apple Music API here */}
       </ScrollView>
     </View>
   );
@@ -213,23 +282,25 @@ const styles = StyleSheet.create({
   },
   imageHeaderContainer: {
     flex: 1,
-    justifyContent: 'flex-end',
+    justifyContent: 'space-between',
+    alignItems: 'flex-end',
+    flexDirection: 'row',
     paddingBottom: 10,
     paddingHorizontal: 15,
   },
-  header: {
-    maxWidth: '60%',
+  headerDetailsContainer: {
+    flex: 1,
+  },
+  editForm: {
+    flexDirection: 'row',
+    backgroundColor: color.Black[5],
+    paddingHorizontal: 5,
+    lineHeight: 0,
+    borderRadius: 4,
   },
   address: {
     color: color.Black[50],
   },
-  // userImage: {
-  //   width: 90,
-  //   height: 90,
-  //   borderWidth: 4,
-  //   borderColor: color.Lavendar[100],
-  //   borderRadius: 75,
-  // },
   pill: {
     width: 78,
     height: 19,
@@ -275,9 +346,13 @@ const styles = StyleSheet.create({
   hobby: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'center',
-    marginVertical: 10,
-    flexBasis: '50%',
+    justifyContent: 'flex-start',
+    marginVertical: 5,
+    paddingLeft: 10,
+    paddingVertical: 5,
+    flexBasis: '48%',
+    borderRadius: 4,
+    backgroundColor: color.Lavendar[5],
   },
   hobbyText: {
     marginHorizontal: 20,

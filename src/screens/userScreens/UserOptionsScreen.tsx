@@ -49,8 +49,10 @@ const UserOptionsScreen = () => {
       </View>
       <View style={styles.buttonContainer}>
         <CoreButton
+          invert
           value="Sign out"
           style={styles.logoutButton}
+          textStyle={styles.buttonText}
           onPress={signout}
         />
       </View>
@@ -63,14 +65,15 @@ const styles = StyleSheet.create({
     marginTop: 25,
   },
   optionsLinkText: {
-    paddingVertical: 15,
+    paddingVertical: 25,
     borderBottomWidth: 1,
-    borderBottomColor: color.Black[30],
+    borderBottomColor: color.Black[10],
   },
-  textStyle: {},
+  buttonText: {
+    color: color.Tomato[100],
+  },
   logoutButton: {
-    backgroundColor: color.Black[30],
-    borderColor: color.Black[10],
+    borderColor: color.Tomato[100],
   },
   buttonContainer: {
     flex: 1,

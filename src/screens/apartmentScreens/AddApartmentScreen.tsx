@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import {View, Text, StyleSheet, Platform, TextInput} from 'react-native';
 import {navigationRef as navigation} from './../../RootNavigation';
+import values from '../../data/hobbiesAndValues.json';
 
 // StyleSheets
 import color from './../../assets/defaultColorPallet.json';
@@ -10,6 +11,7 @@ import {fontStyles} from './../../StyleSheets/FontStyleSheet';
 // Components
 import {CoreButton} from '../../components/buttons/CoreButton';
 import CustomBackButton from '../../components/buttons/CustomBackButton';
+import HobbiesAndValues from '../../components/HobbiesAndValues';
 
 // Firebase
 import {createLofft} from '../../api/firebase/fireStoreActions';
@@ -18,6 +20,17 @@ const AddApartmentScreen = ({route}) => {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [docId] = useState(route.params.docId);
+  const [selectedHobbies, setSelectedHobbies] = useState([]);
+  const selectHobby = key => {
+    if (!selectedHobbies.includes(key)) {
+      setSelectedHobbies(selectedHobbies => [...selectedHobbies, key]);
+    } else {
+      const result = selectedHobbies.filter(el => {
+        return el !== key;
+      });
+      setSelectedHobbies(result);
+    }
+  };
   return (
     <View
       style={[
@@ -46,27 +59,29 @@ const AddApartmentScreen = ({route}) => {
             onChangeText={c => setDescription(c)}
           />
         </View>
-        {/* <View style={styles.fieldContainer}>
-          <Text style={fontStyles.buttonTextMedium}>Address 1</Text>
-          <TextInput style={[fontStyles.bodyMedium, styles.formInput]} />
-        </View>
         <View style={styles.fieldContainer}>
-          <Text style={fontStyles.buttonTextMedium}>Address 2</Text>
-          <TextInput style={[fontStyles.bodyMedium, styles.formInput]} />
+          <Text style={fontStyles.buttonTextMedium}>Values and Hobbies</Text>
+          <HobbiesAndValues
+            values={values}
+            selectHobby={k => selectHobby(k)}
+            selectedHobbies={selectedHobbies}
+            edit={true}
+          />
         </View>
-        <View style={styles.fieldContainer}>
-          <Text style={fontStyles.buttonTextMedium}>City</Text>
-          <TextInput style={[fontStyles.bodyMedium, styles.formInput]} />
-        </View>
-        <View style={styles.fieldContainer}>
-          <Text style={fontStyles.buttonTextMedium}>State</Text>
-          <TextInput style={[fontStyles.bodyMedium, styles.formInput]} />
-        </View> */}
       </View>
       <CoreButton
         value="Add Lofft"
         onPress={() => {
-          createLofft({name, description, docId});
+          let userHobbies = values;
+          selectedHobbies.forEach(hobby => {
+            userHobbies[hobby].active = true;
+          });
+          createLofft({
+            name,
+            description,
+            docId,
+            hobbiesAndValues: userHobbies,
+          });
           navigation.navigate('Costs');
         }}
       />

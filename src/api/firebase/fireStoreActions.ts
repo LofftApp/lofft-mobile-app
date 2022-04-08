@@ -1,6 +1,7 @@
 import firestore, {doc, getDoc, setDoc} from '@react-native-firebase/firestore';
 import auth from '@react-native-firebase/auth';
 import {getCurrentUser} from './firebaseApi';
+import values from '../../data/hobbiesAndValues.json';
 
 export const userDetailsUpdate = () => {
   auth().onAuthStateChanged(user => {
@@ -33,30 +34,31 @@ export const getCurrentUserDetails = async user => {
   return {docId, details};
 };
 
-export const updateUserAccountDetails = async ({
-  firstName,
-  lastName,
-  pronouns,
-  email,
+// Edit user profiles
+export const updateUser = (
   docId,
-}) => {
+  name = null,
+  description = '',
+  hobbiesAndValues = {},
+) => {
+  console.log(name);
   auth().onAuthStateChanged(user => {
-    if (user) {
-      firestore()
-        .collection('Users')
-        .doc(docId)
-        .update({
-          name: `${firstName} ${lastName}`,
-          pronouns,
-          email,
-        })
-        .then(() => {
-          user.updateProfile({
-            displayName: `${firstName} ${lastName}`,
-          });
-          user.updateEmail(email);
+    firestore()
+      .collection('Users')
+      .doc(docId)
+      .update({
+        name,
+        // email,
+        userProfile: {
+          description,
+          hobbiesAndValues,
+        },
+      })
+      .then(() => {
+        user.updateProfile({
+          displayName: name,
         });
-    }
+      });
   });
 };
 
@@ -65,7 +67,12 @@ export const uploadImageToUserProfile = (docId, url) => {
 };
 
 // Update and create Lofft Spaces
-export const createLofft = async ({name, description, docId}) => {
+export const createLofft = async ({
+  name,
+  description,
+  docId,
+  hobbiesAndValues,
+}) => {
   await firestore()
     .collection('Loffts')
     .add({
@@ -73,6 +80,7 @@ export const createLofft = async ({name, description, docId}) => {
       description,
       users: [{user_id: auth().currentUser.uid, admin: true}],
       pending_users: [],
+      hobbiesAndValues,
     })
     .then(async response => {
       await firestore()
@@ -137,8 +145,11 @@ export const confirmUserLofft = (userId, lofftId) => {
 };
 
 // Edit lofft details
-export const updateLofft = (id, name, description, address) => {
-  firestore().collection('Loffts').doc(id).update({name, description, address});
+export const updateLofft = (id, name, description, address, values) => {
+  firestore()
+    .collection('Loffts')
+    .doc(id)
+    .update({name, description, address, hobbiesAndValues: values});
   console.log('Update complete');
 };
 
