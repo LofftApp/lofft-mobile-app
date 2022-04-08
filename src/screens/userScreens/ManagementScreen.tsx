@@ -25,7 +25,13 @@ import {CoreStyleSheet} from '../../StyleSheets/CoreDesignStyleSheet';
 import {fontStyles} from '../../StyleSheets/FontStyleSheet';
 
 // FireStore 🔥
-import {getMangementData} from '../../api/firebase/fireStoreActions';
+import {
+  getMangementData,
+  getUserAnwsers,
+} from '../../api/firebase/fireStoreActions';
+
+// Helper Functions
+import dateCal from '../../components/helperFunctions/dateCal';
 
 const ManagementScreen = ({navigation, route}: any) => {
   // User Hooks
@@ -35,6 +41,7 @@ const ManagementScreen = ({navigation, route}: any) => {
   const [expanded, setExpanded] = useState(true);
   const [date, setdate] = useState('');
   const [dbPoll, setDbPoll] = useState([]);
+  const [questionId, setQuestionId] = useState('');
 
   const buttonToggle = useCallback(toggled => {
     setPollsactivated(toggled);
@@ -57,8 +64,16 @@ const ManagementScreen = ({navigation, route}: any) => {
     getDataFromDB();
   }, []);
 
+  const selectQuestionById = id => {
+    const selectedQuestion = dbPoll.filter(el => {
+      if (id === el.questionId) {
+        return el;
+      }
+    });
 
-  dbPoll.map(el => console.log(el.anwsers))
+    setQuestionId(selectedQuestion[0].questionId);
+  };
+
   return (
     <View
       style={[
@@ -94,16 +109,34 @@ const ManagementScreen = ({navigation, route}: any) => {
                   onPress={handlePress}>
                   {/* !!! ATTENTION POLLCARDS ARE HARD CODED THIS WHERE DB ITTERATION WILL TAKE PLACE !!! */}
 
-                  {dbPoll.map((el, index) =>
+                  {dbPoll === undefined ? (
+                    <Text style={[fontStyles.bodyMedium, {marginLeft: 15}]}>
+                      Akward, nothing here yet....{'\n'}Create your first poll 🫀
+                    </Text>
+                  ) : (
+                    dbPoll.map((el, index) => (
+                      <PollCard
+                        value={el.question}
+                        key={index + 1}
+                        anwsers={el.anwserOptions[0].displayAnwser}
+                        deadline={el.deadline}
+                        multipleAnwser={el.multipleAnwser}
+                        questionId={el.questionId}
+                        selectQuestionById={selectQuestionById}
+                      />
+                    ))
+                  )}
+
+                  {/* {dbPoll.map((el, index) => (
                     <PollCard
                       value={el.question}
-                      key={(index += 1)}
+                      key={index + 1}
                       anwsers={el.anwsers}
                       deadline={el.deadline}
                       multipleAnwser={el.multipleAnwser}
                       buttonAction={() => navigation.navigate('')}
                     />
-                  )}
+                  ))} */}
                 </List.Accordion>
               </List.Section>
 

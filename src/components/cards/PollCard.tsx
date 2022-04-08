@@ -4,22 +4,39 @@ import color from '../../assets/defaultColorPallet.json';
 import {fontStyles} from '../../StyleSheets/FontStyleSheet';
 import HalfBackgroundImage from './../../assets/banner-background-half.png';
 import {CoreButton} from '../buttons/CoreButton';
+import RadioButtonPolls from '../buttons/RadioButtonPolls';
 
-const PollCard = ({buttonAction, value, anwsers, deadline, multipleAnwser}) => {
+const PollCard = ({
+  value,
+  anwsers,
+  deadline,
+  multipleAnwser,
+  questionId,
+  selectQuestionById,
+}) => {
   return (
     <ImageBackground
       source={HalfBackgroundImage}
       style={styles.ItemPendingPayment}>
       <View style={styles.textContainer}>
-        <Text style={[fontStyles.buttonTextSmall, styles.header]} />
-        <Text style={[fontStyles.headerSmall, styles.value]}>{value}</Text>
+        <View style={styles.deadLineStyle}>
+          <Text style={[fontStyles.buttonTextSmall, {color: color.White[100]}]}>
+            Ends {deadline}
+          </Text>
+        </View>
+        <Text style={[fontStyles.buttonTextMedium, styles.value]}>{value}</Text>
+        <RadioButtonPolls
+          questionId={questionId}
+          selectQuestionById={selectQuestionById}
+          anwsers={anwsers}
+        />
       </View>
-      <CoreButton
+      {/* <CoreButton
         value="Question"
         invert={true}
         style={styles.button}
         onPress={buttonAction}
-      />
+      /> */}
     </ImageBackground>
   );
 };
@@ -27,8 +44,7 @@ const PollCard = ({buttonAction, value, anwsers, deadline, multipleAnwser}) => {
 const styles = StyleSheet.create({
   ItemPendingPayment: {
     width: '100%',
-    height: 90,
-    flexDirection: 'row',
+    flexDirection: 'column',
     justifyContent: 'space-around',
     paddingVertical: 15,
     borderWidth: 1,
@@ -36,6 +52,14 @@ const styles = StyleSheet.create({
     borderRadius: 16,
     overflow: 'hidden',
     marginBottom: 15,
+  },
+  deadLineStyle: {
+    backgroundColor: color.Mint[100],
+    color: color.White[100],
+    borderRadius: 20,
+    width: '40%',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   textContainer: {
     flex: 1,

@@ -1,4 +1,4 @@
-import firestore, {doc, getDoc} from '@react-native-firebase/firestore';
+import firestore, {doc, getDoc, setDoc} from '@react-native-firebase/firestore';
 import auth from '@react-native-firebase/auth';
 import {getCurrentUser} from './firebaseApi';
 
@@ -209,16 +209,26 @@ export const addEvent = async (
 
 // Create Poll
 
-export const addPoll = async (question, anwsers, deadline, multipleAnwser) => {
+export const addPoll = async (
+  uniqueQuestionId,
+  question,
+  anwsers,
+  deadline,
+  multipleAnwser,
+) => {
+  console.log(uniqueQuestionId);
+
   const currentUser = auth().currentUser;
   const user = await getCurrentUserDetails(currentUser);
   const loftId = user.details.lofft.lofftId;
 
   let currentPoll = {
+    questionID: uniqueQuestionId,
     question: question,
-    anwsers: anwsers.current,
+    anwserOptions: [{displayAnwser: anwsers.current}],
     deadline: deadline,
     multipleAnwser: multipleAnwser,
+    userInput: [],
   };
 
   const docRef = await firestore().collection('Managements').doc(loftId);
@@ -248,8 +258,22 @@ export const getMangementData = async () => {
     .doc(loftId)
     .get()
     .then(docSnapshot => {
-      return docSnapshot["_data"];
+      if (docSnapshot.exists) {
+        return docSnapshot._data;
+      } else {
+        return [];
+      }
     });
 
   return searchDocId;
+};
+
+export const differentApproach = async () => {
+  const currentUser = auth().currentUser;
+  const user = await getCurrentUserDetails(currentUser);
+  const loftId = user.details.lofft.lofftId;
+
+  const docRefs = await firestore().collection('Managements').doc(loftId);
+
+//// 💩 💩💩💩💩💩💩💩💩💩💩💩💩💩💩💩💩💩💩💩💩💩💩💩💩💩💩💩💩💩💩💩💩💩💩💩
 };

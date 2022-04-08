@@ -1,4 +1,5 @@
 import React, {useState, useRef, useEffect} from 'react';
+import {v4 as uuidv4} from 'uuid';
 import {
   View,
   Text,
@@ -34,7 +35,7 @@ const MakeNewPollScreen = ({navigation, route}) => {
   const refInputs = useRef<string[]>([textValue]);
   const [deadline, setDeadline] = useState('(dd/mm/yyyy)');
   const [multipleAnwser, setmultipleAnwsers] = useState(false);
-
+  const [uniqueQuestionId, setQuestionId] = useState(Math.floor(Math.random() * 10000 + 1));
 
   const alpha = [
     'a',
@@ -117,8 +118,8 @@ const MakeNewPollScreen = ({navigation, route}) => {
     setDeadline('');
   };
 
-  console.log(refInputs.current); // Tracking input of questions asked as an array
-  console.log(multipleAnwser);
+  // console.log(refInputs.current); // Tracking input of questions asked as an array
+  // console.log(multipleAnwser);
 
   return (
     <View
@@ -239,7 +240,13 @@ const MakeNewPollScreen = ({navigation, route}) => {
               onPress={() =>
                 navigation.navigate(
                   'PollConfirmation',
-                  addPoll(question, refInputs, deadline, multipleAnwser),
+                  addPoll(
+                    Math.floor(Math.random() * 10000 + 1),
+                    question,
+                    refInputs,
+                    deadline,
+                    multipleAnwser,
+                  ),
                 )
               }
             />
