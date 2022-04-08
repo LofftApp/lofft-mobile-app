@@ -284,7 +284,7 @@ export const differentApproach = async (questionIdInput) => {
   const user = await getCurrentUserDetails(currentUser);
   const loftId = user.details.lofft.lofftId;
 
-  const docRef = await firestore().collection('Managements').doc(loftId).collection('Pollsresult').doc(questionId);
+  const docRef = await firestore().collection('Managements').doc(loftId).collection('Pollsresult').doc(questionIdInput);
 
   let userAnwser = {
     userId: '123456',
@@ -301,7 +301,7 @@ export const differentApproach = async (questionIdInput) => {
         // doc Ref creates doc id from Loft id 😎
       });
     }
-
+  }
 
     const findPollResults =  await firestore()
       .collection('Managements')
