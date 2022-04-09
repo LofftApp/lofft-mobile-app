@@ -231,11 +231,11 @@ export const addPoll = async (
   const user = await getCurrentUserDetails(currentUser);
   const loftId = user.details.lofft.lofftId;
 
-  const currentPoll = {
+  const poll = {
     createdByID: auth().currentUser.uid,
     questionID: uniqueQuestionId,
     question: question,
-    anwserOptions: [{displayAnwser: anwsers.current}],
+    answers: anwsers.current,
     deadline: deadline,
     multipleAnwser: multipleAnwser,
     userInput: [],
@@ -245,7 +245,7 @@ export const addPoll = async (
     .collection('Managements')
     .doc(loftId)
     .collection('Polls')
-    .add(currentPoll);
+    .add(poll);
 };
 
 // Pull Lofft Poll from DB

@@ -61,7 +61,6 @@ const ManagementScreen = ({navigation, route}: any) => {
     };
     pollsData();
   }, []);
-  console.log(polls.length);
   return (
     <View
       style={[

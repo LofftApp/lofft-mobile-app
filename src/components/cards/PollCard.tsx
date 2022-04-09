@@ -6,7 +6,6 @@ import HalfBackgroundImage from './../../assets/banner-background-half.png';
 import RadioButtonPolls from '../buttons/RadioButtonPolls';
 
 const PollCard = ({value}) => {
-  console.log(value);
   const [date] = useState(
     value.deadline ? value.deadline.seconds * 1000 : null,
   );
@@ -20,10 +19,6 @@ const PollCard = ({value}) => {
     const month = unitToTen(toDate.getMonth() + 1);
     return `${day} - ${month} - ${toDate.getFullYear()}`;
   };
-
-  if (date) {
-    console.log(convertDate(date));
-  }
 
   return (
     <ImageBackground
@@ -40,12 +35,12 @@ const PollCard = ({value}) => {
             }
           </View>
         ) : null}
-        <Text style={[fontStyles.buttonTextMedium, styles.value]}>
+        <Text style={[fontStyles.bodySmall, styles.value]}>
           {value.question}
         </Text>
-        {/* {value.answers.map(a => {
-          <Text>a</Text>;
-        })} */}
+        {value.answers.map(ans => {
+          return <Text key={ans}>{ans}</Text>;
+        })}
         {/* <RadioButtonPolls
           questionId={value.questionId}
           selectQuestionById={value.selectQuestionById}
