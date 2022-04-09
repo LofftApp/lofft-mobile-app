@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
     borderColor: color.White[0],
     borderRadius: 16,
     overflow: 'hidden',
-    // marginBottom: 15,
+    marginBottom: 15,
   },
   deadLineStyle: {
     backgroundColor: color.Mint[100],

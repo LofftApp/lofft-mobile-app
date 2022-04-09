@@ -81,10 +81,13 @@ const ManagementScreen = ({navigation, route}: any) => {
 
           {pollsactivated ? (
             <>
-              <NewPollContainer
-                buttonValue="Create New Poll"
-                buttonAction={() => navigation.navigate('MakeNewPoll')}
-              />
+              <View style={styles.newPollContainer}>
+                <CoreButton
+                  value="Create New Poll"
+                  buttonAction={() => navigation.navigate('MakeNewPoll')}
+                  style={styles.newPollButton}
+                />
+              </View>
 
               <List.Section>
                 <List.Accordion
@@ -150,6 +153,17 @@ const ManagementScreen = ({navigation, route}: any) => {
 };
 
 const styles = StyleSheet.create({
+  newPollContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: 80,
+    marginVertical: 16,
+    paddingVertical: 16,
+  },
+  newPollButton: {
+    width: '60%',
+    flex: 1,
+  },
   accordionContainer: {
     backgroundColor: 'white',
     display: 'flex',
