@@ -16,6 +16,7 @@ const PollCard = ({value}) => {
   const [date] = useState(
     pollValue.deadline ? pollValue.deadline.seconds * 1000 : null,
   );
+  const [todayDate] = useState(new Date());
   const unitToTen = v => {
     return v.toString().length === 1 ? `0${v}` : v;
   };
@@ -23,7 +24,7 @@ const PollCard = ({value}) => {
     const toDate = new Date(newDate);
     const day = unitToTen(toDate.getDate());
     const month = unitToTen(toDate.getMonth() + 1);
-    return `${day} - ${month} - ${toDate.getFullYear()}`;
+    return `${day}/${month}/${toDate.getFullYear()}`;
   };
 
   return (
@@ -36,11 +37,18 @@ const PollCard = ({value}) => {
             {
               <Text
                 style={[fontStyles.buttonTextSmall, {color: color.White[100]}]}>
-                Ends {convertDate(date)}
+                {convertDate(date)}
               </Text>
             }
           </View>
-        ) : null}
+        ) : (
+          <View style={styles.deadLineStyle}>
+            <Text
+              style={[fontStyles.buttonTextSmall, {color: color.White[100]}]}>
+              No Deadline
+            </Text>
+          </View>
+        )}
         <Text style={[fontStyles.bodySmall, styles.value]}>
           {pollValue.question}
         </Text>
@@ -78,7 +86,6 @@ const styles = StyleSheet.create({
     backgroundColor: color.Mint[100],
     color: color.White[100],
     borderRadius: 5,
-    maxWidth: '55%',
     padding: 2,
     justifyContent: 'center',
     alignItems: 'center',
