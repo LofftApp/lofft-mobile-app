@@ -38,7 +38,6 @@ const ManagementScreen = ({navigation, route}: any) => {
   const [expanded, setExpanded] = useState(true);
   const [date, setdate] = useState('');
   const [polls, setPolls] = useState([]);
-  const [questionId, setQuestionId] = useState('');
 
   const buttonToggle = useCallback(toggled => {
     setPollsactivated(toggled);
@@ -54,13 +53,15 @@ const ManagementScreen = ({navigation, route}: any) => {
     const pollsData = async () => {
       setPolls([]);
       const result = await getLofftPolls();
-      console.log(result[0].data());
-      result.forEach(poll => {
-        setPolls(polls => [...polls, poll.data()]);
-      });
+      if (result) {
+        result.forEach(poll => {
+          setPolls(polls => [...polls, poll.data()]);
+        });
+      }
     };
     pollsData();
   }, []);
+  console.log(polls.length);
   return (
     <View
       style={[
@@ -98,19 +99,11 @@ const ManagementScreen = ({navigation, route}: any) => {
 
                   {polls.length > 0 ? (
                     polls.map((el, index) => (
-                      <PollCard
-                        value={el.question}
-                        key={index + 1}
-                        anwsers={el.anwserOptions[0].displayAnwser}
-                        deadline={el.deadline}
-                        multipleAnwser={el.multipleAnwser}
-                        questionId={el.questionId}
-                      />
+                      <PollCard value={el} key={index} />
                     ))
                   ) : (
                     <Text style={[fontStyles.bodyMedium, {marginLeft: 15}]}>
-                      Awkward, nothing here yet....{'\n'}Create your first poll
-                      🫀
+                      Awkward, nothing here yet.... Create your first poll 🫀
                     </Text>
                   )}
                 </List.Accordion>

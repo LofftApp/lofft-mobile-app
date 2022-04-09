@@ -266,43 +266,10 @@ export const getLofftPolls = async () => {
   return result;
 };
 
-export const differentApproach = async questionIdInput => {
-  const currentUser = auth().currentUser;
-  const user = await getCurrentUserDetails(currentUser);
-  const loftId = user.details.lofft.lofftId;
-
-  const docRef = await firestore()
-    .collection('Managements')
-    .doc(loftId)
-    .collection('Pollsresult')
-    .doc(questionIdInput);
-
-  let userAnwser = {
-    userId: '123456',
-    userAnwser: 'test',
-  };
-
-  docRef.get().then(docSnapshot => {
-    if (docSnapshot.exists) {
-      docRef.update({
-        UserInput: firestore.FieldValue.arrayUnion(userAnwser),
-      });
-    } else {
-      docRef.set({
-        // doc Ref creates doc id from Loft id 😎
-      });
-    }
+export const getPollsData = async (value, setValue) => {
+  setValue([]);
+  const result = await getLofftPolls();
+  result.forEach(r => {
+    setValue(value => [...value, r.data()]);
   });
-
-  const findPollResults = await firestore()
-    .collection('Managements')
-    .doc(loftId)
-    .collection('Pollsresult')
-    .where('questionId', '==', questionIdInput)
-    .get();
-
-  return findPollResults;
-  // Then retrieve data filter the right object change its content store it in the state update the state and send it back the api.
-
-  //// 💩 💩💩💩💩💩💩💩💩💩💩💩💩💩💩💩💩💩💩💩💩💩💩💩💩💩💩💩💩💩💩💩💩💩💩💩
 };

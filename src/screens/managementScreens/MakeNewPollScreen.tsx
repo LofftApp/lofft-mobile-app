@@ -36,6 +36,7 @@ const MakeNewPollScreen = ({navigation, route}) => {
   const refInputs = useRef<string[]>([textValue]);
   const [deadline, setDeadline] = useState('(dd/mm/yyyy)');
   const [date, setDate] = useState(new Date());
+  const [noDate, setNoDate] = useState(true);
   const [open, setOpen] = useState(false);
   const [multipleAnwser, setmultipleAnwsers] = useState(false);
   const [uniqueQuestionId, setQuestionId] = useState(
@@ -124,16 +125,13 @@ const MakeNewPollScreen = ({navigation, route}) => {
   };
 
   const unitToTen = value => {
-    return value.toString.length === 1 ? `0${value}` : value;
+    return value.toString().length === 1 ? `0${value}` : value;
   };
   const convertDate = date => {
-    const day = unitToTen(date.getDay());
-    const month = unitToTen(date.getMonth());
+    const day = unitToTen(date.getDate());
+    const month = unitToTen(date.getMonth() + 1);
     return `${day} - ${month} - ${date.getFullYear()}`;
   };
-
-  // console.log(refInputs.current); // Tracking input of questions asked as an array
-  // console.log(multipleAnwser);
 
   return (
     <View
@@ -177,13 +175,11 @@ const MakeNewPollScreen = ({navigation, route}) => {
               <TouchableOpacity
                 style={styles.dateContainer}
                 onPress={() => {
-                  console.log('lets Open');
                   setOpen(true);
-                  console.log(open);
                 }}>
                 <Text
                   style={[fontStyles.buttonTextSmall, styles.dateInputStyle]}>
-                  {convertDate(date)}
+                  {noDate ? 'Set Date' : convertDate(date)}
                 </Text>
               </TouchableOpacity>
               <DatePicker
@@ -193,27 +189,20 @@ const MakeNewPollScreen = ({navigation, route}) => {
                 open={open}
                 date={date}
                 onConfirm={date => {
+                  console.log(date);
+                  setNoDate(false);
                   setOpen(false);
                   setDate(date);
                 }}
                 onCancel={() => setOpen(false)}
               />
-              <Pressable
-                style={
-                  deadline ? styles.deadlineButton : styles.deadlineButtonActive
-                }
-                onPress={() => activateNoDeadline()}>
-                <Text
-                  style={[
-                    fontStyles.buttonTextSmall,
-                    {flex: 0.5},
-                    deadline
-                      ? {color: color.Lavendar[50]}
-                      : {color: color.Lavendar[100]},
-                  ]}>
-                  No deadline
-                </Text>
-              </Pressable>
+              <CoreButton
+                invert
+                value="No Deadline"
+                onPress={() => setNoDate(true)}
+                style={styles.deadlineButton}
+                disabled={noDate}
+              />
             </View>
           </View>
 
@@ -269,7 +258,7 @@ const MakeNewPollScreen = ({navigation, route}) => {
                     Math.floor(Math.random() * 10000 + 1),
                     question,
                     refInputs,
-                    date,
+                    noDate ? null : date,
                     multipleAnwser,
                   ),
                 )
@@ -345,30 +334,15 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 6,
-    flex: 0.9,
+    flex: 1,
   },
   dateInputStyle: {
+    marginRight: 15,
     color: color.Black[30],
   },
   deadlineButton: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderRadius: 6,
-    paddingVertical: 14,
-    paddingHorizontal: 40,
-    borderColor: color.Lavendar[50],
-    borderStyle: 'solid',
-    borderWidth: 2,
-  },
-  deadlineButtonActive: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderRadius: 6,
-    paddingVertical: 14,
-    paddingHorizontal: 40,
-    borderColor: color.Lavendar[100],
-    borderStyle: 'solid',
-    borderWidth: 2,
+    marginLeft: 15,
+    flex: 1,
   },
   multipleAnwserOuterContainer: {
     marginTop: 25,

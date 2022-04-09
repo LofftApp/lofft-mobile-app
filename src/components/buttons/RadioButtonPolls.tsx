@@ -1,5 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, {useState} from 'react';
+import RadioButtonRN from 'radio-buttons-react-native';
 
 import {View, Text, StyleSheet} from 'react-native';
 

@@ -3,54 +3,55 @@ import {View, Text, ImageBackground, StyleSheet} from 'react-native';
 import color from '../../assets/defaultColorPallet.json';
 import {fontStyles} from '../../StyleSheets/FontStyleSheet';
 import HalfBackgroundImage from './../../assets/banner-background-half.png';
-import {CoreButton} from '../buttons/CoreButton';
 import RadioButtonPolls from '../buttons/RadioButtonPolls';
 
-const PollCard = ({
-  value,
-  anwsers,
-  deadline,
-  multipleAnwser,
-  questionId,
-  selectQuestionById,
-}) => {
-  const [date] = useState(new Date(deadline.seconds * 1000));
+const PollCard = ({value}) => {
+  console.log(value);
+  const [date] = useState(
+    value.deadline ? value.deadline.seconds * 1000 : null,
+  );
 
-  const unitToTen = value => {
-    return value.toString.length === 1 ? `0${value}` : value;
+  const unitToTen = v => {
+    return v.toString().length === 1 ? `0${v}` : v;
   };
-  const convertDate = date => {
-    const day = unitToTen(date.getDay());
-    const month = unitToTen(date.getMonth());
-    return `${day} - ${month} - ${date.getFullYear()}`;
+  const convertDate = newDate => {
+    const toDate = new Date(newDate);
+    const day = unitToTen(toDate.getDate());
+    const month = unitToTen(toDate.getMonth() + 1);
+    return `${day} - ${month} - ${toDate.getFullYear()}`;
   };
+
+  if (date) {
+    console.log(convertDate(date));
+  }
 
   return (
     <ImageBackground
       source={HalfBackgroundImage}
       style={styles.ItemPendingPayment}>
       <View style={styles.textContainer}>
-        {deadline ? (
+        {date ? (
           <View style={styles.deadLineStyle}>
-            <Text
-              style={[fontStyles.buttonTextSmall, {color: color.White[100]}]}>
-              Ends {convertDate(date)}
-            </Text>
+            {
+              <Text
+                style={[fontStyles.buttonTextSmall, {color: color.White[100]}]}>
+                Ends {convertDate(date)}
+              </Text>
+            }
           </View>
         ) : null}
-        <Text style={[fontStyles.buttonTextMedium, styles.value]}>{value}</Text>
-        <RadioButtonPolls
-          questionId={questionId}
-          selectQuestionById={selectQuestionById}
-          anwsers={anwsers}
-        />
+        <Text style={[fontStyles.buttonTextMedium, styles.value]}>
+          {value.question}
+        </Text>
+        {/* {value.answers.map(a => {
+          <Text>a</Text>;
+        })} */}
+        {/* <RadioButtonPolls
+          questionId={value.questionId}
+          selectQuestionById={value.selectQuestionById}
+          anwsers={value.anwsers}
+        /> */}
       </View>
-      {/* <CoreButton
-        value="Question"
-        invert={true}
-        style={styles.button}
-        onPress={buttonAction}
-      /> */}
     </ImageBackground>
   );
 };
@@ -58,14 +59,13 @@ const PollCard = ({
 const styles = StyleSheet.create({
   ItemPendingPayment: {
     width: '100%',
-    flexDirection: 'column',
     justifyContent: 'space-around',
     paddingVertical: 15,
     borderWidth: 1,
     borderColor: color.White[0],
     borderRadius: 16,
     overflow: 'hidden',
-    marginBottom: 15,
+    // marginBottom: 15,
   },
   deadLineStyle: {
     backgroundColor: color.Mint[100],
