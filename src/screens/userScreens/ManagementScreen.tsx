@@ -152,7 +152,7 @@ const ManagementScreen = ({navigation, route}: any) => {
                   style={styles.accordionContainer}>
                   {pastPolls.length > 0 ? (
                     pastPolls.map((el, index) => (
-                      <PollCard value={el} key={index} />
+                      <PollCard value={el} key={index} inactive />
                     ))
                   ) : (
                     <Text style={[fontStyles.bodyMedium, {marginLeft: 15}]}>

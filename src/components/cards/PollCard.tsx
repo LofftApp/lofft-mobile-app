@@ -14,15 +14,15 @@ import {votePoll} from '../../api/firebase/fireStoreActions';
 // Firestore
 import auth from '@react-native-firebase/auth';
 
-const PollCard = ({value}) => {
+const PollCard = ({value, inactive = false}) => {
   const [pollValue] = useState(value.data());
   const [date] = useState(
     pollValue.deadline ? pollValue.deadline.seconds * 1000 : null,
   );
-  const [todayDate] = useState(new Date());
   const [userAnswer, setUserAnswer] = useState(
     pollValue.userInput[auth().currentUser.uid],
   );
+
   const unitToTen = v => {
     return v.toString().length === 1 ? `0${v}` : v;
   };
@@ -35,12 +35,16 @@ const PollCard = ({value}) => {
 
   return (
     <ImageBackground
-      source={HalfBackgroundImage}
-      style={styles.ItemPendingPayment}>
+      source={inactive ? null : HalfBackgroundImage}
+      style={[
+        styles.ItemPendingPayment,
+        inactive ? styles.containerBackgroundInactive : null,
+      ]}>
       <View style={styles.textContainer}>
         <View>
           {date ? (
-            <View style={styles.deadLineStyle}>
+            <View
+              style={[styles.deadLineStyle, inactive ? styles.inactive : null]}>
               {
                 <Text
                   style={[
@@ -67,10 +71,12 @@ const PollCard = ({value}) => {
           {pollValue.answers.map((ans, index) => {
             return (
               <TouchableOpacity
+                disabled={inactive}
                 key={ans}
                 style={[
                   styles.answer,
                   index === userAnswer ? styles.userAnswer : null,
+                  index === userAnswer && inactive ? styles.inactive : null,
                 ]}
                 onPress={() => {
                   setUserAnswer(index);
@@ -138,6 +144,12 @@ const styles = StyleSheet.create({
   userAnswer: {
     borderColor: color.Lavendar[50],
     backgroundColor: color.Lavendar[50],
+  },
+  inactive: {
+    backgroundColor: color.Black[50],
+  },
+  containerBackgroundInactive: {
+    backgroundColor: color.Black[10],
   },
 });
 
