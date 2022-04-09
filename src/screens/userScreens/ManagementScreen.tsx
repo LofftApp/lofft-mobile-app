@@ -39,6 +39,8 @@ const ManagementScreen = ({navigation, route}: any) => {
   const [expanded, setExpanded] = useState(true);
   const [date, setdate] = useState('');
   const [polls, setPolls] = useState([]);
+  const [pastPolls, setPastPolls] = useState([]);
+  const [todayDate] = useState(new Date());
 
   const buttonToggle = useCallback(toggled => {
     setPollsactivated(toggled);
@@ -53,12 +55,20 @@ const ManagementScreen = ({navigation, route}: any) => {
   useEffect(() => {
     const pollsData = async () => {
       setPolls([]);
-      setPolls(await getLofftPolls());
-      // if (result) {
-      //   result.forEach(poll => {
-      //     setPolls(polls => [...polls, poll.data()]);
-      //   });
-      // }
+      const allPolls = await getLofftPolls();
+      const currentPolls = allPolls.filter(
+        poll =>
+          (poll.data().deadline &&
+            new Date(poll.data().deadline.seconds * 1000) > todayDate) ||
+          !poll.data().deadline,
+      );
+      const oldPolls = allPolls.filter(
+        poll =>
+          poll.data().deadline &&
+          new Date(poll.data().deadline.seconds * 1000) < todayDate,
+      );
+      setPolls(currentPolls);
+      setPastPolls(oldPolls);
     };
     pollsData();
   }, []);
@@ -85,7 +95,7 @@ const ManagementScreen = ({navigation, route}: any) => {
               <View style={styles.newPollContainer}>
                 <CoreButton
                   value="Create New Poll"
-                  buttonAction={() => navigation.navigate('MakeNewPoll')}
+                  onPress={() => navigation.navigate('MakeNewPoll')}
                   style={styles.newPollButton}
                 />
               </View>
@@ -126,22 +136,29 @@ const ManagementScreen = ({navigation, route}: any) => {
               <List.Section>
                 <List.Accordion
                   title={
-                    <Text style={fontStyles.buttonTextLarge}>Past Polls</Text>
+                    <View style={styles.accordionHeader}>
+                      <View style={[styles.numberIcon, styles.pastPolls]}>
+                        <Text
+                          style={[
+                            fontStyles.bodySmall,
+                            {color: color.White[100]},
+                          ]}>
+                          {pastPolls.length}
+                        </Text>
+                      </View>
+                      <Text style={fontStyles.buttonTextLarge}>Past Polls</Text>
+                    </View>
                   }
                   style={styles.accordionContainer}>
-                  {/* !!! ATTENTION POLLCARDS ARE HARD CODED THIS WHERE DB ITTERATION WILL TAKE PLACE !!! */}
-                  {/* <PollCard
-                    value="Example"
-                    buttonAction={() => navigation.navigate('')}
-                  />
-                  <PollCard
-                    value="Example"
-                    buttonAction={() => navigation.navigate('')}
-                  />
-                  <PollCard
-                    value="Example"
-                    buttonAction={() => navigation.navigate('')}
-                  /> */}
+                  {pastPolls.length > 0 ? (
+                    pastPolls.map((el, index) => (
+                      <PollCard value={el} key={index} />
+                    ))
+                  ) : (
+                    <Text style={[fontStyles.bodyMedium, {marginLeft: 15}]}>
+                      No Passt Polls yet
+                    </Text>
+                  )}
                 </List.Accordion>
               </List.Section>
             </>
@@ -193,6 +210,9 @@ const styles = StyleSheet.create({
     height: 20,
     borderRadius: 10,
     marginRight: 5,
+  },
+  pastPolls: {
+    backgroundColor: color.Black[50],
   },
   buttonContainer: {
     marginVertical: 120,

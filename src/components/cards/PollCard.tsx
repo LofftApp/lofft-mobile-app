@@ -11,12 +11,18 @@ import {fontStyles} from '../../StyleSheets/FontStyleSheet';
 import HalfBackgroundImage from './../../assets/banner-background-half.png';
 import {votePoll} from '../../api/firebase/fireStoreActions';
 
+// Firestore
+import auth from '@react-native-firebase/auth';
+
 const PollCard = ({value}) => {
   const [pollValue] = useState(value.data());
   const [date] = useState(
     pollValue.deadline ? pollValue.deadline.seconds * 1000 : null,
   );
   const [todayDate] = useState(new Date());
+  const [userAnswer, setUserAnswer] = useState(
+    pollValue.userInput[auth().currentUser.uid],
+  );
   const unitToTen = v => {
     return v.toString().length === 1 ? `0${v}` : v;
   };
@@ -32,23 +38,28 @@ const PollCard = ({value}) => {
       source={HalfBackgroundImage}
       style={styles.ItemPendingPayment}>
       <View style={styles.textContainer}>
-        {date ? (
-          <View style={styles.deadLineStyle}>
-            {
+        <View>
+          {date ? (
+            <View style={styles.deadLineStyle}>
+              {
+                <Text
+                  style={[
+                    fontStyles.buttonTextSmall,
+                    {color: color.White[100]},
+                  ]}>
+                  {convertDate(date)}
+                </Text>
+              }
+            </View>
+          ) : (
+            <View style={styles.deadLineStyle}>
               <Text
                 style={[fontStyles.buttonTextSmall, {color: color.White[100]}]}>
-                {convertDate(date)}
+                No Deadline
               </Text>
-            }
-          </View>
-        ) : (
-          <View style={styles.deadLineStyle}>
-            <Text
-              style={[fontStyles.buttonTextSmall, {color: color.White[100]}]}>
-              No Deadline
-            </Text>
-          </View>
-        )}
+            </View>
+          )}
+        </View>
         <Text style={[fontStyles.bodySmall, styles.value]}>
           {pollValue.question}
         </Text>
@@ -57,8 +68,12 @@ const PollCard = ({value}) => {
             return (
               <TouchableOpacity
                 key={ans}
-                style={styles.answer}
+                style={[
+                  styles.answer,
+                  index === userAnswer ? styles.userAnswer : null,
+                ]}
                 onPress={() => {
+                  setUserAnswer(index);
                   votePoll(value.id, index);
                 }}>
                 <Text>{ans}</Text>
@@ -98,8 +113,7 @@ const styles = StyleSheet.create({
     marginVertical: 0,
   },
   value: {
-    marginVertical: 0,
-    lineHeight: 35,
+    marginVertical: 10,
   },
   button: {
     width: 158,
@@ -120,6 +134,10 @@ const styles = StyleSheet.create({
     backgroundColor: color.White[80],
     borderRadius: 6,
     marginBottom: 5,
+  },
+  userAnswer: {
+    borderColor: color.Lavendar[50],
+    backgroundColor: color.Lavendar[50],
   },
 });
 

@@ -158,6 +158,7 @@ const MakeNewPollScreen = ({navigation, route}) => {
                 autoCapitalize="none"
                 value={question}
                 onChangeText={text => setQuestion(text)}
+                multiline={true}
               />
             </View>
           </View>
