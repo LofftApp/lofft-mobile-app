@@ -273,3 +273,20 @@ export const getPollsData = async (value, setValue) => {
     setValue(value => [...value, r.data()]);
   });
 };
+
+// Vote in a Poll Method
+export const votePoll = (pollId, answer) => {
+  auth().onAuthStateChanged(async user => {
+    const obj = {};
+    const userID = user.uid;
+    obj[userID] = answer;
+    const userDetails = await getCurrentUserDetails(user);
+    const lofftId = userDetails.details.lofft.lofftId;
+    firestore()
+      .collection('Managements')
+      .doc(lofftId)
+      .collection('Polls')
+      .doc(pollId)
+      .update({userInput: obj});
+  });
+};

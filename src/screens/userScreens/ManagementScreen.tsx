@@ -52,12 +52,12 @@ const ManagementScreen = ({navigation, route}: any) => {
   useEffect(() => {
     const pollsData = async () => {
       setPolls([]);
-      const result = await getLofftPolls();
-      if (result) {
-        result.forEach(poll => {
-          setPolls(polls => [...polls, poll.data()]);
-        });
-      }
+      setPolls(await getLofftPolls());
+      // if (result) {
+      //   result.forEach(poll => {
+      //     setPolls(polls => [...polls, poll.data()]);
+      //   });
+      // }
     };
     pollsData();
   }, []);

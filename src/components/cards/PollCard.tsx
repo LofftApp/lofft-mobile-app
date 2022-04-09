@@ -1,15 +1,21 @@
 import React, {useState} from 'react';
-import {View, Text, ImageBackground, StyleSheet} from 'react-native';
+import {
+  View,
+  Text,
+  ImageBackground,
+  StyleSheet,
+  TouchableOpacity,
+} from 'react-native';
 import color from '../../assets/defaultColorPallet.json';
 import {fontStyles} from '../../StyleSheets/FontStyleSheet';
 import HalfBackgroundImage from './../../assets/banner-background-half.png';
-import RadioButtonPolls from '../buttons/RadioButtonPolls';
+import {votePoll} from '../../api/firebase/fireStoreActions';
 
 const PollCard = ({value}) => {
+  const [pollValue] = useState(value.data());
   const [date] = useState(
-    value.deadline ? value.deadline.seconds * 1000 : null,
+    pollValue.deadline ? pollValue.deadline.seconds * 1000 : null,
   );
-
   const unitToTen = v => {
     return v.toString().length === 1 ? `0${v}` : v;
   };
@@ -36,16 +42,22 @@ const PollCard = ({value}) => {
           </View>
         ) : null}
         <Text style={[fontStyles.bodySmall, styles.value]}>
-          {value.question}
+          {pollValue.question}
         </Text>
-        {value.answers.map(ans => {
-          return <Text key={ans}>{ans}</Text>;
-        })}
-        {/* <RadioButtonPolls
-          questionId={value.questionId}
-          selectQuestionById={value.selectQuestionById}
-          anwsers={value.anwsers}
-        /> */}
+        <View style={styles.answerContainer}>
+          {pollValue.answers.map((ans, index) => {
+            return (
+              <TouchableOpacity
+                key={ans}
+                style={styles.answer}
+                onPress={() => {
+                  votePoll(value.id, index);
+                }}>
+                <Text>{ans}</Text>
+              </TouchableOpacity>
+            );
+          })}
+        </View>
       </View>
     </ImageBackground>
   );
@@ -86,6 +98,21 @@ const styles = StyleSheet.create({
     width: 158,
     height: 53,
     marginRight: 10,
+  },
+  answerContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+    flexWrap: 'wrap',
+  },
+  answer: {
+    justifyContent: 'center',
+    borderColor: color.White[80],
+    borderWidth: 1,
+    height: 35,
+    paddingHorizontal: 15,
+    backgroundColor: color.White[80],
+    borderRadius: 6,
+    marginBottom: 5,
   },
 });
 
