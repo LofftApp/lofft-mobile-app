@@ -23,6 +23,7 @@ import {CoreButton} from '../../components/buttons/CoreButton';
 // StyleSheets 🌈
 import {CoreStyleSheet} from '../../StyleSheets/CoreDesignStyleSheet';
 import {fontStyles} from '../../StyleSheets/FontStyleSheet';
+import color from '../../assets/defaultColorPallet.json';
 
 // FireStore 🔥
 import {getLofftPolls} from '../../api/firebase/fireStoreActions';
@@ -92,13 +93,24 @@ const ManagementScreen = ({navigation, route}: any) => {
               <List.Section>
                 <List.Accordion
                   title={
-                    <Text style={fontStyles.buttonTextLarge}>Active Polls</Text>
+                    <View style={styles.accordionHeader}>
+                      <View style={styles.numberIcon}>
+                        <Text
+                          style={[
+                            fontStyles.bodySmall,
+                            {color: color.White[100]},
+                          ]}>
+                          {polls.length}
+                        </Text>
+                      </View>
+                      <Text style={fontStyles.buttonTextLarge}>
+                        Active Polls
+                      </Text>
+                    </View>
                   }
                   style={styles.accordionContainer}
                   expanded={expanded}
                   onPress={handlePress}>
-                  {/* !!! ATTENTION POLLCARDS ARE HARD CODED THIS WHERE DB ITTERATION WILL TAKE PLACE !!! */}
-
                   {polls.length > 0 ? (
                     polls.map((el, index) => (
                       <PollCard value={el} key={index} />
@@ -156,9 +168,9 @@ const styles = StyleSheet.create({
   newPollContainer: {
     justifyContent: 'center',
     alignItems: 'center',
-    height: 80,
-    marginVertical: 16,
-    paddingVertical: 16,
+    height: 60,
+    marginTop: 16,
+    paddingVertical: 8,
   },
   newPollButton: {
     width: '60%',
@@ -168,6 +180,19 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     display: 'flex',
     justifyContent: 'flex-start',
+  },
+  accordionHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  numberIcon: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: color.Mint[100],
+    width: 20,
+    height: 20,
+    borderRadius: 10,
+    marginRight: 5,
   },
   buttonContainer: {
     marginVertical: 120,
