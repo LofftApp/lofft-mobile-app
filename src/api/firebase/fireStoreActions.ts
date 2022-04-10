@@ -269,6 +269,7 @@ export const getPollsData = async (value, setValue) => {
 
 // Vote in a Poll Method
 export const votePoll = async (pollId, answer) => {
+  // console.log(answer);
   const user = auth().currentUser;
   const userID = user.uid;
   const userDetails = await getCurrentUserDetails(user);
@@ -280,5 +281,3 @@ export const votePoll = async (pollId, answer) => {
     .doc(pollId)
     .update({[`userInput.${userID}`]: answer});
 };
-
-// firestore.FieldValue.arrayUnion(

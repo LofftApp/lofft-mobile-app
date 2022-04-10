@@ -10,6 +10,7 @@ import color from '../../assets/defaultColorPallet.json';
 import {fontStyles} from '../../StyleSheets/FontStyleSheet';
 import HalfBackgroundImage from './../../assets/banner-background-half.png';
 import {votePoll} from '../../api/firebase/fireStoreActions';
+import ResultBars from '../bannersAndBars/ResultBars';
 
 // Firestore
 import auth from '@react-native-firebase/auth';
@@ -19,6 +20,8 @@ const PollCard = ({value, inactive = false}) => {
   const [date] = useState(
     pollValue.deadline ? pollValue.deadline.seconds * 1000 : null,
   );
+  const [answers] = useState(pollValue.answers);
+  const [userInputs, setUserInputs] = useState(pollValue.userInput);
   const [userAnswer, setUserAnswer] = useState(
     pollValue.userInput[auth().currentUser.uid],
   );
@@ -31,7 +34,6 @@ const PollCard = ({value, inactive = false}) => {
     const month = unitToTen(toDate.getMonth() + 1);
     return `${day}/${month}/${toDate.getFullYear()}`;
   };
-
   return (
     <ImageBackground
       source={inactive ? null : HalfBackgroundImage}
@@ -67,19 +69,23 @@ const PollCard = ({value, inactive = false}) => {
           {pollValue.question}
         </Text>
         <View style={styles.answerContainer}>
-          {pollValue.answers.map((ans, index) => {
+          {pollValue.answers.map(ans => {
             return (
               <TouchableOpacity
-                disabled={inactive}
+                disabled={inactive || ans === userAnswer}
                 key={ans}
                 style={[
                   styles.answer,
-                  index === userAnswer ? styles.userAnswer : null,
-                  index === userAnswer && inactive ? styles.inactive : null,
+                  ans === userAnswer ? styles.userAnswer : null,
+                  ans === userAnswer && inactive ? styles.inactive : null,
                 ]}
                 onPress={() => {
-                  setUserAnswer(index);
-                  votePoll(value.id, index);
+                  setUserAnswer(ans);
+                  const updateUser = userInputs;
+                  updateUser[auth().currentUser.uid] = ans;
+                  setUserInputs(updateUser);
+                  userInputs[auth().currentUser.uid];
+                  votePoll(value.id, ans);
                 }}>
                 <Text>{ans}</Text>
               </TouchableOpacity>
@@ -87,21 +93,14 @@ const PollCard = ({value, inactive = false}) => {
           })}
         </View>
       </View>
-      <View style={styles.resultContainer}>
-        <Text style={[fontStyles.buttonTextSmall]}>Results</Text>
-        <View>
-          {pollValue.answers.map(ans => {
-            return (
-              <View key={ans} style={styles.barContainer}>
-                <Text style={styles.progressAnswer}>{ans}</Text>
-                <View style={styles.progressBarContainer}>
-                  <View style={[styles.progressBar]} />
-                </View>
-              </View>
-            );
-          })}
+      {userAnswer ? (
+        <View style={styles.resultContainer}>
+          <Text style={[fontStyles.buttonTextSmall]}>Results</Text>
+          <View>
+            <ResultBars answers={answers} userAnswers={userInputs} />
+          </View>
         </View>
-      </View>
+      ) : null}
     </ImageBackground>
   );
 };
