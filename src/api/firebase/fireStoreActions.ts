@@ -279,7 +279,9 @@ export const votePoll = (pollId, answer) => {
   auth().onAuthStateChanged(async user => {
     const obj = {};
     const userID = user.uid;
+    console.log(userID);
     obj[userID] = answer;
+    console.log(obj);
     const userDetails = await getCurrentUserDetails(user);
     const lofftId = userDetails.details.lofft.lofftId;
     firestore()
@@ -287,6 +289,11 @@ export const votePoll = (pollId, answer) => {
       .doc(lofftId)
       .collection('Polls')
       .doc(pollId)
-      .update({userInput: obj});
+      .update({userInput: obj})
+      .then(response => {
+        console.log(response);
+      });
   });
 };
+
+// firestore.FieldValue.arrayUnion(

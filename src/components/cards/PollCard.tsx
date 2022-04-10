@@ -22,7 +22,6 @@ const PollCard = ({value, inactive = false}) => {
   const [userAnswer, setUserAnswer] = useState(
     pollValue.userInput[auth().currentUser.uid],
   );
-
   const unitToTen = v => {
     return v.toString().length === 1 ? `0${v}` : v;
   };
@@ -84,6 +83,21 @@ const PollCard = ({value, inactive = false}) => {
                 }}>
                 <Text>{ans}</Text>
               </TouchableOpacity>
+            );
+          })}
+        </View>
+      </View>
+      <View style={styles.resultContainer}>
+        <Text style={[fontStyles.buttonTextSmall]}>Results</Text>
+        <View>
+          {pollValue.answers.map(ans => {
+            return (
+              <View key={ans} style={styles.barContainer}>
+                <Text style={styles.progressAnswer}>{ans}</Text>
+                <View style={styles.progressBarContainer}>
+                  <View style={[styles.progressBar]} />
+                </View>
+              </View>
             );
           })}
         </View>
@@ -150,6 +164,30 @@ const styles = StyleSheet.create({
   },
   containerBackgroundInactive: {
     backgroundColor: color.Black[10],
+  },
+  resultContainer: {
+    padding: 10,
+    marginTop: 5,
+  },
+  barContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingHorizontal: 10,
+    paddingVertical: 10,
+  },
+  progressAnswer: {
+    flex: 1,
+  },
+  progressBarContainer: {
+    flex: 2.5,
+  },
+  progressBar: {
+    height: 10,
+    backgroundColor: color.Lavendar[100],
+    borderWidth: 1,
+    borderColor: color.Lavendar[100],
+    borderRadius: 12,
   },
 });
 
