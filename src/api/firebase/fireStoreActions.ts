@@ -220,25 +220,18 @@ export const addEvent = async (
 
 // Create Poll
 
-export const addPoll = async (
-  uniqueQuestionId,
-  question,
-  anwsers,
-  deadline,
-  multipleAnwser,
-) => {
+export const addPoll = async (question, anwsers, deadline, multipleAnwser) => {
   const currentUser = auth().currentUser;
   const user = await getCurrentUserDetails(currentUser);
   const loftId = user.details.lofft.lofftId;
 
   const poll = {
     createdByID: auth().currentUser.uid,
-    questionID: uniqueQuestionId,
     question: question,
     answers: anwsers.current,
     deadline: deadline,
     multipleAnwser: multipleAnwser,
-    userInput: [],
+    userInput: {},
   };
 
   await firestore()
@@ -276,21 +269,23 @@ export const getPollsData = async (value, setValue) => {
 
 // Vote in a Poll Method
 export const votePoll = async (pollId, answer) => {
+  let userInput = {};
   const obj = {};
-  const userID = auth().currentUser.uid;
-  console.log(userID);
+  const user = auth().currentUser;
+  const userID = user.uid;
   obj[userID] = answer;
-  console.log(obj);
-  const userDetails = await getCurrentUserDetails(auth().currentUser);
+  userInput = obj;
+  console.log(userInput);
+  const userDetails = await getCurrentUserDetails(user);
   const lofftId = userDetails.details.lofft.lofftId;
   firestore()
     .collection('Managements')
     .doc(lofftId)
     .collection('Polls')
     .doc(pollId)
-    .update({userInput: obj})
-    .then(response => {
-      console.log(response);
+    .update({userInput})
+    .then(() => {
+      console.log('update complete');
     });
 };
 

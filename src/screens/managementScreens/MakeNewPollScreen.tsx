@@ -256,7 +256,6 @@ const MakeNewPollScreen = ({navigation, route}) => {
                 navigation.navigate(
                   'PollConfirmation',
                   addPoll(
-                    Math.floor(Math.random() * 10000 + 1),
                     question,
                     refInputs,
                     noDate ? null : date,
