@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import {List} from 'react-native-paper';
 
@@ -10,10 +10,51 @@ import color from '../../assets/defaultColorPallet.json';
 import {CoreButton} from '../buttons/CoreButton';
 import PollCard from '../../components/cards/PollCard';
 
-const PollsManagement = ({navigation, pastPolls, polls}) => {
+// FireStore 🔥
+import {getLofftPolls} from '../../api/firebase/fireStoreActions';
+import firestore from '@react-native-firebase/firestore';
+
+const PollsManagement = ({navigation}) => {
   // Hooks
   const [expanded, setExpanded] = useState(true);
   const handlePress = () => setExpanded(!expanded);
+  const [polls, setPolls] = useState([]);
+  const [pastPolls, setPastPolls] = useState([]);
+  const [todayDate] = useState(new Date());
+
+  useEffect(() => {
+    const pollsData = async () => {
+      setPolls([]);
+      const allPolls = await getLofftPolls();
+      const currentPolls = allPolls.filter(
+        poll =>
+          (poll.data().deadline &&
+            new Date(poll.data().deadline.seconds * 1000) > todayDate) ||
+          !poll.data().deadline,
+      );
+      const oldPolls = allPolls.filter(
+        poll =>
+          poll.data().deadline &&
+          new Date(poll.data().deadline.seconds * 1000) < todayDate,
+      );
+      setPolls(currentPolls);
+      setPastPolls(oldPolls);
+    };
+
+    const subscriber = firestore()
+      .collection('Managements')
+      .doc('B7vxlFYgNpnYPOT7eMfO')
+      .collection('Polls')
+      .onSnapshot(snapShot => {
+        snapShot.docChanges().forEach(async change => {
+          if (change.type === 'added' || change.type === 'removed') {
+            pollsData();
+            console.log(change.type);
+          }
+        });
+      });
+    return () => subscriber();
+  }, []);
 
   return (
     <>
