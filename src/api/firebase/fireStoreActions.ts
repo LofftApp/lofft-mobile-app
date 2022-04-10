@@ -269,13 +269,8 @@ export const getPollsData = async (value, setValue) => {
 
 // Vote in a Poll Method
 export const votePoll = async (pollId, answer) => {
-  let userInput = {};
-  const obj = {};
   const user = auth().currentUser;
   const userID = user.uid;
-  obj[userID] = answer;
-  userInput = obj;
-  console.log(userInput);
   const userDetails = await getCurrentUserDetails(user);
   const lofftId = userDetails.details.lofft.lofftId;
   firestore()
@@ -283,10 +278,7 @@ export const votePoll = async (pollId, answer) => {
     .doc(lofftId)
     .collection('Polls')
     .doc(pollId)
-    .update({userInput})
-    .then(() => {
-      console.log('update complete');
-    });
+    .update({[`userInput.${userID}`]: answer});
 };
 
 // firestore.FieldValue.arrayUnion(

@@ -186,7 +186,8 @@ const MakeNewPollScreen = ({navigation, route}) => {
               <DatePicker
                 modal
                 minimumDate={new Date()}
-                mode="date"
+                mode="datetime"
+                minuteInterval={5}
                 open={open}
                 date={date}
                 onConfirm={date => {
