@@ -275,25 +275,23 @@ export const getPollsData = async (value, setValue) => {
 };
 
 // Vote in a Poll Method
-export const votePoll = (pollId, answer) => {
-  auth().onAuthStateChanged(async user => {
-    const obj = {};
-    const userID = user.uid;
-    console.log(userID);
-    obj[userID] = answer;
-    console.log(obj);
-    const userDetails = await getCurrentUserDetails(user);
-    const lofftId = userDetails.details.lofft.lofftId;
-    firestore()
-      .collection('Managements')
-      .doc(lofftId)
-      .collection('Polls')
-      .doc(pollId)
-      .update({userInput: obj})
-      .then(response => {
-        console.log(response);
-      });
-  });
+export const votePoll = async (pollId, answer) => {
+  const obj = {};
+  const userID = auth().currentUser.uid;
+  console.log(userID);
+  obj[userID] = answer;
+  console.log(obj);
+  const userDetails = await getCurrentUserDetails(auth().currentUser);
+  const lofftId = userDetails.details.lofft.lofftId;
+  firestore()
+    .collection('Managements')
+    .doc(lofftId)
+    .collection('Polls')
+    .doc(pollId)
+    .update({userInput: obj})
+    .then(response => {
+      console.log(response);
+    });
 };
 
 // firestore.FieldValue.arrayUnion(
