@@ -34,14 +34,10 @@ const MakeNewPollScreen = () => {
   const [textValue, setTextValue] = useState(''); // our number of inputs, we can add the length or decrease
   const [numInputs, setNumInputs] = useState(2); // all our input fields are tracked with this array
   const refInputs = useRef<string[]>([textValue]);
-  const [deadline, setDeadline] = useState('(dd/mm/yyyy)');
   const [date, setDate] = useState(new Date());
   const [noDate, setNoDate] = useState(true);
   const [open, setOpen] = useState(false);
   const [multipleAnwser, setmultipleAnwsers] = useState(false);
-  const [uniqueQuestionId, setQuestionId] = useState(
-    Math.floor(Math.random() * 10000 + 1),
-  );
 
   const alpha = [
     'a',

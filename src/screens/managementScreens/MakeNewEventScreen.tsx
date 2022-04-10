@@ -6,12 +6,14 @@ import {
   ImageBackground,
   TextInput,
   Platform,
+  TouchableOpacity,
 } from 'react-native';
 import {Switch} from 'react-native-paper';
 
 // Components
 import CustomBackButton from '../../components/buttons/CustomBackButton';
 import {CoreButton} from '../../components/buttons/CoreButton';
+import DatePicker from 'react-native-date-picker';
 
 // Styles
 import {CoreStyleSheet} from '../../StyleSheets/CoreDesignStyleSheet';
@@ -21,14 +23,16 @@ import HalfBackgroundImage from './../../assets/banner-background-half.png';
 
 // Firestore
 
-const MakeNewEventScreen = ({navigation, route}) => {
+const MakeNewEventScreen = ({navigation}) => {
   const [title, setTitle] = useState('');
   const [location, setLocation] = useState('');
-  const [date, setDate] = useState(route.params.date);
   const [fromdate, setfromDate] = useState('');
   const [untildate, setuntilDate] = useState('');
   const [informFlatmates, setinformFlatmates] = useState(false);
   const [description, setdescription] = useState('');
+
+  const [date, setDate] = useState(new Date());
+  const [dateOpen, setDateOpen] = useState(false);
 
   const onToggleSwitch = () => setinformFlatmates(!informFlatmates);
 
@@ -74,12 +78,24 @@ const MakeNewEventScreen = ({navigation, route}) => {
 
           <View style={styles.InputContainer}>
             <Text style={[fontStyles.buttonTextMedium, {flex: 1}]}>Date</Text>
-            <TextInput
-              style={[styles.inputStyle, fontStyles.bodyMedium]}
-              placeholder="(dd/mm/yyyy)"
-              autoCapitalize="none"
-              value={date}
-              onChangeText={text => setDate(text)}
+            <TouchableOpacity
+              style={styles.inputStyle}
+              onPress={() => setDateOpen(true)}>
+              {/* <Text style={[styles.inputStyle, fontStyles.bodyMedium]}>
+                {date}
+              </Text> */}
+            </TouchableOpacity>
+            <DatePicker
+              modal
+              minimumDate={new Date()}
+              mode="date"
+              open={dateOpen}
+              date={date}
+              onConfirm={date => {
+                setDateOpen(false);
+                setDate(date);
+              }}
+              onCancel={() => setDateOpen(false)}
             />
           </View>
 
