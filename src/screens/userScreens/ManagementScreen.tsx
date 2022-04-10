@@ -21,13 +21,13 @@ const ManagementScreen = ({navigation}: any) => {
   // User Hooks
   const [image, setImage]: any = useState('');
   // Hooks
-  const [pollsactivated, setPollsactivated] = useState(true);
+  const [calendarActive, setCalendarActive] = useState(true);
   const [polls, setPolls] = useState([]);
   const [pastPolls, setPastPolls] = useState([]);
   const [todayDate] = useState(new Date());
 
   const buttonToggle = useCallback(toggled => {
-    setPollsactivated(toggled);
+    setCalendarActive(toggled);
   }, []);
 
   useEffect(() => {
@@ -75,19 +75,19 @@ const ManagementScreen = ({navigation}: any) => {
           <HeaderBar title="Management" image={image} />
 
           <ToggleBar
-            optionA="Polls"
-            optionB="Flat's calendar"
+            optionA="Calendar"
+            optionB="Polls"
             dashboard={buttonToggle}
           />
 
-          {pollsactivated ? (
+          {calendarActive ? (
+            <EventsManagement navigation={navigation} />
+          ) : (
             <PollsManagement
               navigation={navigation}
               pastPolls={pastPolls}
               polls={polls}
             />
-          ) : (
-            <EventsManagement navigation={navigation} />
           )}
         </ScrollView>
       </SafeAreaView>
