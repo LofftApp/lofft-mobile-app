@@ -24,11 +24,11 @@ import {CoreStyleSheet} from '../../StyleSheets/CoreDesignStyleSheet';
 import {fontStyles} from '../../StyleSheets/FontStyleSheet';
 import color from '../../assets/defaultColorPallet.json';
 import ToggleBar from '../../components/bannersAndBars/ToggleBar';
-
+import {navigationRef as navigation} from './../../RootNavigation';
 // Firestore
 import {addPoll} from '../../api/firebase/fireStoreActions';
 
-const MakeNewPollScreen = ({navigation, route}) => {
+const MakeNewPollScreen = () => {
   const [question, setQuestion] = useState('');
   // this will be attached with each input onChangeText
   const [textValue, setTextValue] = useState(''); // our number of inputs, we can add the length or decrease

@@ -41,7 +41,6 @@ const ManagementScreen = ({navigation, route}: any) => {
   const [polls, setPolls] = useState([]);
   const [pastPolls, setPastPolls] = useState([]);
   const [todayDate] = useState(new Date());
-  const [update, setUpdate] = useState(true);
 
   const buttonToggle = useCallback(toggled => {
     setPollsactivated(toggled);
@@ -78,9 +77,9 @@ const ManagementScreen = ({navigation, route}: any) => {
       .collection('Polls')
       .onSnapshot(snapShot => {
         snapShot.docChanges().forEach(async change => {
-          if (change) {
+          if (change.type === 'added' || change.type === 'removed') {
             pollsData();
-            console.log('There has been a change');
+            console.log(change.type);
           }
         });
       });
