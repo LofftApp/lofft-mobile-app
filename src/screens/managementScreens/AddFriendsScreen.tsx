@@ -17,6 +17,10 @@ import {CoreStyleSheet} from '../../StyleSheets/CoreDesignStyleSheet';
 import {fontStyles} from '../../StyleSheets/FontStyleSheet';
 import color from '../../assets/defaultColorPallet.json';
 
+// Firestore
+
+import {addEvent} from '../../api/firebase/fireStoreActions';
+
 const importedFriends = [
   {id: 1, name: 'Adam', imgUrl: adam, selected: false},
   {id: 2, name: 'James', imgUrl: james, selected: false},
@@ -24,7 +28,7 @@ const importedFriends = [
   {id: 4, name: 'Freddie', imgUrl: freddie, selected: false},
 ];
 
-const AddFriendsScreen = ({navigation}) => {
+const AddFriendsScreen = ({navigation, route}: any) => {
   const [friends, setFriends] = useState(importedFriends);
   const [allFriendsSelect, setAllFriendsSelect] = useState(false);
 
@@ -40,33 +44,23 @@ const AddFriendsScreen = ({navigation}) => {
     setFriends(clickedFriends);
   };
 
-const toggleFriends = () => {
-  let allFriendsSelected;
+  const toggleFriends = () => {
+    let allFriendsSelected;
 
-  setAllFriendsSelect(!allFriendsSelect)
+    setAllFriendsSelect(!allFriendsSelect);
 
-  if (allFriendsSelect) {
-    allFriendsSelected = friends.map(el => {
-      return { ...el, selected: true };
-    });
-  } else {
-    allFriendsSelected = friends.map(el => {
-      return { ...el, selected: false };
-    });
-  }
+    if (allFriendsSelect) {
+      allFriendsSelected = friends.map(el => {
+        return {...el, selected: true};
+      });
+    } else {
+      allFriendsSelected = friends.map(el => {
+        return {...el, selected: false};
+      });
+    }
 
-  setFriends(allFriendsSelected)
-}
-
-  // if (allFriendsSelect) {
-  //   const selectAllFriends = () => {
-  //     const selectAllFriends = friends.map(el => {
-  //       return {...el, selected: true};
-  //     });
-  //     setAllFriendsSelect(true);
-  //     setFriends(selectAllFriends);
-  //   };
-  // }
+    setFriends(allFriendsSelected);
+  };
 
   return (
     <View
@@ -88,7 +82,10 @@ const toggleFriends = () => {
             <TouchableOpacity
               style={[styles.buttonStyle]}
               onPress={() => toggleFriends()}>
-              <Text style={[fontStyles.buttonTextMedium, styles.buttonTextStyle]}>{allFriendsSelect ? 'Select all' : 'Unselect'}</Text>
+              <Text
+                style={[fontStyles.buttonTextMedium, styles.buttonTextStyle]}>
+                {allFriendsSelect ? 'Select all' : 'Unselect'}
+              </Text>
             </TouchableOpacity>
           </View>
 
@@ -111,7 +108,19 @@ const toggleFriends = () => {
         <CoreButton
           value="Confirm"
           style={styles.button}
-          onPress={() => navigation.navigate('EventConfirmation')}
+          onPress={() => {
+            navigation.navigate('EventConfirmation'),
+              addEvent(
+                route.params.title,
+                route.params.location,
+                route.params.date,
+                route.params.fromdate,
+                route.params.untildate,
+                route.params.informFlatmates,
+                route.params.description,
+                friends,
+              );
+          }}
         />
         <CoreButton
           value="Cancel"
@@ -156,7 +165,7 @@ const styles = StyleSheet.create({
     borderRadius: 16,
     borderWidth: 2,
     marginLeft: 19,
-    flex:1,
+    flex: 1,
     paddingVertical: 10,
   },
   buttonTextStyle: {

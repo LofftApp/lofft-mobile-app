@@ -14,13 +14,19 @@ export const CoreButton = ({
   return (
     <TouchableOpacity
       disabled={disabled}
-      style={[styles.buttonStyle, invert ? styles.buttonInvert : null, style]}
+      style={[
+        styles.buttonStyle,
+        invert ? styles.buttonInvert : null,
+        disabled ? styles.buttonDisabled : null,
+        style,
+      ]}
       onPress={onPress}>
       <Text
         style={[
           fontStyles.buttonTextMedium,
           styles.buttonTextStyle,
           invert ? styles.textInvertButton : null,
+          disabled ? styles.textDisabled : null,
           textStyle,
         ]}>
         {value}
@@ -35,7 +41,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: color.Lavendar[100],
     borderColor: color.Lavendar[100],
-    borderRadius: 16,
+    borderRadius: 6,
     height: 53,
     borderWidth: 2,
   },
@@ -47,5 +53,12 @@ const styles = StyleSheet.create({
   },
   textInvertButton: {
     color: color.Lavendar[100],
+  },
+  buttonDisabled: {
+    backgroundColor: color.White[100],
+    borderColor: color.Black[30],
+  },
+  textDisabled: {
+    color: color.Black[30],
   },
 });

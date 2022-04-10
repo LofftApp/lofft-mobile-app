@@ -1,4 +1,4 @@
-import firestore from '@react-native-firebase/firestore';
+import firestore, {doc, getDoc, setDoc} from '@react-native-firebase/firestore';
 import auth from '@react-native-firebase/auth';
 import {getCurrentUser} from './firebaseApi';
 import values from '../../data/hobbiesAndValues.json';
@@ -174,4 +174,110 @@ export const billQuery = async () => {
       });
     });
   return {total, returnedData};
+};
+
+// Create Event
+export const addEvent = async (
+  title,
+  location,
+  date,
+  from,
+  till,
+  sharewithFlatmates,
+  description,
+  inputFriends,
+) => {
+  const currentUser = auth().currentUser;
+  const user = await getCurrentUserDetails(currentUser);
+  const loftId = user.details.lofft.lofftId;
+  const selectedFriendsOnly = inputFriends.filter(el => el.selected === true);
+
+  let currentEvent = {
+    title: title,
+    location: location,
+    date: date,
+    from: from,
+    till: till,
+    sharewithFlatmates: sharewithFlatmates,
+    description: description,
+    selectedFriends: selectedFriendsOnly,
+  };
+
+  const docRef = await firestore().collection('Managements').doc(loftId);
+
+  docRef.get().then(docSnapshot => {
+    if (docSnapshot.exists) {
+      docRef.update({
+        events: firestore.FieldValue.arrayUnion(currentEvent),
+      });
+    } else {
+      docRef.set({
+        // doc Ref creates doc id from Loft id 😎
+      });
+    }
+  });
+};
+
+// Create Poll
+
+export const addPoll = async (question, anwsers, deadline, multipleAnwser) => {
+  const currentUser = auth().currentUser;
+  const user = await getCurrentUserDetails(currentUser);
+  const loftId = user.details.lofft.lofftId;
+
+  const poll = {
+    createdByID: auth().currentUser.uid,
+    question: question,
+    answers: anwsers.current,
+    deadline: deadline,
+    multipleAnwser: multipleAnwser,
+    userInput: {},
+  };
+
+  await firestore()
+    .collection('Managements')
+    .doc(loftId)
+    .collection('Polls')
+    .add(poll);
+};
+
+// Pull Lofft Poll from DB
+
+export const getLofftPolls = async () => {
+  const currentUser = auth().currentUser;
+  const user = await getCurrentUserDetails(currentUser);
+  const loftId = user.details.lofft.lofftId;
+
+  const result = await firestore()
+    .collection('Managements')
+    .doc(loftId)
+    .collection('Polls')
+    .get()
+    .then(docSnapshot => {
+      return docSnapshot.docs;
+    });
+  return result;
+};
+
+export const getPollsData = async (value, setValue) => {
+  setValue([]);
+  const result = await getLofftPolls();
+  result.forEach(r => {
+    setValue(value => [...value, r.data()]);
+  });
+};
+
+// Vote in a Poll Method
+export const votePoll = async (pollId, answer) => {
+  // console.log(answer);
+  const user = auth().currentUser;
+  const userID = user.uid;
+  const userDetails = await getCurrentUserDetails(user);
+  const lofftId = userDetails.details.lofft.lofftId;
+  firestore()
+    .collection('Managements')
+    .doc(lofftId)
+    .collection('Polls')
+    .doc(pollId)
+    .update({[`userInput.${userID}`]: answer});
 };
