@@ -97,7 +97,11 @@ const PollCard = ({value, inactive = false}) => {
         <View style={styles.resultContainer}>
           <Text style={[fontStyles.buttonTextSmall]}>Results</Text>
           <View>
-            <ResultBars answers={answers} userAnswers={userInputs} />
+            <ResultBars
+              answers={answers}
+              userAnswers={userInputs}
+              inactive={inactive}
+            />
           </View>
         </View>
       ) : null}

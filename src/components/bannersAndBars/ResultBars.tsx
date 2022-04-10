@@ -2,7 +2,7 @@ import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import color from '../../assets/defaultColorPallet.json';
 
-const ResultBars = ({answers, userAnswers}) => {
+const ResultBars = ({answers, userAnswers, inactive = false}) => {
   // console.log(answers);
   // console.log(userAnswers);
   const accumulatorCalculator = votes => {
@@ -28,7 +28,11 @@ const ResultBars = ({answers, userAnswers}) => {
         <Text style={styles.progressAnswer}>{ans}</Text>
         <View style={styles.progressBarContainer}>
           <View
-            style={[styles.progressBar, {width: `${votePercentages[ans]}%`}]}
+            style={[
+              styles.progressBar,
+              inactive ? styles.inactive : null,
+              {width: `${votePercentages[ans]}%`},
+            ]}
           />
         </View>
       </View>
@@ -56,6 +60,10 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: color.Lavendar[100],
     borderRadius: 12,
+  },
+  inactive: {
+    backgroundColor: color.Black[30],
+    borderColor: color.Black[30],
   },
 });
 

@@ -16,7 +16,6 @@ import {List} from 'react-native-paper';
 import HeaderBar from '../../components/bannersAndBars/HeaderBar';
 import ToggleBar from './../../components/bannersAndBars/ToggleBar';
 import PollCard from '../../components/cards/PollCard';
-import NewPollContainer from '../../components/iconsAndContainers/NewPollContainer';
 import CalendarManagement from '../../components/calendar/CalendarManagement';
 import {CoreButton} from '../../components/buttons/CoreButton';
 
