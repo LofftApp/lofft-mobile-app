@@ -2,26 +2,16 @@
 import React, {useState, useEffect, useCallback} from 'react';
 
 // React Native 📱
-import {
-  View,
-  Text,
-  StyleSheet,
-  Platform,
-  SafeAreaView,
-  ScrollView,
-} from 'react-native';
+import {View, Platform, SafeAreaView, ScrollView} from 'react-native';
 
 // Components 🪢
 import HeaderBar from '../../components/bannersAndBars/HeaderBar';
 import ToggleBar from './../../components/bannersAndBars/ToggleBar';
-import CalendarManagement from '../../components/calendar/CalendarManagement';
-import {CoreButton} from '../../components/buttons/CoreButton';
 import PollsManagement from '../../components/screenComponents/PollsManagement';
+import EventsManagement from '../../components/screenComponents/EventsManagement';
 
 // StyleSheets 🌈
 import {CoreStyleSheet} from '../../StyleSheets/CoreDesignStyleSheet';
-import {fontStyles} from '../../StyleSheets/FontStyleSheet';
-import color from '../../assets/defaultColorPallet.json';
 
 // FireStore 🔥
 import {getLofftPolls} from '../../api/firebase/fireStoreActions';
@@ -32,7 +22,6 @@ const ManagementScreen = ({navigation}: any) => {
   const [image, setImage]: any = useState('');
   // Hooks
   const [pollsactivated, setPollsactivated] = useState(true);
-  const [date, setdate] = useState('');
   const [polls, setPolls] = useState([]);
   const [pastPolls, setPastPolls] = useState([]);
   const [todayDate] = useState(new Date());
@@ -40,10 +29,6 @@ const ManagementScreen = ({navigation}: any) => {
   const buttonToggle = useCallback(toggled => {
     setPollsactivated(toggled);
   }, []);
-
-  const fetchdate = dateInput => {
-    setdate(dateInput);
-  };
 
   useEffect(() => {
     const pollsData = async () => {
@@ -102,24 +87,12 @@ const ManagementScreen = ({navigation}: any) => {
               polls={polls}
             />
           ) : (
-            <>
-              <CalendarManagement fetchdate={fetchdate} />
-              <View style={styles.buttonContainer}>
-                <CoreButton
-                  value="Add new event"
-                  style={styles.button}
-                  invert
-                  onPress={() => navigation.navigate('MakeNewEvent', {date})}
-                />
-              </View>
-            </>
+            <EventsManagement navigation={navigation} />
           )}
         </ScrollView>
       </SafeAreaView>
     </View>
   );
 };
-
-const styles = StyleSheet.create({});
 
 export default ManagementScreen;
