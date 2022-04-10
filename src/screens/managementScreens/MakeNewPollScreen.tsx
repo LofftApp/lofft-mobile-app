@@ -255,7 +255,7 @@ const MakeNewPollScreen = ({navigation, route}) => {
               style={styles.button}
               onPress={() =>
                 navigation.navigate(
-                  'PollConfirmation',
+                  'Managment',
                   addPoll(
                     question,
                     refInputs,

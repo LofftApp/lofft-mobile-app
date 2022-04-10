@@ -26,6 +26,7 @@ import color from '../../assets/defaultColorPallet.json';
 
 // FireStore 🔥
 import {getLofftPolls} from '../../api/firebase/fireStoreActions';
+import firestore from '@react-native-firebase/firestore';
 
 // Helper Functions
 import dateCal from '../../components/helperFunctions/dateCal';
@@ -40,6 +41,7 @@ const ManagementScreen = ({navigation, route}: any) => {
   const [polls, setPolls] = useState([]);
   const [pastPolls, setPastPolls] = useState([]);
   const [todayDate] = useState(new Date());
+  const [update, setUpdate] = useState(true);
 
   const buttonToggle = useCallback(toggled => {
     setPollsactivated(toggled);
@@ -69,8 +71,22 @@ const ManagementScreen = ({navigation, route}: any) => {
       setPolls(currentPolls);
       setPastPolls(oldPolls);
     };
-    pollsData();
+
+    const subscriber = firestore()
+      .collection('Managements')
+      .doc('B7vxlFYgNpnYPOT7eMfO')
+      .collection('Polls')
+      .onSnapshot(snapShot => {
+        snapShot.docChanges().forEach(async change => {
+          if (change) {
+            pollsData();
+            console.log('There has been a change');
+          }
+        });
+      });
+    return () => subscriber();
   }, []);
+
   return (
     <View
       style={[
