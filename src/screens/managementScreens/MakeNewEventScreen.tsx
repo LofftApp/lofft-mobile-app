@@ -37,9 +37,9 @@ const MakeNewEventScreen = ({navigation}) => {
   const [informFlatmates, setinformFlatmates] = useState(false);
   const [description, setdescription] = useState('');
 
-  const [date, setDate] = useState(new Date());
-  const [fromTime, setFromTime] = useState(new Date());
-  const [untilTime, setUntilTime] = useState(new Date());
+  const [date, setDate] = useState(null);
+  const [fromTime, setFromTime] = useState(null);
+  const [untilTime, setUntilTime] = useState(null);
   const [dateOpen, setDateOpen] = useState(false);
   const [fromTimeOpen, setFromTimeOpen] = useState(false);
   const [untilTimeOpen, setUntilTimeOpen] = useState(false);
@@ -91,14 +91,16 @@ const MakeNewEventScreen = ({navigation}) => {
             <TouchableOpacity
               style={styles.inputStyle}
               onPress={() => setDateOpen(true)}>
-              <Text style={fontStyles.bodyMedium}>{dateFormatter(date)}</Text>
+              <Text style={fontStyles.bodyMedium}>
+                {date ? dateFormatter(date) : 'Choose date'}
+              </Text>
             </TouchableOpacity>
             <DatePicker
               modal
               minimumDate={new Date()}
               mode="date"
               open={dateOpen}
-              date={date}
+              date={date ? date : new Date()}
               onConfirm={date => {
                 setDateOpen(false);
                 setDate(date);
@@ -117,7 +119,7 @@ const MakeNewEventScreen = ({navigation}) => {
                   style={styles.timeInputForm}
                   onPress={() => setFromTimeOpen(true)}>
                   <Text style={[fontStyles.bodyMedium]}>
-                    {timeFormatter(fromTime)}
+                    {fromTime ? timeFormatter(fromTime) : '##:##'}
                   </Text>
                 </TouchableOpacity>
                 <DatePicker
@@ -125,7 +127,7 @@ const MakeNewEventScreen = ({navigation}) => {
                   mode="time"
                   minuteInterval={5}
                   open={fromTimeOpen}
-                  date={fromTime}
+                  date={fromTime ? fromTime : new Date()}
                   onConfirm={time => {
                     setFromTimeOpen(false);
                     setFromTime(time);
@@ -140,7 +142,7 @@ const MakeNewEventScreen = ({navigation}) => {
                   style={styles.timeInputForm}
                   onPress={() => setUntilTimeOpen(true)}>
                   <Text style={[fontStyles.bodyMedium]}>
-                    {timeFormatter(untilTime)}
+                    {untilTime ? timeFormatter(untilTime) : '##:##'}
                   </Text>
                 </TouchableOpacity>
                 <DatePicker
@@ -148,7 +150,7 @@ const MakeNewEventScreen = ({navigation}) => {
                   minuteInterval={5}
                   mode="time"
                   open={untilTimeOpen}
-                  date={untilTime}
+                  date={untilTime ? untilTime : new Date()}
                   onConfirm={time => {
                     setUntilTimeOpen(false);
                     setUntilTime(time);
@@ -195,8 +197,8 @@ const MakeNewEventScreen = ({navigation}) => {
               title,
               location,
               date,
-              fromdate,
-              untildate,
+              fromTime,
+              untilTime,
               informFlatmates,
               description,
             })

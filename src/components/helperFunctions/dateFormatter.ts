@@ -9,7 +9,6 @@ export const dateFormatter = date => {
 };
 
 export const timeFormatter = time => {
-  console.log(time.getHours());
   const hours = unitToTen(time.getHours());
   const minutes = unitToTen(time.getMinutes());
   return `${hours}:${minutes}`;

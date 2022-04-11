@@ -192,7 +192,7 @@ export const addEvent = async (
   const loftId = user.details.lofft.lofftId;
   const selectedFriendsOnly = inputFriends.filter(el => el.selected === true);
 
-  let currentEvent = {
+  let event = {
     title: title,
     location: location,
     date: date,
@@ -202,9 +202,13 @@ export const addEvent = async (
     description: description,
     selectedFriends: selectedFriendsOnly,
   };
-  console.log(currentEvent);
+  console.log(event);
 
-  firestore().collection('Managements').doc(loftId).collection('Events');
+  firestore()
+    .collection('Managements')
+    .doc(loftId)
+    .collection('Events')
+    .add(event);
 };
 
 // Create Poll
