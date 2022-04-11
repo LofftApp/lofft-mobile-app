@@ -13,7 +13,6 @@ import SignupScreen from './src/screens/visitorScreens/SignupScreen';
 import UserOptionsScreen from './src/screens/userScreens/UserOptionsScreen';
 import ProfileScreen from './src/screens/userScreens/ProfileScreen';
 
-
 // Finance Screens
 import BillOverviewsScreen from './src/screens/financeScreens/BillOverviewsScreen';
 import PendingPaymentsScreen from './src/screens/financeScreens/PendingPaymentsScreen';
@@ -39,7 +38,6 @@ import AddApartmentScreen from './src/screens/apartmentScreens/AddApartmentScree
 import JoinApartmentScreen from './src/screens/apartmentScreens/JoinApartmentScreen';
 import ViewApartmentScreen from './src/screens/apartmentScreens/ViewApartmentScreen';
 
-
 const Stack = createStackNavigator();
 
 const App = () => {
@@ -58,8 +56,8 @@ const App = () => {
     });
     if (__DEV__) {
       console.log('FireStore Development Environment');
-      auth().useEmulator('http://localhost:9099');
-      firestore().useEmulator('localhost', 8080);
+      auth().useEmulator('http://192.168.0.123:9099');
+      firestore().useEmulator('192.168.0.123', 8080);
     }
     return () => unsubscribe();
   }, []);
@@ -100,7 +98,6 @@ const App = () => {
             options={{headerShown: false}}
           />
 
-
           {/* Management Screens */}
 
           <Stack.Screen
@@ -118,27 +115,26 @@ const App = () => {
           <Stack.Screen
             name="AddFriendsToEvent"
             component={AddFriendsScreen}
-            options={{ headerShown: false }}
+            options={{headerShown: false}}
           />
 
           <Stack.Screen
             name="EventConfirmation"
             component={EventConfirmationScreen}
-            options={{ headerShown: false }}
+            options={{headerShown: false}}
           />
 
           <Stack.Screen
             name="PollConfirmation"
             component={PollConfirmationScreen}
-            options={{ headerShown: false }}
+            options={{headerShown: false}}
           />
 
           <Stack.Screen
             name="MakeDeadlinePoll"
             component={DeadlineScreen}
-            options={{ headerShown: false }}
+            options={{headerShown: false}}
           />
-
 
           {/* Settings and Profile Management */}
           <Stack.Screen

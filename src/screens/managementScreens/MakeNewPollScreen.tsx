@@ -19,6 +19,9 @@ import CustomBackButton from '../../components/buttons/CustomBackButton';
 import {CoreButton} from '../../components/buttons/CoreButton';
 import DatePicker from 'react-native-date-picker';
 
+// Helpers
+import {dateFormatter} from '../../components/helperFunctions/dateFormatter';
+
 // Styles
 import {CoreStyleSheet} from '../../StyleSheets/CoreDesignStyleSheet';
 import {fontStyles} from '../../StyleSheets/FontStyleSheet';
@@ -120,14 +123,14 @@ const MakeNewPollScreen = () => {
     setDeadline('');
   };
 
-  const unitToTen = value => {
-    return value.toString().length === 1 ? `0${value}` : value;
-  };
-  const convertDate = date => {
-    const day = unitToTen(date.getDate());
-    const month = unitToTen(date.getMonth() + 1);
-    return `${day} - ${month} - ${date.getFullYear()}`;
-  };
+  // const unitToTen = value => {
+  //   return value.toString().length === 1 ? `0${value}` : value;
+  // };
+  // const convertDate = date => {
+  //   const day = unitToTen(date.getDate());
+  //   const month = unitToTen(date.getMonth() + 1);
+  //   return `${day} - ${month} - ${date.getFullYear()}`;
+  // };
 
   return (
     <View
@@ -176,7 +179,7 @@ const MakeNewPollScreen = () => {
                 }}>
                 <Text
                   style={[fontStyles.buttonTextSmall, styles.dateInputStyle]}>
-                  {noDate ? 'Set Date' : convertDate(date)}
+                  {noDate ? 'Set Date' : dateFormatter(date)}
                 </Text>
               </TouchableOpacity>
               <DatePicker

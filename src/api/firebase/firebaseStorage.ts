@@ -7,7 +7,7 @@ import {addImageToAuth} from './firebaseApi';
 import auth from '@react-native-firebase/auth';
 
 if (__DEV__) {
-  storage().useEmulator('localhost', 9199);
+  storage().useEmulator('192.168.0.123', 9199);
 }
 
 export const userImageUpload = async docId => {
