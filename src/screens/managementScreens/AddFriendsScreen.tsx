@@ -109,7 +109,7 @@ const AddFriendsScreen = ({navigation, route}: any) => {
           value="Confirm"
           style={styles.button}
           onPress={() => {
-            // navigation.navigate('EventConfirmation');
+            navigation.navigate('Managment');
             addEvent(
               route.params.title,
               route.params.location,

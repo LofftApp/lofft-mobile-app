@@ -211,6 +211,22 @@ export const addEvent = async (
     .add(event);
 };
 
+export const getLofftEvents = async () => {
+  const currentUser = auth().currentUser;
+  const user = await getCurrentUserDetails(currentUser);
+  const loftId = user.details.lofft.lofftId;
+
+  const result = await firestore()
+    .collection('Managements')
+    .doc(loftId)
+    .collection('Events')
+    .get()
+    .then(docSnapshot => {
+      return docSnapshot.docs;
+    });
+  return result;
+};
+
 // Create Poll
 
 export const addPoll = async (question, anwsers, deadline, multipleAnwser) => {

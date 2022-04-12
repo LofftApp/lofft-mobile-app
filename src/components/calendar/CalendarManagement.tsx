@@ -13,7 +13,8 @@ import {CoreStyleSheet} from '../../StyleSheets/CoreDesignStyleSheet';
 import {fontStyles} from './../../StyleSheets/FontStyleSheet';
 import {useState} from 'react';
 
-const CalendarManagement = ({fetchdate}) => {
+const CalendarManagement = ({fetchdate, data = []}) => {
+  console.log(data);
   const [date, setdate] = useState({});
 
   const getSelectedDayEvents = date => {
@@ -21,7 +22,6 @@ const CalendarManagement = ({fetchdate}) => {
     markedDate[date] = {selected: true};
     setdate(markedDate);
   };
-
 
   return (
     <Calendar
@@ -54,6 +54,7 @@ const CalendarManagement = ({fetchdate}) => {
       }}
       style={styles.calmar}
       onDayPress={day => {
+        console.log(day);
         getSelectedDayEvents(day.dateString);
         console.log('selected day', day.dateString);
         fetchdate(day.dateString);

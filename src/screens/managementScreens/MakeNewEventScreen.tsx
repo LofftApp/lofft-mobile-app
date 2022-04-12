@@ -91,7 +91,11 @@ const MakeNewEventScreen = ({navigation}) => {
             <TouchableOpacity
               style={styles.inputStyle}
               onPress={() => setDateOpen(true)}>
-              <Text style={fontStyles.bodyMedium}>
+              <Text
+                style={[
+                  fontStyles.bodyMedium,
+                  date ? null : styles.textNoValue,
+                ]}>
                 {date ? dateFormatter(date) : 'Choose date'}
               </Text>
             </TouchableOpacity>
@@ -117,8 +121,15 @@ const MakeNewEventScreen = ({navigation}) => {
                 <Text style={fontStyles.buttonTextSmall}>From:</Text>
                 <TouchableOpacity
                   style={styles.timeInputForm}
-                  onPress={() => setFromTimeOpen(true)}>
-                  <Text style={[fontStyles.bodyMedium]}>
+                  onPress={() => {
+                    date ? setFromTime(date) : null;
+                    setFromTimeOpen(true);
+                  }}>
+                  <Text
+                    style={[
+                      fontStyles.bodyMedium,
+                      fromTime ? null : styles.textNoValue,
+                    ]}>
                     {fromTime ? timeFormatter(fromTime) : '##:##'}
                   </Text>
                 </TouchableOpacity>
@@ -140,8 +151,15 @@ const MakeNewEventScreen = ({navigation}) => {
                 <Text style={fontStyles.buttonTextSmall}>Until:</Text>
                 <TouchableOpacity
                   style={styles.timeInputForm}
-                  onPress={() => setUntilTimeOpen(true)}>
-                  <Text style={[fontStyles.bodyMedium]}>
+                  onPress={() => {
+                    date ? setUntilTime(date) : null;
+                    setUntilTimeOpen(true);
+                  }}>
+                  <Text
+                    style={[
+                      fontStyles.bodyMedium,
+                      untilTime ? null : styles.textNoValue,
+                    ]}>
                     {untilTime ? timeFormatter(untilTime) : '##:##'}
                   </Text>
                 </TouchableOpacity>
@@ -294,6 +312,9 @@ const styles = StyleSheet.create({
   },
   button: {
     marginVertical: 5,
+  },
+  textNoValue: {
+    color: color.Black[25],
   },
 });
 
