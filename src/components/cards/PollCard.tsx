@@ -87,7 +87,7 @@ const PollCard = ({value, inactive = false}) => {
                   userInputs[auth().currentUser.uid];
                   votePoll(value.id, ans);
                 }}>
-                <Text>{ans}</Text>
+                <Text style={fontStyles.buttonTextSmall}>{ans}</Text>
               </TouchableOpacity>
             );
           })}
