@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import {Calendar, CalendarList, Agenda} from 'react-native-calendars';
 
@@ -22,6 +22,13 @@ const CalendarManagement = ({fetchdate, data = []}) => {
     markedDate[date] = {selected: true};
     setdate(markedDate);
   };
+  useEffect(() => {
+    let markedDate = {};
+    data.forEach(d => {
+      markedDate[d] = {marked: true};
+      setdate(markedDate);
+    });
+  }, [data]);
 
   return (
     <Calendar

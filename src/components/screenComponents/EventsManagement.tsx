@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import {View, Text, StyleSheet, ScrollView} from 'react-native';
 
 // Components 🪢
 import {CoreButton} from '../../components/buttons/CoreButton';
@@ -27,7 +27,15 @@ const EventsManagement = ({navigation}) => {
     setDates([]);
     const eventsData = async () => {
       setEvents([]);
-      setEvents(await getLofftEvents());
+      const allEvents = await getLofftEvents();
+      setEvents(allEvents);
+      setDates([]);
+      allEvents.forEach(event => {
+        const formattedDate = dateStringFormatter(
+          new Date(event.data().date.seconds * 1000),
+        );
+        setDates(dates => [...dates, formattedDate]);
+      });
     };
 
     const subscriber = firestore()
@@ -42,35 +50,26 @@ const EventsManagement = ({navigation}) => {
         });
       });
 
-    events.forEach(event => {
-      const formattedDate = dateStringFormatter(
-        new Date(event.data().date.seconds * 1000),
-      );
-      setDates(dates => [...dates, formattedDate]);
-    });
-
     return () => subscriber();
   }, []);
 
   return (
     <>
       <CalendarManagement fetchdate={fetchdate} data={dates} />
-      <View style={styles.buttonContainer}>
-        <CoreButton
-          value="Add new event"
-          style={styles.button}
-          invert
-          onPress={() => navigation.navigate('MakeNewEvent', {date})}
-        />
-      </View>
+      <CoreButton
+        value="Add new event"
+        style={styles.button}
+        invert
+        onPress={() => navigation.navigate('MakeNewEvent', {date})}
+      />
+      <ScrollView>
+        <Text>There are currently no events planned for this day</Text>
+      </ScrollView>
     </>
   );
 };
 
 const styles = StyleSheet.create({
-  buttonContainer: {
-    marginVertical: 120,
-  },
   button: {
     marginVertical: 5,
   },
