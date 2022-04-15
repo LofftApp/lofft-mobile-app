@@ -56,8 +56,10 @@ const App = () => {
     });
     if (__DEV__) {
       console.log('FireStore Development Environment');
-      auth().useEmulator('http://192.168.0.123:9099');
-      firestore().useEmulator('192.168.0.123', 8080);
+      let host = 'localhost';
+      // host = '192.168.0.123'
+      auth().useEmulator(`http://${host}:9099`);
+      firestore().useEmulator(host, 8080);
     }
     return () => unsubscribe();
   }, []);
