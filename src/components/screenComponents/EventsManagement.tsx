@@ -19,7 +19,7 @@ const EventsManagement = ({navigation}) => {
   const [selectedDate, setSelectedDate] = useState(null);
 
   const fetchdate = dateInput => {
-    console.log(dateInput);
+    console.log(userEvents[selectedDate]);
   };
 
   const addEventsToDate = events => {
@@ -41,14 +41,14 @@ const EventsManagement = ({navigation}) => {
     return markedDates;
   };
 
-  const selectTodayDateOnLoad = r => {
-    let markedDates = r;
-    const today = dateStringFormatter(new Date());
-    if (markedDates[today]) {
-      markedDates[today].selected = true;
+  const selectMarkedDateOnLoad = (values, activeDate) => {
+    let markedDates = values;
+    const d = activeDate ? activeDate : dateStringFormatter(new Date());
+    if (markedDates[d]) {
+      markedDates[d].selected = true;
     } else {
-      markedDates[today] = {selected: true};
-      setSelectedDate(today);
+      markedDates[d] = {selected: true};
+      setSelectedDate(d);
     }
     return markedDates;
   };
@@ -59,14 +59,9 @@ const EventsManagement = ({navigation}) => {
     const eventsData = async () => {
       const allEvents = await getLofftEvents();
       const dateArray = addEventsToDate(allEvents);
-      const response = createDatesObject(dateArray);
-      if (firstLoad) {
-        const todayResponse = selectTodayDateOnLoad(response);
-        await saveUserEvents(todayResponse);
-        setFirstLoad(false);
-      } else {
-        await saveUserEvents(response);
-      }
+      const dObject = createDatesObject(dateArray);
+      const response = selectMarkedDateOnLoad(dObject, selectedDate);
+      await saveUserEvents(response);
     };
 
     const subscriber = firestore()
