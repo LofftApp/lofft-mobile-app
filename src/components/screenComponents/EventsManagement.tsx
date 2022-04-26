@@ -14,12 +14,13 @@ import {dateStringFormatter} from '../../components/helperFunctions/dateFormatte
 
 const EventsManagement = ({navigation}) => {
   // Hooks
-  const [firstLoad, setFirstLoad] = useState(true);
   const [userEvents, setUserEvents] = useState(null);
   const [selectedDate, setSelectedDate] = useState(null);
 
   const fetchdate = dateInput => {
-    console.log(userEvents[selectedDate]);
+    let updateEvents = userEvents;
+    updateEvents[selectedDate].selected = false;
+    setUserEvents(updateEvents);
   };
 
   const addEventsToDate = events => {
@@ -58,8 +59,8 @@ const EventsManagement = ({navigation}) => {
   useEffect(() => {
     const eventsData = async () => {
       const allEvents = await getLofftEvents();
-      const dateArray = addEventsToDate(allEvents);
-      const dObject = createDatesObject(dateArray);
+      const dArray = addEventsToDate(allEvents);
+      const dObject = createDatesObject(dArray);
       const response = selectMarkedDateOnLoad(dObject, selectedDate);
       await saveUserEvents(response);
     };
