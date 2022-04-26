@@ -2,31 +2,9 @@ import React, {useEffect} from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import {Calendar, CalendarList, Agenda} from 'react-native-calendars';
 
-const headerFont700 = 'Montserrat-Bold';
-const headerFont600 = 'Montserrat-SemiBold';
 const ButtonFont = 'Roboto-Bold';
-const bodyFont = 'Roboto';
-
-// StyleSheets
-import color from './../../assets/defaultColorPallet.json';
-import {CoreStyleSheet} from '../../StyleSheets/CoreDesignStyleSheet';
-import {fontStyles} from './../../StyleSheets/FontStyleSheet';
-import {useState} from 'react';
 
 const CalendarManagement = ({fetchdate, events}) => {
-  // console.log(data);
-  const [date, setdate] = useState({});
-
-  // const getSelectedDayEvents = date => {
-  //   let markedDate = {};
-  //   markedDate[date] = {selected: true};
-  //   setdate(markedDate);
-  // };
-  useEffect(() => {
-    setdate(events);
-    console.log(date);
-  }, []);
-
   return (
     <Calendar
       disableMonthChange={true}
@@ -58,9 +36,6 @@ const CalendarManagement = ({fetchdate, events}) => {
       }}
       style={styles.calmar}
       onDayPress={day => {
-        // console.log(day);
-        getSelectedDayEvents(day.dateString);
-        // console.log('selected day', day.dateString);
         fetchdate(day.dateString);
       }}
       markedDates={events}

@@ -14,13 +14,12 @@ import {dateStringFormatter} from '../../components/helperFunctions/dateFormatte
 
 const EventsManagement = ({navigation}) => {
   // Hooks
-  const [date, setdate] = useState('');
-  const [events, setEvents] = useState([]);
-  const [dates, setDates] = useState([]);
+  const [firstLoad, setFirstLoad] = useState(true);
   const [userEvents, setUserEvents] = useState(null);
+  const [selectedDate, setSelectedDate] = useState(null);
 
   const fetchdate = dateInput => {
-    setdate(dateInput);
+    console.log(dateInput);
   };
 
   const addEventsToDate = events => {
@@ -38,6 +37,19 @@ const EventsManagement = ({navigation}) => {
     dates.forEach(d => {
       markedDates[d] = {marked: true};
     });
+
+    return markedDates;
+  };
+
+  const selectTodayDateOnLoad = r => {
+    let markedDates = r;
+    const today = dateStringFormatter(new Date());
+    if (markedDates[today]) {
+      markedDates[today].selected = true;
+    } else {
+      markedDates[today] = {selected: true};
+      setSelectedDate(today);
+    }
     return markedDates;
   };
 
@@ -45,12 +57,16 @@ const EventsManagement = ({navigation}) => {
 
   useEffect(() => {
     const eventsData = async () => {
-      setEvents([]);
-      setDates([]);
       const allEvents = await getLofftEvents();
       const dateArray = addEventsToDate(allEvents);
       const response = createDatesObject(dateArray);
-      await saveUserEvents(response);
+      if (firstLoad) {
+        const todayResponse = selectTodayDateOnLoad(response);
+        await saveUserEvents(todayResponse);
+        setFirstLoad(false);
+      } else {
+        await saveUserEvents(response);
+      }
     };
 
     const subscriber = firestore()
@@ -64,7 +80,6 @@ const EventsManagement = ({navigation}) => {
           }
         });
       });
-
     return () => subscriber();
   }, []);
 
