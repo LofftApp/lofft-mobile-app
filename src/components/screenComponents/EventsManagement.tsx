@@ -17,25 +17,40 @@ const EventsManagement = ({navigation}) => {
   const [date, setdate] = useState('');
   const [events, setEvents] = useState([]);
   const [dates, setDates] = useState([]);
-  const [todayDate] = useState(new Date());
+  const [userEvents, setUserEvents] = useState(null);
 
   const fetchdate = dateInput => {
     setdate(dateInput);
   };
 
+  const addEventsToDate = events => {
+    let answer = [];
+    events.forEach(event => {
+      answer.push(
+        dateStringFormatter(new Date(event.data().date.seconds * 1000)),
+      );
+    });
+    return answer;
+  };
+
+  const createDatesObject = dates => {
+    let markedDates = {};
+    dates.forEach(d => {
+      markedDates[d] = {marked: true};
+    });
+    return markedDates;
+  };
+
+  const saveUserEvents = r => setUserEvents(r);
+
   useEffect(() => {
-    setDates([]);
     const eventsData = async () => {
       setEvents([]);
-      const allEvents = await getLofftEvents();
-      setEvents(allEvents);
       setDates([]);
-      allEvents.forEach(event => {
-        const formattedDate = dateStringFormatter(
-          new Date(event.data().date.seconds * 1000),
-        );
-        setDates(dates => [...dates, formattedDate]);
-      });
+      const allEvents = await getLofftEvents();
+      const dateArray = addEventsToDate(allEvents);
+      const response = createDatesObject(dateArray);
+      await saveUserEvents(response);
     };
 
     const subscriber = firestore()
@@ -55,7 +70,7 @@ const EventsManagement = ({navigation}) => {
 
   return (
     <>
-      <CalendarManagement fetchdate={fetchdate} data={dates} />
+      <CalendarManagement fetchdate={fetchdate} events={userEvents} />
       <CoreButton
         value="Add new event"
         style={styles.button}

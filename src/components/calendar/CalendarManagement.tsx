@@ -13,22 +13,19 @@ import {CoreStyleSheet} from '../../StyleSheets/CoreDesignStyleSheet';
 import {fontStyles} from './../../StyleSheets/FontStyleSheet';
 import {useState} from 'react';
 
-const CalendarManagement = ({fetchdate, data = []}) => {
-  console.log(data);
+const CalendarManagement = ({fetchdate, events}) => {
+  // console.log(data);
   const [date, setdate] = useState({});
 
-  const getSelectedDayEvents = date => {
-    let markedDate = {};
-    markedDate[date] = {selected: true};
-    setdate(markedDate);
-  };
+  // const getSelectedDayEvents = date => {
+  //   let markedDate = {};
+  //   markedDate[date] = {selected: true};
+  //   setdate(markedDate);
+  // };
   useEffect(() => {
-    let markedDate = {};
-    data.forEach(d => {
-      markedDate[d] = {marked: true};
-      setdate(markedDate);
-    });
-  }, [data]);
+    setdate(events);
+    console.log(date);
+  }, []);
 
   return (
     <Calendar
@@ -61,12 +58,12 @@ const CalendarManagement = ({fetchdate, data = []}) => {
       }}
       style={styles.calmar}
       onDayPress={day => {
-        console.log(day);
+        // console.log(day);
         getSelectedDayEvents(day.dateString);
-        console.log('selected day', day.dateString);
+        // console.log('selected day', day.dateString);
         fetchdate(day.dateString);
       }}
-      markedDates={date}
+      markedDates={events}
     />
   );
 };

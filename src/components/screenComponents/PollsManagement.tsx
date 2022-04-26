@@ -49,7 +49,6 @@ const PollsManagement = ({navigation}) => {
         snapShot.docChanges().forEach(async change => {
           if (change.type === 'added' || change.type === 'removed') {
             pollsData();
-            console.log(change.type);
           }
         });
       });
@@ -110,7 +109,7 @@ const PollsManagement = ({navigation}) => {
             ))
           ) : (
             <Text style={[fontStyles.bodyMedium, {marginLeft: 15}]}>
-              No Passt Polls yet
+              No Past Polls yet
             </Text>
           )}
         </List.Accordion>
