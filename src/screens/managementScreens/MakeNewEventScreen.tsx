@@ -29,7 +29,8 @@ import HalfBackgroundImage from './../../assets/banner-background-half.png';
 
 // Firestore
 
-const MakeNewEventScreen = ({navigation}) => {
+const MakeNewEventScreen = ({navigation, route}) => {
+  console.log(route.params.selectedDate);
   const [title, setTitle] = useState('');
   const [location, setLocation] = useState('');
   const [fromdate, setfromDate] = useState('');
@@ -37,7 +38,7 @@ const MakeNewEventScreen = ({navigation}) => {
   const [informFlatmates, setinformFlatmates] = useState(false);
   const [description, setdescription] = useState('');
 
-  const [date, setDate] = useState(null);
+  const [date, setDate] = useState(new Date(route.params.selectedDate));
   const [fromTime, setFromTime] = useState(null);
   const [untilTime, setUntilTime] = useState(null);
   const [dateOpen, setDateOpen] = useState(false);

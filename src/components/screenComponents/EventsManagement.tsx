@@ -36,7 +36,7 @@ const EventsManagement = ({navigation}) => {
   const createDatesObject = dates => {
     let markedDates = {};
     dates.forEach(d => {
-      markedDates[d] = {marked: true};
+      markedDates[d] = {marked: true, selected: false};
     });
 
     return markedDates;
@@ -86,7 +86,7 @@ const EventsManagement = ({navigation}) => {
         value="Add new event"
         style={styles.button}
         invert
-        onPress={() => navigation.navigate('MakeNewEvent', {date})}
+        onPress={() => navigation.navigate('MakeNewEvent', {selectedDate})}
       />
       <ScrollView>
         <Text>There are currently no events planned for this day</Text>
