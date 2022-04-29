@@ -18,9 +18,12 @@ const EventsManagement = ({navigation}) => {
   const [selectedDate, setSelectedDate] = useState(null);
 
   const fetchdate = dateInput => {
-    let updateEvents = userEvents;
-    updateEvents[selectedDate].selected = false;
-    setUserEvents(updateEvents);
+    console.log(userEvents);
+    console.log('==============================');
+    let testEvents = userEvents;
+    testEvents[dateInput].selected = true;
+    setUserEvents(testEvents);
+    console.log(userEvents);
   };
 
   const addEventsToDate = events => {
@@ -36,7 +39,7 @@ const EventsManagement = ({navigation}) => {
   const createDatesObject = dates => {
     let markedDates = {};
     dates.forEach(d => {
-      markedDates[d] = {marked: true, selected: false};
+      markedDates[d] = {marked: true, dotColor: 'red'};
     });
 
     return markedDates;
@@ -62,7 +65,7 @@ const EventsManagement = ({navigation}) => {
       const dArray = addEventsToDate(allEvents);
       const dObject = createDatesObject(dArray);
       const response = selectMarkedDateOnLoad(dObject, selectedDate);
-      await saveUserEvents(response);
+      saveUserEvents(response);
     };
 
     const subscriber = firestore()
@@ -78,7 +81,6 @@ const EventsManagement = ({navigation}) => {
       });
     return () => subscriber();
   }, []);
-
   return (
     <>
       <CalendarManagement fetchdate={fetchdate} events={userEvents} />

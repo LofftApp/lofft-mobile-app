@@ -5,14 +5,6 @@ import {Calendar, CalendarList, Agenda} from 'react-native-calendars';
 const ButtonFont = 'Roboto-Bold';
 
 const CalendarManagement = ({fetchdate, events}) => {
-  const [calendarEvents, setCalendarEvents] = useState(null);
-  const [changes, setChanges] = useState(0);
-  useEffect(() => {
-    console.log(events);
-    setCalendarEvents(events);
-    console.log(calendarEvents);
-    console.log('Change occured');
-  }, [changes]);
   return (
     <Calendar
       disableMonthChange={true}
@@ -45,9 +37,8 @@ const CalendarManagement = ({fetchdate, events}) => {
       style={styles.calmar}
       onDayPress={day => {
         fetchdate(day.dateString);
-        setChanges(changes + 1);
       }}
-      markedDates={calendarEvents ? calendarEvents : events}
+      markedDates={events}
     />
   );
 };
