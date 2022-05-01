@@ -16,7 +16,6 @@ class CalendarManagement extends React.Component {
   constructor(props) {
     super(props);
     props.events.forEach(e => {
-      console.log(e);
       if (e === _today) {
         this.initialState[e].marked = true;
       } else {
@@ -27,22 +26,25 @@ class CalendarManagement extends React.Component {
       _selectedDates: this.initialState,
     };
   }
+  selectedDay = _today;
   onDaySelect = day => {
     const _selectedDay = moment(day.dateString).format(_format);
 
     let selected = true;
     let selectedDates = {};
+
     if (this.state._selectedDates[_selectedDay]) {
       selected = !this.state._selectedDates[_selectedDay].selected;
       selectedDates = this.state._selectedDates[_selectedDay];
     }
+
     selectedDates = {...selectedDates, ...{selected}};
     const updateSelectedDates = {
       ...this.state._selectedDates,
       ...{[_selectedDay]: selectedDates},
     };
-
     this.setState({_selectedDates: updateSelectedDates});
+    this.selectedDay = _selectedDay;
   };
 
   render() {
