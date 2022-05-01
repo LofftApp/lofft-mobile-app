@@ -192,7 +192,7 @@ export const addEvent = async (
   const loftId = user.details.lofft.lofftId;
   const selectedFriendsOnly = inputFriends.filter(el => el.selected === true);
 
-  let currentEvent = {
+  let event = {
     title: title,
     location: location,
     date: date,
@@ -202,20 +202,29 @@ export const addEvent = async (
     description: description,
     selectedFriends: selectedFriendsOnly,
   };
+  console.log(event);
 
-  const docRef = await firestore().collection('Managements').doc(loftId);
+  firestore()
+    .collection('Managements')
+    .doc(loftId)
+    .collection('Events')
+    .add(event);
+};
 
-  docRef.get().then(docSnapshot => {
-    if (docSnapshot.exists) {
-      docRef.update({
-        events: firestore.FieldValue.arrayUnion(currentEvent),
-      });
-    } else {
-      docRef.set({
-        // doc Ref creates doc id from Loft id 😎
-      });
-    }
-  });
+export const getLofftEvents = async () => {
+  const currentUser = auth().currentUser;
+  const user = await getCurrentUserDetails(currentUser);
+  const loftId = user.details.lofft.lofftId;
+
+  const result = await firestore()
+    .collection('Managements')
+    .doc(loftId)
+    .collection('Events')
+    .get()
+    .then(docSnapshot => {
+      return docSnapshot.docs;
+    });
+  return result;
 };
 
 // Create Poll

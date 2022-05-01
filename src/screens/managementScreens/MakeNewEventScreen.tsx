@@ -6,12 +6,20 @@ import {
   ImageBackground,
   TextInput,
   Platform,
+  TouchableOpacity,
 } from 'react-native';
 import {Switch} from 'react-native-paper';
 
 // Components
 import CustomBackButton from '../../components/buttons/CustomBackButton';
 import {CoreButton} from '../../components/buttons/CoreButton';
+import DatePicker from 'react-native-date-picker';
+
+// Helpers
+import {
+  dateFormatter,
+  timeFormatter,
+} from '../../components/helperFunctions/dateFormatter';
 
 // Styles
 import {CoreStyleSheet} from '../../StyleSheets/CoreDesignStyleSheet';
@@ -22,13 +30,20 @@ import HalfBackgroundImage from './../../assets/banner-background-half.png';
 // Firestore
 
 const MakeNewEventScreen = ({navigation, route}) => {
+  console.log(route.params.selectedDate);
   const [title, setTitle] = useState('');
   const [location, setLocation] = useState('');
-  const [date, setDate] = useState(route.params.date);
   const [fromdate, setfromDate] = useState('');
   const [untildate, setuntilDate] = useState('');
   const [informFlatmates, setinformFlatmates] = useState(false);
   const [description, setdescription] = useState('');
+
+  const [date, setDate] = useState(new Date(route.params.selectedDate));
+  const [fromTime, setFromTime] = useState(null);
+  const [untilTime, setUntilTime] = useState(null);
+  const [dateOpen, setDateOpen] = useState(false);
+  const [fromTimeOpen, setFromTimeOpen] = useState(false);
+  const [untilTimeOpen, setUntilTimeOpen] = useState(false);
 
   const onToggleSwitch = () => setinformFlatmates(!informFlatmates);
 
@@ -74,12 +89,28 @@ const MakeNewEventScreen = ({navigation, route}) => {
 
           <View style={styles.InputContainer}>
             <Text style={[fontStyles.buttonTextMedium, {flex: 1}]}>Date</Text>
-            <TextInput
-              style={[styles.inputStyle, fontStyles.bodyMedium]}
-              placeholder="(dd/mm/yyyy)"
-              autoCapitalize="none"
-              value={date}
-              onChangeText={text => setDate(text)}
+            <TouchableOpacity
+              style={styles.inputStyle}
+              onPress={() => setDateOpen(true)}>
+              <Text
+                style={[
+                  fontStyles.bodyMedium,
+                  date ? null : styles.textNoValue,
+                ]}>
+                {date ? dateFormatter(date) : 'Choose date'}
+              </Text>
+            </TouchableOpacity>
+            <DatePicker
+              modal
+              minimumDate={new Date()}
+              mode="date"
+              open={dateOpen}
+              date={date ? date : new Date()}
+              onConfirm={date => {
+                setDateOpen(false);
+                setDate(date);
+              }}
+              onCancel={() => setDateOpen(false)}
             />
           </View>
 
@@ -89,23 +120,61 @@ const MakeNewEventScreen = ({navigation, route}) => {
             <View style={[styles.inputTimeContainer, {marginLeft: 12}]}>
               <View style={styles.timeinputContainer}>
                 <Text style={fontStyles.buttonTextSmall}>From:</Text>
-                <TextInput
-                  style={[styles.timeInputForm, fontStyles.bodyMedium]}
-                  placeholder=""
-                  autoCapitalize="none"
-                  value={fromdate}
-                  onChangeText={text => setfromDate(text)}
+                <TouchableOpacity
+                  style={styles.timeInputForm}
+                  onPress={() => {
+                    date ? setFromTime(date) : null;
+                    setFromTimeOpen(true);
+                  }}>
+                  <Text
+                    style={[
+                      fontStyles.bodyMedium,
+                      fromTime ? null : styles.textNoValue,
+                    ]}>
+                    {fromTime ? timeFormatter(fromTime) : '##:##'}
+                  </Text>
+                </TouchableOpacity>
+                <DatePicker
+                  modal
+                  mode="time"
+                  minuteInterval={5}
+                  open={fromTimeOpen}
+                  date={fromTime ? fromTime : new Date()}
+                  onConfirm={time => {
+                    setFromTimeOpen(false);
+                    setFromTime(time);
+                  }}
+                  onCancel={() => setFromTimeOpen(false)}
                 />
               </View>
               <View style={styles.timeBreaker} />
               <View style={styles.timeinputContainer}>
                 <Text style={fontStyles.buttonTextSmall}>Until:</Text>
-                <TextInput
-                  style={[styles.timeInputForm, fontStyles.bodyMedium]}
-                  placeholder=""
-                  autoCapitalize="none"
-                  value={untildate}
-                  onChangeText={text => setuntilDate(text)}
+                <TouchableOpacity
+                  style={styles.timeInputForm}
+                  onPress={() => {
+                    date ? setUntilTime(date) : null;
+                    setUntilTimeOpen(true);
+                  }}>
+                  <Text
+                    style={[
+                      fontStyles.bodyMedium,
+                      untilTime ? null : styles.textNoValue,
+                    ]}>
+                    {untilTime ? timeFormatter(untilTime) : '##:##'}
+                  </Text>
+                </TouchableOpacity>
+                <DatePicker
+                  modal
+                  minuteInterval={5}
+                  mode="time"
+                  open={untilTimeOpen}
+                  date={untilTime ? untilTime : new Date()}
+                  onConfirm={time => {
+                    setUntilTimeOpen(false);
+                    setUntilTime(time);
+                  }}
+                  onCancel={() => setUntilTimeOpen(false)}
                 />
               </View>
             </View>
@@ -147,8 +216,8 @@ const MakeNewEventScreen = ({navigation, route}) => {
               title,
               location,
               date,
-              fromdate,
-              untildate,
+              fromTime,
+              untilTime,
               informFlatmates,
               description,
             })
@@ -244,6 +313,9 @@ const styles = StyleSheet.create({
   },
   button: {
     marginVertical: 5,
+  },
+  textNoValue: {
+    color: color.Black[25],
   },
 });
 
