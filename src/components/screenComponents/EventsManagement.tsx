@@ -17,15 +17,6 @@ const EventsManagement = ({navigation}) => {
   const [userEvents, setUserEvents] = useState();
   const [selectedDate] = useState('2022-05-01');
 
-  // const fetchdate = dateInput => {
-  //   console.log(userEvents);
-  //   console.log('==============================');
-  //   let testEvents = userEvents;
-  //   testEvents[dateInput].selected = true;
-  //   setUserEvents(testEvents);
-  //   console.log(userEvents);
-  // };
-
   const addEventsToDate = events => {
     let answer = [];
     events.forEach(event => {
@@ -35,27 +26,6 @@ const EventsManagement = ({navigation}) => {
     });
     return answer;
   };
-
-  // const createDatesObject = dates => {
-  //   let markedDates = {};
-  //   dates.forEach(d => {
-  //     markedDates[d] = {marked: true, dotColor: 'red'};
-  //   });
-
-  //   return markedDates;
-  // };
-
-  // const selectMarkedDateOnLoad = (values, activeDate) => {
-  //   let markedDates = values;
-  //   const d = activeDate ? activeDate : dateStringFormatter(new Date());
-  //   if (markedDates[d]) {
-  //     markedDates[d].selected = true;
-  //   } else {
-  //     markedDates[d] = {selected: true};
-  //     setSelectedDate(d);
-  //   }
-  //   return markedDates;
-  // };
 
   const eventsData = async () => {
     const allEvents = await getLofftEvents();

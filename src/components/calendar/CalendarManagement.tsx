@@ -37,12 +37,12 @@ class CalendarManagement extends React.Component {
       selected = !this.state._selectedDates[_selectedDay].selected;
       selectedDates = this.state._selectedDates[_selectedDay];
     }
-
     selectedDates = {...selectedDates, ...{selected}};
     const updateSelectedDates = {
       ...this.state._selectedDates,
       ...{[_selectedDay]: selectedDates},
     };
+    console.log(updateSelectedDates);
     this.setState({_selectedDates: updateSelectedDates});
     this.selectedDay = _selectedDay;
   };
