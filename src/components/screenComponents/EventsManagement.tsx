@@ -14,17 +14,17 @@ import {dateStringFormatter} from '../../components/helperFunctions/dateFormatte
 
 const EventsManagement = ({navigation}) => {
   // Hooks
-  const [userEvents, setUserEvents] = useState(null);
-  const [selectedDate, setSelectedDate] = useState(null);
+  const [userEvents, setUserEvents] = useState();
+  const [selectedDate] = useState('2022-05-01');
 
-  const fetchdate = dateInput => {
-    console.log(userEvents);
-    console.log('==============================');
-    let testEvents = userEvents;
-    testEvents[dateInput].selected = true;
-    setUserEvents(testEvents);
-    console.log(userEvents);
-  };
+  // const fetchdate = dateInput => {
+  //   console.log(userEvents);
+  //   console.log('==============================');
+  //   let testEvents = userEvents;
+  //   testEvents[dateInput].selected = true;
+  //   setUserEvents(testEvents);
+  //   console.log(userEvents);
+  // };
 
   const addEventsToDate = events => {
     let answer = [];
@@ -36,38 +36,34 @@ const EventsManagement = ({navigation}) => {
     return answer;
   };
 
-  const createDatesObject = dates => {
-    let markedDates = {};
-    dates.forEach(d => {
-      markedDates[d] = {marked: true, dotColor: 'red'};
-    });
+  // const createDatesObject = dates => {
+  //   let markedDates = {};
+  //   dates.forEach(d => {
+  //     markedDates[d] = {marked: true, dotColor: 'red'};
+  //   });
 
-    return markedDates;
+  //   return markedDates;
+  // };
+
+  // const selectMarkedDateOnLoad = (values, activeDate) => {
+  //   let markedDates = values;
+  //   const d = activeDate ? activeDate : dateStringFormatter(new Date());
+  //   if (markedDates[d]) {
+  //     markedDates[d].selected = true;
+  //   } else {
+  //     markedDates[d] = {selected: true};
+  //     setSelectedDate(d);
+  //   }
+  //   return markedDates;
+  // };
+
+  const eventsData = async () => {
+    const allEvents = await getLofftEvents();
+    const dArray = addEventsToDate(allEvents);
+    setUserEvents(dArray);
   };
-
-  const selectMarkedDateOnLoad = (values, activeDate) => {
-    let markedDates = values;
-    const d = activeDate ? activeDate : dateStringFormatter(new Date());
-    if (markedDates[d]) {
-      markedDates[d].selected = true;
-    } else {
-      markedDates[d] = {selected: true};
-      setSelectedDate(d);
-    }
-    return markedDates;
-  };
-
-  const saveUserEvents = r => setUserEvents(r);
 
   useEffect(() => {
-    const eventsData = async () => {
-      const allEvents = await getLofftEvents();
-      const dArray = addEventsToDate(allEvents);
-      const dObject = createDatesObject(dArray);
-      const response = selectMarkedDateOnLoad(dObject, selectedDate);
-      saveUserEvents(response);
-    };
-
     const subscriber = firestore()
       .collection('Managements')
       .doc('B7vxlFYgNpnYPOT7eMfO')
@@ -83,7 +79,11 @@ const EventsManagement = ({navigation}) => {
   }, []);
   return (
     <>
-      <CalendarManagement fetchdate={fetchdate} events={userEvents} />
+      {userEvents ? (
+        <CalendarManagement events={userEvents} />
+      ) : (
+        <Text>Loading</Text>
+      )}
       <CoreButton
         value="Add new event"
         style={styles.button}
