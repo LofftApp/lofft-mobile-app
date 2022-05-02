@@ -6,7 +6,7 @@ import {Calendar} from 'react-native-calendars';
 const ButtonFont = 'Roboto-Bold';
 const _format = 'YYYY-MM-DD';
 const _today = moment().format(_format);
-const _maxDate = moment().add(15, 'days').format(_format);
+const _maxDate = moment().add(365, 'days').format(_format);
 
 class CalendarManagement extends React.Component {
   initialState = {
