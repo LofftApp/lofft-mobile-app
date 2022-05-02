@@ -29,6 +29,9 @@ import DeadlineScreen from './src/screens/managementScreens/DeadlineScreen';
 import EventConfirmationScreen from './src/screens/managementScreens/EventConfirmationScreen';
 import PollConfirmationScreen from './src/screens/managementScreens/PollConfirmationScreen';
 
+// FlatHunt Screens
+import FlatHuntScreen from './src/screens/flathuntScreens/FlatHuntScreen';
+
 // FireStore
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
@@ -167,6 +170,15 @@ const App = () => {
             component={JoinApartmentScreen}
             options={{headerShown: false}}
           />
+
+          {/* Settings and Profile Management */}
+
+          <Stack.Screen
+            name="FlatHunt"
+            component={FlatHuntScreen}
+            options={{ headerShown: false }}
+          />
+
         </>
       ) : (
         <>
