@@ -27,6 +27,7 @@ const SigninForm = ({navigation, signupForm = false}: any) => {
           placeholder="Email"
           autoCapitalize="none"
           value={email}
+          placeholderTextColor={color.Black[30]}
           onChangeText={text => setEmail(text)}
         />
         <TextInput
@@ -35,6 +36,7 @@ const SigninForm = ({navigation, signupForm = false}: any) => {
           autoCapitalize="none"
           secureTextEntry={true}
           value={password}
+          placeholderTextColor={color.Black[30]}
           onChangeText={(text: string) => setPassword(text)}
         />
         <View style={styles.switchContainer}>
@@ -87,7 +89,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'space-between',
-    paddingVertical: 55,
+    paddingBottom: 20,
   },
   inputContainerStyle: {
     marginTop: 15,
@@ -99,7 +101,7 @@ const styles = StyleSheet.create({
     marginVertical: 5,
     backgroundColor: color.Lavendar[10],
     color: color.Black[80],
-    borderRadius: 16,
+    borderRadius: 8,
   },
   boxStyle: {
     borderWidth: 3,

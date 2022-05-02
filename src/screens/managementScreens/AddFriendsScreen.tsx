@@ -109,17 +109,17 @@ const AddFriendsScreen = ({navigation, route}: any) => {
           value="Confirm"
           style={styles.button}
           onPress={() => {
-            navigation.navigate('EventConfirmation'),
-              addEvent(
-                route.params.title,
-                route.params.location,
-                route.params.date,
-                route.params.fromdate,
-                route.params.untildate,
-                route.params.informFlatmates,
-                route.params.description,
-                friends,
-              );
+            navigation.navigate('Managment');
+            addEvent(
+              route.params.title,
+              route.params.location,
+              route.params.date,
+              route.params.fromTime,
+              route.params.untilTime,
+              route.params.informFlatmates,
+              route.params.description,
+              friends,
+            );
           }}
         />
         <CoreButton
