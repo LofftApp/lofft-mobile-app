@@ -19,7 +19,10 @@ import {getLofftEvents} from '../../api/firebase/fireStoreActions';
 import firestore from '@react-native-firebase/firestore';
 
 // Helpers
-import {dateStringFormatter} from '../../components/helperFunctions/dateFormatter';
+import {
+  dateStringFormatter,
+  timeFormatter,
+} from '../../components/helperFunctions/dateFormatter';
 
 // Styles
 import {fontStyles} from '../../StyleSheets/FontStyleSheet';
@@ -27,8 +30,10 @@ import color from '../../assets/defaultColorPallet.json';
 
 const EventsManagement = ({navigation}) => {
   // Hooks
-  const [userEvents, setUserEvents] = useState();
-  const [selectedDate] = useState(moment().format('YYYY-MM-DD'));
+  const [userEventsDates, setUserEventsDates] = useState();
+  const [selectedDate, setSelectedDate] = useState(new Date());
+  const [events, setEvents] = useState(null);
+  const [selectedEvent, setSelectedEvents] = useState(null);
 
   const addEventsToDate = events => {
     let answer = [];
@@ -43,8 +48,26 @@ const EventsManagement = ({navigation}) => {
   const eventsData = async () => {
     const allEvents = await getLofftEvents();
     const dArray = addEventsToDate(allEvents);
-    // console.log(allEvents.length);
-    setUserEvents(dArray);
+    setUserEventsDates(dArray);
+    const eventsObj = allEvents.map(e => {
+      const data = e.data();
+      return {
+        title: data.title,
+        description: data.description,
+        location: data.location,
+        date: dateStringFormatter(new Date(data.date.seconds * 1000)),
+        timeFrom: timeFormatter(new Date(data.from.seconds * 1000)),
+        timeTo: timeFormatter(new Date(data.till.seconds * 1000)),
+      };
+    });
+    setEvents(eventsObj);
+  };
+
+  const getSelectedDate = d => {
+    const date = new Date(d.dateString);
+    setSelectedDate(new Date(date));
+    const filtered = events.filter(f => f.date === d.dateString);
+    setSelectedEvents(filtered.length > 0 ? filtered : null);
   };
 
   useEffect(() => {
@@ -63,8 +86,11 @@ const EventsManagement = ({navigation}) => {
   }, []);
   return (
     <>
-      {userEvents ? (
-        <CalendarManagement events={userEvents} />
+      {userEventsDates ? (
+        <CalendarManagement
+          events={userEventsDates}
+          getSelectedDate={getSelectedDate}
+        />
       ) : (
         <Text>Loading</Text>
       )}
@@ -75,7 +101,7 @@ const EventsManagement = ({navigation}) => {
         onPress={() => navigation.navigate('MakeNewEvent', {selectedDate})}
       />
       <ScrollView>
-        {true ? (
+        {selectedEvent ? (
           <View>
             <Text style={[fontStyles.headerXtraSmall]}>04 May 2022</Text>
             <ImageBackground

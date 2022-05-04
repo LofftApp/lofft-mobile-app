@@ -26,15 +26,15 @@ class CalendarManagement extends React.Component {
       _selectedDates: this.initialState,
     };
   }
+
   selectedDay = _today;
   onDaySelect = day => {
-    // console.log(moment(this.selectedDay).format(_format));
+    this.props.getSelectedDate(day);
     const _selectedDay = moment(day.dateString).format(_format);
     const _previousSelection = this.selectedDay;
 
     let selected = true;
     let selectedDates = {};
-
     if (this.state._selectedDates[_selectedDay]) {
       selected = !this.state._selectedDates[_selectedDay].selected;
       selectedDates = this.state._selectedDates[_selectedDay];
