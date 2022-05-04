@@ -11,8 +11,7 @@ import moment from 'moment';
 // Components 🪢
 import {CoreButton} from '../../components/buttons/CoreButton';
 import CalendarManagement from '../../components/calendar/CalendarManagement';
-import HalfBackgroundImage from './../../assets/banner-background-half.png';
-import TagIcon from '../iconsAndContainers/TagIcon';
+import EventsCard from '../cards/EventsCard';
 
 // FireStore 🔥
 import {getLofftEvents} from '../../api/firebase/fireStoreActions';
@@ -56,18 +55,24 @@ const EventsManagement = ({navigation}) => {
         description: data.description,
         location: data.location,
         date: dateStringFormatter(new Date(data.date.seconds * 1000)),
-        timeFrom: timeFormatter(new Date(data.from.seconds * 1000)),
-        timeTo: timeFormatter(new Date(data.till.seconds * 1000)),
+        fromTime: timeFormatter(new Date(data.from.seconds * 1000)),
+        toTime: timeFormatter(new Date(data.till.seconds * 1000)),
       };
     });
     setEvents(eventsObj);
   };
 
   const getSelectedDate = d => {
-    const date = new Date(d.dateString);
-    setSelectedDate(new Date(date));
-    const filtered = events.filter(f => f.date === d.dateString);
-    setSelectedEvents(filtered.length > 0 ? filtered : null);
+    if (selectedDate && d.dateString === dateStringFormatter(selectedDate)) {
+      setSelectedDate(null);
+      setSelectedEvents(null);
+    } else {
+      const date = new Date(d.dateString);
+      console.log(dateStringFormatter(date));
+      setSelectedDate(date);
+      const filtered = events.filter(f => f.date === d.dateString);
+      setSelectedEvents(filtered.length > 0 ? filtered : null);
+    }
   };
 
   useEffect(() => {
@@ -102,46 +107,20 @@ const EventsManagement = ({navigation}) => {
       />
       <ScrollView>
         {selectedEvent ? (
-          <View>
+          <>
             <Text style={[fontStyles.headerXtraSmall]}>04 May 2022</Text>
-            <ImageBackground
-              source={HalfBackgroundImage}
-              style={styles.eventCard}>
-              <View style={styles.contentContainer}>
-                <View style={styles.headerBar}>
-                  <Text style={fontStyles.buttonTextMedium}>
-                    Drinks at the Park
-                  </Text>
-                  <TagIcon text="invited" userColor="Blue" />
-                </View>
-                <Text>12:00 - 19:00</Text>
-                <View>
-                  <Text>
-                    Great drinks at the park, come join us to celebrate our
-                    birthday
-                  </Text>
-                </View>
-                <View style={styles.buttonBar}>
-                  <CoreButton
-                    value="Attend"
-                    style={styles.buttonStyle}
-                    textStyle={[
-                      fontStyles.buttonTextSmall,
-                      styles.buttonFontStyle,
-                    ]}
-                  />
-                  <CoreButton
-                    value="Reject"
-                    style={styles.buttonStyle}
-                    textStyle={[
-                      fontStyles.buttonTextSmall,
-                      styles.buttonFontStyle,
-                    ]}
-                  />
-                </View>
-              </View>
-            </ImageBackground>
-          </View>
+            {selectedEvent.map(e => {
+              return (
+                <EventsCard
+                  key={e}
+                  title={e.title}
+                  description={e.description}
+                  fromTime={e.fromTime}
+                  toTime={e.toTime}
+                />
+              );
+            })}
+          </>
         ) : (
           <Text>There are currently no events planned for this day</Text>
         )}
