@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {Text, StyleSheet, ScrollView} from 'react-native';
+import moment from 'moment';
 
 // Components 🪢
 import {CoreButton} from '../../components/buttons/CoreButton';
@@ -15,7 +16,7 @@ import {dateStringFormatter} from '../../components/helperFunctions/dateFormatte
 const EventsManagement = ({navigation}) => {
   // Hooks
   const [userEvents, setUserEvents] = useState();
-  const [selectedDate] = useState('2022-05-01');
+  const [selectedDate] = useState(moment().format('YYYY-MM-DD'));
 
   const addEventsToDate = events => {
     let answer = [];
@@ -30,6 +31,7 @@ const EventsManagement = ({navigation}) => {
   const eventsData = async () => {
     const allEvents = await getLofftEvents();
     const dArray = addEventsToDate(allEvents);
+    console.log(allEvents.length);
     setUserEvents(dArray);
   };
 

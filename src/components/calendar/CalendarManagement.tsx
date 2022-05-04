@@ -1,6 +1,6 @@
 import React from 'react';
 import moment from 'moment';
-import {View, StyleSheet} from 'react-native';
+import {StyleSheet} from 'react-native';
 import {Calendar} from 'react-native-calendars';
 
 const ButtonFont = 'Roboto-Bold';
@@ -28,7 +28,9 @@ class CalendarManagement extends React.Component {
   }
   selectedDay = _today;
   onDaySelect = day => {
+    // console.log(moment(this.selectedDay).format(_format));
     const _selectedDay = moment(day.dateString).format(_format);
+    const _previousSelection = this.selectedDay;
 
     let selected = true;
     let selectedDates = {};
@@ -37,54 +39,52 @@ class CalendarManagement extends React.Component {
       selected = !this.state._selectedDates[_selectedDay].selected;
       selectedDates = this.state._selectedDates[_selectedDay];
     }
+
     selectedDates = {...selectedDates, ...{selected}};
     const updateSelectedDates = {
       ...this.state._selectedDates,
       ...{[_selectedDay]: selectedDates},
     };
-    console.log(updateSelectedDates);
     this.setState({_selectedDates: updateSelectedDates});
     this.selectedDay = _selectedDay;
   };
 
   render() {
     return (
-      <View>
-        <Calendar
-          disableMonthChange={true}
-          theme={{
-            backgroundColor: '#ffffff',
-            calendarBackground: '#ffffff',
-            textSectionTitleColor: 'black',
-            textSectionTitleDisabledColor: '#d9e1e8',
-            selectedDayBackgroundColor: '#724EFA',
-            selectedDayTextColor: '#ffffff',
-            todayTextColor: '#724EFA',
-            dayTextColor: '#2d4150',
-            textDisabledColor: '#d9e1e8',
-            dotColor: '#00adf5',
-            selectedDotColor: '#ffffff',
-            arrowColor: '#724EFA',
-            disabledArrowColor: '#d9e1e8',
-            monthTextColor: 'black',
-            indicatorColor: 'blue',
-            textDayFontFamily: ButtonFont,
-            textMonthFontFamily: ButtonFont,
-            textDayHeaderFontFamily: ButtonFont,
-            textDayFontWeight: '300',
-            textMonthFontWeight: 'bold',
-            textDayHeaderFontWeight: 'bold',
-            textDayFontSize: 16,
-            textMonthFontSize: 16,
-            textDayHeaderFontSize: 14,
-          }}
-          minDate={_today}
-          maxDate={_maxDate}
-          style={styles.calmar}
-          onDayPress={this.onDaySelect}
-          markedDates={this.state._selectedDates}
-        />
-      </View>
+      <Calendar
+        disableMonthChange={true}
+        theme={{
+          backgroundColor: '#ffffff',
+          calendarBackground: '#ffffff',
+          textSectionTitleColor: 'black',
+          textSectionTitleDisabledColor: '#d9e1e8',
+          selectedDayBackgroundColor: '#724EFA',
+          selectedDayTextColor: '#ffffff',
+          todayTextColor: '#724EFA',
+          dayTextColor: '#2d4150',
+          textDisabledColor: '#d9e1e8',
+          dotColor: '#00adf5',
+          selectedDotColor: '#ffffff',
+          arrowColor: '#724EFA',
+          disabledArrowColor: '#d9e1e8',
+          monthTextColor: 'black',
+          indicatorColor: 'blue',
+          textDayFontFamily: ButtonFont,
+          textMonthFontFamily: ButtonFont,
+          textDayHeaderFontFamily: ButtonFont,
+          textDayFontWeight: '300',
+          textMonthFontWeight: 'bold',
+          textDayHeaderFontWeight: 'bold',
+          textDayFontSize: 16,
+          textMonthFontSize: 16,
+          textDayHeaderFontSize: 14,
+        }}
+        minDate={_today}
+        maxDate={_maxDate}
+        style={styles.calmar}
+        onDayPress={this.onDaySelect}
+        markedDates={this.state._selectedDates}
+      />
     );
   }
 }
