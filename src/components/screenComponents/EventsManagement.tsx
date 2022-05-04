@@ -19,6 +19,7 @@ import firestore from '@react-native-firebase/firestore';
 
 // Helpers
 import {
+  fullDateFormatter,
   dateStringFormatter,
   timeFormatter,
 } from '../../components/helperFunctions/dateFormatter';
@@ -33,6 +34,7 @@ const EventsManagement = ({navigation}) => {
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [events, setEvents] = useState(null);
   const [selectedEvent, setSelectedEvents] = useState(null);
+  const [fullDate, setFullDate] = useState(null);
 
   const addEventsToDate = events => {
     let answer = [];
@@ -68,8 +70,9 @@ const EventsManagement = ({navigation}) => {
       setSelectedEvents(null);
     } else {
       const date = new Date(d.dateString);
-      console.log(dateStringFormatter(date));
+      // console.log(dateStringFormatter(date));
       setSelectedDate(date);
+      setFullDate(fullDateFormatter(date));
       const filtered = events.filter(f => f.date === d.dateString);
       setSelectedEvents(filtered.length > 0 ? filtered : null);
     }
@@ -108,7 +111,7 @@ const EventsManagement = ({navigation}) => {
       <ScrollView>
         {selectedEvent ? (
           <>
-            <Text style={[fontStyles.headerXtraSmall]}>04 May 2022</Text>
+            <Text style={[fontStyles.headerXtraSmall]}>{fullDate}</Text>
             {selectedEvent.map(e => {
               return (
                 <EventsCard
