@@ -31,20 +31,15 @@ import color from '../../assets/defaultColorPallet.json';
 // Firestore
 
 const MakeNewEventScreen = ({navigation, route}) => {
-  console.log(route.params.selectedDate);
+  const defDate = new Date(route.params.selectedDate);
   const [eventName, setEventName] = useState('');
   const [location, setLocation] = useState('');
-  const [fromdate, setfromDate] = useState('');
-  const [untildate, setuntilDate] = useState('');
   const [informFlatmates, setinformFlatmates] = useState(false);
   const [description, setdescription] = useState('');
 
-  const [date, setDate] = useState(new Date(route.params.selectedDate));
-  const [fromTime, setFromTime] = useState(null);
-  const [untilTime, setUntilTime] = useState(null);
-  const [dateOpen, setDateOpen] = useState(false);
-  const [fromTimeOpen, setFromTimeOpen] = useState(false);
-  const [untilTimeOpen, setUntilTimeOpen] = useState(false);
+  const [date, setDate] = useState(defDate);
+  const [fromTime, setFromTime] = useState(defDate);
+  const [untilTime, setUntilTime] = useState(defDate);
 
   const onToggleSwitch = () => setinformFlatmates(!informFlatmates);
 
@@ -79,71 +74,23 @@ const MakeNewEventScreen = ({navigation, route}) => {
             setDate(date);
           }}
         />
-
         <View style={styles.timeContainer}>
-          <Text style={[fontStyles.buttonTextMedium, {flex: 1}]}>Time</Text>
-
-          <View style={[styles.inputTimeContainer, {marginLeft: 12}]}>
-            <View style={styles.timeinputContainer}>
-              <Text style={fontStyles.buttonTextSmall}>From:</Text>
-              <TouchableOpacity
-                style={styles.timeInputForm}
-                onPress={() => {
-                  date ? setFromTime(date) : null;
-                  setFromTimeOpen(true);
-                }}>
-                <Text
-                  style={[
-                    fontStyles.bodyMedium,
-                    fromTime ? null : styles.textNoValue,
-                  ]}>
-                  {fromTime ? timeFormatter(fromTime) : '##:##'}
-                </Text>
-              </TouchableOpacity>
-              <DatePicker
-                modal
-                mode="time"
-                minuteInterval={5}
-                open={fromTimeOpen}
-                date={fromTime ? fromTime : new Date()}
-                onConfirm={time => {
-                  setFromTimeOpen(false);
-                  setFromTime(time);
-                }}
-                onCancel={() => setFromTimeOpen(false)}
-              />
-            </View>
-            <View style={styles.timeBreaker} />
-            <View style={styles.timeinputContainer}>
-              <Text style={fontStyles.buttonTextSmall}>Until:</Text>
-              <TouchableOpacity
-                style={styles.timeInputForm}
-                onPress={() => {
-                  date ? setUntilTime(date) : null;
-                  setUntilTimeOpen(true);
-                }}>
-                <Text
-                  style={[
-                    fontStyles.bodyMedium,
-                    untilTime ? null : styles.textNoValue,
-                  ]}>
-                  {untilTime ? timeFormatter(untilTime) : '##:##'}
-                </Text>
-              </TouchableOpacity>
-              <DatePicker
-                modal
-                minuteInterval={5}
-                mode="time"
-                open={untilTimeOpen}
-                date={untilTime ? untilTime : new Date()}
-                onConfirm={time => {
-                  setUntilTimeOpen(false);
-                  setUntilTime(time);
-                }}
-                onCancel={() => setUntilTimeOpen(false)}
-              />
-            </View>
-          </View>
+          <DateTimeInputField
+            inputHeader="Starts"
+            value={fromTime}
+            time
+            onConfirm={time => {
+              setFromTime(time);
+            }}
+          />
+          <DateTimeInputField
+            inputHeader="Ends"
+            value={untilTime}
+            time
+            onConfirm={time => {
+              setUntilTime(time);
+            }}
+          />
         </View>
 
         <View style={styles.inputToggleContainer}>
@@ -226,11 +173,7 @@ const styles = StyleSheet.create({
   },
 
   timeContainer: {
-    marginTop: 14,
-    marginHorizontal: 14,
-    display: 'flex',
     flexDirection: 'row',
-    alignItems: 'center',
   },
 
   inputTimeContainer: {

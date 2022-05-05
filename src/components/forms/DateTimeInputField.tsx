@@ -4,7 +4,7 @@ import {Text, View, TouchableOpacity, StyleSheet} from 'react-native';
 // Components
 import DatePicker from 'react-native-date-picker';
 import Icon from 'react-native-vector-icons/Ionicons';
-import {dateFormatter} from '../helperFunctions/dateFormatter';
+import {dateFormatter, timeFormatter} from '../helperFunctions/dateFormatter';
 
 // Styles
 import {fontStyles} from '../../StyleSheets/FontStyleSheet';
@@ -18,15 +18,16 @@ const DateTimeInputField = ({
 }) => {
   // Hooks
   const [dateOpen, setDateOpen] = useState(false);
-  const [date, setDate] = useState(new Date(value));
 
   return (
-    <View style={styles.inputContainer}>
+    <View style={[styles.inputContainer, time ? styles.timeInput : null]}>
       <Text style={[fontStyles.buttonTextSmall]}>{inputHeader}</Text>
       <TouchableOpacity
-        style={styles.inputStyle}
+        style={[styles.inputStyle]}
         onPress={() => setDateOpen(true)}>
-        <Text style={[fontStyles.bodyMedium]}>{dateFormatter(date)}</Text>
+        <Text style={[fontStyles.bodyMedium]}>
+          {time ? timeFormatter(value) : dateFormatter(value)}
+        </Text>
         <Icon
           name={time ? 'time-outline' : 'calendar-outline'}
           size={25}
@@ -36,9 +37,10 @@ const DateTimeInputField = ({
       <DatePicker
         modal
         minimumDate={new Date()}
-        mode="date"
+        minuteInterval={5}
+        mode={time ? 'time' : 'date'}
         open={dateOpen}
-        date={date}
+        date={value}
         onConfirm={date => {
           setDateOpen(false);
           onConfirm(date);
@@ -57,12 +59,15 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    width: '100%',
     backgroundColor: color.Lavendar[10],
     paddingVertical: 13,
     paddingHorizontal: 10,
     marginTop: 5,
     borderRadius: 4,
+  },
+  timeInput: {
+    flex: 1,
+    paddingHorizontal: 4,
   },
   textNoValue: {
     color: color.Black[25],
