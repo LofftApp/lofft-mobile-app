@@ -1,8 +1,9 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {View, Text, ImageBackground, StyleSheet} from 'react-native';
 
 // Firebase
 import auth from '@react-native-firebase/auth';
+import {cancelLofftEvent} from '../../api/firebase/fireStoreActions';
 
 // Components 🪢
 import {CoreButton} from '../../components/buttons/CoreButton';
@@ -16,13 +17,27 @@ import color from '../../assets/defaultColorPallet.json';
 const EventsCard = ({event}) => {
   // Hooks
   // const [tags, setUserTags] = useState({text: 'invited', color: 'Lavendar'});
-  let tags = {text: 'invited', color: 'Lavendar'};
-  let creator = false;
+  const [tags, setTags] = useState({text: 'invited', color: 'Lavendar'});
+  const [cancelled, setCancelled] = useState(false);
+  const [creator, setCreator] = useState(false);
 
-  if (event.createdBy === auth().currentUser.uid) {
-    tags = {text: 'Creator', color: 'Blue'};
-    creator = true;
-  }
+  useEffect(() => {
+    if (event.createdBy === auth().currentUser.uid) {
+      setTags({text: 'Creator', color: 'Blue'});
+      setCreator(true);
+    }
+
+    if (!event.active) {
+      setTags({text: 'Cancelled', color: 'Black'});
+      setCancelled(true);
+    }
+  }, []);
+
+  const triggerCancelled = () => {
+    console.log('I was clicked');
+    setTags({text: 'Cancelled', color: 'Black'});
+    setCancelled(true);
+  };
 
   return (
     <>
@@ -40,11 +55,20 @@ const EventsCard = ({event}) => {
           </View>
           <View style={styles.buttonBar}>
             {creator ? (
-              <CoreButton
-                value="Cancel"
-                style={[styles.buttonStyle, styles.eventWarning]}
-                textStyle={[fontStyles.buttonTextSmall, styles.buttonFontStyle]}
-              />
+              cancelled ? null : (
+                <CoreButton
+                  value="Cancel"
+                  style={[styles.buttonStyle, styles.eventWarning]}
+                  textStyle={[
+                    fontStyles.buttonTextSmall,
+                    styles.buttonFontStyle,
+                  ]}
+                  onPress={() => {
+                    cancelLofftEvent(event.uid);
+                    triggerCancelled();
+                  }}
+                />
+              )
             ) : (
               <>
                 <CoreButton

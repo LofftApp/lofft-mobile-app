@@ -46,7 +46,9 @@ const EventsManagement = ({navigation}) => {
 
     const eventsObj = allEvents.map(e => {
       const data = e.data();
+      const uid = e.id;
       return {
+        uid,
         title: data.title,
         description: data.description,
         location: data.location,
@@ -54,6 +56,7 @@ const EventsManagement = ({navigation}) => {
         fromTime: timeFormatter(new Date(data.from.seconds * 1000)),
         toTime: timeFormatter(new Date(data.till.seconds * 1000)),
         createdBy: data.createdBy,
+        active: data.active,
       };
     });
     setEvents(eventsObj);
@@ -79,10 +82,8 @@ const EventsManagement = ({navigation}) => {
       .doc('B7vxlFYgNpnYPOT7eMfO')
       .collection('Events')
       .onSnapshot(snapShot => {
-        snapShot.docChanges().forEach(async change => {
-          if (change.type === 'added' || change.type === 'removed') {
-            eventsData();
-          }
+        snapShot.docChanges().forEach(() => {
+          eventsData();
         });
       });
     return () => subscriber();

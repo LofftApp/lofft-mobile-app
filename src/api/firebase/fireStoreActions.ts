@@ -235,6 +235,18 @@ export const getLofftEvents = async () => {
   return result;
 };
 
+export const cancelLofftEvent = async e => {
+  const currentUser = auth().currentUser;
+  const user = await getCurrentUserDetails(currentUser);
+  const loftId = user.details.lofft.lofftId;
+  await firestore()
+    .collection('Managements')
+    .doc(loftId)
+    .collection('Events')
+    .doc(e)
+    .update({active: false});
+};
+
 // Create Poll
 
 export const addPoll = async (question, anwsers, deadline, multipleAnwser) => {
