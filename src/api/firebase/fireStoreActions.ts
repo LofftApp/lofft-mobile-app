@@ -236,7 +236,6 @@ export const getLofftEvents = async () => {
 };
 
 export const attendLofftEvent = async e => {
-  console.log("You're attending");
   const currentUser = auth().currentUser;
   const user = await getCurrentUserDetails(currentUser);
   const loftId = user.details.lofft.lofftId;
@@ -247,6 +246,22 @@ export const attendLofftEvent = async e => {
     .doc(e)
     .update({
       attending: firestore.FieldValue.arrayUnion(currentUser.uid),
+      updatedAt: new Date(),
+    });
+};
+
+export const rejectLofftEvent = async e => {
+  console.log('I am not attending');
+  const currentUser = auth().currentUser;
+  const user = await getCurrentUserDetails(currentUser);
+  const loftId = user.details.lofft.lofftId;
+  await firestore()
+    .collection('Managements')
+    .doc(loftId)
+    .collection('Events')
+    .doc(e)
+    .update({
+      notAttending: firestore.FieldValue.arrayUnion(currentUser.uid),
       updatedAt: new Date(),
     });
 };

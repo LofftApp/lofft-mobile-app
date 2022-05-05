@@ -6,6 +6,7 @@ import auth from '@react-native-firebase/auth';
 import {
   attendLofftEvent,
   cancelLofftEvent,
+  rejectLofftEvent,
 } from '../../api/firebase/fireStoreActions';
 
 // Components 🪢
@@ -23,7 +24,8 @@ const EventsCard = ({event}) => {
   // const [tags, setUserTags] = useState({text: 'invited', color: 'Lavendar'});
   const [tags, setTags] = useState({text: 'invited', color: 'Lavendar'});
   const [cancelled, setCancelled] = useState(false);
-  const [attending, setAttending] = useState(null);
+  const [attending, setAttending] = useState(false);
+  const [notAttending, setNotAttending] = useState(false);
   const [creator, setCreator] = useState(false);
 
   useEffect(() => {
@@ -41,6 +43,11 @@ const EventsCard = ({event}) => {
       setTags({text: 'Attending', color: 'Mint'});
       setAttending(true);
     }
+
+    if (event.notAttending.includes(auth().currentUser.uid)) {
+      setTags({text: 'Not Attending', color: 'Tomato'});
+      setAttending(true);
+    }
   }, []);
 
   const triggerCancelled = () => {
@@ -51,6 +58,11 @@ const EventsCard = ({event}) => {
   const triggerAttending = () => {
     setTags({text: 'Attending', color: 'Mint'});
     setAttending(true);
+  };
+
+  const triggerReject = () => {
+    setTags({text: 'Not Attending', color: 'Tomato'});
+    setNotAttending(true);
   };
 
   return (
@@ -83,7 +95,7 @@ const EventsCard = ({event}) => {
                   }}
                 />
               )
-            ) : attending ? null : (
+            ) : attending || notAttending ? null : (
               <>
                 <CoreButton
                   value="Attend"
@@ -104,6 +116,10 @@ const EventsCard = ({event}) => {
                     fontStyles.buttonTextSmall,
                     styles.buttonFontStyle,
                   ]}
+                  onPress={() => {
+                    rejectLofftEvent(event.uid);
+                    triggerReject();
+                  }}
                 />
               </>
             )}
