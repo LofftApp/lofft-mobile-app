@@ -200,7 +200,13 @@ export const addEvent = async (
     till: till,
     sharewithFlatmates: sharewithFlatmates,
     description: description,
-    selectedFriends: selectedFriendsOnly,
+    invited: selectedFriendsOnly,
+    attending: [],
+    notAttending: [],
+    active: true,
+    createdBy: currentUser.uid,
+    updatedAt: new Date(),
+    createdAt: new Date(),
   };
   console.log(event);
 

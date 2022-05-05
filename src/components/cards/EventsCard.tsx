@@ -1,5 +1,8 @@
-import React, {useState, useEffect} from 'react';
+import React from 'react';
 import {View, Text, ImageBackground, StyleSheet} from 'react-native';
+
+// Firebase
+import auth from '@react-native-firebase/auth';
 
 // Components 🪢
 import {CoreButton} from '../../components/buttons/CoreButton';
@@ -10,36 +13,62 @@ import TagIcon from '../iconsAndContainers/TagIcon';
 import {fontStyles} from '../../StyleSheets/FontStyleSheet';
 import color from '../../assets/defaultColorPallet.json';
 
-const EventsCard = ({title, description, fromTime, toTime}) => {
+const EventsCard = ({event}) => {
+  // Hooks
+  // const [tags, setUserTags] = useState({text: 'invited', color: 'Lavendar'});
+  let tags = {text: 'invited', color: 'Lavendar'};
+  let creator = false;
+
+  if (event.createdBy === auth().currentUser.uid) {
+    tags = {text: 'Creator', color: 'Blue'};
+    creator = true;
+  }
+
   return (
-    <View>
+    <>
       <ImageBackground source={HalfBackgroundImage} style={styles.eventCard}>
         <View style={styles.contentContainer}>
           <View style={styles.headerBar}>
-            <Text style={fontStyles.buttonTextMedium}>{title}</Text>
-            <TagIcon text="invited" userColor="Blue" />
+            <Text style={fontStyles.buttonTextMedium}>{event.title}</Text>
+            <TagIcon text={tags.text} userColor={tags.color} />
           </View>
           <Text>
-            {fromTime} - {toTime}
+            {event.fromTime} - {event.toTime}
           </Text>
           <View>
-            <Text>{description}</Text>
+            <Text>{event.description}</Text>
           </View>
           <View style={styles.buttonBar}>
-            <CoreButton
-              value="Attend"
-              style={styles.buttonStyle}
-              textStyle={[fontStyles.buttonTextSmall, styles.buttonFontStyle]}
-            />
-            <CoreButton
-              value="Reject"
-              style={styles.buttonStyle}
-              textStyle={[fontStyles.buttonTextSmall, styles.buttonFontStyle]}
-            />
+            {creator ? (
+              <CoreButton
+                value="Cancel"
+                style={[styles.buttonStyle, styles.eventWarning]}
+                textStyle={[fontStyles.buttonTextSmall, styles.buttonFontStyle]}
+              />
+            ) : (
+              <>
+                <CoreButton
+                  value="Attend"
+                  style={[styles.buttonStyle, styles.eventAttend]}
+                  textStyle={[
+                    fontStyles.buttonTextSmall,
+                    styles.buttonFontStyle,
+                  ]}
+                />
+                <CoreButton
+                  value="Reject"
+                  style={[styles.buttonStyle, styles.eventWarning]}
+                  textStyle={[
+                    fontStyles.buttonTextSmall,
+                    styles.buttonFontStyle,
+                  ]}
+                />
+              </>
+            )}
           </View>
         </View>
       </ImageBackground>
-    </View>
+    </>
   );
 };
 
@@ -75,6 +104,14 @@ const styles = StyleSheet.create({
   },
   buttonFontStyle: {
     color: color.White[100],
+  },
+  eventWarning: {
+    backgroundColor: color.Tomato[100],
+    borderColor: color.Tomato[100],
+  },
+  eventAttend: {
+    backgroundColor: color.Mint[100],
+    borderColor: color.Mint[100],
   },
 });
 

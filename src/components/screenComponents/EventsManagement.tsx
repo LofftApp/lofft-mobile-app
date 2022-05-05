@@ -1,12 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {
-  View,
-  Text,
-  ImageBackground,
-  StyleSheet,
-  ScrollView,
-} from 'react-native';
-import moment from 'moment';
+import {Text, StyleSheet, ScrollView} from 'react-native';
 
 // Components 🪢
 import {CoreButton} from '../../components/buttons/CoreButton';
@@ -30,7 +23,7 @@ import color from '../../assets/defaultColorPallet.json';
 
 const EventsManagement = ({navigation}) => {
   // Hooks
-  const [userEventsDates, setUserEventsDates] = useState();
+  const [userEventsDates, setUserEventsDates] = useState(null);
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [events, setEvents] = useState(null);
   const [selectedEvent, setSelectedEvents] = useState(null);
@@ -49,7 +42,8 @@ const EventsManagement = ({navigation}) => {
   const eventsData = async () => {
     const allEvents = await getLofftEvents();
     const dArray = addEventsToDate(allEvents);
-    setUserEventsDates(dArray);
+    dArray ? setUserEventsDates(dArray) : setUserEventsDates([]);
+
     const eventsObj = allEvents.map(e => {
       const data = e.data();
       return {
@@ -59,6 +53,7 @@ const EventsManagement = ({navigation}) => {
         date: dateStringFormatter(new Date(data.date.seconds * 1000)),
         fromTime: timeFormatter(new Date(data.from.seconds * 1000)),
         toTime: timeFormatter(new Date(data.till.seconds * 1000)),
+        createdBy: data.createdBy,
       };
     });
     setEvents(eventsObj);
@@ -70,7 +65,6 @@ const EventsManagement = ({navigation}) => {
       setSelectedEvents(null);
     } else {
       const date = new Date(d.dateString);
-      // console.log(dateStringFormatter(date));
       setSelectedDate(date);
       setFullDate(fullDateFormatter(date));
       const filtered = events.filter(f => f.date === d.dateString);
@@ -79,6 +73,7 @@ const EventsManagement = ({navigation}) => {
   };
 
   useEffect(() => {
+    eventsData();
     const subscriber = firestore()
       .collection('Managements')
       .doc('B7vxlFYgNpnYPOT7eMfO')
@@ -100,7 +95,7 @@ const EventsManagement = ({navigation}) => {
           getSelectedDate={getSelectedDate}
         />
       ) : (
-        <Text>Loading</Text>
+        <Text>Loading...</Text>
       )}
       <CoreButton
         value="Add new event"
@@ -113,15 +108,7 @@ const EventsManagement = ({navigation}) => {
           <>
             <Text style={[fontStyles.headerXtraSmall]}>{fullDate}</Text>
             {selectedEvent.map(e => {
-              return (
-                <EventsCard
-                  key={e}
-                  title={e.title}
-                  description={e.description}
-                  fromTime={e.fromTime}
-                  toTime={e.toTime}
-                />
-              );
+              return <EventsCard key={e} event={e} />;
             })}
           </>
         ) : (
