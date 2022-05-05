@@ -1,32 +1,16 @@
 import React, {useState} from 'react';
-import {
-  Text,
-  View,
-  StyleSheet,
-  ImageBackground,
-  TextInput,
-  Platform,
-  TouchableOpacity,
-} from 'react-native';
-import {Switch} from 'react-native-paper';
+import {Text, View, StyleSheet, Platform} from 'react-native';
 
 // Components
 import CustomBackButton from '../../components/buttons/CustomBackButton';
 import {CoreButton} from '../../components/buttons/CoreButton';
-import DatePicker from 'react-native-date-picker';
 import TextInputField from '../../components/forms/TextInputField';
 import DateTimeInputField from '../../components/forms/DateTimeInputField';
-
-// Helpers
-import {
-  dateFormatter,
-  timeFormatter,
-} from '../../components/helperFunctions/dateFormatter';
+import UserIcon from '../../components/iconsAndContainers/UserIcon';
 
 // Styles
 import {CoreStyleSheet} from '../../StyleSheets/CoreDesignStyleSheet';
 import {fontStyles} from '../../StyleSheets/FontStyleSheet';
-import color from '../../assets/defaultColorPallet.json';
 
 // Firestore
 
@@ -34,14 +18,11 @@ const MakeNewEventScreen = ({navigation, route}) => {
   const defDate = new Date(route.params.selectedDate);
   const [eventName, setEventName] = useState('');
   const [location, setLocation] = useState('');
-  const [informFlatmates, setinformFlatmates] = useState(false);
   const [description, setdescription] = useState('');
 
   const [date, setDate] = useState(defDate);
   const [fromTime, setFromTime] = useState(defDate);
   const [untilTime, setUntilTime] = useState(defDate);
-
-  const onToggleSwitch = () => setinformFlatmates(!informFlatmates);
 
   return (
     <View
@@ -108,20 +89,23 @@ const MakeNewEventScreen = ({navigation, route}) => {
               multiline
             />
           </View>
-          {/* <View style={styles.inputToggleContainer}>
-          <Text style={[fontStyles.buttonTextMedium, {flex: 1}]}>
-            Let your flatmates know?
-          </Text>
-          <Switch
-            color="#724EFA"
-            value={informFlatmates}
-            onValueChange={onToggleSwitch}
-          />
-        </View> */}
+          {/* Flat Mates and Lofft space */}
+          <View>
+            <Text style={[fontStyles.buttonTextSmall]}>Invite</Text>
+            <View style={styles.inviteUsersBar}>
+              <View style={styles.lofftSpaceButton}>
+                <UserIcon lofftSpace onPress={() => {}} />
+              </View>
+              <View style={styles.userIconButton}>
+                <UserIcon onPress={() => {}} />
+                <UserIcon onPress={() => {}} />
+                <UserIcon onPress={() => {}} />
+              </View>
+            </View>
+          </View>
         </View>
         <CoreButton
           value="Next"
-          style={styles.button}
           onPress={() =>
             navigation.navigate('AddFriendsToEvent', {
               title: eventName,
@@ -129,7 +113,6 @@ const MakeNewEventScreen = ({navigation, route}) => {
               date,
               fromTime,
               untilTime,
-              informFlatmates,
               description,
             })
           }
@@ -153,6 +136,19 @@ const styles = StyleSheet.create({
   },
   timeContainer: {
     flexDirection: 'row',
+  },
+  inviteUsersBar: {
+    marginVertical: 15,
+    flexDirection: 'row',
+  },
+  lofftSpaceButton: {
+    paddingHorizontal: 10,
+    marginRight: 10,
+  },
+  userIconButton: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
   },
 });
 
