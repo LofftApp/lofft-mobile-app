@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Text, View, StyleSheet, Platform} from 'react-native';
+import {Text, View, StyleSheet, Platform, ScrollView} from 'react-native';
 
 // Components
 import CustomBackButton from '../../components/buttons/CustomBackButton';
@@ -36,7 +36,7 @@ const MakeNewEventScreen = ({navigation, route}) => {
       />
 
       <View style={styles.formContainer}>
-        <View style={styles.formFields}>
+        <ScrollView style={styles.formFields}>
           <View style={styles.detailsBox}>
             <TextInputField
               value={eventName}
@@ -103,7 +103,7 @@ const MakeNewEventScreen = ({navigation, route}) => {
               </View>
             </View>
           </View>
-        </View>
+        </ScrollView>
         <CoreButton
           value="Next"
           onPress={() =>
