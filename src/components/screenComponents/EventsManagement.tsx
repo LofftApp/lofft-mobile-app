@@ -1,6 +1,5 @@
 import React, {useState, useEffect} from 'react';
 import {Text, StyleSheet, ScrollView} from 'react-native';
-import {navigationRef as navigation} from './../../RootNavigation';
 
 // Components 🪢
 import {CoreButton} from '../../components/buttons/CoreButton';
@@ -22,10 +21,12 @@ import {
 import {fontStyles} from '../../StyleSheets/FontStyleSheet';
 import color from '../../assets/defaultColorPallet.json';
 
-const EventsManagement = () => {
+const EventsManagement = ({navigation}) => {
   // Hooks
   const [userEventsDates, setUserEventsDates] = useState(null);
-  const [selectedDate, setSelectedDate] = useState(new Date());
+  const [selectedDate, setSelectedDate] = useState(
+    dateStringFormatter(new Date()),
+  );
   const [events, setEvents] = useState(null);
   const [selectedEvent, setSelectedEvents] = useState(null);
   const [fullDate, setFullDate] = useState(null);
@@ -71,7 +72,7 @@ const EventsManagement = () => {
       setSelectedDate(null);
       setSelectedEvents(null);
     } else {
-      const date = new Date(d.dateString);
+      const date = dateStringFormatter(new Date(d.dateString));
       setSelectedDate(date);
       setFullDate(fullDateFormatter(date));
       const filtered = events.filter(f => f.date === d.dateString);
