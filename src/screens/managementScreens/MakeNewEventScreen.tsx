@@ -54,46 +54,57 @@ const MakeNewEventScreen = ({navigation, route}) => {
         title="Add new event"
       />
 
-      <View style={styles.centerContainer}>
-        <TextInputField
-          value={eventName}
-          onChageText={e => setEventName(e)}
-          inputHeader="Event Name"
-          placeholder="event name..."
-        />
-        <TextInputField
-          value={location}
-          onChageText={e => setLocation(e)}
-          inputHeader="Location"
-          placeholder="Wilsnackerstr..."
-        />
-        <DateTimeInputField
-          inputHeader="Date"
-          value={date}
-          onConfirm={date => {
-            setDate(date);
-          }}
-        />
-        <View style={styles.timeContainer}>
-          <DateTimeInputField
-            inputHeader="Starts"
-            value={fromTime}
-            time
-            onConfirm={time => {
-              setFromTime(time);
-            }}
+      <View style={styles.formContainer}>
+        <View style={styles.formFields}>
+          <TextInputField
+            value={eventName}
+            onChageText={e => setEventName(e)}
+            inputHeader="Event Name"
+            placeholder="event name..."
+          />
+          <TextInputField
+            value={location}
+            onChageText={e => setLocation(e)}
+            inputHeader="Location"
+            placeholder="Wilsnackerstr..."
           />
           <DateTimeInputField
-            inputHeader="Ends"
-            value={untilTime}
-            time
-            onConfirm={time => {
-              setUntilTime(time);
+            inputHeader="Date"
+            value={date}
+            onConfirm={date => {
+              setDate(date);
             }}
           />
-        </View>
+          <View style={styles.timeContainer}>
+            <DateTimeInputField
+              inputHeader="Starts"
+              value={fromTime}
+              time
+              onConfirm={time => {
+                setFromTime(time);
+              }}
+              position="left"
+            />
+            <DateTimeInputField
+              inputHeader="Ends"
+              value={untilTime}
+              time
+              onConfirm={time => {
+                setUntilTime(time);
+              }}
+              position="right"
+            />
+          </View>
 
-        <View style={styles.inputToggleContainer}>
+          <TextInputField
+            value={description}
+            onChageText={e => setdescription(e)}
+            inputHeader="Description"
+            placeholder="Hey what's happening..."
+            multiline
+          />
+
+          {/* <View style={styles.inputToggleContainer}>
           <Text style={[fontStyles.buttonTextMedium, {flex: 1}]}>
             Let your flatmates know?
           </Text>
@@ -102,30 +113,14 @@ const MakeNewEventScreen = ({navigation, route}) => {
             value={informFlatmates}
             onValueChange={onToggleSwitch}
           />
+        </View> */}
         </View>
-
-        <View style={styles.descriptionContainer}>
-          <Text style={[fontStyles.buttonTextMedium, {flex: 0.2}]}>
-            Description
-          </Text>
-          <TextInput
-            style={[styles.descriptionInputForm, fontStyles.bodyMedium]}
-            placeholder=""
-            autoCapitalize="none"
-            value={description}
-            onChangeText={text => setdescription(text)}
-            multiline={true}
-          />
-        </View>
-      </View>
-
-      <View style={styles.actionButtonContainer}>
         <CoreButton
           value="Next"
           style={styles.button}
           onPress={() =>
             navigation.navigate('AddFriendsToEvent', {
-              title,
+              title: eventName,
               location,
               date,
               fromTime,
@@ -141,89 +136,17 @@ const MakeNewEventScreen = ({navigation, route}) => {
 };
 
 const styles = StyleSheet.create({
-  centerContainer: {
-    // display: 'flex',
-    // alignItems: 'center',
+  formContainer: {
+    flex: 1,
+    marginVertical: 15,
+    paddingVertical: 15,
   },
-
-  eventContainer: {
-    height: 579,
-    width: 344,
-    marginTop: 20,
-    borderRadius: 20,
-    borderWidth: 4,
-    borderColor: 'transparent',
-    overflow: 'hidden',
-  },
-
-  InputContainer: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginTop: 19,
-    marginHorizontal: 14,
-  },
-
-  inputStyle: {
-    backgroundColor: color.White[100],
-    flex: 2,
-    padding: 12,
-    marginLeft: 21,
-    borderRadius: 8,
+  formFields: {
+    flex: 1,
   },
 
   timeContainer: {
     flexDirection: 'row',
-  },
-
-  inputTimeContainer: {
-    flex: 2,
-    flexDirection: 'row',
-  },
-
-  timeinputContainer: {
-    flex: 0.9,
-    // First timeinput has InlineStyling!
-  },
-
-  timeInputForm: {
-    marginTop: 5,
-    backgroundColor: color.White[100],
-    borderRadius: 8,
-    padding: 12,
-  },
-
-  timeBreaker: {
-    flex: 0.2,
-  },
-  inputToggleContainer: {
-    display: 'flex',
-    flexDirection: 'row',
-    marginTop: 26,
-    marginHorizontal: 14,
-    alignItems: 'center',
-  },
-
-  descriptionContainer: {
-    flex: 1,
-    marginHorizontal: 14,
-    marginTop: 20,
-  },
-
-  descriptionInputForm: {
-    backgroundColor: color.White[100],
-    flex: 0.7,
-    borderRadius: 8,
-    padding: 10,
-  },
-  actionButtonContainer: {
-    marginTop: 20,
-  },
-  button: {
-    marginVertical: 5,
-  },
-  textNoValue: {
-    color: color.Black[25],
   },
 });
 

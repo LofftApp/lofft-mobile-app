@@ -15,12 +15,22 @@ const DateTimeInputField = ({
   inputHeader,
   onConfirm = null,
   time = false,
+  position = null,
 }) => {
   // Hooks
   const [dateOpen, setDateOpen] = useState(false);
 
   return (
-    <View style={[styles.inputContainer, time ? styles.timeInput : null]}>
+    <View
+      style={[
+        styles.inputContainer,
+        time ? styles.timeInput : null,
+        position === 'left'
+          ? {marginRight: 5}
+          : position === 'right'
+          ? {marginLeft: 5}
+          : null,
+      ]}>
       <Text style={[fontStyles.buttonTextSmall]}>{inputHeader}</Text>
       <TouchableOpacity
         style={[styles.inputStyle]}
@@ -53,7 +63,7 @@ const DateTimeInputField = ({
 
 const styles = StyleSheet.create({
   inputContainer: {
-    padding: 0,
+    marginVertical: 12,
   },
   inputStyle: {
     flexDirection: 'row',
@@ -67,7 +77,6 @@ const styles = StyleSheet.create({
   },
   timeInput: {
     flex: 1,
-    paddingHorizontal: 4,
   },
   textNoValue: {
     color: color.Black[25],

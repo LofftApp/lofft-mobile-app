@@ -16,7 +16,11 @@ const TextInputField = ({
     <View style={styles.inputContainer}>
       <Text style={[fontStyles.buttonTextSmall]}>{inputHeader}</Text>
       <TextInput
-        style={[styles.inputStyle, fontStyles.bodyMedium]}
+        style={[
+          styles.inputStyle,
+          fontStyles.bodyMedium,
+          multiline ? styles.multiLine : null,
+        ]}
         placeholder={placeholder}
         autoCapitalize="none"
         value={value}
@@ -28,15 +32,19 @@ const TextInputField = ({
 };
 
 const styles = StyleSheet.create({
-  inputContainer: {},
+  inputContainer: {
+    marginVertical: 12,
+  },
   inputStyle: {
-    // height: 25,
-    width: '100%',
     backgroundColor: color.Lavendar[10],
     paddingVertical: 13,
     paddingHorizontal: 10,
     marginTop: 5,
     borderRadius: 4,
+  },
+  multiLine: {
+    paddingTop: 13,
+    minHeight: 75,
   },
 });
 
