@@ -3,7 +3,10 @@ import {View, Text, ImageBackground, StyleSheet} from 'react-native';
 
 // Firebase
 import auth from '@react-native-firebase/auth';
-import {cancelLofftEvent} from '../../api/firebase/fireStoreActions';
+import {
+  attendLofftEvent,
+  cancelLofftEvent,
+} from '../../api/firebase/fireStoreActions';
 
 // Components 🪢
 import {CoreButton} from '../../components/buttons/CoreButton';
@@ -15,10 +18,12 @@ import {fontStyles} from '../../StyleSheets/FontStyleSheet';
 import color from '../../assets/defaultColorPallet.json';
 
 const EventsCard = ({event}) => {
+  console.log(event.attending);
   // Hooks
   // const [tags, setUserTags] = useState({text: 'invited', color: 'Lavendar'});
   const [tags, setTags] = useState({text: 'invited', color: 'Lavendar'});
   const [cancelled, setCancelled] = useState(false);
+  const [attending, setAttending] = useState(null);
   const [creator, setCreator] = useState(false);
 
   useEffect(() => {
@@ -31,12 +36,21 @@ const EventsCard = ({event}) => {
       setTags({text: 'Cancelled', color: 'Black'});
       setCancelled(true);
     }
+
+    if (event.attending.includes(auth().currentUser.uid)) {
+      setTags({text: 'Attending', color: 'Mint'});
+      setAttending(true);
+    }
   }, []);
 
   const triggerCancelled = () => {
-    console.log('I was clicked');
     setTags({text: 'Cancelled', color: 'Black'});
     setCancelled(true);
+  };
+
+  const triggerAttending = () => {
+    setTags({text: 'Attending', color: 'Mint'});
+    setAttending(true);
   };
 
   return (
@@ -69,7 +83,7 @@ const EventsCard = ({event}) => {
                   }}
                 />
               )
-            ) : (
+            ) : attending ? null : (
               <>
                 <CoreButton
                   value="Attend"
@@ -78,6 +92,10 @@ const EventsCard = ({event}) => {
                     fontStyles.buttonTextSmall,
                     styles.buttonFontStyle,
                   ]}
+                  onPress={() => {
+                    attendLofftEvent(event.uid);
+                    triggerAttending();
+                  }}
                 />
                 <CoreButton
                   value="Reject"

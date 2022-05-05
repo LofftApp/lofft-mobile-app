@@ -235,6 +235,22 @@ export const getLofftEvents = async () => {
   return result;
 };
 
+export const attendLofftEvent = async e => {
+  console.log("You're attending");
+  const currentUser = auth().currentUser;
+  const user = await getCurrentUserDetails(currentUser);
+  const loftId = user.details.lofft.lofftId;
+  await firestore()
+    .collection('Managements')
+    .doc(loftId)
+    .collection('Events')
+    .doc(e)
+    .update({
+      attending: firestore.FieldValue.arrayUnion(currentUser.uid),
+      updatedAt: new Date(),
+    });
+};
+
 export const cancelLofftEvent = async e => {
   const currentUser = auth().currentUser;
   const user = await getCurrentUserDetails(currentUser);
@@ -244,7 +260,10 @@ export const cancelLofftEvent = async e => {
     .doc(loftId)
     .collection('Events')
     .doc(e)
-    .update({active: false});
+    .update({
+      active: false,
+      updatedAt: new Date(),
+    });
 };
 
 // Create Poll
