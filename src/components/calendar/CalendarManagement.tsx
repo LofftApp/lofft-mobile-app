@@ -32,17 +32,27 @@ class CalendarManagement extends React.Component {
     this.props.getSelectedDate(day);
     const _selectedDay = moment(day.dateString).format(_format);
     const _previousSelection = this.selectedDay;
-
     let selected = true;
     let selectedDates = {};
+    let updateSelectedDates = {};
+
+    if (_previousSelection !== _selectedDay) {
+      let deselectedDates = {};
+      deselectedDates = {...deselectedDates, ...{selected: !selected}};
+      updateSelectedDates = {
+        ...this.state._selectedDates,
+        ...{[_previousSelection]: deselectedDates},
+      };
+    }
+    selected = true;
     if (this.state._selectedDates[_selectedDay]) {
       selected = !this.state._selectedDates[_selectedDay].selected;
       selectedDates = this.state._selectedDates[_selectedDay];
     }
 
     selectedDates = {...selectedDates, ...{selected}};
-    const updateSelectedDates = {
-      ...this.state._selectedDates,
+    updateSelectedDates = {
+      ...updateSelectedDates,
       ...{[_selectedDay]: selectedDates},
     };
     this.setState({_selectedDates: updateSelectedDates});
