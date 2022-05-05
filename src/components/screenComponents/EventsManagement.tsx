@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {Text, StyleSheet, ScrollView} from 'react-native';
+import {navigationRef as navigation} from './../../RootNavigation';
 
 // Components 🪢
 import {CoreButton} from '../../components/buttons/CoreButton';
@@ -21,7 +22,7 @@ import {
 import {fontStyles} from '../../StyleSheets/FontStyleSheet';
 import color from '../../assets/defaultColorPallet.json';
 
-const EventsManagement = ({navigation}) => {
+const EventsManagement = () => {
   // Hooks
   const [userEventsDates, setUserEventsDates] = useState(null);
   const [selectedDate, setSelectedDate] = useState(new Date());
