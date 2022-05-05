@@ -56,54 +56,58 @@ const MakeNewEventScreen = ({navigation, route}) => {
 
       <View style={styles.formContainer}>
         <View style={styles.formFields}>
-          <TextInputField
-            value={eventName}
-            onChageText={e => setEventName(e)}
-            inputHeader="Event Name"
-            placeholder="event name..."
-          />
-          <TextInputField
-            value={location}
-            onChageText={e => setLocation(e)}
-            inputHeader="Location"
-            placeholder="Wilsnackerstr..."
-          />
-          <DateTimeInputField
-            inputHeader="Date"
-            value={date}
-            onConfirm={date => {
-              setDate(date);
-            }}
-          />
-          <View style={styles.timeContainer}>
-            <DateTimeInputField
-              inputHeader="Starts"
-              value={fromTime}
-              time
-              onConfirm={time => {
-                setFromTime(time);
-              }}
-              position="left"
+          <View style={styles.detailsBox}>
+            <TextInputField
+              value={eventName}
+              onChageText={e => setEventName(e)}
+              inputHeader="Event Name"
+              placeholder="event name..."
             />
-            <DateTimeInputField
-              inputHeader="Ends"
-              value={untilTime}
-              time
-              onConfirm={time => {
-                setUntilTime(time);
-              }}
-              position="right"
+            <TextInputField
+              value={location}
+              onChageText={e => setLocation(e)}
+              inputHeader="Location"
+              placeholder="Wilsnackerstr..."
             />
           </View>
-
-          <TextInputField
-            value={description}
-            onChageText={e => setdescription(e)}
-            inputHeader="Description"
-            placeholder="Hey what's happening..."
-            multiline
-          />
-
+          <View style={styles.detailsBox}>
+            <DateTimeInputField
+              inputHeader="Date"
+              value={date}
+              onConfirm={date => {
+                setDate(date);
+              }}
+            />
+            <View style={styles.timeContainer}>
+              <DateTimeInputField
+                inputHeader="Starts"
+                value={fromTime}
+                time
+                onConfirm={time => {
+                  setFromTime(time);
+                }}
+                position="left"
+              />
+              <DateTimeInputField
+                inputHeader="Ends"
+                value={untilTime}
+                time
+                onConfirm={time => {
+                  setUntilTime(time);
+                }}
+                position="right"
+              />
+            </View>
+          </View>
+          <View style={styles.detailsBox}>
+            <TextInputField
+              value={description}
+              onChageText={e => setdescription(e)}
+              inputHeader="Description"
+              placeholder="Hey what's happening..."
+              multiline
+            />
+          </View>
           {/* <View style={styles.inputToggleContainer}>
           <Text style={[fontStyles.buttonTextMedium, {flex: 1}]}>
             Let your flatmates know?
@@ -144,7 +148,9 @@ const styles = StyleSheet.create({
   formFields: {
     flex: 1,
   },
-
+  detailsBox: {
+    marginVertical: 5,
+  },
   timeContainer: {
     flexDirection: 'row',
   },

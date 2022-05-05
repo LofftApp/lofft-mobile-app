@@ -33,7 +33,7 @@ const TextInputField = ({
 
 const styles = StyleSheet.create({
   inputContainer: {
-    marginVertical: 12,
+    marginVertical: 5,
   },
   inputStyle: {
     backgroundColor: color.Lavendar[10],

@@ -63,7 +63,7 @@ const DateTimeInputField = ({
 
 const styles = StyleSheet.create({
   inputContainer: {
-    marginVertical: 12,
+    marginVertical: 5,
   },
   inputStyle: {
     flexDirection: 'row',
