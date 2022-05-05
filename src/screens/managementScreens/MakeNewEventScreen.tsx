@@ -15,6 +15,7 @@ import CustomBackButton from '../../components/buttons/CustomBackButton';
 import {CoreButton} from '../../components/buttons/CoreButton';
 import DatePicker from 'react-native-date-picker';
 import TextInputField from '../../components/forms/TextInputField';
+import DateTimeInputField from '../../components/forms/DateTimeInputField';
 
 // Helpers
 import {
@@ -26,7 +27,6 @@ import {
 import {CoreStyleSheet} from '../../StyleSheets/CoreDesignStyleSheet';
 import {fontStyles} from '../../StyleSheets/FontStyleSheet';
 import color from '../../assets/defaultColorPallet.json';
-import HalfBackgroundImage from './../../assets/banner-background-half.png';
 
 // Firestore
 
@@ -72,30 +72,13 @@ const MakeNewEventScreen = ({navigation, route}) => {
           inputHeader="Location"
           placeholder="Wilsnackerstr..."
         />
-
-        <View style={styles.InputContainer}>
-          <Text style={[fontStyles.buttonTextMedium, {flex: 1}]}>Date</Text>
-          <TouchableOpacity
-            style={styles.inputStyle}
-            onPress={() => setDateOpen(true)}>
-            <Text
-              style={[fontStyles.bodyMedium, date ? null : styles.textNoValue]}>
-              {date ? dateFormatter(date) : 'Choose date'}
-            </Text>
-          </TouchableOpacity>
-          <DatePicker
-            modal
-            minimumDate={new Date()}
-            mode="date"
-            open={dateOpen}
-            date={date ? date : new Date()}
-            onConfirm={date => {
-              setDateOpen(false);
-              setDate(date);
-            }}
-            onCancel={() => setDateOpen(false)}
-          />
-        </View>
+        <DateTimeInputField
+          inputHeader="Date"
+          value={date}
+          onConfirm={date => {
+            setDate(date);
+          }}
+        />
 
         <View style={styles.timeContainer}>
           <Text style={[fontStyles.buttonTextMedium, {flex: 1}]}>Time</Text>
