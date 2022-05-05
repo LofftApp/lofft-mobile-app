@@ -14,6 +14,7 @@ import {Switch} from 'react-native-paper';
 import CustomBackButton from '../../components/buttons/CustomBackButton';
 import {CoreButton} from '../../components/buttons/CoreButton';
 import DatePicker from 'react-native-date-picker';
+import TextInputField from '../../components/forms/TextInputField';
 
 // Helpers
 import {
@@ -31,7 +32,7 @@ import HalfBackgroundImage from './../../assets/banner-background-half.png';
 
 const MakeNewEventScreen = ({navigation, route}) => {
   console.log(route.params.selectedDate);
-  const [title, setTitle] = useState('');
+  const [eventName, setEventName] = useState('');
   const [location, setLocation] = useState('');
   const [fromdate, setfromDate] = useState('');
   const [untildate, setuntilDate] = useState('');
@@ -59,152 +60,133 @@ const MakeNewEventScreen = ({navigation, route}) => {
       />
 
       <View style={styles.centerContainer}>
-        <ImageBackground
-          source={HalfBackgroundImage}
-          style={styles.eventContainer}
-          resizeMode="cover">
-          <View style={styles.InputContainer}>
-            <Text style={[fontStyles.buttonTextMedium, {flex: 1}]}>Title</Text>
-            <TextInput
-              style={[styles.inputStyle, fontStyles.bodyMedium]}
-              placeholder="Name of Event"
-              autoCapitalize="none"
-              value={title}
-              onChangeText={text => setTitle(text)}
-            />
-          </View>
+        <TextInputField
+          value={eventName}
+          onChageText={e => setEventName(e)}
+          inputHeader="Event Name"
+          placeholder="event name..."
+        />
+        <TextInputField
+          value={location}
+          onChageText={e => setLocation(e)}
+          inputHeader="Location"
+          placeholder="Wilsnackerstr..."
+        />
 
-          <View style={styles.InputContainer}>
-            <Text style={[fontStyles.buttonTextMedium, {flex: 1}]}>
-              Location
+        <View style={styles.InputContainer}>
+          <Text style={[fontStyles.buttonTextMedium, {flex: 1}]}>Date</Text>
+          <TouchableOpacity
+            style={styles.inputStyle}
+            onPress={() => setDateOpen(true)}>
+            <Text
+              style={[fontStyles.bodyMedium, date ? null : styles.textNoValue]}>
+              {date ? dateFormatter(date) : 'Choose date'}
             </Text>
-            <TextInput
-              style={[styles.inputStyle, fontStyles.bodyMedium]}
-              placeholder="e.g the kitchen"
-              autoCapitalize="none"
-              value={location}
-              onChangeText={text => setLocation(text)}
-            />
-          </View>
+          </TouchableOpacity>
+          <DatePicker
+            modal
+            minimumDate={new Date()}
+            mode="date"
+            open={dateOpen}
+            date={date ? date : new Date()}
+            onConfirm={date => {
+              setDateOpen(false);
+              setDate(date);
+            }}
+            onCancel={() => setDateOpen(false)}
+          />
+        </View>
 
-          <View style={styles.InputContainer}>
-            <Text style={[fontStyles.buttonTextMedium, {flex: 1}]}>Date</Text>
-            <TouchableOpacity
-              style={styles.inputStyle}
-              onPress={() => setDateOpen(true)}>
-              <Text
-                style={[
-                  fontStyles.bodyMedium,
-                  date ? null : styles.textNoValue,
-                ]}>
-                {date ? dateFormatter(date) : 'Choose date'}
-              </Text>
-            </TouchableOpacity>
-            <DatePicker
-              modal
-              minimumDate={new Date()}
-              mode="date"
-              open={dateOpen}
-              date={date ? date : new Date()}
-              onConfirm={date => {
-                setDateOpen(false);
-                setDate(date);
-              }}
-              onCancel={() => setDateOpen(false)}
-            />
-          </View>
+        <View style={styles.timeContainer}>
+          <Text style={[fontStyles.buttonTextMedium, {flex: 1}]}>Time</Text>
 
-          <View style={styles.timeContainer}>
-            <Text style={[fontStyles.buttonTextMedium, {flex: 1}]}>Time</Text>
-
-            <View style={[styles.inputTimeContainer, {marginLeft: 12}]}>
-              <View style={styles.timeinputContainer}>
-                <Text style={fontStyles.buttonTextSmall}>From:</Text>
-                <TouchableOpacity
-                  style={styles.timeInputForm}
-                  onPress={() => {
-                    date ? setFromTime(date) : null;
-                    setFromTimeOpen(true);
-                  }}>
-                  <Text
-                    style={[
-                      fontStyles.bodyMedium,
-                      fromTime ? null : styles.textNoValue,
-                    ]}>
-                    {fromTime ? timeFormatter(fromTime) : '##:##'}
-                  </Text>
-                </TouchableOpacity>
-                <DatePicker
-                  modal
-                  mode="time"
-                  minuteInterval={5}
-                  open={fromTimeOpen}
-                  date={fromTime ? fromTime : new Date()}
-                  onConfirm={time => {
-                    setFromTimeOpen(false);
-                    setFromTime(time);
-                  }}
-                  onCancel={() => setFromTimeOpen(false)}
-                />
-              </View>
-              <View style={styles.timeBreaker} />
-              <View style={styles.timeinputContainer}>
-                <Text style={fontStyles.buttonTextSmall}>Until:</Text>
-                <TouchableOpacity
-                  style={styles.timeInputForm}
-                  onPress={() => {
-                    date ? setUntilTime(date) : null;
-                    setUntilTimeOpen(true);
-                  }}>
-                  <Text
-                    style={[
-                      fontStyles.bodyMedium,
-                      untilTime ? null : styles.textNoValue,
-                    ]}>
-                    {untilTime ? timeFormatter(untilTime) : '##:##'}
-                  </Text>
-                </TouchableOpacity>
-                <DatePicker
-                  modal
-                  minuteInterval={5}
-                  mode="time"
-                  open={untilTimeOpen}
-                  date={untilTime ? untilTime : new Date()}
-                  onConfirm={time => {
-                    setUntilTimeOpen(false);
-                    setUntilTime(time);
-                  }}
-                  onCancel={() => setUntilTimeOpen(false)}
-                />
-              </View>
+          <View style={[styles.inputTimeContainer, {marginLeft: 12}]}>
+            <View style={styles.timeinputContainer}>
+              <Text style={fontStyles.buttonTextSmall}>From:</Text>
+              <TouchableOpacity
+                style={styles.timeInputForm}
+                onPress={() => {
+                  date ? setFromTime(date) : null;
+                  setFromTimeOpen(true);
+                }}>
+                <Text
+                  style={[
+                    fontStyles.bodyMedium,
+                    fromTime ? null : styles.textNoValue,
+                  ]}>
+                  {fromTime ? timeFormatter(fromTime) : '##:##'}
+                </Text>
+              </TouchableOpacity>
+              <DatePicker
+                modal
+                mode="time"
+                minuteInterval={5}
+                open={fromTimeOpen}
+                date={fromTime ? fromTime : new Date()}
+                onConfirm={time => {
+                  setFromTimeOpen(false);
+                  setFromTime(time);
+                }}
+                onCancel={() => setFromTimeOpen(false)}
+              />
+            </View>
+            <View style={styles.timeBreaker} />
+            <View style={styles.timeinputContainer}>
+              <Text style={fontStyles.buttonTextSmall}>Until:</Text>
+              <TouchableOpacity
+                style={styles.timeInputForm}
+                onPress={() => {
+                  date ? setUntilTime(date) : null;
+                  setUntilTimeOpen(true);
+                }}>
+                <Text
+                  style={[
+                    fontStyles.bodyMedium,
+                    untilTime ? null : styles.textNoValue,
+                  ]}>
+                  {untilTime ? timeFormatter(untilTime) : '##:##'}
+                </Text>
+              </TouchableOpacity>
+              <DatePicker
+                modal
+                minuteInterval={5}
+                mode="time"
+                open={untilTimeOpen}
+                date={untilTime ? untilTime : new Date()}
+                onConfirm={time => {
+                  setUntilTimeOpen(false);
+                  setUntilTime(time);
+                }}
+                onCancel={() => setUntilTimeOpen(false)}
+              />
             </View>
           </View>
+        </View>
 
-          <View style={styles.inputToggleContainer}>
-            <Text style={[fontStyles.buttonTextMedium, {flex: 1}]}>
-              Let your flatmates know?
-            </Text>
-            <Switch
-              color="#724EFA"
-              value={informFlatmates}
-              onValueChange={onToggleSwitch}
-            />
-          </View>
+        <View style={styles.inputToggleContainer}>
+          <Text style={[fontStyles.buttonTextMedium, {flex: 1}]}>
+            Let your flatmates know?
+          </Text>
+          <Switch
+            color="#724EFA"
+            value={informFlatmates}
+            onValueChange={onToggleSwitch}
+          />
+        </View>
 
-          <View style={styles.descriptionContainer}>
-            <Text style={[fontStyles.buttonTextMedium, {flex: 0.2}]}>
-              Description
-            </Text>
-            <TextInput
-              style={[styles.descriptionInputForm, fontStyles.bodyMedium]}
-              placeholder=""
-              autoCapitalize="none"
-              value={description}
-              onChangeText={text => setdescription(text)}
-              multiline={true}
-            />
-          </View>
-        </ImageBackground>
+        <View style={styles.descriptionContainer}>
+          <Text style={[fontStyles.buttonTextMedium, {flex: 0.2}]}>
+            Description
+          </Text>
+          <TextInput
+            style={[styles.descriptionInputForm, fontStyles.bodyMedium]}
+            placeholder=""
+            autoCapitalize="none"
+            value={description}
+            onChangeText={text => setdescription(text)}
+            multiline={true}
+          />
+        </View>
       </View>
 
       <View style={styles.actionButtonContainer}>
@@ -230,8 +212,8 @@ const MakeNewEventScreen = ({navigation, route}) => {
 
 const styles = StyleSheet.create({
   centerContainer: {
-    display: 'flex',
-    alignItems: 'center',
+    // display: 'flex',
+    // alignItems: 'center',
   },
 
   eventContainer: {
