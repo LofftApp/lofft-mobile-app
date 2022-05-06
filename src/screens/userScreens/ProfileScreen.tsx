@@ -208,26 +208,31 @@ const ProfileScreen = () => {
             textStyle={[styles.descriptionStyle]}
           />
         ) : null}
-
-        <Text style={fontStyles.buttonTextMedium}>Loffts</Text>
-        <View style={styles.noLofftContainer}>
-          <Text style={styles.noLofftText}>👀</Text>
-          <Text style={styles.noLofftText}>Nothing to see here</Text>
-          <Text style={styles.noLofftText}>They're a newbie</Text>
-          <Text style={styles.noLofftText}>...........</Text>
+        <View style={styles.sectionContainer}>
+          <HobbiesAndValues
+            values={values}
+            selectHobby={k => selectHobby(k)}
+            selectedHobbies={selectedHobbies}
+            edit={edit}
+          />
         </View>
-        <Text style={fontStyles.buttonTextMedium}>Photo Library</Text>
-        <View style={styles.noLofftContainer}>
-          <View style={styles.addImageButton}>
-            <Icon name="add-outline" size={60} color={color.Black[30]} />
+        <View style={styles.sectionContainer}>
+          <Text style={fontStyles.buttonTextMedium}>Photo Library</Text>
+          <View style={styles.noLofftContainer}>
+            <View style={styles.addImageButton}>
+              <Icon name="add-outline" size={60} color={color.Black[30]} />
+            </View>
           </View>
         </View>
-        <HobbiesAndValues
-          values={values}
-          selectHobby={k => selectHobby(k)}
-          selectedHobbies={selectedHobbies}
-          edit={edit}
-        />
+        <View style={styles.sectionContainer}>
+          <Text style={fontStyles.buttonTextMedium}>Loffts</Text>
+          <View style={styles.noLofftContainer}>
+            <Text style={styles.noLofftText}>👀</Text>
+            <Text style={styles.noLofftText}>Nothing to see here</Text>
+            <Text style={styles.noLofftText}>They're a newbie</Text>
+            <Text style={styles.noLofftText}>...........</Text>
+          </View>
+        </View>
 
         {/* Add Spotify / Apple Music API here */}
       </ScrollView>
@@ -291,6 +296,9 @@ const styles = StyleSheet.create({
     paddingTop: 10,
     paddingBottom: 10,
     paddingHorizontal: 5,
+  },
+  sectionContainer: {
+    marginVertical: 15,
   },
   descriptionStyleInput: {
     borderWidth: 1,
