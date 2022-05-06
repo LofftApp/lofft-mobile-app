@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {Text, StyleSheet, ScrollView} from 'react-native';
+import {View, Text, StyleSheet, ScrollView} from 'react-native';
 
 // Components 🪢
 import {CoreButton} from '../../components/buttons/CoreButton';
@@ -101,7 +101,7 @@ const EventsManagement = ({navigation}) => {
   }, []);
 
   return (
-    <>
+    <View>
       {userEventsDates ? (
         <CalendarManagement
           events={userEventsDates}
@@ -120,19 +120,19 @@ const EventsManagement = ({navigation}) => {
           })
         }
       />
-      <ScrollView>
+      <>
         {selectedEvent ? (
-          <>
+          <ScrollView>
             <Text style={[fontStyles.headerXtraSmall]}>{fullDate}</Text>
             {selectedEvent.map(e => {
-              return <EventsCard key={e} event={e} />;
+              return <EventsCard key={e.uid} event={e} />;
             })}
-          </>
+          </ScrollView>
         ) : (
           <Text>There are currently no events planned for this day</Text>
         )}
-      </ScrollView>
-    </>
+      </>
+    </View>
   );
 };
 
