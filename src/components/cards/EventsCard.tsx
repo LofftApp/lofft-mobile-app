@@ -65,11 +65,13 @@ const EventsCard = ({event}) => {
   };
 
   return (
-    <>
+    <View style={styles.card}>
       <ImageBackground source={HalfBackgroundImage} style={styles.eventCard}>
         <View style={styles.contentContainer}>
           <View style={styles.headerBar}>
-            <Text style={fontStyles.buttonTextMedium}>{event.title}</Text>
+            <Text style={[fontStyles.buttonTextMedium, styles.title]}>
+              {event.title}
+            </Text>
             <TagIcon text={tags.text} userColor={tags.color} />
           </View>
           <Text>
@@ -125,11 +127,17 @@ const EventsCard = ({event}) => {
           </View>
         </View>
       </ImageBackground>
-    </>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
+  card: {
+    marginVertical: 5,
+  },
+  title: {
+    flex: 1,
+  },
   button: {
     marginVertical: 5,
   },
