@@ -10,6 +10,10 @@ const TagIcon = ({text, userColor}) => {
   let pillColor = '';
   let pillBackgroundColor = '';
   switch (userColor) {
+    case 'Black':
+      pillColor = color.Black[100];
+      pillBackgroundColor = color.Black[10];
+      break;
     case 'Blue':
       pillColor = color.Blue[100];
       pillBackgroundColor = color.Blue[10];
@@ -53,7 +57,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-around',
     alignItems: 'center',
-    marginRight: 15,
+    // marginRight: 15,
   },
 });
 

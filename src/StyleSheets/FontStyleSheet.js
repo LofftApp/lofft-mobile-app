@@ -39,6 +39,14 @@ export const fontStyles = StyleSheet.create({
     letterSpacing: 0.2,
     lineHeight: 48,
   },
+  headerXtraSmall: {
+    fontFamily: headerFont700,
+    color: color.Black[100],
+    fontWeight: '700',
+    fontSize: 18,
+    letterSpacing: 0.1,
+    lineHeight: 35,
+  },
   bodyLarge: {
     fontFamily: bodyFont,
     color: color.Black[100],
