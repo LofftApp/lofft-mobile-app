@@ -201,6 +201,11 @@ const ProfileScreen = () => {
             fontStyle={fontStyles.bodySmall}
             multiline={true}
             onChangeText={t => setNewDescription(t)}
+            inputFieldStyle={[
+              styles.descriptionStyle,
+              styles.descriptionStyleInput,
+            ]}
+            textStyle={[styles.descriptionStyle]}
           />
         ) : null}
 
@@ -235,7 +240,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     flex: 1,
     alignItems: 'baseline',
-    // paddingRight: 10,
   },
   pageContainer: {
     flex: 1,
@@ -281,6 +285,16 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     marginRight: 15,
+  },
+  descriptionStyle: {
+    marginBottom: 15,
+    paddingTop: 10,
+    paddingBottom: 10,
+    paddingHorizontal: 5,
+  },
+  descriptionStyleInput: {
+    borderWidth: 1,
+    borderColor: color.Black[25],
   },
   fontColor: {
     color: color.Lavendar[100],

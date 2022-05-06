@@ -35,7 +35,7 @@ const EditableTextField = ({
 const styles = StyleSheet.create({
   editForm: {
     flexDirection: 'row',
-    backgroundColor: color.Black[5],
+    backgroundColor: color.White[50],
     paddingHorizontal: 5,
     lineHeight: 0,
     borderRadius: 4,
