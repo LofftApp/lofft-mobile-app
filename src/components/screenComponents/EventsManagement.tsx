@@ -24,9 +24,7 @@ import color from '../../assets/defaultColorPallet.json';
 const EventsManagement = ({navigation}) => {
   // Hooks
   const [userEventsDates, setUserEventsDates] = useState(null);
-  const [selectedDate, setSelectedDate] = useState(
-    dateStringFormatter(new Date()),
-  );
+  const [selectedDate, setSelectedDate] = useState(new Date());
   const [events, setEvents] = useState(null);
   const [selectedEvent, setSelectedEvents] = useState(null);
   const [fullDate, setFullDate] = useState(null);
@@ -72,7 +70,7 @@ const EventsManagement = ({navigation}) => {
       setSelectedDate(null);
       setSelectedEvents(null);
     } else {
-      const date = dateStringFormatter(new Date(d.dateString));
+      const date = new Date(d.dateString);
       setSelectedDate(date);
       setFullDate(fullDateFormatter(date));
       const filtered = events.filter(f => f.date === d.dateString);

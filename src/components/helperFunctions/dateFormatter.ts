@@ -18,12 +18,14 @@ const unitToTen = value => {
 };
 
 export const dateFormatter = date => {
+  // console.log(date);
   const day = unitToTen(date.getDate());
   const month = unitToTen(date.getMonth() + 1);
   return `${day}-${month}-${date.getFullYear()}`;
 };
 
 export const dateStringFormatter = date => {
+  // console.log(date);
   const formattedDate = dateFormatter(date);
   const splitDate = formattedDate.split('-');
   return `${splitDate[2]}-${splitDate[1]}-${splitDate[0]}`;
@@ -36,7 +38,9 @@ export const timeFormatter = time => {
 };
 
 export const fullDateFormatter = date => {
-  const day = unitToTen(date.getDate());
-  const month = monthsEng[date.getMonth()];
-  return `${day} ${month} ${date.getFullYear()}`;
+  if (date) {
+    const day = unitToTen(date.getDate());
+    const month = monthsEng[date.getMonth()];
+    return `${day} ${month} ${date.getFullYear()}`;
+  }
 };

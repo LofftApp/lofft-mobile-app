@@ -2,6 +2,7 @@ import firestore, {doc, getDoc, setDoc} from '@react-native-firebase/firestore';
 import auth from '@react-native-firebase/auth';
 import {getCurrentUser} from './firebaseApi';
 import values from '../../data/hobbiesAndValues.json';
+import {dateStringFormatter} from '../../components/helperFunctions/dateFormatter';
 
 export const userDetailsUpdate = () => {
   auth().onAuthStateChanged(user => {
@@ -221,7 +222,9 @@ export const getLofftEvents = async () => {
   const currentUser = auth().currentUser;
   const user = await getCurrentUserDetails(currentUser);
   const loftId = user.details.lofft.lofftId;
-  const date = new Date();
+  let date = new Date();
+  date = new Date(dateStringFormatter(date));
+  console.log(date);
   const firstMonth = new Date(date.getFullYear(), date.getMonth(), 2);
   const result = await firestore()
     .collection('Managements')
@@ -232,6 +235,7 @@ export const getLofftEvents = async () => {
     .then(docSnapshot => {
       return docSnapshot.docs;
     });
+  // console.log(result);
   return result;
 };
 
