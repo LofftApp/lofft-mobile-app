@@ -23,7 +23,7 @@ import PaidConfirmationScreen from './src/screens/financeScreens/PaidConfirmatio
 // Management Screens
 import MakeNewPollScreen from './src/screens/managementScreens/MakeNewPollScreen';
 import MakeNewEventScreen from './src/screens/managementScreens/MakeNewEventScreen';
-import AddFriendsScreen from './src/screens/managementScreens/AddFriendsScreen';
+
 import DeadlineScreen from './src/screens/managementScreens/DeadlineScreen';
 import EventConfirmationScreen from './src/screens/managementScreens/EventConfirmationScreen';
 import PollConfirmationScreen from './src/screens/managementScreens/PollConfirmationScreen';
@@ -111,12 +111,6 @@ const App = () => {
           <Stack.Screen
             name="MakeNewEvent"
             component={MakeNewEventScreen}
-            options={{headerShown: false}}
-          />
-
-          <Stack.Screen
-            name="AddFriendsToEvent"
-            component={AddFriendsScreen}
             options={{headerShown: false}}
           />
 

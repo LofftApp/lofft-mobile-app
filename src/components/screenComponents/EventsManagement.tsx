@@ -1,12 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {
-  View,
-  Text,
-  ImageBackground,
-  StyleSheet,
-  ScrollView,
-} from 'react-native';
-import moment from 'moment';
+import {View, Text, StyleSheet, ScrollView} from 'react-native';
 
 // Components 🪢
 import {CoreButton} from '../../components/buttons/CoreButton';
@@ -30,12 +23,14 @@ import color from '../../assets/defaultColorPallet.json';
 
 const EventsManagement = ({navigation}) => {
   // Hooks
-  const [userEventsDates, setUserEventsDates] = useState();
+  const [userEventsDates, setUserEventsDates] = useState(null);
   const [selectedDate, setSelectedDate] = useState(new Date());
+  const [formattedSelectedDate, setFormattedSelectedDate] = useState(
+    dateStringFormatter(selectedDate),
+  );
   const [events, setEvents] = useState(null);
   const [selectedEvent, setSelectedEvents] = useState(null);
   const [fullDate, setFullDate] = useState(null);
-
   const addEventsToDate = events => {
     let answer = [];
     events.forEach(event => {
@@ -46,19 +41,32 @@ const EventsManagement = ({navigation}) => {
     return answer;
   };
 
+  const setDates = d => {
+    setSelectedDate(d);
+    setFormattedSelectedDate(dateStringFormatter(d));
+  };
+
   const eventsData = async () => {
     const allEvents = await getLofftEvents();
     const dArray = addEventsToDate(allEvents);
-    setUserEventsDates(dArray);
+    dArray ? setUserEventsDates(dArray) : setUserEventsDates([]);
+
     const eventsObj = allEvents.map(e => {
       const data = e.data();
+      const uid = e.id;
       return {
+        uid,
         title: data.title,
         description: data.description,
         location: data.location,
+        invited: data.invited,
+        attending: data.attending,
+        notAttending: data.notAttending,
         date: dateStringFormatter(new Date(data.date.seconds * 1000)),
         fromTime: timeFormatter(new Date(data.from.seconds * 1000)),
         toTime: timeFormatter(new Date(data.till.seconds * 1000)),
+        createdBy: data.createdBy,
+        active: data.active,
       };
     });
     setEvents(eventsObj);
@@ -67,11 +75,11 @@ const EventsManagement = ({navigation}) => {
   const getSelectedDate = d => {
     if (selectedDate && d.dateString === dateStringFormatter(selectedDate)) {
       setSelectedDate(null);
+      setFormattedSelectedDate(null);
       setSelectedEvents(null);
     } else {
       const date = new Date(d.dateString);
-      // console.log(dateStringFormatter(date));
-      setSelectedDate(date);
+      setDates(date);
       setFullDate(fullDateFormatter(date));
       const filtered = events.filter(f => f.date === d.dateString);
       setSelectedEvents(filtered.length > 0 ? filtered : null);
@@ -79,56 +87,52 @@ const EventsManagement = ({navigation}) => {
   };
 
   useEffect(() => {
+    eventsData();
     const subscriber = firestore()
       .collection('Managements')
       .doc('B7vxlFYgNpnYPOT7eMfO')
       .collection('Events')
       .onSnapshot(snapShot => {
-        snapShot.docChanges().forEach(async change => {
-          if (change.type === 'added' || change.type === 'removed') {
-            eventsData();
-          }
+        snapShot.docChanges().forEach(() => {
+          eventsData();
         });
       });
     return () => subscriber();
   }, []);
+
   return (
-    <>
+    <View>
       {userEventsDates ? (
         <CalendarManagement
           events={userEventsDates}
           getSelectedDate={getSelectedDate}
         />
       ) : (
-        <Text>Loading</Text>
+        <Text>Loading...</Text>
       )}
       <CoreButton
         value="Add new event"
         style={styles.button}
         invert
-        onPress={() => navigation.navigate('MakeNewEvent', {selectedDate})}
+        onPress={() =>
+          navigation.navigate('MakeNewEvent', {
+            selectedDate: formattedSelectedDate,
+          })
+        }
       />
-      <ScrollView>
+      <>
         {selectedEvent ? (
-          <>
+          <ScrollView>
             <Text style={[fontStyles.headerXtraSmall]}>{fullDate}</Text>
             {selectedEvent.map(e => {
-              return (
-                <EventsCard
-                  key={e}
-                  title={e.title}
-                  description={e.description}
-                  fromTime={e.fromTime}
-                  toTime={e.toTime}
-                />
-              );
+              return <EventsCard key={e.uid} event={e} />;
             })}
-          </>
+          </ScrollView>
         ) : (
           <Text>There are currently no events planned for this day</Text>
         )}
-      </ScrollView>
-    </>
+      </>
+    </View>
   );
 };
 

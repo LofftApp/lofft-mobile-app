@@ -129,20 +129,22 @@ const ViewApartmentScreen = ({route}) => {
         }
         const usersList = userList.join().split(',');
         usersList.forEach(async user => {
-          const response = await firestore()
-            .collection('Users')
-            .doc(user)
-            .get();
-          const userData = response.data();
-          setTenants(tenants => [
-            ...tenants,
-            {
-              name: userData.name,
-              imageURI: userData.imageURI,
-              id: user,
-              pending: userData.lofft.pending,
-            },
-          ]);
+          if (user) {
+            const response = await firestore()
+              .collection('Users')
+              .doc(user)
+              .get();
+            const userData = response.data();
+            setTenants(tenants => [
+              ...tenants,
+              {
+                name: userData.name,
+                imageURI: userData.imageURI,
+                id: user,
+                pending: userData.lofft.pending,
+              },
+            ]);
+          }
         });
       });
   }, [update]);

@@ -36,7 +36,9 @@ export const timeFormatter = time => {
 };
 
 export const fullDateFormatter = date => {
-  const day = unitToTen(date.getDate());
-  const month = monthsEng[date.getMonth()];
-  return `${day} ${month} ${date.getFullYear()}`;
+  if (date) {
+    const day = unitToTen(date.getDate());
+    const month = monthsEng[date.getMonth()];
+    return `${day} ${month} ${date.getFullYear()}`;
+  }
 };

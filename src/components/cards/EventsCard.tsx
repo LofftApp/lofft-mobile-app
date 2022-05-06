@@ -1,6 +1,14 @@
 import React, {useState, useEffect} from 'react';
 import {View, Text, ImageBackground, StyleSheet} from 'react-native';
 
+// Firebase
+import auth from '@react-native-firebase/auth';
+import {
+  attendLofftEvent,
+  cancelLofftEvent,
+  rejectLofftEvent,
+} from '../../api/firebase/fireStoreActions';
+
 // Components 🪢
 import {CoreButton} from '../../components/buttons/CoreButton';
 import HalfBackgroundImage from './../../assets/banner-background-half.png';
@@ -10,32 +18,112 @@ import TagIcon from '../iconsAndContainers/TagIcon';
 import {fontStyles} from '../../StyleSheets/FontStyleSheet';
 import color from '../../assets/defaultColorPallet.json';
 
-const EventsCard = ({title, description, fromTime, toTime}) => {
+const EventsCard = ({event}) => {
+  // Hooks
+  // const [tags, setUserTags] = useState({text: 'invited', color: 'Lavendar'});
+  const [tags, setTags] = useState({text: 'invited', color: 'Lavendar'});
+  const [cancelled, setCancelled] = useState(false);
+  const [attending, setAttending] = useState(false);
+  const [notAttending, setNotAttending] = useState(false);
+  const [creator, setCreator] = useState(false);
+
+  useEffect(() => {
+    if (event.createdBy === auth().currentUser.uid) {
+      setTags({text: 'Creator', color: 'Blue'});
+      setCreator(true);
+    }
+
+    if (event.attending.includes(auth().currentUser.uid)) {
+      setTags({text: 'Attending', color: 'Mint'});
+      setAttending(true);
+    }
+
+    if (event.notAttending.includes(auth().currentUser.uid)) {
+      setTags({text: 'Not Attending', color: 'Tomato'});
+      setAttending(true);
+    }
+
+    if (!event.active) {
+      setTags({text: 'Cancelled', color: 'Black'});
+      setCancelled(true);
+    }
+  }, []);
+
+  const triggerCancelled = () => {
+    setTags({text: 'Cancelled', color: 'Black'});
+    setCancelled(true);
+  };
+
+  const triggerAttending = () => {
+    setTags({text: 'Attending', color: 'Mint'});
+    setAttending(true);
+  };
+
+  const triggerReject = () => {
+    setTags({text: 'Not Attending', color: 'Tomato'});
+    setNotAttending(true);
+  };
+
   return (
-    <View>
+    <View style={styles.card}>
       <ImageBackground source={HalfBackgroundImage} style={styles.eventCard}>
         <View style={styles.contentContainer}>
           <View style={styles.headerBar}>
-            <Text style={fontStyles.buttonTextMedium}>{title}</Text>
-            <TagIcon text="invited" userColor="Blue" />
+            <Text style={[fontStyles.buttonTextMedium, styles.title]}>
+              {event.title}
+            </Text>
+            <TagIcon text={tags.text} userColor={tags.color} />
           </View>
           <Text>
-            {fromTime} - {toTime}
+            {event.fromTime} - {event.toTime}
           </Text>
           <View>
-            <Text>{description}</Text>
+            <Text>{event.description}</Text>
           </View>
           <View style={styles.buttonBar}>
-            <CoreButton
-              value="Attend"
-              style={styles.buttonStyle}
-              textStyle={[fontStyles.buttonTextSmall, styles.buttonFontStyle]}
-            />
-            <CoreButton
-              value="Reject"
-              style={styles.buttonStyle}
-              textStyle={[fontStyles.buttonTextSmall, styles.buttonFontStyle]}
-            />
+            {creator ? (
+              cancelled ? null : (
+                <CoreButton
+                  value="Cancel"
+                  style={[styles.buttonStyle, styles.eventWarning]}
+                  textStyle={[
+                    fontStyles.buttonTextSmall,
+                    styles.buttonFontStyle,
+                  ]}
+                  onPress={() => {
+                    cancelLofftEvent(event.uid);
+                    triggerCancelled();
+                  }}
+                />
+              )
+            ) : attending || notAttending ? null : (
+              <>
+                <CoreButton
+                  value="Attend"
+                  style={[styles.buttonStyle, styles.eventAttend]}
+                  textStyle={[
+                    fontStyles.buttonTextSmall,
+                    styles.buttonFontStyle,
+                  ]}
+                  onPress={() => {
+                    attendLofftEvent(event.uid);
+                    triggerAttending();
+                  }}
+                />
+                <CoreButton
+                  value="Reject"
+                  style={[styles.buttonStyle, styles.eventWarning]}
+                  textStyle={[
+                    fontStyles.buttonTextSmall,
+                    styles.buttonFontStyle,
+                  ]}
+                  onPress={() => {
+                    rejectLofftEvent(event.uid);
+                    triggerReject();
+                  }}
+                />
+              </>
+            )}
           </View>
         </View>
       </ImageBackground>
@@ -44,6 +132,12 @@ const EventsCard = ({title, description, fromTime, toTime}) => {
 };
 
 const styles = StyleSheet.create({
+  card: {
+    marginVertical: 5,
+  },
+  title: {
+    flex: 1,
+  },
   button: {
     marginVertical: 5,
   },
@@ -75,6 +169,14 @@ const styles = StyleSheet.create({
   },
   buttonFontStyle: {
     color: color.White[100],
+  },
+  eventWarning: {
+    backgroundColor: color.Tomato[100],
+    borderColor: color.Tomato[100],
+  },
+  eventAttend: {
+    backgroundColor: color.Mint[100],
+    borderColor: color.Mint[100],
   },
 });
 

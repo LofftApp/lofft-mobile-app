@@ -11,6 +11,7 @@ const UserIcon = ({
   userImageStyle = {},
   onPress = {},
   disabled = false,
+  lofftSpace = false,
 }: any) => {
   return (
     <TouchableOpacity
@@ -19,7 +20,11 @@ const UserIcon = ({
       disabled={disabled}>
       <View style={[styles.imageContainer, userImageContainerStyle]}>
         {image === '' ? (
-          <Icon name="person-outline" size={45} color={color.Lavendar[100]} />
+          <Icon
+            name={lofftSpace ? 'home-outline' : 'person-outline'}
+            size={30}
+            color={color.Lavendar[100]}
+          />
         ) : (
           <Image source={image} style={[styles.userIcon, userImageStyle]} />
         )}
@@ -38,8 +43,6 @@ const styles = StyleSheet.create({
     width: 50,
     height: 50,
     borderRadius: 40,
-    borderWidth: 4,
-    borderColor: color.Lavendar[100],
     overflow: 'hidden',
     resizeMode: 'contain',
     flexDirection: 'row',
@@ -53,6 +56,8 @@ const styles = StyleSheet.create({
     height: 64,
     borderRadius: 50,
     backgroundColor: color.Lavendar[10],
+    borderWidth: 2,
+    borderColor: color.Lavendar[100],
   },
 });
 
