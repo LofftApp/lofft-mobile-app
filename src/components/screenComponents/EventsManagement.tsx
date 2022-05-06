@@ -80,8 +80,6 @@ const EventsManagement = ({navigation}) => {
     } else {
       const date = new Date(d.dateString);
       setDates(date);
-      // setSelectedDate(date);
-      // setFormattedSelectedDate(date);
       setFullDate(fullDateFormatter(date));
       const filtered = events.filter(f => f.date === d.dateString);
       setSelectedEvents(filtered.length > 0 ? filtered : null);

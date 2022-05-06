@@ -219,7 +219,6 @@ export const getLofftEvents = async () => {
   const loftId = user.details.lofft.lofftId;
   let date = new Date();
   date = new Date(dateStringFormatter(date));
-  console.log(date);
   const firstMonth = new Date(date.getFullYear(), date.getMonth(), 2);
   const result = await firestore()
     .collection('Managements')
