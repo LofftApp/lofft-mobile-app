@@ -61,9 +61,6 @@ const UserOptionsScreen = () => {
 };
 
 const styles = StyleSheet.create({
-  linkContainer: {
-    marginTop: 25,
-  },
   optionsLinkText: {
     paddingVertical: 25,
     borderBottomWidth: 1,

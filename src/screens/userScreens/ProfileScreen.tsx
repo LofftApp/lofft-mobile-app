@@ -101,13 +101,13 @@ const ProfileScreen = () => {
           {value: result.details.status, color: 'Lavendar'},
         ]);
       }
-      if (result.details.userProfile.pronouns) {
+      if (result.details.userProfile && result.details.userProfile.pronouns) {
         setTags(tags => [
           ...tags,
           {value: result.details.userProfile.pronouns, color: 'Mint'},
         ]);
       }
-      if (result.details.userProfile.diet) {
+      if (result.details.userProfile && result.details.userProfile.diet) {
         setTags(tags => [
           ...tags,
           {value: result.details.userProfile.diet, color: 'Gold'},
@@ -125,36 +125,41 @@ const ProfileScreen = () => {
   return (
     <View style={styles.pageContainer}>
       <ImageBackground source={blueBackground} style={styles.headerBackground}>
-        <CustomBackButton
-          style={styles.backButton}
-          neutral={true}
-          onPress={() => navigationRef.goBack()}
-        />
+        <View style={styles.topBarWithEdit}>
+          {edit ? null : (
+            <CustomBackButton
+              style={styles.backButton}
+              neutral={true}
+              onPress={() => navigationRef.goBack()}
+            />
+          )}
+
+          <EditPageButton
+            edit={edit}
+            admin={admin}
+            onPressSave={() => {
+              Object.entries(values).forEach(([k, v]) => {
+                v.active = selectedHobbies.includes(k);
+              });
+              setName(newName);
+              setTags(newTags);
+              setDescription(newDescription);
+              setValues(values);
+              updateUser(docId, newName, newDescription, values);
+              setEdit(false);
+            }}
+            onPressCancel={() => setEdit(false)}
+            onPressEdit={() => {
+              setEdit(true);
+              setNewName(name);
+              setNewTags(tags);
+              setNewDescription(description);
+            }}
+          />
+        </View>
         <View style={styles.imageHeaderContainer}>
           <Image source={userImage} style={styles.userImage} />
           <View style={styles.nameAndEditContainer}>
-            <EditPageButton
-              edit={edit}
-              admin={admin}
-              onPressSave={() => {
-                Object.entries(values).forEach(([k, v]) => {
-                  v.active = selectedHobbies.includes(k);
-                });
-                setName(newName);
-                setTags(newTags);
-                setDescription(newDescription);
-                setValues(values);
-                updateUser(docId, newName, newDescription, values);
-                setEdit(false);
-              }}
-              onPressCancel={() => setEdit(false)}
-              onPressEdit={() => {
-                setEdit(true);
-                setNewName(name);
-                setNewTags(tags);
-                setNewDescription(description);
-              }}
-            />
             {name || edit ? (
               <EditableTextField
                 placeholder="Name"
@@ -177,7 +182,12 @@ const ProfileScreen = () => {
           <TagIcon text={pronouns} userColor="Blue" />
           {tags.map(tag => {
             return (
-              <TagIcon text={tag.value} key={tag.value} userColor={tag.color} />
+              <TagIcon
+                text={tag.value}
+                key={tag.value}
+                userColor={tag.color}
+                idTags
+              />
             );
           })}
         </View>
@@ -221,6 +231,12 @@ const ProfileScreen = () => {
 };
 
 const styles = StyleSheet.create({
+  topBarWithEdit: {
+    flexDirection: 'row',
+    flex: 1,
+    alignItems: 'baseline',
+    // paddingRight: 10,
+  },
   pageContainer: {
     flex: 1,
   },
@@ -246,8 +262,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
   },
   userImage: {
-    width: 88,
-    height: 88,
+    width: 78,
+    height: 78,
     borderWidth: 4,
     borderColor: color.Blue[100],
     borderRadius: 75,

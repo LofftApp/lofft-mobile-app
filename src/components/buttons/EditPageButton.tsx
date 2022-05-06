@@ -16,23 +16,23 @@ const EditPageButton = ({
   return (
     <>
       {edit && admin ? (
-        <View>
+        <View style={styles.buttonContainer}>
           <TouchableOpacity
             onPress={onPressSave}
-            style={[styles.editButton, {backgroundColor: color.Mint[100]}]}>
-            <Icon name="checkmark-outline" size={23} color={color.White[100]} />
+            style={[styles.editButton, {backgroundColor: color.Mint[80]}]}>
+            <Icon name="checkmark-outline" size={32} color={color.White[100]} />
           </TouchableOpacity>
           <TouchableOpacity
             onPress={onPressCancel}
-            style={[styles.editButton, {backgroundColor: color.Tomato[100]}]}>
-            <Icon name="close-outline" size={23} color={color.White[100]} />
+            style={[styles.editButton, {backgroundColor: color.Tomato[80]}]}>
+            <Icon name="close-outline" size={32} color={color.White[100]} />
           </TouchableOpacity>
         </View>
       ) : admin ? (
         <TouchableOpacity
           onPress={onPressEdit}
-          style={[styles.editButton, {backgroundColor: color.Blue[100]}]}>
-          <Icon name="pencil-sharp" size={23} color={color.White[100]} />
+          style={[styles.editButton, {backgroundColor: color.Blue[80]}]}>
+          <Icon name="pencil-sharp" size={25} color={color.White[100]} />
         </TouchableOpacity>
       ) : null}
     </>
@@ -46,6 +46,14 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 20,
+    marginHorizontal: 15,
+  },
+  buttonContainer: {
+    flex: 1,
+    flexDirection: 'row-reverse',
+    justifyContent: 'space-between',
+    // paddingHorizontal: 5,
+    marginTop: 45,
   },
 });
 
