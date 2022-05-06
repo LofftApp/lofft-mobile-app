@@ -20,46 +20,48 @@ import color from '../../assets/defaultColorPallet.json';
 
 const EventsCard = ({event}) => {
   // Hooks
-  let tags = {text: 'invited', color: 'Lavendar'};
-  let cancelled = false;
-  let attending = false;
-  let notAttending = false;
-  let creator = false;
+  // const [tags, setUserTags] = useState({text: 'invited', color: 'Lavendar'});
+  const [tags, setTags] = useState({text: 'invited', color: 'Lavendar'});
+  const [cancelled, setCancelled] = useState(false);
+  const [attending, setAttending] = useState(false);
+  const [notAttending, setNotAttending] = useState(false);
+  const [creator, setCreator] = useState(false);
 
-  if (event.createdBy === auth().currentUser.uid) {
-    tags = {text: 'Creator', color: 'Blue'};
-    creator = true;
-  }
+  useEffect(() => {
+    if (event.createdBy === auth().currentUser.uid) {
+      setTags({text: 'Creator', color: 'Blue'});
+      setCreator(true);
+    }
 
-  if (event.attending.includes(auth().currentUser.uid)) {
-    tags = {text: 'Attending', color: 'Mint'};
-    attending = true;
-  }
+    if (event.attending.includes(auth().currentUser.uid)) {
+      setTags({text: 'Attending', color: 'Mint'});
+      setAttending(true);
+    }
 
-  if (event.notAttending.includes(auth().currentUser.uid)) {
-    tags = {text: 'Not Attending', color: 'Tomato'};
-    notAttending = true;
-  }
+    if (event.notAttending.includes(auth().currentUser.uid)) {
+      setTags({text: 'Not Attending', color: 'Tomato'});
+      setAttending(true);
+    }
 
-  if (!event.active) {
-    tags = {text: 'Cancelled', color: 'Black'};
-    cancelled = true;
-  }
+    if (!event.active) {
+      setTags({text: 'Cancelled', color: 'Black'});
+      setCancelled(true);
+    }
+  }, []);
 
   const triggerCancelled = () => {
-    console.log('Cancelled triggered');
-    tags = {text: 'Cancelled', color: 'Black'};
-    cancelled = true;
+    setTags({text: 'Cancelled', color: 'Black'});
+    setCancelled(true);
   };
 
   const triggerAttending = () => {
-    tags = {text: 'Attending', color: 'Mint'};
-    attending = true;
+    setTags({text: 'Attending', color: 'Mint'});
+    setAttending(true);
   };
 
   const triggerReject = () => {
-    tags = {text: 'Not Attending', color: 'Tomato'};
-    notAttending = true;
+    setTags({text: 'Not Attending', color: 'Tomato'});
+    setNotAttending(true);
   };
 
   return (
