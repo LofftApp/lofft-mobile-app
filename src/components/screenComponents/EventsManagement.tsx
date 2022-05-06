@@ -25,10 +25,12 @@ const EventsManagement = ({navigation}) => {
   // Hooks
   const [userEventsDates, setUserEventsDates] = useState(null);
   const [selectedDate, setSelectedDate] = useState(new Date());
+  const [formattedSelectedDate, setFormattedSelectedDate] = useState(
+    dateStringFormatter(selectedDate),
+  );
   const [events, setEvents] = useState(null);
   const [selectedEvent, setSelectedEvents] = useState(null);
   const [fullDate, setFullDate] = useState(null);
-
   const addEventsToDate = events => {
     let answer = [];
     events.forEach(event => {
@@ -37,6 +39,11 @@ const EventsManagement = ({navigation}) => {
       );
     });
     return answer;
+  };
+
+  const setDates = d => {
+    setSelectedDate(d);
+    setFormattedSelectedDate(dateStringFormatter(d));
   };
 
   const eventsData = async () => {
@@ -68,10 +75,13 @@ const EventsManagement = ({navigation}) => {
   const getSelectedDate = d => {
     if (selectedDate && d.dateString === dateStringFormatter(selectedDate)) {
       setSelectedDate(null);
+      setFormattedSelectedDate(null);
       setSelectedEvents(null);
     } else {
       const date = new Date(d.dateString);
-      setSelectedDate(date);
+      setDates(date);
+      // setSelectedDate(date);
+      // setFormattedSelectedDate(date);
       setFullDate(fullDateFormatter(date));
       const filtered = events.filter(f => f.date === d.dateString);
       setSelectedEvents(filtered.length > 0 ? filtered : null);
@@ -91,6 +101,8 @@ const EventsManagement = ({navigation}) => {
       });
     return () => subscriber();
   }, []);
+
+  console.log(dateStringFormatter(selectedDate));
   return (
     <>
       {userEventsDates ? (
@@ -105,7 +117,11 @@ const EventsManagement = ({navigation}) => {
         value="Add new event"
         style={styles.button}
         invert
-        onPress={() => navigation.navigate('MakeNewEvent', {selectedDate})}
+        onPress={() =>
+          navigation.navigate('MakeNewEvent', {
+            selectedDate: formattedSelectedDate,
+          })
+        }
       />
       <ScrollView>
         {selectedEvent ? (
