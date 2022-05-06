@@ -13,6 +13,7 @@ import {CoreStyleSheet} from '../../StyleSheets/CoreDesignStyleSheet';
 import {fontStyles} from '../../StyleSheets/FontStyleSheet';
 
 // Firestore
+import {addEvent} from '../../api/firebase/fireStoreActions';
 
 const MakeNewEventScreen = ({navigation, route}) => {
   const defDate = new Date(route.params.selectedDate);
@@ -105,17 +106,18 @@ const MakeNewEventScreen = ({navigation, route}) => {
           </View>
         </ScrollView>
         <CoreButton
-          value="Next"
-          onPress={() =>
-            navigation.navigate('AddFriendsToEvent', {
-              title: eventName,
+          value="Confirm"
+          onPress={() => {
+            navigation.navigate('Managment');
+            addEvent(
+              eventName,
               location,
               date,
               fromTime,
               untilTime,
               description,
-            })
-          }
+            );
+          }}
         />
       </View>
     </View>

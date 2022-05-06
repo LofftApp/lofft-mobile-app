@@ -102,7 +102,6 @@ const EventsManagement = ({navigation}) => {
     return () => subscriber();
   }, []);
 
-  console.log(dateStringFormatter(selectedDate));
   return (
     <>
       {userEventsDates ? (

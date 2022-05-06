@@ -179,29 +179,25 @@ export const billQuery = async () => {
 
 // Create Event
 export const addEvent = async (
-  title,
+  eventName,
   location,
   date,
-  from,
-  till,
-  sharewithFlatmates,
+  fromTime,
+  untilTime,
   description,
-  inputFriends,
 ) => {
   const currentUser = auth().currentUser;
   const user = await getCurrentUserDetails(currentUser);
   const loftId = user.details.lofft.lofftId;
-  const selectedFriendsOnly = inputFriends.filter(el => el.selected === true);
+  // const selectedFriendsOnly = inputFriends.filter(el => el.selected === true);
 
   let event = {
-    title: title,
+    title: eventName,
     location: location,
     date: date,
-    from: from,
-    till: till,
-    sharewithFlatmates: sharewithFlatmates,
+    from: fromTime,
+    till: untilTime,
     description: description,
-    invited: selectedFriendsOnly,
     attending: [],
     notAttending: [],
     active: true,
@@ -209,7 +205,6 @@ export const addEvent = async (
     updatedAt: new Date(),
     createdAt: new Date(),
   };
-  console.log(event);
 
   firestore()
     .collection('Managements')
@@ -336,7 +331,6 @@ export const getPollsData = async (value, setValue) => {
 
 // Vote in a Poll Method
 export const votePoll = async (pollId, answer) => {
-  // console.log(answer);
   const user = auth().currentUser;
   const userID = user.uid;
   const userDetails = await getCurrentUserDetails(user);

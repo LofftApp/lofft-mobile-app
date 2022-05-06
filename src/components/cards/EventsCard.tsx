@@ -19,7 +19,6 @@ import {fontStyles} from '../../StyleSheets/FontStyleSheet';
 import color from '../../assets/defaultColorPallet.json';
 
 const EventsCard = ({event}) => {
-  console.log(event.attending);
   // Hooks
   // const [tags, setUserTags] = useState({text: 'invited', color: 'Lavendar'});
   const [tags, setTags] = useState({text: 'invited', color: 'Lavendar'});
