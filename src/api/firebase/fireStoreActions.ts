@@ -215,11 +215,13 @@ export const getLofftEvents = async () => {
   const currentUser = auth().currentUser;
   const user = await getCurrentUserDetails(currentUser);
   const loftId = user.details.lofft.lofftId;
-
+  const date = new Date();
+  const firstMonth = new Date(date.getFullYear(), date.getMonth(), 2);
   const result = await firestore()
     .collection('Managements')
     .doc(loftId)
     .collection('Events')
+    .where('date', '>=', firstMonth)
     .get()
     .then(docSnapshot => {
       return docSnapshot.docs;

@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
     borderRadius: 6,
     justifyContent: 'center',
     alignItems: 'center',
-    marginRight: 15,
+    // marginRight: 15,
   },
 });
 

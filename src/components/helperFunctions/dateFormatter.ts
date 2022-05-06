@@ -1,3 +1,18 @@
+const monthsEng = [
+  'January',
+  'February',
+  'March',
+  'April',
+  'May',
+  'June',
+  'July',
+  'August',
+  'September',
+  'October',
+  'November',
+  'December',
+];
+
 const unitToTen = value => {
   return value.toString().length === 1 ? `0${value}` : value;
 };
@@ -18,4 +33,10 @@ export const timeFormatter = time => {
   const hours = unitToTen(time.getHours());
   const minutes = unitToTen(time.getMinutes());
   return `${hours}:${minutes}`;
+};
+
+export const fullDateFormatter = date => {
+  const day = unitToTen(date.getDate());
+  const month = monthsEng[date.getMonth()];
+  return `${day} ${month} ${date.getFullYear()}`;
 };
