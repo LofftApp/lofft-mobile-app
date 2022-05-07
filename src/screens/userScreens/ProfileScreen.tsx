@@ -11,6 +11,7 @@ import {
   Alert,
 } from 'react-native';
 import storedHobbiesAndValues from '../../data/hobbiesAndValues.json';
+import FastImage from 'react-native-fast-image';
 
 // Firebase
 import {getCurrentUserDetails} from '../../api/firebase/fireStoreActions';
@@ -179,7 +180,11 @@ const ProfileScreen = () => {
             onPress={() => {
               setModalVisible(true);
             }}>
-            <Image source={userImage} style={styles.userImage} />
+            <FastImage
+              source={userImage}
+              style={styles.userImage}
+              resizeMode={FastImage.resizeMode.cover}
+            />
           </TouchableOpacity>
           <View style={styles.nameAndEditContainer}>
             {name || edit ? (
