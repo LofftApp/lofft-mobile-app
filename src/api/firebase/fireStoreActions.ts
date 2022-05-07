@@ -79,7 +79,6 @@ export const deleteImageFromImageLibraryRef = (docId, url) => {
     .collection('Users')
     .doc(docId)
     .update({libraryURIS: firestore.FieldValue.arrayRemove(url)});
-  console.log(`Deleted ${url}`);
 };
 
 // Update and create Lofft Spaces

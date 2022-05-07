@@ -53,7 +53,7 @@ const ProfileScreen = () => {
   const [newName, setNewName] = useState('');
   const [tags, setTags] = useState([]);
   const [newTags, setNewTags] = useState([]);
-  const [userImage, setUserImage] = useState(null);
+  const [userImage, setUserImage] = useState({});
   const [description, setDescription] = useState('');
   const [newDescription, setNewDescription] = useState('');
   const [values, setValues] = useState({});
@@ -80,6 +80,7 @@ const ProfileScreen = () => {
       result.details.imageURI
         ? setUserImage({uri: result.details.imageURI})
         : setUserImage(imagePlaceholder);
+
       if (result.details.name) {
         setName(result.details.name);
       }
@@ -276,8 +277,12 @@ const ProfileScreen = () => {
                 value="Upload Image"
                 style={[styles.modalButton]}
                 onPress={async () => {
-                  const imageURI = await userImageUpload();
-                  setUserImage({uri: imageURI});
+                  // const imageURI = await userImageUpload();
+                  console.log('I Work 2');
+                  setUserImage({
+                    abc: 'nothing',
+                  });
+                  console.log(userImage);
                   setModalVisible(false);
                 }}
               />
@@ -287,8 +292,8 @@ const ProfileScreen = () => {
                 invert
                 onPress={async () => {
                   const imageURI = await userTakePhoto();
+                  console.log('I work');
                   setUserImage({uri: imageURI});
-                  console.log(userImage);
                   setModalVisible(false);
                 }}
               />
