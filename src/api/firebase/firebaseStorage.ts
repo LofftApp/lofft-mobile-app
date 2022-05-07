@@ -67,10 +67,10 @@ export const userTakePhoto = async () => {
   }
 };
 
-export const libraryImageUpload = async () => {
+export const libraryImageUpload = async limit => {
   const results = await launchImageLibrary({
     mediaType: 'photo',
-    selectionLimit: 5,
+    selectionLimit: limit,
   });
   if (!results.didCancel) {
     uploadUserImages(results, 'imageLibrary');

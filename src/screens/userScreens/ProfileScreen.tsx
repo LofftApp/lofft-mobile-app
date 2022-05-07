@@ -8,6 +8,7 @@ import {
   Image,
   TouchableOpacity,
   Modal,
+  FlatList,
   Alert,
 } from 'react-native';
 import storedHobbiesAndValues from '../../data/hobbiesAndValues.json';
@@ -30,6 +31,8 @@ import TagIcon from '../../components/iconsAndContainers/TagIcon';
 import EditPageButton from '../../components/buttons/EditPageButton';
 import HobbiesAndValues from '../../components/HobbiesAndValues';
 import {CoreButton} from '../../components/buttons/CoreButton';
+import LibrarySection from '../../components/profileSections/LibrarySection';
+
 // Stylesheets
 import color from './../../assets/defaultColorPallet.json';
 import {CoreStyleSheet} from '../../StyleSheets/CoreDesignStyleSheet';
@@ -55,6 +58,7 @@ const ProfileScreen = () => {
   const [newDescription, setNewDescription] = useState('');
   const [values, setValues] = useState({});
   const [pronouns, setPronouns] = useState('He/Him');
+  const [library, setLibrary] = useState([]);
 
   const [selectedHobbies, setSelectedHobbies] = useState([]);
   const selectHobby = key => {
@@ -122,6 +126,9 @@ const ProfileScreen = () => {
           ...tags,
           {value: result.details.userProfile.diet, color: 'Gold'},
         ]);
+      }
+      if (result.details.libraryURIS) {
+        setLibrary(result.details.libraryURIS);
       }
     };
 
@@ -232,16 +239,13 @@ const ProfileScreen = () => {
             edit={edit}
           />
         </View>
-        <View style={styles.sectionContainer}>
-          <Text style={fontStyles.buttonTextMedium}>Photo Library</Text>
-          <View style={styles.noLofftContainer}>
-            <TouchableOpacity
-              style={styles.addImageButton}
-              onPress={() => libraryImageUpload()}>
-              <Icon name="add-outline" size={60} color={color.Black[30]} />
-            </TouchableOpacity>
-          </View>
-        </View>
+
+        {/* Library Section */}
+        <LibrarySection
+          onPress={() => libraryImageUpload(5 - library.length)}
+          library={library}
+          edit={edit}
+        />
         <View style={styles.sectionContainer}>
           <Text style={fontStyles.buttonTextMedium}>Loffts</Text>
           <View style={styles.noLofftContainer}>
@@ -380,15 +384,15 @@ const styles = StyleSheet.create({
     color: color.Black[50],
     marginVertical: 3,
   },
-  addImageButton: {
-    width: 95,
-    height: 95,
-    backgroundColor: color.Black[10],
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderRadius: 8,
-    alignSelf: 'flex-start',
-  },
+  // addImageButton: {
+  //   width: 95,
+  //   height: 95,
+  //   backgroundColor: color.Black[10],
+  //   justifyContent: 'center',
+  //   alignItems: 'center',
+  //   borderRadius: 8,
+  //   alignSelf: 'flex-start',
+  // },
   hobbyContaner: {
     flexDirection: 'row',
     flexWrap: 'wrap',
