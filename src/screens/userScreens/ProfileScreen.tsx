@@ -8,7 +8,6 @@ import {
   Image,
   TouchableOpacity,
   Modal,
-  FlatList,
   Alert,
 } from 'react-native';
 import storedHobbiesAndValues from '../../data/hobbiesAndValues.json';

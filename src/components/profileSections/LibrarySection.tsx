@@ -10,6 +10,7 @@ import {
 
 // Components
 import Icon from 'react-native-vector-icons/Ionicons';
+import FastImage from 'react-native-fast-image';
 
 // StyleSheets
 import {fontStyles} from './../../StyleSheets/FontStyleSheet';
@@ -20,7 +21,11 @@ const LibrarySection = ({library, onPress, edit}) => {
   const Item = src => {
     return (
       <>
-        <Image source={{uri: src.item}} style={styles.imageSquare} />
+        <FastImage
+          source={{uri: src.item, priority: FastImage.priority.normal}}
+          style={styles.imageSquare}
+          resizeMode={FastImage.resizeMode.cover}
+        />
       </>
     );
   };
