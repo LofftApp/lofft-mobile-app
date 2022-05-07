@@ -8,6 +8,7 @@ import {
   Image,
   TouchableOpacity,
   Modal,
+  Alert,
 } from 'react-native';
 import storedHobbiesAndValues from '../../data/hobbiesAndValues.json';
 
@@ -23,7 +24,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import TagIcon from '../../components/iconsAndContainers/TagIcon';
 import EditPageButton from '../../components/buttons/EditPageButton';
 import HobbiesAndValues from '../../components/HobbiesAndValues';
-
+import {CoreButton} from '../../components/buttons/CoreButton';
 // Stylesheets
 import color from './../../assets/defaultColorPallet.json';
 import {CoreStyleSheet} from '../../StyleSheets/CoreDesignStyleSheet';
@@ -36,6 +37,7 @@ import imagePlaceholder from '../../assets/user.jpeg';
 import EditableTextField from '../../components/inputFields/EditableTextFields';
 
 const ProfileScreen = () => {
+  const [modalVisible, setModalVisible] = useState(false);
   const [docId, setDocId] = useState('');
   const [edit, setEdit] = useState(false);
   const [admin, setAdmin] = useState(false);
@@ -161,7 +163,11 @@ const ProfileScreen = () => {
           />
         </View>
         <View style={styles.imageHeaderContainer}>
-          <TouchableOpacity>
+          <TouchableOpacity
+            disabled={edit ? false : true}
+            onPress={() => {
+              setModalVisible(true);
+            }}>
             <Image source={userImage} style={styles.userImage} />
           </TouchableOpacity>
           <View style={styles.nameAndEditContainer}>
@@ -241,6 +247,38 @@ const ProfileScreen = () => {
 
         {/* Add Spotify / Apple Music API here */}
       </ScrollView>
+      <Modal
+        transparent={true}
+        animationType="slide"
+        visible={modalVisible}
+        onRequestClose={() => {
+          Alert.alert('Modal has been closed');
+        }}>
+        <View style={styles.modalContainer}>
+          <View style={styles.modal}>
+            <View>
+              <CoreButton
+                value="Upload Image"
+                style={[styles.modalButton]}
+                onPress={() => {}}
+              />
+              <CoreButton
+                value="Take Photo"
+                style={[styles.modalButton]}
+                invert
+                onPress={() => {}}
+              />
+            </View>
+            <CoreButton
+              value="Cancel"
+              style={[styles.modalButton, styles.modalCancelButton]}
+              onPress={() => {
+                setModalVisible(false);
+              }}
+            />
+          </View>
+        </View>
+      </Modal>
     </View>
   );
 };
@@ -349,6 +387,31 @@ const styles = StyleSheet.create({
   },
   hobbyText: {
     marginHorizontal: 20,
+  },
+  // Modal
+  modalContainer: {
+    flex: 1,
+    justifyContent: 'flex-end',
+  },
+  modal: {
+    justifyContent: 'space-around',
+    height: '25%',
+    backgroundColor: color.White[100],
+    paddingBottom: 15,
+    borderRadius: 20,
+    shadowColor: color.Black[25],
+    shadowOpacity: 1,
+    shadowOffset: {width: 0, height: -2},
+  },
+  modalButton: {
+    alignSelf: 'center',
+    marginVertical: 5,
+    width: '80%',
+    height: 45,
+  },
+  modalCancelButton: {
+    backgroundColor: color.Black[30],
+    borderWidth: 0,
   },
 });
 
