@@ -16,7 +16,10 @@ import storedHobbiesAndValues from '../../data/hobbiesAndValues.json';
 import {getCurrentUserDetails} from '../../api/firebase/fireStoreActions';
 import auth from '@react-native-firebase/auth';
 import {updateUser} from '../../api/firebase/fireStoreActions';
-import {userImageUpload} from '../../api/firebase/firebaseStorage';
+import {
+  userTakePhoto,
+  userImageUpload,
+} from '../../api/firebase/firebaseStorage';
 
 // Components
 import CustomBackButton from '../../components/buttons/CustomBackButton';
@@ -251,7 +254,7 @@ const ProfileScreen = () => {
       </ScrollView>
       <Modal
         transparent={true}
-        animationType="slide"
+        animationType="fade"
         visible={modalVisible}
         onRequestClose={() => {
           Alert.alert('Modal has been closed');
@@ -270,7 +273,9 @@ const ProfileScreen = () => {
                 value="Take Photo"
                 style={[styles.modalButton]}
                 invert
-                onPress={() => {}}
+                onPress={() => {
+                  userTakePhoto(auth().currentUser.uid);
+                }}
               />
             </View>
             <CoreButton
@@ -396,16 +401,18 @@ const styles = StyleSheet.create({
   modalContainer: {
     flex: 1,
     justifyContent: 'flex-end',
+    backgroundColor: color.Black[10],
   },
   modal: {
     justifyContent: 'space-around',
-    height: '25%',
+    height: '30%',
     backgroundColor: color.White[100],
-    paddingBottom: 15,
-    borderRadius: 20,
-    shadowColor: color.Black[25],
-    shadowOpacity: 1,
-    shadowOffset: {width: 0, height: -2},
+    paddingVertical: 15,
+    borderTopRightRadius: 20,
+    borderTopLeftRadius: 20,
+    // shadowColor: color.Black[25],
+    // shadowOpacity: 1,
+    // shadowOffset: {width: 0, height: -2},
   },
   modalButton: {
     alignSelf: 'center',

@@ -49,12 +49,12 @@
 			</dict>
 		</dict>
 	</dict>
-	<key>NSCameraUsageDescription</key>
-	<true/>
+  <key>NSCameraUsageDescription</key>
+  <string>This app requires access to the camera.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string></string>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<true/>
+  <key>NSPhotoLibraryUsageDescription</key>
+  <string>This app requires access to the photo library.</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Ionicons.ttf</string>
