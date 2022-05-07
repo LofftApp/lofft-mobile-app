@@ -19,6 +19,7 @@ import {updateUser} from '../../api/firebase/fireStoreActions';
 import {
   userTakePhoto,
   userImageUpload,
+  libraryImageUpload,
 } from '../../api/firebase/firebaseStorage';
 
 // Components
@@ -234,9 +235,11 @@ const ProfileScreen = () => {
         <View style={styles.sectionContainer}>
           <Text style={fontStyles.buttonTextMedium}>Photo Library</Text>
           <View style={styles.noLofftContainer}>
-            <View style={styles.addImageButton}>
+            <TouchableOpacity
+              style={styles.addImageButton}
+              onPress={() => libraryImageUpload()}>
               <Icon name="add-outline" size={60} color={color.Black[30]} />
-            </View>
+            </TouchableOpacity>
           </View>
         </View>
         <View style={styles.sectionContainer}>
@@ -265,10 +268,8 @@ const ProfileScreen = () => {
                 value="Upload Image"
                 style={[styles.modalButton]}
                 onPress={async () => {
-                  console.log(userImage);
                   const imageURI = await userImageUpload();
                   setUserImage({uri: imageURI});
-                  console.log(userImage);
                   setModalVisible(false);
                 }}
               />

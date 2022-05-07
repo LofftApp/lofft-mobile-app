@@ -67,6 +67,10 @@ export const uploadImageToUserProfile = (docId, url) => {
   firestore().collection('Users').doc(docId).update({imageURI: url});
 };
 
+export const uploadLibraryImagesToUserProfile = (docId, urls) => {
+  firestore().collection('Users').doc(docId).update({libraryURIS: urls});
+};
+
 // Update and create Lofft Spaces
 export const createLofft = async ({
   name,

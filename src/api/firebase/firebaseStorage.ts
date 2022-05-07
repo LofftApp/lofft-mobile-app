@@ -2,37 +2,77 @@
 import {utils} from '@react-native-firebase/app';
 import storage from '@react-native-firebase/storage';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
-import {uploadImageToUserProfile} from './fireStoreActions';
+import {
+  uploadImageToUserProfile,
+  uploadLibraryImagesToUserProfile,
+} from './fireStoreActions';
 import {addImageToAuth} from './firebaseApi';
 import auth from '@react-native-firebase/auth';
 
 if (__DEV__) {
   let host = 'localhost';
   // If using Mobile device set the host as local IP set host in App.js and wihtin the firebase.json for each method
-  host = '192.168.1.80';
+  host = '192.168.0.123';
   storage().useEmulator(host, 9199);
 }
 
-const saveImageToUser = async result => {
+const randomFileName = () => {
+  return (
+    Math.random().toString(36).substring(2, 15) +
+    Math.random().toString(36).substring(2, 15)
+  );
+};
+
+const saveProfileImage = (user, url) => {
+  addImageToAuth(url);
+  uploadImageToUserProfile(user.uid, url);
+  return url;
+};
+
+const saveImageLibrary = (user, urls) => {
+  uploadLibraryImagesToUserProfile(user.uid, urls);
+};
+
+const uploadUserImages = async (results, path) => {
   const user = auth().currentUser;
-  const reference = storage().ref(`${user.uid}/userImage/profile.jpg`);
-  const pathToFile = `${utils.FilePath.TEMP_DIRECTORY}/${result.assets[0].fileName}`;
-  // Upload file
-  await reference.putFile(pathToFile);
-  const url = await reference.getDownloadURL();
-  if (url) {
-    addImageToAuth(url);
-    uploadImageToUserProfile(user.uid, url);
-    return url;
+  const urls = await Promise.all(
+    results.assets.map(async asset => {
+      const newFileName = randomFileName();
+      const pathToFile = `${utils.FilePath.TEMP_DIRECTORY}/${asset.fileName}`;
+      const reference = storage().ref(`${user.uid}/${path}/${newFileName}.jpg`);
+      await reference.putFile(pathToFile);
+      return await reference.getDownloadURL();
+    }),
+  );
+
+  if (path === 'userImage') {
+    const image = saveProfileImage(user, urls[0]);
+    return image;
+  } else if (path === 'imageLibrary') {
+    saveImageLibrary(user, urls);
   }
 };
 
 export const userImageUpload = async () => {
-  const result = await launchImageLibrary({mediaType: 'photo'});
-  saveImageToUser(result);
+  const results = await launchImageLibrary({mediaType: 'photo'});
+  if (!results.didCancel) {
+    uploadUserImages(results, 'userImage');
+  }
 };
 
 export const userTakePhoto = async () => {
-  const result = await launchCamera({mediaType: 'photo'});
-  saveImageToUser(result);
+  const results = await launchCamera({mediaType: 'photo'});
+  if (!results.didCancel) {
+    uploadUserImages(results, 'userImage');
+  }
+};
+
+export const libraryImageUpload = async () => {
+  const results = await launchImageLibrary({
+    mediaType: 'photo',
+    selectionLimit: 5,
+  });
+  if (!results.didCancel) {
+    uploadUserImages(results, 'imageLibrary');
+  }
 };
