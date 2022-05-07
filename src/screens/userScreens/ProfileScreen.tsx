@@ -6,6 +6,8 @@ import {
   Text,
   StyleSheet,
   Image,
+  TouchableOpacity,
+  Modal,
 } from 'react-native';
 import storedHobbiesAndValues from '../../data/hobbiesAndValues.json';
 
@@ -16,6 +18,7 @@ import {updateUser} from '../../api/firebase/fireStoreActions';
 
 // Components
 import CustomBackButton from '../../components/buttons/CustomBackButton';
+import UserIcon from '../../components/iconsAndContainers/UserIcon';
 import Icon from 'react-native-vector-icons/Ionicons';
 import TagIcon from '../../components/iconsAndContainers/TagIcon';
 import EditPageButton from '../../components/buttons/EditPageButton';
@@ -158,7 +161,9 @@ const ProfileScreen = () => {
           />
         </View>
         <View style={styles.imageHeaderContainer}>
-          <Image source={userImage} style={styles.userImage} />
+          <TouchableOpacity>
+            <Image source={userImage} style={styles.userImage} />
+          </TouchableOpacity>
           <View style={styles.nameAndEditContainer}>
             {name || edit ? (
               <EditableTextField
