@@ -1,14 +1,15 @@
 // This is the API for storing data within firebase container storage system.
 import {utils} from '@react-native-firebase/app';
 import storage from '@react-native-firebase/storage';
-import {launchImageLibrary} from 'react-native-image-picker';
+import {launchImageLibrary, launchCamera} from 'react-native-image-picker';
 import {uploadImageToUserProfile} from './fireStoreActions';
 import {addImageToAuth} from './firebaseApi';
 import auth from '@react-native-firebase/auth';
 
 if (__DEV__) {
   let host = 'localhost';
-  // host = '192.168.0.123'
+  // If using Mobile device set the host as local IP set host in App.js and wihtin the firebase.json for each method
+  host = '192.168.7.156';
   storage().useEmulator(host, 9199);
 }
 

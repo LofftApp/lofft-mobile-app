@@ -16,6 +16,7 @@ import storedHobbiesAndValues from '../../data/hobbiesAndValues.json';
 import {getCurrentUserDetails} from '../../api/firebase/fireStoreActions';
 import auth from '@react-native-firebase/auth';
 import {updateUser} from '../../api/firebase/fireStoreActions';
+import {userImageUpload} from '../../api/firebase/firebaseStorage';
 
 // Components
 import CustomBackButton from '../../components/buttons/CustomBackButton';
@@ -68,8 +69,9 @@ const ProfileScreen = () => {
     const getUser = async user => {
       const result = await getCurrentUserDetails(user);
       setDocId(result.docId);
+      console.log(result.details.imageURI);
       result.details.imageURI
-        ? setUserImage(result.details.imageURI)
+        ? setUserImage({uri: result.details.imageURI})
         : setUserImage(imagePlaceholder);
       if (result.details.name) {
         setName(result.details.name);
@@ -260,7 +262,9 @@ const ProfileScreen = () => {
               <CoreButton
                 value="Upload Image"
                 style={[styles.modalButton]}
-                onPress={() => {}}
+                onPress={() => {
+                  userImageUpload(auth().currentUser.uid);
+                }}
               />
               <CoreButton
                 value="Take Photo"
