@@ -49,7 +49,7 @@ const ProfileScreen = () => {
   const [newName, setNewName] = useState('');
   const [tags, setTags] = useState([]);
   const [newTags, setNewTags] = useState([]);
-  const [userImage, setUserImage] = useState({});
+  const [userImage, setUserImage] = useState(null);
   const [description, setDescription] = useState('');
   const [newDescription, setNewDescription] = useState('');
   const [values, setValues] = useState({});
@@ -72,7 +72,6 @@ const ProfileScreen = () => {
     const getUser = async user => {
       const result = await getCurrentUserDetails(user);
       setDocId(result.docId);
-      console.log(result.details.imageURI);
       result.details.imageURI
         ? setUserImage({uri: result.details.imageURI})
         : setUserImage(imagePlaceholder);
@@ -265,16 +264,23 @@ const ProfileScreen = () => {
               <CoreButton
                 value="Upload Image"
                 style={[styles.modalButton]}
-                onPress={() => {
-                  userImageUpload(auth().currentUser.uid);
+                onPress={async () => {
+                  console.log(userImage);
+                  const imageURI = await userImageUpload();
+                  setUserImage({uri: imageURI});
+                  console.log(userImage);
+                  setModalVisible(false);
                 }}
               />
               <CoreButton
                 value="Take Photo"
                 style={[styles.modalButton]}
                 invert
-                onPress={() => {
-                  userTakePhoto(auth().currentUser.uid);
+                onPress={async () => {
+                  const imageURI = await userTakePhoto();
+                  setUserImage({uri: imageURI});
+                  console.log(userImage);
+                  setModalVisible(false);
                 }}
               />
             </View>
