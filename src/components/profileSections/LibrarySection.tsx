@@ -9,6 +9,9 @@ import FastImage from 'react-native-fast-image';
 import {fontStyles} from './../../StyleSheets/FontStyleSheet';
 import color from './../../assets/defaultColorPallet.json';
 
+// Firestore 🔥
+import {deleteLibraryImage} from '../../api/firebase/firebaseStorage';
+
 const LibrarySection = ({library, onPress, edit}) => {
   const DATA = library;
   const Item = src => {
@@ -19,6 +22,15 @@ const LibrarySection = ({library, onPress, edit}) => {
           style={styles.imageSquare}
           resizeMode={FastImage.resizeMode.cover}
         />
+        {edit ? (
+          <TouchableOpacity
+            style={styles.deleteButton}
+            onPress={() => {
+              deleteLibraryImage(src.item);
+            }}>
+            <Icon name="close-outline" size={15} color={color.White[100]} />
+          </TouchableOpacity>
+        ) : null}
       </>
     );
   };
@@ -39,6 +51,7 @@ const LibrarySection = ({library, onPress, edit}) => {
           keyExtractor={(_, index) => index.toString()}
           showsHorizontalScrollIndicator={false}
           horizontal
+          style={styles.flatListContainer}
         />
       </View>
     </View>
@@ -53,7 +66,10 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
-    paddingVertical: 15,
+    paddingVertical: 5,
+  },
+  flatListContainer: {
+    paddingVertical: 5,
   },
   addImageButton: {
     backgroundColor: color.Black[10],
@@ -66,6 +82,16 @@ const styles = StyleSheet.create({
     width: 95,
     height: 95,
     marginHorizontal: 2.5,
+  },
+  deleteButton: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: color.Tomato[100],
+    width: 15,
+    height: 15,
+    borderRadius: 15,
+    marginLeft: -10,
+    marginTop: -5,
   },
 });
 

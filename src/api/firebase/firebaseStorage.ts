@@ -5,6 +5,7 @@ import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import {
   uploadImageToUserProfile,
   uploadLibraryImagesToUserProfile,
+  deleteImageFromImageLibraryRef,
 } from './fireStoreActions';
 import {addImageToAuth} from './firebaseApi';
 import auth from '@react-native-firebase/auth';
@@ -75,4 +76,11 @@ export const libraryImageUpload = async limit => {
   if (!results.didCancel) {
     uploadUserImages(results, 'imageLibrary');
   }
+};
+
+export const deleteLibraryImage = url => {
+  const user = auth().currentUser.uid;
+  const imageRef = storage().refFromURL(url);
+  imageRef.delete();
+  deleteImageFromImageLibraryRef(user, url);
 };

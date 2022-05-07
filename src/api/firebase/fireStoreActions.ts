@@ -68,11 +68,18 @@ export const uploadImageToUserProfile = (docId, url) => {
 };
 
 export const uploadLibraryImagesToUserProfile = (docId, urls) => {
-  console.log(urls);
   firestore()
     .collection('Users')
     .doc(docId)
     .update({libraryURIS: firestore.FieldValue.arrayUnion(...urls)});
+};
+
+export const deleteImageFromImageLibraryRef = (docId, url) => {
+  firestore()
+    .collection('Users')
+    .doc(docId)
+    .update({libraryURIS: firestore.FieldValue.arrayRemove(url)});
+  console.log(`Deleted ${url}`);
 };
 
 // Update and create Lofft Spaces
