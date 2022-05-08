@@ -53,7 +53,7 @@ const ProfileScreen = () => {
   const [newName, setNewName] = useState('');
   const [tags, setTags] = useState([]);
   const [newTags, setNewTags] = useState([]);
-  const [userImage, setUserImage] = useState({});
+  const [userImage, setUserImage] = useState('');
   const [description, setDescription] = useState('');
   const [newDescription, setNewDescription] = useState('');
   const [values, setValues] = useState({});
@@ -72,14 +72,15 @@ const ProfileScreen = () => {
     }
   };
 
+  // Inital load, get active user
   useEffect(() => {
     setTags([]);
     const getUser = async user => {
       const result = await getCurrentUserDetails(user);
       setDocId(result.docId);
       result.details.imageURI
-        ? setUserImage({uri: result.details.imageURI})
-        : setUserImage(imagePlaceholder);
+        ? setUserImage(result.details.imageURI)
+        : setUserImage(null);
 
       if (result.details.name) {
         setName(result.details.name);
@@ -140,6 +141,11 @@ const ProfileScreen = () => {
     });
   }, []);
 
+  // Get || Update user profile image
+  // useEffect(() => {
+  //   console.log(currentUser);
+  // }, []);
+
   return (
     <View style={styles.pageContainer}>
       <ImageBackground source={blueBackground} style={styles.headerBackground}>
@@ -179,10 +185,14 @@ const ProfileScreen = () => {
           <TouchableOpacity
             disabled={edit ? false : true}
             onPress={() => {
-              setModalVisible(true);
+              setUserImage(
+                'https://www.google.com/imgres?imgurl=https%3A%2F%2Fupload.wikimedia.org%2Fwikipedia%2Fcommons%2F4%2F48%2FGeorge_Clooney_66%25C3%25A8me_Festival_de_Venise_%2528Mostra%2529_3.jpg&imgrefurl=https%3A%2F%2Flb.wikipedia.org%2Fwiki%2FGeorge_Clooney&tbnid=Unaadzsg7VwffM&vet=12ahUKEwjQrcWRwc_3AhVGnaQKHWH6CkUQMygBegUIARDaAQ..i&docid=wezDKKHxA3ehQM&w=1000&h=1500&q=george%20clooney&client=firefox-b-d&ved=2ahUKEwjQrcWRwc_3AhVGnaQKHWH6CkUQMygBegUIARDaAQ',
+              );
+              console.log(userImage);
+              // setModalVisible(true);
             }}>
             <FastImage
-              source={userImage}
+              source={{uri: userImage}}
               style={styles.userImage}
               resizeMode={FastImage.resizeMode.cover}
             />
@@ -278,10 +288,7 @@ const ProfileScreen = () => {
                 style={[styles.modalButton]}
                 onPress={async () => {
                   // const imageURI = await userImageUpload();
-                  console.log('I Work 2');
-                  setUserImage({
-                    abc: 'nothing',
-                  });
+                  setUserImage('Hello');
                   console.log(userImage);
                   setModalVisible(false);
                 }}
@@ -290,10 +297,11 @@ const ProfileScreen = () => {
                 value="Take Photo"
                 style={[styles.modalButton]}
                 invert
-                onPress={async () => {
-                  const imageURI = await userTakePhoto();
-                  console.log('I work');
-                  setUserImage({uri: imageURI});
+                onPress={() => {
+                  // const imageURI = await userTakePhoto();
+                  setUserImage('Hello');
+                  console.log(userImage);
+
                   setModalVisible(false);
                 }}
               />

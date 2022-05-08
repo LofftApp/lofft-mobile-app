@@ -11,7 +11,7 @@ export const userDetailsUpdate = () => {
         .collection('Users')
         .where('uid', '==', user.uid)
         .onSnapshot(snapShot => {
-          console.log(snapShot.docs[0].data());
+          snapShot.docs[0].data();
         });
     } else {
       console.log('Unauth');

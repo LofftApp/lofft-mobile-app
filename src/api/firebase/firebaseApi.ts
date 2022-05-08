@@ -42,7 +42,6 @@ export const signout = () => {
 };
 
 export const addImageToAuth = async url => {
-  console.log(url);
   auth().currentUser.updateProfile({
     photoURL: url,
   });
