@@ -185,11 +185,7 @@ const ProfileScreen = () => {
           <TouchableOpacity
             disabled={edit ? false : true}
             onPress={() => {
-              setUserImage(
-                'https://www.google.com/imgres?imgurl=https%3A%2F%2Fupload.wikimedia.org%2Fwikipedia%2Fcommons%2F4%2F48%2FGeorge_Clooney_66%25C3%25A8me_Festival_de_Venise_%2528Mostra%2529_3.jpg&imgrefurl=https%3A%2F%2Flb.wikipedia.org%2Fwiki%2FGeorge_Clooney&tbnid=Unaadzsg7VwffM&vet=12ahUKEwjQrcWRwc_3AhVGnaQKHWH6CkUQMygBegUIARDaAQ..i&docid=wezDKKHxA3ehQM&w=1000&h=1500&q=george%20clooney&client=firefox-b-d&ved=2ahUKEwjQrcWRwc_3AhVGnaQKHWH6CkUQMygBegUIARDaAQ',
-              );
-              console.log(userImage);
-              // setModalVisible(true);
+              setModalVisible(true);
             }}>
             <FastImage
               source={{uri: userImage}}
@@ -231,6 +227,20 @@ const ProfileScreen = () => {
         </View>
 
         {description || edit ? (
+          // <EditableTextField
+          //   placeholder="Description"
+          //   edit={edit}
+          //   value={description}
+          //   newValue={newDescription}
+          //   fontStyle={fontStyles.bodySmall}
+          //   multiline={true}
+          //   onChangeText={t => setNewDescription(t)}
+          //   inputFieldStyle={[
+          //     styles.descriptionStyle,
+          //     styles.descriptionStyleInput,
+          //   ]}
+          //   textStyle={[styles.descriptionStyle]}
+          // />
           <EditableTextField
             placeholder="Description"
             edit={edit}
@@ -383,6 +393,8 @@ const styles = StyleSheet.create({
   descriptionStyleInput: {
     borderWidth: 1,
     borderColor: color.Black[25],
+    color: color.Black[100],
+    width: '100%',
   },
   fontColor: {
     color: color.Lavendar[100],

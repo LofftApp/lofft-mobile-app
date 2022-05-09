@@ -40,7 +40,8 @@ const styles = StyleSheet.create({
     backgroundColor: color.White[50],
     color: color.Black[100],
     paddingHorizontal: 5,
-    lineHeight: 0,
+    // Breaks on android when set to 0
+    // lineHeight: 0,
     borderRadius: 4,
     minWidth: 100,
   },
