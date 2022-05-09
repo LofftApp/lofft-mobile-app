@@ -5,6 +5,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 // Firebase 🔥
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
+import {userImageUpload} from '../api/firebase/firebaseStorage';
 
 const authReducer = (state, action) => {
   switch (action.type) {
@@ -19,6 +20,8 @@ const authReducer = (state, action) => {
         name: action.payload.name,
         imageURI: action.payload.imageURI,
       };
+    case 'update_profile_image':
+      return {...state, imageURI: action.payload};
     case 'signout':
       return {
         token: null,
@@ -101,6 +104,27 @@ const signin =
       });
   };
 
+const profile = dispatch => uid => {
+  firestore()
+    .collection('Users')
+    .doc(uid)
+    .get()
+    .then(querySnapShot => {
+      console.log(querySnapShot);
+      // docId = querySnapShot.docs[0].id;
+      // details = querySnapShot.docs[0].data();
+    });
+};
+
+const updateProfile = dispatch => () => {};
+
+const uploadUserImage = dispatch => () => {
+  userImageUpload().then(response => {
+    dispatch({type: 'update_profile_image', payload: response.imageURI});
+    console.log('Updated image');
+  });
+};
+
 const signout = dispatch => async () => {
   dispatch({
     type: 'signout',
@@ -125,6 +149,15 @@ const resetMessages = dispatch => () => {
 
 export const {Provider, Context} = createUserDetailsContext(
   authReducer,
-  {signin, signout, signup, activeUser, resetMessages},
+  {
+    signin,
+    signout,
+    profile,
+    updateProfile,
+    signup,
+    uploadUserImage,
+    activeUser,
+    resetMessages,
+  },
   {token: null, errorMessage: '', userMessage: ''},
 );

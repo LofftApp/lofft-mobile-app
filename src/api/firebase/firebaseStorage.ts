@@ -57,7 +57,7 @@ const uploadUserImages = async (results, path) => {
 export const userImageUpload = async () => {
   const results = await launchImageLibrary({mediaType: 'photo'});
   if (!results.didCancel) {
-    uploadUserImages(results, 'userImage');
+    return uploadUserImages(results, 'userImage');
   }
 };
 

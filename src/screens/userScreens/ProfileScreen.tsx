@@ -1,17 +1,17 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import {
   View,
   ImageBackground,
   ScrollView,
   Text,
   StyleSheet,
-  Image,
   TouchableOpacity,
   Modal,
   Alert,
 } from 'react-native';
 import storedHobbiesAndValues from '../../data/hobbiesAndValues.json';
 import FastImage from 'react-native-fast-image';
+import {Context as UserDetails} from '../../context/UserDetailsContext';
 
 // Firebase
 import {getCurrentUserDetails} from '../../api/firebase/fireStoreActions';
@@ -41,12 +41,12 @@ import {navigationRef} from '../../RootNavigation';
 
 // Images
 import blueBackground from '../../assets/backgroundShapes/blue.png';
-import imagePlaceholder from '../../assets/user.jpeg';
 import EditableTextField from '../../components/inputFields/EditableTextFields';
 
 const ProfileScreen = () => {
+  const {state, profile, updateProfile, uploadUserImage} =
+    useContext(UserDetails);
   const [modalVisible, setModalVisible] = useState(false);
-  const [currentUser] = useState(auth().currentUser);
   const [docId, setDocId] = useState('');
   const [edit, setEdit] = useState(false);
   const [admin, setAdmin] = useState(false);
@@ -72,9 +72,6 @@ const ProfileScreen = () => {
       setSelectedHobbies(result);
     }
   };
-
-  // Set User Profile Photo
-  useEffect(() => {}, [userImage]);
 
   useEffect(() => {
     setTags([]);
@@ -186,7 +183,7 @@ const ProfileScreen = () => {
               setModalVisible(true);
             }}>
             <FastImage
-              source={{uri: userImage}}
+              source={{uri: state.imageURI}}
               style={styles.userImage}
               resizeMode={FastImage.resizeMode.cover}
             />
@@ -196,7 +193,7 @@ const ProfileScreen = () => {
               <EditableTextField
                 placeholder="Name"
                 edit={edit}
-                value={name}
+                value={state.name}
                 newValue={newName}
                 fontStyle={fontStyles.headerSmall}
                 multiline={true}
@@ -282,8 +279,7 @@ const ProfileScreen = () => {
                 style={[styles.modalButton]}
                 onPress={async () => {
                   // const imageURI = await userImageUpload();
-                  setUserImage('Hello');
-                  console.log(userImage);
+                  uploadUserImage();
                   setModalVisible(false);
                 }}
               />
