@@ -13,9 +13,21 @@ const authReducer = (state, action) => {
     case 'add_message':
       return {...state, errorMessage: '', userMessage: action.payload};
     case 'signin':
-      return {errorMessage: '', token: action.payload};
+      return {
+        errorMessage: '',
+        uid: action.payload.uid,
+        name: action.payload.name,
+        imageURI: action.payload.imageURI,
+      };
     case 'signout':
-      return {token: null, errorMessage: ''};
+      return {
+        token: null,
+        errorMessage: '',
+        userMessage: action.payload,
+        uid: '',
+        name: '',
+        imageURI: '',
+      };
     default:
       return state;
   }
@@ -55,6 +67,16 @@ const signin =
   async ({email, password}) => {
     auth()
       .signInWithEmailAndPassword(email, password)
+      .then(response => {
+        dispatch({
+          type: 'signin',
+          payload: {
+            uid: response.user.uid,
+            name: response.user.displayName,
+            imageURI: response.user.photoURL,
+          },
+        });
+      })
       .catch(error => {
         if (error.code === 'auth/user-not-found') {
           dispatch({
@@ -79,7 +101,7 @@ const signin =
 
 const signout = dispatch => async () => {
   dispatch({
-    type: 'add_message',
+    type: 'signout',
     payload: 'You have succesfully signed out 😥',
   });
   auth().signOut();
