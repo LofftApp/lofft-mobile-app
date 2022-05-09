@@ -10,6 +10,8 @@ const authReducer = (state, action) => {
   switch (action.type) {
     case 'add_error':
       return {...state, errorMessage: action.payload};
+    case 'add_message':
+      return {...state, userMessage: action.payload};
     case 'signin':
       return {errorMessage: '', token: action.payload};
     case 'signout':
@@ -33,12 +35,17 @@ const signup =
           .set({uid: response.user.uid, email, userProfile, looking});
       })
       .catch(error => {
-        console.log(error.code);
         if (error.code === 'auth/email-already-in-use') {
-          console.log('This e-mail is already registered');
+          dispatch({
+            type: 'add_error',
+            payload: 'This e-mail has already been used',
+          });
         }
         if (error.code === 'auth/invalid-email') {
-          console.log('Please use a valid e-mail');
+          dispatch({
+            type: 'add_error',
+            payload: 'This e-mail is not valid',
+          });
         }
       });
   };
@@ -49,15 +56,23 @@ const signin =
     auth()
       .signInWithEmailAndPassword(email, password)
       .catch(error => {
-        console.log(error.code);
-        if (error.code === 'auth/email-already-in-use') {
-          console.log('This e-mail is already registered');
+        if (error.code === 'auth/user-not-found') {
+          dispatch({
+            type: 'add_error',
+            payload: 'This e-mail has not been registered',
+          });
         }
         if (error.code === 'auth/invalid-email') {
-          console.log('Please use a valid e-mail');
+          dispatch({
+            type: 'add_error',
+            payload: 'This e-mail address is invalid',
+          });
         }
         if (error.code === 'auth/wrong-password') {
-          console.log('Wrong password entered');
+          dispatch({
+            type: 'add_error',
+            payload: 'Please use a valid password',
+          });
         }
       });
   };
@@ -79,5 +94,5 @@ const activeUser = dispatch => async () => {
 export const {Provider, Context} = createUserDetailsContext(
   authReducer,
   {signin, signout, signup, activeUser},
-  {token: null, errorMessage: ''},
+  {token: null, errorMessage: '', userMessage: ''},
 );
