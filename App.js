@@ -3,6 +3,7 @@ import {LogBox} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import RNBootSplash from 'react-native-bootsplash';
+import {Provider as UserProvider} from './src/context/AuthContext';
 
 import {navigationRef} from './src/RootNavigation';
 // Screens
@@ -59,7 +60,7 @@ const App = () => {
       console.log('FireStore Development Environment');
       let host = 'localhost';
       // If using Mobile device set the host as local IP
-      host = '192.168.0.123';
+      // host = '192.168.0.123';
       firestore().useEmulator(host, 8080);
       auth().useEmulator(`http://${host}:9099`);
     }
@@ -187,10 +188,12 @@ const App = () => {
 
 export default () => {
   return (
-    <NavigationContainer
-      ref={navigationRef}
-      onReady={() => RNBootSplash.hide()}>
-      <App />
-    </NavigationContainer>
+    <UserProvider>
+      <NavigationContainer
+        ref={navigationRef}
+        onReady={() => RNBootSplash.hide()}>
+        <App />
+      </NavigationContainer>
+    </UserProvider>
   );
 };
