@@ -12,7 +12,7 @@ const HomeScreen = ({navigation}: any) => {
   const activeScreen = (data: any) => {
     setScreen(data);
   };
-  const {state} = useContext(UserDetails);
+  const {state, resetMessages} = useContext(UserDetails);
   let bgColor = color.Mint[10];
   switch (screen) {
     case 0:
@@ -31,6 +31,7 @@ const HomeScreen = ({navigation}: any) => {
       bgColor = color.White[100];
   }
   useEffect(() => {
+    console.log(state);
     if (state.userMessage) {
       setModalVisible(true);
     }
@@ -43,8 +44,8 @@ const HomeScreen = ({navigation}: any) => {
         visible={modalVisible}
         onShow={() => {
           setTimeout(() => {
+            resetMessages();
             setModalVisible(false);
-            console.log('Timeout');
           }, 2000);
         }}>
         <View style={styles.modalContainer}>

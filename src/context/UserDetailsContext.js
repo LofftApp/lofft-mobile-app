@@ -9,9 +9,9 @@ import firestore from '@react-native-firebase/firestore';
 const authReducer = (state, action) => {
   switch (action.type) {
     case 'add_error':
-      return {...state, errorMessage: action.payload};
+      return {...state, errorMessage: action.payload, userMessage: ''};
     case 'add_message':
-      return {...state, userMessage: action.payload};
+      return {...state, errorMessage: '', userMessage: action.payload};
     case 'signin':
       return {errorMessage: '', token: action.payload};
     case 'signout':
@@ -81,7 +81,7 @@ const signout = dispatch => async () => {
   console.log('User Signed out');
   dispatch({
     type: 'add_message',
-    payload: 'You have succesfully signedout 😥',
+    payload: 'You have succesfully signed out 😥',
   });
   auth().signOut();
 };
@@ -96,8 +96,12 @@ const activeUser = dispatch => async () => {
   dispatch({type: 'signin', payload: userToken});
 };
 
+const resetMessages = dispatch => () => {
+  dispatch({type: 'reset_messages', payload: ''});
+};
+
 export const {Provider, Context} = createUserDetailsContext(
   authReducer,
-  {signin, signout, signup, activeUser},
+  {signin, signout, signup, activeUser, resetMessages},
   {token: null, errorMessage: '', userMessage: ''},
 );
