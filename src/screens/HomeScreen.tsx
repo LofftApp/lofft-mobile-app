@@ -1,15 +1,18 @@
-import React, {useState} from 'react';
-import {View, StyleSheet} from 'react-native';
+import React, {useState, useEffect, useContext} from 'react';
+import {View, Text, StyleSheet, Modal, Platform} from 'react-native';
 import color from './../assets/defaultColorPallet.json';
 import {CoreButton} from '../components/buttons/CoreButton';
 import HomeCarosel from '../components/bannersAndBars/HomeCarosel';
 import PaginationBar from '../components/bannersAndBars/PaginationBar';
+import {Context as UserDetails} from '../context/UserDetailsContext';
 
 const HomeScreen = ({navigation}: any) => {
+  const [modalVisible, setModalVisible] = useState(false);
   const [screen, setScreen] = useState(0);
   const activeScreen = (data: any) => {
     setScreen(data);
   };
+  const {state, resetMessages} = useContext(UserDetails);
   let bgColor = color.Mint[10];
   switch (screen) {
     case 0:
@@ -27,8 +30,32 @@ const HomeScreen = ({navigation}: any) => {
     default:
       bgColor = color.White[100];
   }
+  useEffect(() => {
+    console.log(state);
+    if (state.userMessage) {
+      setModalVisible(true);
+    }
+  }, []);
   return (
     <View style={[styles.mainContainerStyle, {backgroundColor: bgColor}]}>
+      <Modal
+        transparent={true}
+        animationType="fade"
+        visible={modalVisible}
+        onShow={() => {
+          setTimeout(() => {
+            resetMessages();
+            setModalVisible(false);
+          }, 2000);
+        }}>
+        <View
+          style={[
+            styles.modalContainer,
+            Platform.OS === 'ios' ? styles.iosModalContainer : null,
+          ]}>
+          <Text style={styles.modalText}>{state.userMessage}</Text>
+        </View>
+      </Modal>
       <View style={styles.carouselContainer}>
         <HomeCarosel activeScreen={activeScreen} />
         <PaginationBar screen={screen} />
@@ -51,6 +78,23 @@ const HomeScreen = ({navigation}: any) => {
 };
 
 const styles = StyleSheet.create({
+  modalContainer: {
+    backgroundColor: color.Mint[100],
+    color: color.Black[100],
+    height: 35,
+    borderRadius: 4,
+    justifyContent: 'center',
+    paddingHorizontal: 5,
+    width: '90%',
+    alignSelf: 'center',
+    marginTop: 20,
+  },
+  iosModalContainer: {
+    marginTop: 50,
+  },
+  modalText: {
+    color: color.Black[100],
+  },
   mainContainerStyle: {
     flex: 1,
     justifyContent: 'space-between',
