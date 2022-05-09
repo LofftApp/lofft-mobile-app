@@ -29,19 +29,20 @@ const HomeScreen = () => {
   const [docId, setDocId]: any = useState('');
   const {state} = useContext(UserDetails);
   useEffect(() => {
-    console.log(state);
-    const unsubscribe = firestore()
-      .collection('Users')
-      .where('uid', '==', auth().currentUser.uid)
-      .onSnapshot(snapShot => {
-        setDocId(snapShot.docs[0].id);
-        const result = snapShot.docs[0].data();
-        if (result.name) setName(result.name.split(' ')[0]);
-        if (result.imageURI) setImage({uri: result.imageURI});
-        if (result.lofft) setLofft(result.lofft);
-      });
-    return () => unsubscribe();
-  }, []);
+    if (state.uid) {
+      if (state.name) setName(state.name.split(' ')[0]);
+      if (state.imageURI) setImage({uri: state.imageURI});
+      const unsubscribe = firestore()
+        .collection('Users')
+        .doc(state.uid)
+        .onSnapshot(snapShot => {
+          setDocId(snapShot.data().id);
+          const result = snapShot.data();
+          if (result.lofft) setLofft(result.lofft);
+        });
+      return () => unsubscribe();
+    }
+  }, [state]);
   return (
     <View
       style={[

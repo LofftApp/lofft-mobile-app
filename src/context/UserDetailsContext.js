@@ -28,6 +28,8 @@ const authReducer = (state, action) => {
         name: '',
         imageURI: '',
       };
+    case 'reset_messages':
+      return {errorMessage: '', userMessage: ''};
     default:
       return state;
   }

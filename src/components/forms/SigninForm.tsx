@@ -25,7 +25,7 @@ const SigninForm = ({navigation, signupForm = false}: any) => {
       <View>
         {state.errorMessage ? (
           <View style={styles.stateContainer}>
-            <Text>{state.errorMessage}</Text>
+            <Text style={styles.stateText}>{state.errorMessage}</Text>
           </View>
         ) : null}
         <View style={styles.inputContainerStyle}>
@@ -106,6 +106,9 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     justifyContent: 'center',
     paddingHorizontal: 5,
+  },
+  stateText: {
+    color: color.White[100],
   },
   inputContainerStyle: {
     marginTop: 15,

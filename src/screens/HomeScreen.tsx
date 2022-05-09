@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useContext} from 'react';
-import {View, Text, StyleSheet, Modal} from 'react-native';
+import {View, Text, StyleSheet, Modal, Platform} from 'react-native';
 import color from './../assets/defaultColorPallet.json';
 import {CoreButton} from '../components/buttons/CoreButton';
 import HomeCarosel from '../components/bannersAndBars/HomeCarosel';
@@ -48,7 +48,11 @@ const HomeScreen = ({navigation}: any) => {
             setModalVisible(false);
           }, 2000);
         }}>
-        <View style={styles.modalContainer}>
+        <View
+          style={[
+            styles.modalContainer,
+            Platform.OS === 'ios' ? styles.iosModalContainer : null,
+          ]}>
           <Text style={styles.modalText}>{state.userMessage}</Text>
         </View>
       </Modal>
@@ -84,6 +88,9 @@ const styles = StyleSheet.create({
     width: '90%',
     alignSelf: 'center',
     marginTop: 20,
+  },
+  iosModalContainer: {
+    marginTop: 50,
   },
   modalText: {
     color: color.Black[100],
