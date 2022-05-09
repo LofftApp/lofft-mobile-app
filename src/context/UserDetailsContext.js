@@ -78,7 +78,6 @@ const signin =
   };
 
 const signout = dispatch => async () => {
-  console.log('User Signed out');
   dispatch({
     type: 'add_message',
     payload: 'You have succesfully signed out 😥',
