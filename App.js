@@ -30,6 +30,7 @@ import PollConfirmationScreen from './src/screens/managementScreens/PollConfirma
 
 // FireStore
 import auth from '@react-native-firebase/auth';
+// import firestore from '@react-native-firebase/firestore';
 import firestore from '@react-native-firebase/firestore';
 // import storage from '@react-native-firebase/storage';
 
@@ -59,8 +60,8 @@ const App = () => {
       let host = 'localhost';
       // If using Mobile device set the host as local IP
       host = '192.168.0.123';
-      auth().useEmulator(`http://${host}:9099`);
       firestore().useEmulator(host, 8080);
+      auth().useEmulator(`http://${host}:9099`);
     }
     return () => unsubscribe();
   }, []);

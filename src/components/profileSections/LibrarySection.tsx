@@ -81,6 +81,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     width: 95,
     height: 95,
+    marginVertical: 5,
     marginHorizontal: 2.5,
   },
   deleteButton: {
@@ -90,8 +91,8 @@ const styles = StyleSheet.create({
     width: 15,
     height: 15,
     borderRadius: 15,
-    marginLeft: -10,
-    marginTop: -5,
+    marginLeft: -15,
+    marginTop: 3,
   },
 });
 

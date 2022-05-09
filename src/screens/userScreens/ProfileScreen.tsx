@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useLayoutEffect} from 'react';
 import {
   View,
   ImageBackground,
@@ -46,6 +46,7 @@ import EditableTextField from '../../components/inputFields/EditableTextFields';
 
 const ProfileScreen = () => {
   const [modalVisible, setModalVisible] = useState(false);
+  const [currentUser] = useState(auth().currentUser);
   const [docId, setDocId] = useState('');
   const [edit, setEdit] = useState(false);
   const [admin, setAdmin] = useState(false);
@@ -72,7 +73,9 @@ const ProfileScreen = () => {
     }
   };
 
-  // Inital load, get active user
+  // Set User Profile Photo
+  useEffect(() => {}, [userImage]);
+
   useEffect(() => {
     setTags([]);
     const getUser = async user => {
@@ -140,11 +143,6 @@ const ProfileScreen = () => {
       }
     });
   }, []);
-
-  // Get || Update user profile image
-  // useEffect(() => {
-  //   console.log(currentUser);
-  // }, []);
 
   return (
     <View style={styles.pageContainer}>
@@ -227,20 +225,6 @@ const ProfileScreen = () => {
         </View>
 
         {description || edit ? (
-          // <EditableTextField
-          //   placeholder="Description"
-          //   edit={edit}
-          //   value={description}
-          //   newValue={newDescription}
-          //   fontStyle={fontStyles.bodySmall}
-          //   multiline={true}
-          //   onChangeText={t => setNewDescription(t)}
-          //   inputFieldStyle={[
-          //     styles.descriptionStyle,
-          //     styles.descriptionStyleInput,
-          //   ]}
-          //   textStyle={[styles.descriptionStyle]}
-          // />
           <EditableTextField
             placeholder="Description"
             edit={edit}
@@ -307,10 +291,9 @@ const ProfileScreen = () => {
                 value="Take Photo"
                 style={[styles.modalButton]}
                 invert
-                onPress={() => {
-                  // const imageURI = await userTakePhoto();
-                  setUserImage('Hello');
-                  console.log(userImage);
+                onPress={async () => {
+                  const imageURI = await userTakePhoto();
+                  setUserImage({imageURI});
 
                   setModalVisible(false);
                 }}
