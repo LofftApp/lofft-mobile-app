@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useContext} from 'react';
 import {
   View,
   Text,
@@ -10,13 +10,15 @@ import BouncyCheckbox from 'react-native-bouncy-checkbox';
 import color from '../../assets/defaultColorPallet.json';
 import {fontStyles} from '../../StyleSheets/FontStyleSheet';
 import {CoreButton} from './../buttons/CoreButton';
-import {signup, signin} from '../../api/firebase/firebaseApi';
+import {Context as UserDetails} from '../../context/UserDetailsContext';
+// import {signup, signin} from '../../api/firebase/firebaseApi';
 
 const SigninForm = ({navigation, signupForm = false}: any) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [checkbox, setCheckbox] = useState(false);
   const buttonValue = signupForm ? 'Sign up' : 'Sign in';
+  const {state, signin, signup} = useContext(UserDetails);
 
   return (
     <View style={styles.container}>
