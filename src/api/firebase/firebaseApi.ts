@@ -1,6 +1,11 @@
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 
+export const getCurrentUser = () => {
+  const currentUser = auth().currentUser;
+  return currentUser;
+};
+
 // Authentication Signin, Signup and Signout Methods
 export const signup = ({email, password}) => {
   auth()

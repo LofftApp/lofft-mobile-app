@@ -6,6 +6,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 import {userImageUpload} from '../api/firebase/firebaseStorage';
+import {getCurrentUser} from '../api/firebase/firebaseApi';
 
 const authReducer = (state, action) => {
   switch (action.type) {
@@ -133,14 +134,18 @@ const signout = dispatch => async () => {
   auth().signOut();
 };
 
+// If signed in but no active user in context then this is requested
 const activeUser = dispatch => async () => {
-  let userToken;
-  try {
-    userToken = await AsyncStorage.getItem('token');
-  } catch (error) {
-    return;
-  }
-  dispatch({type: 'signin', payload: userToken});
+  const response = await getCurrentUser();
+  dispatch({
+    type: 'signin',
+    payload: {
+      uid: response.uid,
+      name: response.displayName,
+      imageURI: response.photoURL,
+    },
+  });
+  // dispatch({type: 'signin', payload: userToken});
 };
 
 const resetMessages = dispatch => () => {

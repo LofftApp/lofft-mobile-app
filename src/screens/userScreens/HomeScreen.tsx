@@ -27,7 +27,7 @@ const HomeScreen = () => {
   const [name, setName] = useState('');
   const [image, setImage]: any = useState('');
   const [docId, setDocId]: any = useState('');
-  const {state} = useContext(UserDetails);
+  const {state, activeUser} = useContext(UserDetails);
   useEffect(() => {
     if (state.uid) {
       if (state.name) setName(state.name.split(' ')[0]);
@@ -41,6 +41,8 @@ const HomeScreen = () => {
           if (result.lofft) setLofft(result.lofft);
         });
       return () => unsubscribe();
+    } else {
+      activeUser();
     }
   }, [state]);
   return (
