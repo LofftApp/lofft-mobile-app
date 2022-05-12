@@ -121,7 +121,7 @@ const updateProfile = dispatch => () => {};
 
 const uploadUserImage = dispatch => () => {
   userImageUpload().then(response => {
-    dispatch({type: 'update_profile_image', payload: response.imageURI});
+    dispatch({type: 'update_profile_image', payload: response});
     console.log('Updated image');
   });
 };

@@ -83,10 +83,8 @@ const ProfileScreen = ({userID = auth().currentUser.uid}) => {
 
   // SetUserImage and assign current user Image
   useEffect(() => {
-    if (userID === state.uid && state.imageURI) {
-      setUserImage(state.imageURI);
-    }
-  }, [state.imageURI, state.uid, userID]);
+    setUserImage(state.imageURI);
+  }, [state.imageURI]);
 
   // Sets core details name, description
   useEffect(() => {
@@ -186,6 +184,7 @@ const ProfileScreen = ({userID = auth().currentUser.uid}) => {
             edit={edit}
             admin={admin}
             onPressSave={() => {
+              console.log('I was pressed');
               Object.entries(values).forEach(([k, v]) => {
                 v.active = selectedHobbies.includes(k);
               });
@@ -193,7 +192,7 @@ const ProfileScreen = ({userID = auth().currentUser.uid}) => {
               setTags(newTags);
               setDescription(newDescription);
               setValues(values);
-              updateUser(docId, newName, newDescription, values);
+              updateUser(userID, newName, newDescription, values);
               setEdit(false);
             }}
             onPressCancel={() => setEdit(false)}
@@ -309,6 +308,7 @@ const ProfileScreen = ({userID = auth().currentUser.uid}) => {
                 onPress={async () => {
                   // const imageURI = await userImageUpload();
                   uploadUserImage();
+                  setUserImage('updated');
                   setModalVisible(false);
                 }}
               />
