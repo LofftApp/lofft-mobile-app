@@ -47,7 +47,7 @@ import blueBackground from '../../assets/backgroundShapes/blue.png';
 import EditableTextField from '../../components/inputFields/EditableTextFields';
 
 const ProfileScreen = ({userID = auth().currentUser.uid}) => {
-  const {state, profile, updateProfile, uploadUserImage} =
+  const {state, profile, updateProfile, uploadUserImage, photoUserImage} =
     useContext(UserDetails);
   const [modalVisible, setModalVisible] = useState(false);
   const [docId, setDocId] = useState('');
@@ -83,6 +83,7 @@ const ProfileScreen = ({userID = auth().currentUser.uid}) => {
 
   // SetUserImage and assign current user Image
   useEffect(() => {
+    console.log(state);
     setUserImage(state.imageURI);
   }, [state.imageURI]);
 
@@ -305,7 +306,7 @@ const ProfileScreen = ({userID = auth().currentUser.uid}) => {
               <CoreButton
                 value="Upload Image"
                 style={[styles.modalButton]}
-                onPress={async () => {
+                onPress={() => {
                   // const imageURI = await userImageUpload();
                   uploadUserImage();
                   setUserImage('updated');
@@ -317,9 +318,9 @@ const ProfileScreen = ({userID = auth().currentUser.uid}) => {
                 style={[styles.modalButton]}
                 invert
                 onPress={async () => {
-                  const imageURI = await userTakePhoto();
-                  setUserImage({imageURI});
-
+                  // const imageURI = await userTakePhoto();
+                  await photoUserImage();
+                  setUserImage('updated');
                   setModalVisible(false);
                 }}
               />

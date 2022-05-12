@@ -5,7 +5,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 // Firebase 🔥
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
-import {userImageUpload} from '../api/firebase/firebaseStorage';
+import {userImageUpload, userTakePhoto} from '../api/firebase/firebaseStorage';
 import {getCurrentUser} from '../api/firebase/firebaseApi';
 
 const authReducer = (state, action) => {
@@ -121,8 +121,18 @@ const updateProfile = dispatch => () => {};
 
 const uploadUserImage = dispatch => () => {
   userImageUpload().then(response => {
-    dispatch({type: 'update_profile_image', payload: response});
-    console.log('Updated image');
+    if (response) {
+      dispatch({type: 'update_profile_image', payload: response});
+    }
+  });
+};
+
+const photoUserImage = dispatch => async () => {
+  await userTakePhoto().then(response => {
+    console.log(response);
+    if (response) {
+      dispatch({type: 'update_profile_image', payload: response});
+    }
   });
 };
 
@@ -162,6 +172,7 @@ export const {Provider, Context} = createUserDetailsContext(
     updateProfile,
     signup,
     uploadUserImage,
+    photoUserImage,
     activeUser,
     resetMessages,
   },

@@ -59,13 +59,15 @@ export const userImageUpload = async () => {
   if (!results.didCancel) {
     return uploadUserImages(results, 'userImage');
   }
+  return false;
 };
 
 export const userTakePhoto = async () => {
   const results = await launchCamera({mediaType: 'photo'});
   if (!results.didCancel) {
-    uploadUserImages(results, 'userImage');
+    return uploadUserImages(results, 'userImage');
   }
+  return false;
 };
 
 export const libraryImageUpload = async limit => {
