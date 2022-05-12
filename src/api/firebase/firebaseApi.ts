@@ -33,7 +33,7 @@ export const signin = ({email, password}) => {
   auth()
     .signInWithEmailAndPassword(email, password)
     .catch(error => {
-      console.log(error.code);
+      error.code;
       if (error.code === 'auth/email-already-in-use') {
         console.log('This e-mail is already registered');
       }

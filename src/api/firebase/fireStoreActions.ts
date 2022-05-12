@@ -21,18 +21,9 @@ export const userDetailsUpdate = () => {
 
 // Update and edit user profiles.
 
-export const getCurrentUserDetails = async user => {
-  let details: any = {};
-  let docId = '';
-  await firestore()
-    .collection('Users')
-    .where('uid', '==', user.uid)
-    .get()
-    .then(querySnapShot => {
-      docId = querySnapShot.docs[0].id;
-      details = querySnapShot.docs[0].data();
-    });
-  return {docId, details};
+export const getCurrentUserDetails = async userID => {
+  const userDetails = await firestore().collection('Users').doc(userID).get();
+  return userDetails.data();
 };
 
 // Edit user profiles

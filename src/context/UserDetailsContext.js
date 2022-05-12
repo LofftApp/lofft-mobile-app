@@ -137,6 +137,7 @@ const signout = dispatch => async () => {
 // If signed in but no active user in context then this is requested
 const activeUser = dispatch => async () => {
   const response = await getCurrentUser();
+  console.log(response);
   dispatch({
     type: 'signin',
     payload: {
