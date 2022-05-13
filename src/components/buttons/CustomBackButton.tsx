@@ -37,11 +37,11 @@ const CustomBackButton = ({
         ]}
         onPress={onPress}>
         {close ? (
-          <Icon name="close" size={45} color={color.Black[50]} />
+          <Icon name="close" size={25} color={color.Black[50]} />
         ) : (
           <Icon
             name="chevron-back"
-            size={45}
+            size={25}
             color={neutral ? color.Black[50] : color.Lavendar[80]}
           />
         )}
@@ -52,9 +52,11 @@ const CustomBackButton = ({
 
 const styles = StyleSheet.create({
   headerContainer: {
-    width: '100%',
+    flex: 1,
+    maxHeight: 75,
     alignContent: 'flex-start',
     flexDirection: 'row-reverse',
+    alignItems: 'center',
     paddingTop: 5,
   },
   headerContainClose: {
@@ -64,8 +66,8 @@ const styles = StyleSheet.create({
   button: {
     justifyContent: 'center',
     alignItems: 'center',
-    width: 48,
-    height: 48,
+    width: 40,
+    height: 40,
     borderRadius: 22,
   },
   backButton: {
@@ -75,7 +77,7 @@ const styles = StyleSheet.create({
     backgroundColor: color.Black[0],
   },
   header: {
-    width: '100%',
+    flex: 1,
     marginLeft: -48,
     marginTop: 12,
     textAlign: 'center',
@@ -85,7 +87,7 @@ const styles = StyleSheet.create({
     marginRight: -48,
   },
   neutral: {
-    backgroundColor: color.White[30],
+    backgroundColor: color.White[50],
   },
 });
 

@@ -3,7 +3,7 @@ import {LogBox} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import RNBootSplash from 'react-native-bootsplash';
-
+import {Provider as UserDetails} from './src/context/UserDetailsContext';
 import {navigationRef} from './src/RootNavigation';
 // Screens
 import {UserComponents} from './src/components/UserComponents';
@@ -30,6 +30,7 @@ import PollConfirmationScreen from './src/screens/managementScreens/PollConfirma
 
 // FireStore
 import auth from '@react-native-firebase/auth';
+// import firestore from '@react-native-firebase/firestore';
 import firestore from '@react-native-firebase/firestore';
 // import storage from '@react-native-firebase/storage';
 
@@ -57,9 +58,10 @@ const App = () => {
     if (__DEV__) {
       console.log('FireStore Development Environment');
       let host = 'localhost';
-      // host = '192.168.0.123'
-      auth().useEmulator(`http://${host}:9099`);
+      // If using Mobile device set the host as local IP
+      host = '192.168.7.156';
       firestore().useEmulator(host, 8080);
+      auth().useEmulator(`http://${host}:9099`);
     }
     return () => unsubscribe();
   }, []);
@@ -185,10 +187,12 @@ const App = () => {
 
 export default () => {
   return (
-    <NavigationContainer
-      ref={navigationRef}
-      onReady={() => RNBootSplash.hide()}>
-      <App />
-    </NavigationContainer>
+    <UserDetails>
+      <NavigationContainer
+        ref={navigationRef}
+        onReady={() => RNBootSplash.hide()}>
+        <App />
+      </NavigationContainer>
+    </UserDetails>
   );
 };

@@ -11,7 +11,7 @@ export const userDetailsUpdate = () => {
         .collection('Users')
         .where('uid', '==', user.uid)
         .onSnapshot(snapShot => {
-          console.log(snapShot.docs[0].data());
+          snapShot.docs[0].data();
         });
     } else {
       console.log('Unauth');
@@ -21,18 +21,9 @@ export const userDetailsUpdate = () => {
 
 // Update and edit user profiles.
 
-export const getCurrentUserDetails = async user => {
-  let details: any = {};
-  let docId = '';
-  await firestore()
-    .collection('Users')
-    .where('uid', '==', user.uid)
-    .get()
-    .then(querySnapShot => {
-      docId = querySnapShot.docs[0].id;
-      details = querySnapShot.docs[0].data();
-    });
-  return {docId, details};
+export const getCurrentUserDetails = async userID => {
+  const userDetails = await firestore().collection('Users').doc(userID).get();
+  return userDetails.data();
 };
 
 // Edit user profiles
@@ -65,6 +56,20 @@ export const updateUser = (
 
 export const uploadImageToUserProfile = (docId, url) => {
   firestore().collection('Users').doc(docId).update({imageURI: url});
+};
+
+export const uploadLibraryImagesToUserProfile = (docId, urls) => {
+  firestore()
+    .collection('Users')
+    .doc(docId)
+    .update({libraryURIS: firestore.FieldValue.arrayUnion(...urls)});
+};
+
+export const deleteImageFromImageLibraryRef = (docId, url) => {
+  firestore()
+    .collection('Users')
+    .doc(docId)
+    .update({libraryURIS: firestore.FieldValue.arrayRemove(url)});
 };
 
 // Update and create Lofft Spaces
