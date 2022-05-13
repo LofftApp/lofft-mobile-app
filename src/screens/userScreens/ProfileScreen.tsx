@@ -1,37 +1,20 @@
 import React, {useState, useEffect, useContext} from 'react';
-import {
-  View,
-  ImageBackground,
-  ScrollView,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  Modal,
-  Alert,
-} from 'react-native';
+import {View, ScrollView, Text, StyleSheet, Modal, Alert} from 'react-native';
 import storedHobbiesAndValues from '../../data/hobbiesAndValues.json';
-import FastImage from 'react-native-fast-image';
 import {Context as UserDetails} from '../../context/UserDetailsContext';
 
 // Firebase
 import {getCurrentUserDetails} from '../../api/firebase/fireStoreActions';
 import auth from '@react-native-firebase/auth';
 import {updateUser} from '../../api/firebase/fireStoreActions';
-import {
-  userTakePhoto,
-  userImageUpload,
-  libraryImageUpload,
-} from '../../api/firebase/firebaseStorage';
+import {libraryImageUpload} from '../../api/firebase/firebaseStorage';
 
 // Components
-import CustomBackButton from '../../components/buttons/CustomBackButton';
-import UserIcon from '../../components/iconsAndContainers/UserIcon';
-import Icon from 'react-native-vector-icons/Ionicons';
 import TagIcon from '../../components/iconsAndContainers/TagIcon';
-import EditPageButton from '../../components/buttons/EditPageButton';
 import HobbiesAndValues from '../../components/HobbiesAndValues';
 import {CoreButton} from '../../components/buttons/CoreButton';
 import LibrarySection from '../../components/profileSections/LibrarySection';
+import ProfileHeader from '../../components/bannersAndBars/ProfileHeader';
 
 // helpers
 import {hobbiesFormatter} from '../../components/helperFunctions/hobbiesFormatter';
@@ -43,7 +26,6 @@ import {fontStyles} from './../../StyleSheets/FontStyleSheet';
 import {navigationRef} from '../../RootNavigation';
 
 // Images
-import blueBackground from '../../assets/backgroundShapes/blue.png';
 import EditableTextField from '../../components/inputFields/EditableTextFields';
 
 const ProfileScreen = ({userID = auth().currentUser.uid}) => {
@@ -113,69 +95,46 @@ const ProfileScreen = ({userID = auth().currentUser.uid}) => {
 
   useEffect(() => {}, []);
 
+  const onSave = () => {
+    Object.entries(values).forEach(([k, v]) => {
+      v.active = selectedHobbies.includes(k);
+    });
+    setName(newName);
+    setTags(newTags);
+    setDescription(newDescription);
+    setValues(values);
+    updateUser(userID, newName, newDescription, values);
+    setEdit(false);
+  };
+
+  const onEdit = () => {
+    setEdit(true);
+    setNewName(name);
+    setNewTags(tags);
+    setNewDescription(description);
+  };
+
+  const onCancel = () => () => setEdit(false);
+
+  const modalShow = () => setModalVisible(true);
+
+  const updateUserName = t => setNewName(t);
+
   return (
     <View style={styles.pageContainer}>
-      <ImageBackground source={blueBackground} style={styles.headerBackground}>
-        <View style={styles.topBarWithEdit}>
-          {edit ? null : (
-            <CustomBackButton
-              style={styles.backButton}
-              neutral={true}
-              onPress={() => navigationRef.goBack()}
-            />
-          )}
-
-          <EditPageButton
-            edit={edit}
-            admin={admin}
-            onPressSave={() => {
-              console.log('I was pressed');
-              Object.entries(values).forEach(([k, v]) => {
-                v.active = selectedHobbies.includes(k);
-              });
-              setName(newName);
-              setTags(newTags);
-              setDescription(newDescription);
-              setValues(values);
-              updateUser(userID, newName, newDescription, values);
-              setEdit(false);
-            }}
-            onPressCancel={() => setEdit(false)}
-            onPressEdit={() => {
-              setEdit(true);
-              setNewName(name);
-              setNewTags(tags);
-              setNewDescription(description);
-            }}
-          />
-        </View>
-        <View style={styles.imageHeaderContainer}>
-          <TouchableOpacity
-            disabled={edit ? false : true}
-            onPress={() => {
-              setModalVisible(true);
-            }}>
-            <FastImage
-              source={{uri: userImage}}
-              style={styles.userImage}
-              resizeMode={FastImage.resizeMode.cover}
-            />
-          </TouchableOpacity>
-          <View style={styles.nameAndEditContainer}>
-            {name || edit ? (
-              <EditableTextField
-                placeholder="Name"
-                edit={edit}
-                value={state.name}
-                newValue={newName}
-                fontStyle={fontStyles.headerSmall}
-                multiline={true}
-                onChangeText={t => setNewName(t)}
-              />
-            ) : null}
-          </View>
-        </View>
-      </ImageBackground>
+      <ProfileHeader
+        navigation={navigationRef}
+        edit={edit}
+        admin={admin}
+        onSave={onSave}
+        onEdit={onEdit}
+        onCancel={onCancel}
+        modalShow={modalShow}
+        imageURI={userImage}
+        name={name}
+        newName={newName}
+        updateUserName={updateUserName}
+      />
       <ScrollView style={CoreStyleSheet.viewContainerStyle}>
         {/* Tags */}
         <View style={styles.pillContainer}>
@@ -287,44 +246,12 @@ const ProfileScreen = ({userID = auth().currentUser.uid}) => {
 };
 
 const styles = StyleSheet.create({
-  topBarWithEdit: {
-    flexDirection: 'row',
-    flex: 1,
-    alignItems: 'baseline',
-  },
   pageContainer: {
     flex: 1,
-  },
-  headerBackground: {
-    width: '100%',
-    height: 200,
-    backgroundColor: color.Blue[10],
-  },
-  backButton: {
-    marginHorizontal: 15,
-    marginTop: 35,
   },
   pillContainer: {
     flexDirection: 'row',
     marginBottom: 10,
-  },
-  imageHeaderContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    flex: 1,
-    alignItems: 'flex-end',
-    paddingBottom: 10,
-    paddingHorizontal: 15,
-  },
-  userImage: {
-    width: 78,
-    height: 78,
-    borderWidth: 4,
-    borderColor: color.Blue[100],
-    borderRadius: 75,
-  },
-  nameAndEditContainer: {
-    alignItems: 'flex-end',
   },
   pill: {
     width: 78,
