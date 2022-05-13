@@ -1,7 +1,5 @@
-import firestore, {doc, getDoc, setDoc} from '@react-native-firebase/firestore';
+import firestore from '@react-native-firebase/firestore';
 import auth from '@react-native-firebase/auth';
-import {getCurrentUser} from './firebaseApi';
-import values from '../../data/hobbiesAndValues.json';
 import {dateStringFormatter} from '../../components/helperFunctions/dateFormatter';
 
 export const userDetailsUpdate = () => {
@@ -76,7 +74,7 @@ export const deleteImageFromImageLibraryRef = (docId, url) => {
 export const createLofft = async ({
   name,
   description,
-  docId,
+  userID,
   hobbiesAndValues,
 }) => {
   await firestore()
@@ -87,12 +85,13 @@ export const createLofft = async ({
       users: [{user_id: auth().currentUser.uid, admin: true}],
       pending_users: [],
       hobbiesAndValues,
+      emoji: '🤷',
     })
     .then(async response => {
       await firestore()
         .collection('Users')
-        .doc(docId)
-        .update({lofft: {lofftId: response.id, name, description}});
+        .doc(userID)
+        .update({lofft: response.id});
     });
 };
 

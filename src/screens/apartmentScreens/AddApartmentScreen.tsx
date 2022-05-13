@@ -1,5 +1,13 @@
-import React, {useState} from 'react';
-import {View, Text, StyleSheet, Platform, TextInput} from 'react-native';
+import React, {useState, useContext} from 'react';
+import {
+  View,
+  Text,
+  StyleSheet,
+  Platform,
+  TextInput,
+  Keyboard,
+  Pressable,
+} from 'react-native';
 import {navigationRef as navigation} from './../../RootNavigation';
 import values from '../../data/hobbiesAndValues.json';
 
@@ -16,10 +24,13 @@ import HobbiesAndValues from '../../components/HobbiesAndValues';
 // Firebase
 import {createLofft} from '../../api/firebase/fireStoreActions';
 
+// Context
+import {Context as UserDetails} from '../../context/UserDetailsContext';
+
 const AddApartmentScreen = ({route}) => {
+  const {state} = useContext(UserDetails);
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
-  const [docId] = useState(route.params.docId);
   const [selectedHobbies, setSelectedHobbies] = useState([]);
   const selectHobby = key => {
     if (!selectedHobbies.includes(key)) {
@@ -31,60 +42,63 @@ const AddApartmentScreen = ({route}) => {
       setSelectedHobbies(result);
     }
   };
+  console.log(state);
   return (
     <View
       style={[
         CoreStyleSheet.viewContainerStyle,
         Platform.OS === 'ios' ? CoreStyleSheet.viewContainerIOSStyle : null,
       ]}>
-      <CustomBackButton
-        title="Add your Lofft"
-        onPress={() => navigation.goBack()}
-      />
-      <View style={styles.formContainer}>
-        <View style={styles.fieldContainer}>
-          <Text style={fontStyles.buttonTextMedium}>Lofft Name</Text>
-          <TextInput
-            style={[fontStyles.bodyMedium, styles.formInput]}
-            value={name}
-            onChangeText={c => setName(c)}
-          />
+      <Pressable onPressIn={Keyboard.dismiss} style={{flex: 1}}>
+        <CustomBackButton
+          title="Add your Lofft"
+          onPress={() => navigation.goBack()}
+        />
+        <View style={styles.formContainer}>
+          <View style={styles.fieldContainer}>
+            <Text style={fontStyles.buttonTextMedium}>Lofft Name</Text>
+            <TextInput
+              style={[fontStyles.bodyMedium, styles.formInput]}
+              value={name}
+              onChangeText={c => setName(c)}
+            />
+          </View>
+          <View style={styles.fieldContainer}>
+            <Text style={fontStyles.buttonTextMedium}>Description</Text>
+            <TextInput
+              style={[fontStyles.bodyMedium, styles.formInput]}
+              multiline
+              value={description}
+              onChangeText={c => setDescription(c)}
+            />
+          </View>
+          <View style={styles.fieldContainer}>
+            <Text style={fontStyles.buttonTextMedium}>Values and Hobbies</Text>
+            <HobbiesAndValues
+              values={values}
+              selectHobby={k => selectHobby(k)}
+              selectedHobbies={selectedHobbies}
+              edit={true}
+            />
+          </View>
         </View>
-        <View style={styles.fieldContainer}>
-          <Text style={fontStyles.buttonTextMedium}>Description</Text>
-          <TextInput
-            style={[fontStyles.bodyMedium, styles.formInput]}
-            multiline
-            value={description}
-            onChangeText={c => setDescription(c)}
-          />
-        </View>
-        <View style={styles.fieldContainer}>
-          <Text style={fontStyles.buttonTextMedium}>Values and Hobbies</Text>
-          <HobbiesAndValues
-            values={values}
-            selectHobby={k => selectHobby(k)}
-            selectedHobbies={selectedHobbies}
-            edit={true}
-          />
-        </View>
-      </View>
-      <CoreButton
-        value="Add Lofft"
-        onPress={() => {
-          let userHobbies = values;
-          selectedHobbies.forEach(hobby => {
-            userHobbies[hobby].active = true;
-          });
-          createLofft({
-            name,
-            description,
-            docId,
-            hobbiesAndValues: userHobbies,
-          });
-          navigation.navigate('Costs');
-        }}
-      />
+        <CoreButton
+          value="Add Lofft"
+          onPress={() => {
+            let userHobbies = values;
+            selectedHobbies.forEach(hobby => {
+              userHobbies[hobby].active = true;
+            });
+            createLofft({
+              name,
+              description,
+              userID: state.uid,
+              hobbiesAndValues: userHobbies,
+            });
+            navigation.navigate('Costs');
+          }}
+        />
+      </Pressable>
     </View>
   );
 };
