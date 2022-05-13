@@ -15,6 +15,7 @@ import HobbiesAndValues from '../../components/HobbiesAndValues';
 import {CoreButton} from '../../components/buttons/CoreButton';
 import LibrarySection from '../../components/profileSections/LibrarySection';
 import ProfileHeader from '../../components/bannersAndBars/ProfileHeader';
+import DescriptionInput from '../../components/profileSections/DescriptionInput';
 
 // helpers
 import {hobbiesFormatter} from '../../components/helperFunctions/hobbiesFormatter';
@@ -154,19 +155,11 @@ const ProfileScreen = ({userID = auth().currentUser.uid}) => {
         </View>
 
         {description || edit ? (
-          <EditableTextField
-            placeholder="Description"
+          <DescriptionInput
             edit={edit}
             value={description}
             newValue={newDescription}
-            fontStyle={fontStyles.bodySmall}
-            multiline={true}
-            onChangeText={t => setNewDescription(t)}
-            inputFieldStyle={[
-              styles.descriptionStyle,
-              styles.descriptionStyleInput,
-            ]}
-            textStyle={[styles.descriptionStyle]}
+            onTextChange={t => setNewDescription(t)}
           />
         ) : null}
         <View style={styles.sectionContainer}>

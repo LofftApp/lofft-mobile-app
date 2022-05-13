@@ -23,6 +23,7 @@ import TagIcon from '../../components/iconsAndContainers/TagIcon';
 import HobbiesAndValues from '../../components/HobbiesAndValues';
 import EditableTextField from '../../components/inputFields/EditableTextFields';
 import ProfileHeader from '../../components/bannersAndBars/ProfileHeader';
+import DescriptionInput from '../../components/profileSections/DescriptionInput';
 
 const LofftProfile = ({route}) => {
   const [lofftId] = useState(route.params.lofft);
@@ -192,15 +193,14 @@ const LofftProfile = ({route}) => {
                 );
               })}
         </View>
-        <EditableTextField
-          edit={edit}
-          value={description}
-          newValue={newDescription}
-          fontStyle={fontStyles.bodySmall}
-          textStyle={styles.userText}
-          multiline={true}
-          onChangeText={t => setNewDescription(t)}
-        />
+        {description || edit ? (
+          <DescriptionInput
+            edit={edit}
+            value={description}
+            newValue={newDescription}
+            onTextChange={t => setNewDescription(t)}
+          />
+        ) : null}
         <Text style={fontStyles.buttonTextMedium}>Co-livers</Text>
         {/* User/Tennants */}
         <View style={styles.userWindow}>
@@ -363,6 +363,18 @@ const styles = StyleSheet.create({
   userImageStyle: {
     width: 70,
     height: 70,
+  },
+  descriptionStyle: {
+    marginBottom: 15,
+    paddingTop: 10,
+    paddingBottom: 10,
+    paddingHorizontal: 5,
+  },
+  descriptionStyleInput: {
+    borderWidth: 1,
+    borderColor: color.Black[25],
+    color: color.Black[100],
+    width: '100%',
   },
 });
 
