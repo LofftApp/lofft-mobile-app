@@ -81,7 +81,7 @@ const HomeScreen = () => {
                 value="View"
                 style={styles.buttons}
                 onPress={() =>
-                  navigation.navigate('ViewApartment', {lofft: lofft.lofftId})
+                  navigation.navigate('LofftProfile', {lofft: lofft.lofftId})
                 }
               />
             )}

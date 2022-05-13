@@ -1,12 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  ImageBackground,
-  ScrollView,
-  Alert,
-} from 'react-native';
+import {View, Text, StyleSheet, ScrollView, Alert} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import storedHobbiesAndValues from '../../data/hobbiesAndValues.json';
 
@@ -24,18 +17,14 @@ import {CoreStyleSheet} from '../../StyleSheets/CoreDesignStyleSheet';
 import {fontStyles} from '../../StyleSheets/FontStyleSheet';
 
 // Components
-import CustomBackButton from '../../components/buttons/CustomBackButton';
 import UserIcon from '../../components/iconsAndContainers/UserIcon';
 import {navigationRef} from '../../RootNavigation';
 import TagIcon from '../../components/iconsAndContainers/TagIcon';
 import HobbiesAndValues from '../../components/HobbiesAndValues';
 import EditableTextField from '../../components/inputFields/EditableTextFields';
+import ProfileHeader from '../../components/bannersAndBars/ProfileHeader';
 
-// Images
-import blueBackground from '../../assets/backgroundShapes/mint.png';
-import EditPageButton from '../../components/buttons/EditPageButton';
-
-const ViewApartmentScreen = ({route}) => {
+const LofftProfile = ({route}) => {
   const [lofftId] = useState(route.params.lofft);
   const [admin, setAdmin] = useState(false);
   const [edit, setEdit] = useState(false);
@@ -148,58 +137,47 @@ const ViewApartmentScreen = ({route}) => {
         });
       });
   }, [update]);
+
+  const onEdit = () => {
+    setEdit(true);
+    setNewName(name);
+    setNewAddress(address);
+    setNewTags(tags);
+    setNewDescription(description);
+  };
+
+  const onSave = () => {
+    Object.entries(values).forEach(([k, v]) => {
+      v.active = selectedHobbies.includes(k);
+    });
+    setName(newName);
+    setAddress(newAddress);
+    setTags(newTags);
+    setDescription(newDescription);
+    setValues(values);
+    updateLofft(lofftId, newName, newDescription, newAddress, values);
+    setEdit(false);
+  };
+
+  const onCancel = () => setEdit(false);
+
   return (
     <View style={styles.pageContainer}>
-      <ImageBackground source={blueBackground} style={styles.headerBackground}>
-        <CustomBackButton
-          style={styles.backButton}
-          neutral={true}
-          onPress={() => navigationRef.goBack()}
-        />
-        <View style={styles.imageHeaderContainer}>
-          <View style={styles.headerDetailsContainer}>
-            <EditableTextField
-              value={name}
-              edit={edit}
-              fontStyle={fontStyles.headerMedium}
-              newValue={newName}
-              onChangeText={t => setNewName(t)}
-            />
-            <EditableTextField
-              value={address}
-              edit={edit}
-              placeholder="Address"
-              newValue={newAddress}
-              fontStyle={fontStyles.bodyMedium}
-              onChangeText={t => setNewAddress(t)}
-            />
-          </View>
-          <EditPageButton
-            edit={edit}
-            admin={admin}
-            onPressSave={() => {
-              Object.entries(values).forEach(([k, v]) => {
-                v.active = selectedHobbies.includes(k);
-              });
-              setName(newName);
-              setAddress(newAddress);
-              setTags(newTags);
-              setDescription(newDescription);
-              setValues(values);
-              updateLofft(lofftId, newName, newDescription, newAddress, values);
-              setEdit(false);
-            }}
-            onPressCancel={() => setEdit(false)}
-            onPressEdit={() => {
-              setEdit(true);
-              setNewName(name);
-              setNewAddress(address);
-              setNewTags(tags);
-              setNewDescription(description);
-            }}
-          />
-        </View>
-      </ImageBackground>
+      <ProfileHeader
+        navigation={navigationRef}
+        edit={edit}
+        admin={admin}
+        onSave={onSave}
+        onEdit={onEdit}
+        onCancel={onCancel}
+        name={name}
+        newName={newName}
+        updateProfileName={t => setNewName(t)}
+        address={address}
+        newAddress={newAddress}
+        updateLofftAddress={t => setNewAddress(t)}
+        lofftProfile
+      />
       <ScrollView style={CoreStyleSheet.viewContainerStyle}>
         <View style={styles.pillContainer}>
           {edit
@@ -388,4 +366,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ViewApartmentScreen;
+export default LofftProfile;

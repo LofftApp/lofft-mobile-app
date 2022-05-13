@@ -133,7 +133,7 @@ const ProfileScreen = ({userID = auth().currentUser.uid}) => {
         imageURI={userImage}
         name={name}
         newName={newName}
-        updateUserName={updateUserName}
+        updateProfileName={updateUserName}
       />
       <ScrollView style={CoreStyleSheet.viewContainerStyle}>
         {/* Tags */}

@@ -1,6 +1,7 @@
 import React from 'react';
 import {
   View,
+  Text,
   TouchableOpacity,
   ImageBackground,
   StyleSheet,
@@ -14,6 +15,7 @@ import FastImage from 'react-native-fast-image';
 
 // Images
 import blueBackground from '../../assets/backgroundShapes/blue.png';
+import greenBackground from '../../assets/backgroundShapes/mint.png';
 
 // Styles
 import color from '../../assets/defaultColorPallet.json';
@@ -26,14 +28,23 @@ const ProfileHeader = ({
   onSave,
   onEdit,
   onCancel,
-  modalShow,
-  imageURI,
-  name,
-  newName,
-  updateUserName,
+  modalShow = null,
+  imageURI = null,
+  name = '',
+  newName = '',
+  updateProfileName = null,
+  address = '',
+  newAddress = '',
+  updateLofftAddress = null,
+  lofftProfile = false,
 }) => {
   return (
-    <ImageBackground source={blueBackground} style={styles.headerBackground}>
+    <ImageBackground
+      source={lofftProfile ? greenBackground : blueBackground}
+      style={[
+        styles.headerBackground,
+        lofftProfile ? styles.green : styles.blue,
+      ]}>
       <View style={styles.topBarWithEdit}>
         {edit ? null : (
           <CustomBackButton
@@ -52,13 +63,22 @@ const ProfileHeader = ({
         />
       </View>
       <View style={styles.imageHeaderContainer}>
-        <TouchableOpacity disabled={edit ? false : true} onPress={modalShow}>
-          <FastImage
-            source={{uri: imageURI}}
-            style={styles.userImage}
-            resizeMode={FastImage.resizeMode.cover}
-          />
-        </TouchableOpacity>
+        {lofftProfile ? (
+          <TouchableOpacity disabled={edit ? false : true}>
+            <View style={styles.emojiContainer}>
+              <Text style={styles.emoji}>🔥</Text>
+            </View>
+          </TouchableOpacity>
+        ) : (
+          <TouchableOpacity disabled={edit ? false : true} onPress={modalShow}>
+            <FastImage
+              source={{uri: imageURI}}
+              style={styles.userImage}
+              resizeMode={FastImage.resizeMode.cover}
+            />
+          </TouchableOpacity>
+        )}
+
         <View style={styles.nameAndEditContainer}>
           {name || edit ? (
             <EditableTextField
@@ -68,8 +88,22 @@ const ProfileHeader = ({
               newValue={newName}
               fontStyle={fontStyles.headerSmall}
               multiline={true}
-              onChangeText={updateUserName}
+              onChangeText={updateProfileName}
             />
+          ) : null}
+          {lofftProfile ? (
+            address || edit ? (
+              <EditableTextField
+                placeholder="Address"
+                edit={edit}
+                value={address}
+                newValue={newAddress}
+                fontStyle={fontStyles.bodySmall}
+                textStyle={styles.addressInput}
+                inputFieldStyle={styles.addressInput}
+                onChangeText={updateLofftAddress}
+              />
+            ) : null
           ) : null}
         </View>
       </View>
@@ -86,6 +120,11 @@ const styles = StyleSheet.create({
   headerBackground: {
     width: '100%',
     height: 200,
+  },
+  green: {
+    backgroundColor: color.Mint[10],
+  },
+  blue: {
     backgroundColor: color.Blue[10],
   },
   backButton: {
@@ -107,8 +146,22 @@ const styles = StyleSheet.create({
     borderColor: color.Blue[100],
     borderRadius: 75,
   },
+  emojiContainer: {
+    width: 65,
+    height: 65,
+    backgroundColor: color.White[100],
+    borderRadius: 8,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  emoji: {
+    fontSize: 35,
+  },
   nameAndEditContainer: {
     alignItems: 'flex-end',
+  },
+  addressInput: {
+    marginTop: 5,
   },
 });
 
