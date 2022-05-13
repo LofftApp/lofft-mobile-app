@@ -1,11 +1,18 @@
 import React from 'react';
-import {Text, View, StyleSheet} from 'react-native';
+import {Text, View, StyleSheet, Pressable} from 'react-native';
 
 // Stylesheets
 import color from '../../assets/defaultColorPallet.json';
 import {fontStyles} from '../../StyleSheets/FontStyleSheet';
 
-const TagIcon = ({text, userColor}) => {
+const TagIcon = ({
+  marginTop = 0,
+  text,
+  userColor,
+  id,
+  pickCity,
+  activeColor = color.Lavendar[10],
+}) => {
   let pillColor = '';
   let pillBackgroundColor = '';
   switch (userColor) {
@@ -27,17 +34,27 @@ const TagIcon = ({text, userColor}) => {
       break;
     default:
       pillColor = color.Lavendar[100];
-      pillBackgroundColor = color.Lavendar[10];
+      pillBackgroundColor = activeColor;
       break;
   }
   return (
-    <View
-      style={[
-        styles.pill,
-        {borderColor: pillColor, backgroundColor: pillBackgroundColor},
-      ]}>
-      <Text style={[fontStyles.bodySmall, {color: pillColor}]}>{text}</Text>
-    </View>
+    <>
+      <Pressable
+        onPress={() => {
+          pickCity(id);
+        }}>
+        <View
+          style={[
+            {marginTop: marginTop},
+            styles.pill,
+            {borderColor: pillColor, backgroundColor: pillBackgroundColor},
+          ]}>
+          <Text style={[fontStyles.bodySmall, {color: pillColor}]}>
+            {text}
+          </Text>
+        </View>
+      </Pressable>
+    </>
   );
 };
 
