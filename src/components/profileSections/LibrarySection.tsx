@@ -51,7 +51,6 @@ const LibrarySection = ({library, onPress, edit}) => {
           keyExtractor={(_, index) => index.toString()}
           showsHorizontalScrollIndicator={false}
           horizontal
-          style={styles.flatListContainer}
         />
       </View>
     </View>
@@ -66,9 +65,6 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
-    paddingVertical: 5,
-  },
-  flatListContainer: {
     paddingVertical: 5,
   },
   addImageButton: {

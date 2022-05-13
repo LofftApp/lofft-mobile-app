@@ -83,7 +83,6 @@ const ProfileScreen = ({userID = auth().currentUser.uid}) => {
 
   // SetUserImage and assign current user Image
   useEffect(() => {
-    console.log(state);
     setUserImage(state.imageURI);
   }, [state.imageURI]);
 
@@ -104,71 +103,14 @@ const ProfileScreen = ({userID = auth().currentUser.uid}) => {
         } else {
           setValues(storedHobbiesAndValues);
         }
+        console.log(values);
       }
+      if (user.libraryURIS) setLibrary(user.libraryURIS);
     };
     setUser();
   }, []);
 
-  useEffect(() => {
-    // setTags([]);
-    // const result = await getCurrentUserDetails(user);
-    // setDocId(result.docId);
-    // result.details.imageURI
-    //   ? setUserImage(result.details.imageURI)
-    //   : setUserImage(null);
-    // if (result.details.name) {
-    //   setName(result.details.name);
-    // }
-    // if (result.details.userProfile && result.details.userProfile.description) {
-    //   setDescription(result.details.userProfile.description);
-    // }
-    // if (auth().currentUser.uid === result.details.uid) {
-    //   setAdmin(true);
-    // }
-    // if (
-    //   result.details.userProfile &&
-    //   result.details.userProfile.hobbiesAndValues
-    // ) {
-    //   setValues(result.details.userProfile.hobbiesAndValues);
-    //   Object.entries(result.details.userProfile.hobbiesAndValues).forEach(
-    //     ([k, v]) => {
-    //       if (v.active) {
-    //         if (!selectedHobbies.includes(k)) {
-    //           setSelectedHobbies(selectedHobbies => [...selectedHobbies, k]);
-    //         }
-    //       }
-    //     },
-    //   );
-    // } else {
-    //   setValues(storedHobbiesAndValues);
-    // }
-    // if (result.details.status) {
-    //   setTags(tags => [
-    //     ...tags,
-    //     {value: result.details.status, color: 'Lavendar'},
-    //   ]);
-    // }
-    // if (result.details.userProfile && result.details.userProfile.pronouns) {
-    //   setTags(tags => [
-    //     ...tags,
-    //     {value: result.details.userProfile.pronouns, color: 'Mint'},
-    //   ]);
-    // }
-    // if (result.details.userProfile && result.details.userProfile.diet) {
-    //   setTags(tags => [
-    //     ...tags,
-    //     {value: result.details.userProfile.diet, color: 'Gold'},
-    //   ]);
-    // }
-    // if (result.details.libraryURIS) {
-    //   setLibrary(result.details.libraryURIS);
-    // }
-    // auth().onAuthStateChanged(user => {
-    //   if (user) {
-    //     getUser(user);
-    //   }
-    // });
-  }, []);
+  useEffect(() => {}, []);
 
   return (
     <View style={styles.pageContainer}>
