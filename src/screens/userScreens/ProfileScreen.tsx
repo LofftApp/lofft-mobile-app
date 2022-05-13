@@ -50,11 +50,11 @@ const ProfileScreen = ({userID = auth().currentUser.uid}) => {
   const {state, profile, updateProfile, uploadUserImage, photoUserImage} =
     useContext(UserDetails);
   const [modalVisible, setModalVisible] = useState(false);
-  const [docId, setDocId] = useState('');
   const [edit, setEdit] = useState(false);
   const [admin, setAdmin] = useState(false);
   const [name, setName] = useState('');
   const [newName, setNewName] = useState('');
+  const [lofft, setLofft] = useState(null);
   const [tags, setTags] = useState([]);
   const [newTags, setNewTags] = useState([]);
   const [userImage, setUserImage] = useState('');
@@ -106,6 +106,7 @@ const ProfileScreen = ({userID = auth().currentUser.uid}) => {
         console.log(values);
       }
       if (user.libraryURIS) setLibrary(user.libraryURIS);
+      if (user.lofft) setLofft(user.lofft.lofftId);
     };
     setUser();
   }, []);
@@ -224,14 +225,17 @@ const ProfileScreen = ({userID = auth().currentUser.uid}) => {
           library={library}
           edit={edit}
         />
+
         <View style={styles.sectionContainer}>
           <Text style={fontStyles.buttonTextMedium}>Loffts</Text>
-          <View style={styles.noLofftContainer}>
-            <Text style={styles.noLofftText}>👀</Text>
-            <Text style={styles.noLofftText}>Nothing to see here</Text>
-            <Text style={styles.noLofftText}>They're a newbie</Text>
-            <Text style={styles.noLofftText}>...........</Text>
-          </View>
+          {lofft ? null : (
+            <View style={styles.noLofftContainer}>
+              <Text style={styles.noLofftText}>👀</Text>
+              <Text style={styles.noLofftText}>Nothing to see here</Text>
+              <Text style={styles.noLofftText}>They're a newbie</Text>
+              <Text style={styles.noLofftText}>...........</Text>
+            </View>
+          )}
         </View>
 
         {/* Add Spotify / Apple Music API here */}
