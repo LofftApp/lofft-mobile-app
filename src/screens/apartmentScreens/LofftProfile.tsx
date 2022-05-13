@@ -250,7 +250,9 @@ const LofftProfile = ({route}) => {
           }}
           containerStyle={styles.emojiBoard}
           numCols={6}
-          numRows={5}
+          numRows={6}
+          emojiSize={30}
+          hideBackSpace={true}
         />
       </View>
     </View>
