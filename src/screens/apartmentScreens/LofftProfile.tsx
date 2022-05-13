@@ -41,6 +41,7 @@ const LofftProfile = ({route}) => {
   const [tags, setTags]: any = useState([]);
   const [values, setValues] = useState({});
   // const [newValues, setNewValues] = useState({});
+  const [emoji, setEmoji] = useState(null);
   const [newTags, setNewTags]: any = useState([]);
   const [showModal, setShowModal] = useState(false);
 
@@ -91,6 +92,7 @@ const LofftProfile = ({route}) => {
         setName(lofft.name);
         setDescription(lofft.description);
         if (lofft.address) setAddress(lofft.address);
+        if (lofft.emoji) setEmoji(lofft.emoji);
         if (lofft.users) {
           lofft.users.forEach(user => {
             userList.push(user.user_id);
@@ -180,6 +182,7 @@ const LofftProfile = ({route}) => {
         newAddress={newAddress}
         updateLofftAddress={t => setNewAddress(t)}
         lofftProfile
+        emoji={emoji}
       />
       <ScrollView style={CoreStyleSheet.viewContainerStyle}>
         <View style={styles.pillContainer}>
