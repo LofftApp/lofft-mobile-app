@@ -26,9 +26,6 @@ import {CoreStyleSheet} from '../../StyleSheets/CoreDesignStyleSheet';
 import {fontStyles} from './../../StyleSheets/FontStyleSheet';
 import {navigationRef} from '../../RootNavigation';
 
-// Images
-import EditableTextField from '../../components/inputFields/EditableTextFields';
-
 const ProfileScreen = ({userID = auth().currentUser.uid}) => {
   const {state, profile, updateProfile, uploadUserImage, photoUserImage} =
     useContext(UserDetails);

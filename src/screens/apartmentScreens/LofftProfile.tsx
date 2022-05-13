@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {View, Text, StyleSheet, ScrollView, Alert} from 'react-native';
+import {View, Text, StyleSheet, ScrollView, Alert, Modal} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import storedHobbiesAndValues from '../../data/hobbiesAndValues.json';
 
@@ -23,6 +23,7 @@ import TagIcon from '../../components/iconsAndContainers/TagIcon';
 import HobbiesAndValues from '../../components/HobbiesAndValues';
 import ProfileHeader from '../../components/bannersAndBars/ProfileHeader';
 import DescriptionInput from '../../components/profileSections/DescriptionInput';
+import EmojiSelector from 'react-native-emoji-selector';
 
 const LofftProfile = ({route}) => {
   const [lofftId] = useState(route.params.lofft);
@@ -41,6 +42,7 @@ const LofftProfile = ({route}) => {
   const [values, setValues] = useState({});
   // const [newValues, setNewValues] = useState({});
   const [newTags, setNewTags]: any = useState([]);
+  const [showModal, setShowModal] = useState(false);
 
   const [selectedHobbies, setSelectedHobbies] = useState([]);
   const selectHobby = key => {
@@ -170,6 +172,7 @@ const LofftProfile = ({route}) => {
         onSave={onSave}
         onEdit={onEdit}
         onCancel={onCancel}
+        modalShow={() => setShowModal(true)}
         name={name}
         newName={newName}
         updateProfileName={t => setNewName(t)}
@@ -239,6 +242,18 @@ const LofftProfile = ({route}) => {
         />
         {/* Add Spotify / Apple Music API here */}
       </ScrollView>
+      <Modal transparent={true} animationType="fade" visible={showModal}>
+        <View style={styles.emojiModalContainer}>
+          <EmojiSelector
+            onEmojiSelected={emoji => {
+              setShowModal(false);
+              console.log(emoji);
+            }}
+            showHistory={true}
+            columns={8}
+          />
+        </View>
+      </Modal>
     </View>
   );
 };
@@ -374,6 +389,14 @@ const styles = StyleSheet.create({
     borderColor: color.Black[25],
     color: color.Black[100],
     width: '100%',
+  },
+  emojiModalContainer: {
+    marginTop: 105,
+    paddingTop: 30,
+    borderTopLeftRadius: 8,
+    borderTopRightRadius: 8,
+    flex: 1,
+    backgroundColor: color.White[100],
   },
 });
 

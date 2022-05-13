@@ -1,5 +1,4 @@
 import createUserDetailsContext from './createUserDetailsContext';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 // import * as RootNavigation from '../RootNavigation';
 
 // Firebase 🔥

@@ -65,7 +65,9 @@ const ProfileHeader = ({
       <View style={styles.imageHeaderContainer}>
         {lofftProfile ? (
           <>
-            <TouchableOpacity disabled={edit ? false : true}>
+            <TouchableOpacity
+              disabled={edit ? false : true}
+              onPress={modalShow}>
               <View style={styles.emojiContainer}>
                 <Text style={styles.emoji}>🔥</Text>
               </View>
