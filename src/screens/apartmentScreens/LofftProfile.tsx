@@ -24,6 +24,7 @@ import HobbiesAndValues from '../../components/HobbiesAndValues';
 import ProfileHeader from '../../components/bannersAndBars/ProfileHeader';
 import DescriptionInput from '../../components/profileSections/DescriptionInput';
 import EmojiSelector from 'react-native-emoji-selector';
+import ColiversSection from '../../components/profileSections/ColiversSection';
 
 const LofftProfile = ({route}) => {
   const [lofftId] = useState(route.params.lofft);
@@ -209,6 +210,10 @@ const LofftProfile = ({route}) => {
         <Text style={fontStyles.buttonTextMedium}>Co-livers</Text>
         {/* User/Tennants */}
         <View style={styles.userWindow}>
+          <ColiversSection
+            tenants={tenants}
+            showAlert={tenantID => showAlert(tenantID, lofftId)}
+          />
           <View style={styles.tenantSection}>
             {tenants.map(tenant => {
               return (
