@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   View,
   Text,
@@ -64,11 +64,13 @@ const ProfileHeader = ({
       </View>
       <View style={styles.imageHeaderContainer}>
         {lofftProfile ? (
-          <TouchableOpacity disabled={edit ? false : true}>
-            <View style={styles.emojiContainer}>
-              <Text style={styles.emoji}>🔥</Text>
-            </View>
-          </TouchableOpacity>
+          <>
+            <TouchableOpacity disabled={edit ? false : true}>
+              <View style={styles.emojiContainer}>
+                <Text style={styles.emoji}>🔥</Text>
+              </View>
+            </TouchableOpacity>
+          </>
         ) : (
           <TouchableOpacity disabled={edit ? false : true} onPress={modalShow}>
             <FastImage

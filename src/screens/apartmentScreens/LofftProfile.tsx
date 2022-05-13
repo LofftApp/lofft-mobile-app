@@ -24,6 +24,7 @@ import HobbiesAndValues from '../../components/HobbiesAndValues';
 import EditableTextField from '../../components/inputFields/EditableTextFields';
 import ProfileHeader from '../../components/bannersAndBars/ProfileHeader';
 import DescriptionInput from '../../components/profileSections/DescriptionInput';
+import EmojiBoard from 'react-native-emoji-board';
 
 const LofftProfile = ({route}) => {
   const [lofftId] = useState(route.params.lofft);
@@ -42,6 +43,7 @@ const LofftProfile = ({route}) => {
   const [values, setValues] = useState({});
   // const [newValues, setNewValues] = useState({});
   const [newTags, setNewTags]: any = useState([]);
+  const [emojiShow, setEmojiShow] = useState(true);
 
   const [selectedHobbies, setSelectedHobbies] = useState([]);
   const selectHobby = key => {
@@ -240,6 +242,17 @@ const LofftProfile = ({route}) => {
         />
         {/* Add Spotify / Apple Music API here */}
       </ScrollView>
+      <View style={styles.emojiBoardContainer}>
+        <EmojiBoard
+          showBoard={emojiShow}
+          onClick={emoji => {
+            console.log(emoji);
+          }}
+          containerStyle={styles.emojiBoard}
+          numCols={6}
+          numRows={5}
+        />
+      </View>
     </View>
   );
 };
@@ -375,6 +388,13 @@ const styles = StyleSheet.create({
     borderColor: color.Black[25],
     color: color.Black[100],
     width: '100%',
+  },
+  emojiBoardContainer: {
+    backgroundColor: '#eaebef',
+    paddingBottom: 25,
+  },
+  emojiBoard: {
+    marginBottom: 25,
   },
 });
 
