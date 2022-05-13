@@ -114,7 +114,7 @@ const ProfileScreen = ({userID = auth().currentUser.uid}) => {
     setNewDescription(description);
   };
 
-  const onCancel = () => () => setEdit(false);
+  const onCancel = () => setEdit(false);
 
   const modalShow = () => setModalVisible(true);
 
