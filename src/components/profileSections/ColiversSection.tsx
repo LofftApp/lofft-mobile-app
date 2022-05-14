@@ -12,6 +12,7 @@ const ColiversSection = ({tenants, showAlert}) => {
   return (
     <View style={styles.tenantSection}>
       {tenants.map(tenant => {
+        console.log(tenant.imageURI);
         return (
           <View style={styles.userCard} key={tenant.id}>
             <UserIcon
@@ -47,14 +48,9 @@ const styles = StyleSheet.create({
     width: 85,
     height: 85,
   },
-  userImageContainerStyle: {
-    width: 70,
-    height: 70,
-    borderColor: color.White[0],
-  },
   userImageStyle: {
-    width: 70,
-    height: 70,
+    width: 80,
+    height: 80,
   },
   userCard: {
     alignItems: 'center',
