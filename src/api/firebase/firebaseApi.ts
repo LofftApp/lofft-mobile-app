@@ -19,7 +19,6 @@ export const signup = ({email, password}) => {
         .set({uid: response.user.uid, email, userProfile, looking});
     })
     .catch(error => {
-      console.log(error.code);
       if (error.code === 'auth/email-already-in-use') {
         console.log('This e-mail is already registered');
       }

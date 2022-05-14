@@ -42,7 +42,6 @@ const AddApartmentScreen = ({route}) => {
       setSelectedHobbies(result);
     }
   };
-  console.log(state);
   return (
     <View
       style={[

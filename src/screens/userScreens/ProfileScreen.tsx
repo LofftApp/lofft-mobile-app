@@ -83,7 +83,6 @@ const ProfileScreen = ({userID = auth().currentUser.uid}) => {
         } else {
           setValues(storedHobbiesAndValues);
         }
-        console.log(values);
       }
       if (user.libraryURIS) setLibrary(user.libraryURIS);
       if (user.lofft) setLofft(user.lofft.lofftId);

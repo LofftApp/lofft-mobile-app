@@ -8,11 +8,10 @@ import UserIcon from '../iconsAndContainers/UserIcon';
 import {fontStyles} from '../../StyleSheets/FontStyleSheet';
 import color from '../../assets/defaultColorPallet.json';
 
-const ColiversSection = (tenants, showAlert) => {
-  console.log(tenants);
+const ColiversSection = ({tenants, showAlert}) => {
   return (
     <View style={styles.tenantSection}>
-      {/* {tenants.map(tenant => {
+      {tenants.map(tenant => {
         return (
           <View style={styles.userCard} key={tenant.id}>
             <UserIcon
@@ -29,7 +28,7 @@ const ColiversSection = (tenants, showAlert) => {
             {tenant.pending ? <Text>Pending</Text> : null}
           </View>
         );
-      })} */}
+      })}
     </View>
   );
 };

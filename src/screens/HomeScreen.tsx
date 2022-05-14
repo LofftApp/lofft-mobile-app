@@ -31,7 +31,6 @@ const HomeScreen = ({navigation}: any) => {
       bgColor = color.White[100];
   }
   useEffect(() => {
-    console.log(state);
     if (state.userMessage) {
       setModalVisible(true);
     }

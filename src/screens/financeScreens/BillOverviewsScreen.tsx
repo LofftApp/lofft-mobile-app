@@ -24,8 +24,6 @@ const BillOverviewsScreen = ({navigation, route}: any) => {
   const [recipient] = useState(route.params.recipient);
   const [billDetails] = useState(route.params.bills);
   const [paymentMethod] = useState(route.params.paymentMethod);
-  console.log(route.params);
-  console.log(billDetails);
   return (
     <View
       style={[

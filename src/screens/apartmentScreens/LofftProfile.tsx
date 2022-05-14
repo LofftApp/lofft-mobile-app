@@ -214,7 +214,7 @@ const LofftProfile = ({route}) => {
             tenants={tenants}
             showAlert={tenantID => showAlert(tenantID, lofftId)}
           />
-          <View style={styles.tenantSection}>
+          {/* <View style={styles.tenantSection}>
             {tenants.map(tenant => {
               return (
                 <View style={styles.userCard} key={tenant.id}>
@@ -234,7 +234,7 @@ const LofftProfile = ({route}) => {
                 </View>
               );
             })}
-          </View>
+          </View> */}
         </View>
         <Text style={fontStyles.buttonTextMedium}>Photo Library</Text>
         <View style={styles.noLofftContainer}>

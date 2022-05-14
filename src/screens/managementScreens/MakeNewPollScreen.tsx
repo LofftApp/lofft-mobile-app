@@ -179,7 +179,6 @@ const MakeNewPollScreen = () => {
                 open={open}
                 date={date}
                 onConfirm={date => {
-                  console.log(date);
                   setNoDate(false);
                   setOpen(false);
                   setDate(date);
