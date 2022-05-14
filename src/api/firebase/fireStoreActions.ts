@@ -83,7 +83,7 @@ export const createLofft = async ({
       name,
       description,
       users: [{user_id: auth().currentUser.uid, admin: true}],
-      pending_users: [],
+      pendingUsers: [],
       hobbiesAndValues,
       emoji: '🤷',
     })
@@ -112,24 +112,15 @@ export const findLofft = async param => {
 
 // Join a lofft from Search
 export const joinLofft = async lofftId => {
-  const currentUser = auth().currentUser;
-  const user = await getCurrentUserDetails(currentUser);
+  const currentUser = auth().currentUser.uid;
   const lofftRoute = await firestore().collection('Loffts').doc(lofftId);
-  const lofft = (await lofftRoute.get()).data();
   lofftRoute.update({
-    pendingUsers: firestore.FieldValue.arrayUnion(user.docId),
+    pendingUsers: firestore.FieldValue.arrayUnion(currentUser),
   });
-  await firestore()
-    .collection('Users')
-    .doc(user.docId)
-    .update({
-      lofft: {
-        lofftId,
-        name: lofft.name,
-        description: lofft.description,
-        pending: true,
-      },
-    });
+  await firestore().collection('Users').doc(currentUser).update({
+    lofft: lofftId,
+    lofftPending: true,
+  });
   return true;
 };
 
