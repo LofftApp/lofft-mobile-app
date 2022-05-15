@@ -35,7 +35,6 @@ const HomeScreen = () => {
     if (state.uid) {
       if (state.name) setName(state.name.split(' ')[0]);
       if (state.imageURI) setImage({uri: state.imageURI});
-      console.log(state.imageURI);
       const unsubscribe = firestore()
         .collection('Users')
         .doc(state.uid)

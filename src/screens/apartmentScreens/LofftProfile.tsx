@@ -135,7 +135,7 @@ const LofftProfile = ({route}) => {
                 name: userData.name,
                 imageURI: userData.imageURI,
                 id: user,
-                pending: userData.lofft.pending,
+                pending: userData.lofftPending,
               },
             ]);
           }
@@ -214,27 +214,6 @@ const LofftProfile = ({route}) => {
             tenants={tenants}
             showAlert={tenantID => showAlert(tenantID, lofftId)}
           />
-          {/* <View style={styles.tenantSection}>
-            {tenants.map(tenant => {
-              return (
-                <View style={styles.userCard} key={tenant.id}>
-                  <UserIcon
-                    image={tenant.imageURI ? {uri: tenant.imageURI} : ''}
-                    onPress={() => showAlert(tenant.id, lofftId)}
-                    userIconStyle={styles.userIconStyle}
-                    userImageContainerStyle={styles.userImageContainerStyle}
-                    userImageStyle={styles.userImageStyle}
-                    disabled={tenant.pending ? false : true}
-                  />
-                  <Text
-                    style={[fontStyles.buttonTextMedium, styles.userCardText]}>
-                    {tenant.name ? tenant.name.split(' ')[0] : null}
-                  </Text>
-                  {tenant.pending ? <Text>Pending</Text> : null}
-                </View>
-              );
-            })}
-          </View> */}
         </View>
         <Text style={fontStyles.buttonTextMedium}>Photo Library</Text>
         <View style={styles.noLofftContainer}>

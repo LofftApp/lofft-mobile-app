@@ -13,7 +13,6 @@ const UserIcon = ({
   disabled = false,
   lofftSpace = false,
 }: any) => {
-  console.log(image);
   return (
     <TouchableOpacity
       style={[styles.backgroundCurcle, userIconStyle]}

@@ -12,14 +12,12 @@ const ColiversSection = ({tenants, showAlert}) => {
   return (
     <View style={styles.tenantSection}>
       {tenants.map(tenant => {
-        console.log(tenant.imageURI);
         return (
           <View style={styles.userCard} key={tenant.id}>
             <UserIcon
               image={tenant.imageURI ? {uri: tenant.imageURI} : ''}
               onPress={showAlert}
               userIconStyle={styles.userIconStyle}
-              userImageContainerStyle={styles.userImageContainerStyle}
               userImageStyle={styles.userImageStyle}
               disabled={tenant.pending ? false : true}
             />

@@ -39,6 +39,7 @@
     "react-native-emoji-selector": "^0.2.0",
     "react-native-fast-image": "^8.5.11",
     "react-native-gesture-handler": "^2.2.0",
+    "react-native-image-overlay": "^0.1.2",
     "react-native-image-picker": "^4.7.1",
     "react-native-paper": "^4.11.2",
     "react-native-safe-area-context": "^3.3.2",
