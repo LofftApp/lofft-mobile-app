@@ -24,6 +24,7 @@ import firestore from '@react-native-firebase/firestore';
 
 const HomeScreen = () => {
   const [lofft, setLofft]: any = useState(false);
+  const [pending, setPending] = useState(false);
   const [name, setName] = useState('');
   const [image, setImage]: any = useState('');
   const [docId, setDocId]: any = useState('');
@@ -34,13 +35,13 @@ const HomeScreen = () => {
     if (state.uid) {
       if (state.name) setName(state.name.split(' ')[0]);
       if (state.imageURI) setImage({uri: state.imageURI});
-      console.log(state.imageURI);
       const unsubscribe = firestore()
         .collection('Users')
         .doc(state.uid)
         .onSnapshot(snapShot => {
           setDocId(snapShot.data().id);
           const result = snapShot.data();
+          if (result.lofftPending) setPending(result.lofftPending);
           if (result.lofft) {
             setLofft(result.lofft);
             firestore()
@@ -85,7 +86,7 @@ const HomeScreen = () => {
             ) : null}
           </View>
           <View style={styles.buttonContainer}>
-            {lofft.pending ? (
+            {pending ? (
               <Text style={fontStyles.buttonTextSmall}>
                 Your request to join a lofft is pending
               </Text>
