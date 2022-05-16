@@ -35,8 +35,8 @@ const styles = StyleSheet.create({
     width: 179,
     height: 53,
     justifyContent: 'center',
-    alignItems:'center'
+    alignItems: 'center',
   },
-})
+});
 
 export default NewPollContainer;
