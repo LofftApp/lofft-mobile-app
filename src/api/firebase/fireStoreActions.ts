@@ -141,11 +141,11 @@ export const confirmUserLofft = (userId, lofftId) => {
 };
 
 // Edit lofft details
-export const updateLofft = (id, name, description, address, values) => {
+export const updateLofft = (id, name, description, address, emoji, values) => {
   firestore()
     .collection('Loffts')
     .doc(id)
-    .update({name, description, address, hobbiesAndValues: values});
+    .update({name, description, address, emoji, hobbiesAndValues: values});
   console.log('Update complete');
 };
 

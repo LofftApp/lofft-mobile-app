@@ -43,6 +43,7 @@ const LofftProfile = ({route}) => {
   const [values, setValues] = useState({});
   // const [newValues, setNewValues] = useState({});
   const [emoji, setEmoji] = useState(null);
+  const [newEmoji, setNewEmoji] = useState(null);
   const [newTags, setNewTags]: any = useState([]);
   const [showModal, setShowModal] = useState(false);
 
@@ -149,6 +150,7 @@ const LofftProfile = ({route}) => {
     setNewAddress(address);
     setNewTags(tags);
     setNewDescription(description);
+    setNewEmoji(emoji);
   };
 
   const onSave = () => {
@@ -160,7 +162,8 @@ const LofftProfile = ({route}) => {
     setTags(newTags);
     setDescription(newDescription);
     setValues(values);
-    updateLofft(lofftId, newName, newDescription, newAddress, values);
+    setEmoji(newEmoji);
+    updateLofft(lofftId, newName, newDescription, newAddress, newEmoji, values);
     setEdit(false);
   };
 
@@ -184,6 +187,7 @@ const LofftProfile = ({route}) => {
         updateLofftAddress={t => setNewAddress(t)}
         lofftProfile
         emoji={emoji}
+        newEmoji={newEmoji}
       />
       <ScrollView style={CoreStyleSheet.viewContainerStyle}>
         <View style={styles.pillContainer}>
@@ -232,9 +236,9 @@ const LofftProfile = ({route}) => {
       <Modal transparent={true} animationType="fade" visible={showModal}>
         <View style={styles.emojiModalContainer}>
           <EmojiSelector
-            onEmojiSelected={emoji => {
+            onEmojiSelected={e => {
+              setNewEmoji(e);
               setShowModal(false);
-              console.log(emoji);
             }}
             showHistory={true}
             columns={8}

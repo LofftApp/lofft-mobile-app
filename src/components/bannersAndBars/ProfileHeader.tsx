@@ -38,6 +38,7 @@ const ProfileHeader = ({
   updateLofftAddress = null,
   lofftProfile = false,
   emoji = null,
+  newEmoji = null,
 }) => {
   return (
     <ImageBackground
@@ -70,7 +71,7 @@ const ProfileHeader = ({
               disabled={edit ? false : true}
               onPress={modalShow}>
               <View style={styles.emojiContainer}>
-                <Text style={styles.emoji}>{emoji}</Text>
+                <Text style={styles.emoji}>{edit ? newEmoji : emoji}</Text>
               </View>
             </TouchableOpacity>
           </>
