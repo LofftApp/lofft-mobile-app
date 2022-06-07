@@ -11,7 +11,7 @@ import {CoreButton} from '../buttons/CoreButton';
 import PollCard from '../../components/cards/PollCard';
 
 // FireStore 🔥
-import {getLofftPolls} from '../../api/firebase/fireStoreActions';
+import {getUserLofft, getLofftPolls} from '../../api/firebase/fireStoreActions';
 import firestore from '@react-native-firebase/firestore';
 
 const PollsManagement = ({navigation}) => {
@@ -20,9 +20,12 @@ const PollsManagement = ({navigation}) => {
   const handlePress = () => setExpanded(!expanded);
   const [polls, setPolls] = useState([]);
   const [pastPolls, setPastPolls] = useState([]);
+  const [userLofftId, setUserLofftId] = useState(null);
   const [todayDate] = useState(new Date());
 
   useEffect(() => {
+    const lofftId = getUserLofft();
+    if (lofftId) setUserLofftId(lofftId);
     const pollsData = async () => {
       setPolls([]);
       const allPolls = await getLofftPolls();
@@ -45,7 +48,7 @@ const PollsManagement = ({navigation}) => {
 
     const subscriber = firestore()
       .collection('Managements')
-      .doc('B7vxlFYgNpnYPOT7eMfO')
+      .doc(userLofftId)
       .collection('Polls')
       .onSnapshot(snapShot => {
         snapShot.docChanges().forEach(async change => {
