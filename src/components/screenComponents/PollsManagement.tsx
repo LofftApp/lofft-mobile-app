@@ -25,25 +25,27 @@ const PollsManagement = ({navigation}) => {
 
   useEffect(() => {
     const lofftId = getUserLofft();
-    if (lofftId) setUserLofftId(lofftId);
+    console.log(lofftId);
+    // if (lofftId) setUserLofftId(lofftId);
     const pollsData = async () => {
       setPolls([]);
       const allPolls = await getLofftPolls();
-      if (allPolls) {
-        const currentPolls = allPolls.filter(
-          poll =>
-            (poll.data().deadline &&
-              new Date(poll.data().deadline.seconds * 1000) > todayDate) ||
-            !poll.data().deadline,
-        );
-        const oldPolls = allPolls.filter(
-          poll =>
-            poll.data().deadline &&
-            new Date(poll.data().deadline.seconds * 1000) < todayDate,
-        );
-        setPolls(currentPolls);
-        setPastPolls(oldPolls);
-      }
+      console.log(allPolls);
+      // if (allPolls) {
+      //   const currentPolls = allPolls.filter(
+      //     poll =>
+      //       (poll.data().deadline &&
+      //         new Date(poll.data().deadline.seconds * 1000) > todayDate) ||
+      //       !poll.data().deadline,
+      //   );
+      //   const oldPolls = allPolls.filter(
+      //     poll =>
+      //       poll.data().deadline &&
+      //       new Date(poll.data().deadline.seconds * 1000) < todayDate,
+      //   );
+      //   setPolls(currentPolls);
+      //   setPastPolls(oldPolls);
+      // }
     };
 
     const subscriber = firestore()
@@ -52,9 +54,10 @@ const PollsManagement = ({navigation}) => {
       .collection('Polls')
       .onSnapshot(snapShot => {
         snapShot.docChanges().forEach(async change => {
-          if (change.type === 'added' || change.type === 'removed') {
-            pollsData();
-          }
+          pollsData();
+          // if (change.type === 'added' || change.type === 'removed') {
+          //   pollsData();
+          // }
         });
       });
     return () => subscriber();

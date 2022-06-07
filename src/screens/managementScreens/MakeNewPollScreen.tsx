@@ -202,12 +202,7 @@ const MakeNewPollScreen = () => {
               onPress={() =>
                 navigation.navigate(
                   'Managment',
-                  addPoll(
-                    question,
-                    refInputs,
-                    noDate ? null : date,
-                    multipleAnwser,
-                  ),
+                  addPoll(question, refInputs, noDate ? null : date),
                 )
               }
             />

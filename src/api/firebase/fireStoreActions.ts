@@ -296,23 +296,21 @@ export const cancelLofftEvent = async e => {
 
 // Create Poll
 
-export const addPoll = async (question, anwsers, deadline, multipleAnwser) => {
-  const currentUser = auth().currentUser;
-  const user = await getCurrentUserDetails(currentUser);
-  const loftId = user.details.lofft.lofftId;
+export const addPoll = async (question, answers, deadline) => {
+  const lofftId = await getUserLofft();
+  console.log(lofftId);
 
   const poll = {
     createdByID: auth().currentUser.uid,
     question: question,
-    answers: anwsers.current,
+    answers: answers.current,
     deadline: deadline,
-    multipleAnwser: multipleAnwser,
     userInput: {},
   };
 
   await firestore()
     .collection('Managements')
-    .doc(loftId)
+    .doc(lofftId)
     .collection('Polls')
     .add(poll);
 };
