@@ -26,19 +26,21 @@ const PollsManagement = ({navigation}) => {
     const pollsData = async () => {
       setPolls([]);
       const allPolls = await getLofftPolls();
-      const currentPolls = allPolls.filter(
-        poll =>
-          (poll.data().deadline &&
-            new Date(poll.data().deadline.seconds * 1000) > todayDate) ||
-          !poll.data().deadline,
-      );
-      const oldPolls = allPolls.filter(
-        poll =>
-          poll.data().deadline &&
-          new Date(poll.data().deadline.seconds * 1000) < todayDate,
-      );
-      setPolls(currentPolls);
-      setPastPolls(oldPolls);
+      if (allPolls) {
+        const currentPolls = allPolls.filter(
+          poll =>
+            (poll.data().deadline &&
+              new Date(poll.data().deadline.seconds * 1000) > todayDate) ||
+            !poll.data().deadline,
+        );
+        const oldPolls = allPolls.filter(
+          poll =>
+            poll.data().deadline &&
+            new Date(poll.data().deadline.seconds * 1000) < todayDate,
+        );
+        setPolls(currentPolls);
+        setPastPolls(oldPolls);
+      }
     };
 
     const subscriber = firestore()

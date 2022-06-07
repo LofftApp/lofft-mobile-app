@@ -305,18 +305,18 @@ export const addPoll = async (question, anwsers, deadline, multipleAnwser) => {
 
 export const getLofftPolls = async () => {
   const currentUser = auth().currentUser;
-  const user = await getCurrentUserDetails(currentUser);
-  const loftId = user.details.lofft.lofftId;
-
-  const result = await firestore()
+  const user = await getCurrentUserDetails(currentUser.uid);
+  const lofftId = user.lofft;
+  const polls = await firestore()
     .collection('Managements')
-    .doc(loftId)
+    .doc(lofftId)
     .collection('Polls')
     .get()
     .then(docSnapshot => {
       return docSnapshot.docs;
     });
-  return result;
+  if (polls.length > 0) return polls;
+  return null;
 };
 
 export const getPollsData = async (value, setValue) => {

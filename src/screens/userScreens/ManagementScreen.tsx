@@ -39,11 +39,7 @@ const ManagementScreen = ({navigation}: any) => {
             dashboard={buttonToggle}
           />
 
-          {calendarActive ? (
-            <EventsManagement navigation={navigation} />
-          ) : (
-            <PollsManagement navigation={navigation} />
-          )}
+          {calendarActive ? null : <PollsManagement navigation={navigation} />}
         </ScrollView>
       </SafeAreaView>
     </View>
