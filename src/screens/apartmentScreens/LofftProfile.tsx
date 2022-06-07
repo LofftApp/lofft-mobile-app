@@ -3,13 +3,14 @@ import {View, Text, StyleSheet, ScrollView, Alert, Modal} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import storedHobbiesAndValues from '../../data/hobbiesAndValues.json';
 
-// Firestore
+// Firebase 🔥
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 import {
   confirmUserLofft,
   updateLofft,
 } from '../../api/firebase/fireStoreActions';
+import {libraryImageUpload} from '../../api/firebase/firebaseStorage';
 
 // stylesheets
 import color from '../../assets/defaultColorPallet.json';
@@ -25,6 +26,7 @@ import ProfileHeader from '../../components/bannersAndBars/ProfileHeader';
 import DescriptionInput from '../../components/profileSections/DescriptionInput';
 import EmojiSelector from 'react-native-emoji-selector';
 import ColiversSection from '../../components/profileSections/ColiversSection';
+import LibrarySection from '../../components/profileSections/LibrarySection';
 
 const LofftProfile = ({route}) => {
   const [lofftId] = useState(route.params.lofft);
@@ -46,6 +48,7 @@ const LofftProfile = ({route}) => {
   const [newEmoji, setNewEmoji] = useState(null);
   const [newTags, setNewTags]: any = useState([]);
   const [showModal, setShowModal] = useState(false);
+  const [library, setLibrary] = useState([]);
 
   const [selectedHobbies, setSelectedHobbies] = useState([]);
   const selectHobby = key => {
@@ -110,6 +113,7 @@ const LofftProfile = ({route}) => {
         if (lofft.status) {
           setTags(tags => [...tags, {value: lofft.status, color: 'Lavendar'}]);
         }
+        if (lofft.library) setLibrary(lofft.Library);
         if (lofft.hobbiesAndValues) {
           setValues(lofft.hobbiesAndValues);
           Object.entries(lofft.hobbiesAndValues).forEach(([k, v]) => {
@@ -219,12 +223,12 @@ const LofftProfile = ({route}) => {
             showAlert={tenantID => showAlert(tenantID, lofftId)}
           />
         </View>
-        <Text style={fontStyles.buttonTextMedium}>Photo Library</Text>
-        <View style={styles.noLofftContainer}>
-          <View style={styles.addImageButton}>
-            <Icon name="add-outline" size={60} color={color.Black[30]} />
-          </View>
-        </View>
+        {/* Library Section */}
+        <LibrarySection
+          onPress={() => libraryImageUpload(5 - library.length, lofftId)}
+          library={library}
+          edit={edit}
+        />
         <HobbiesAndValues
           values={values}
           selectHobby={k => selectHobby(k)}
