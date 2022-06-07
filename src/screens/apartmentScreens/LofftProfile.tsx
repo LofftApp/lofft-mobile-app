@@ -113,7 +113,7 @@ const LofftProfile = ({route}) => {
         if (lofft.status) {
           setTags(tags => [...tags, {value: lofft.status, color: 'Lavendar'}]);
         }
-        if (lofft.library) setLibrary(lofft.Library);
+        if (lofft.libraryURIS) setLibrary(lofft.libraryURIS);
         if (lofft.hobbiesAndValues) {
           setValues(lofft.hobbiesAndValues);
           Object.entries(lofft.hobbiesAndValues).forEach(([k, v]) => {
@@ -225,7 +225,13 @@ const LofftProfile = ({route}) => {
         </View>
         {/* Library Section */}
         <LibrarySection
-          onPress={() => libraryImageUpload(5 - library.length, lofftId)}
+          onPress={() =>
+            libraryImageUpload({
+              limit: 5 - library.length,
+              id: lofftId,
+              targetDB: 'Loffts',
+            })
+          }
           library={library}
           edit={edit}
         />

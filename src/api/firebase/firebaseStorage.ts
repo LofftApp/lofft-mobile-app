@@ -30,11 +30,11 @@ const saveProfileImage = (user, url) => {
   return url;
 };
 
-const saveImageLibrary = (target, urls) => {
-  uploadLibraryImagesToUserProfile(target, urls);
+const saveImageLibrary = ({targetId, urls, targetDB}) => {
+  uploadLibraryImagesToUserProfile({targetId, urls, targetDB});
 };
 
-const uploadUserImages = async (results, targetId, path) => {
+const uploadUserImages = async ({results, targetId, path, targetDB}) => {
   const urls = await Promise.all(
     results.assets.map(async asset => {
       const newFileName = randomFileName();
@@ -49,7 +49,7 @@ const uploadUserImages = async (results, targetId, path) => {
     const image = saveProfileImage(targetId, urls[0]);
     return image;
   } else if (path === 'imageLibrary') {
-    saveImageLibrary(targetId, urls);
+    saveImageLibrary({targetId, urls, targetDB});
   }
 };
 
@@ -71,14 +71,14 @@ export const userTakePhoto = async () => {
   return false;
 };
 
-export const libraryImageUpload = async (limit, id = null) => {
+export const libraryImageUpload = async ({limit, id = null, targetDB}) => {
   const targetId = id ? id : auth().currentUser.uid;
   const results = await launchImageLibrary({
     mediaType: 'photo',
     selectionLimit: limit,
   });
   if (!results.didCancel) {
-    uploadUserImages(results, targetId, 'imageLibrary');
+    uploadUserImages({results, targetId, path: 'imageLibrary', targetDB});
   }
 };
 

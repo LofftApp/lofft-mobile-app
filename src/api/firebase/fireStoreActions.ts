@@ -56,10 +56,14 @@ export const uploadImageToUserProfile = (docId, url) => {
   firestore().collection('Users').doc(docId).update({imageURI: url});
 };
 
-export const uploadLibraryImagesToUserProfile = (docId, urls) => {
+export const uploadLibraryImagesToUserProfile = ({
+  targetId,
+  urls,
+  targetDB = 'Users',
+}) => {
   firestore()
-    .collection('Users')
-    .doc(docId)
+    .collection(targetDB)
+    .doc(targetId)
     .update({libraryURIS: firestore.FieldValue.arrayUnion(...urls)});
 };
 
