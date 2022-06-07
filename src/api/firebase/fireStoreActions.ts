@@ -2,6 +2,12 @@ import firestore from '@react-native-firebase/firestore';
 import auth from '@react-native-firebase/auth';
 import {dateStringFormatter} from '../../components/helperFunctions/dateFormatter';
 
+// Contents
+// 1.0 User
+//  1.1 Get user data
+//  1.2 Get user loffId
+// 2.0 Lofft
+
 export const userDetailsUpdate = () => {
   auth().onAuthStateChanged(user => {
     if (user) {
@@ -17,11 +23,21 @@ export const userDetailsUpdate = () => {
   });
 };
 
-// Update and edit user profiles.
+// 1.0 User
+// =========================================================
 
+// 1.1 Get user data
 export const getCurrentUserDetails = async userID => {
   const userDetails = await firestore().collection('Users').doc(userID).get();
   return userDetails.data();
+};
+
+// 1.2 Get user Lofft ID
+export const getUserLofft = async () => {
+  const currentUser = auth().currentUser;
+  const user = await getCurrentUserDetails(currentUser.uid);
+  if (user.lofft) return user.lofft;
+  return null;
 };
 
 // Edit user profiles
@@ -304,18 +320,18 @@ export const addPoll = async (question, anwsers, deadline, multipleAnwser) => {
 // Pull Lofft Poll from DB
 
 export const getLofftPolls = async () => {
-  const currentUser = auth().currentUser;
-  const user = await getCurrentUserDetails(currentUser.uid);
-  const lofftId = user.lofft;
-  const polls = await firestore()
-    .collection('Managements')
-    .doc(lofftId)
-    .collection('Polls')
-    .get()
-    .then(docSnapshot => {
-      return docSnapshot.docs;
-    });
-  if (polls.length > 0) return polls;
+  const lofftId = await getUserLofft();
+  if (lofftId) {
+    const polls = await firestore()
+      .collection('Managements')
+      .doc(lofftId)
+      .collection('Polls')
+      .get()
+      .then(docSnapshot => {
+        return docSnapshot.docs;
+      });
+    if (polls.length > 0) return polls;
+  }
   return null;
 };
 
