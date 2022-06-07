@@ -1,5 +1,4 @@
 import createUserDetailsContext from './createUserDetailsContext';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 // import * as RootNavigation from '../RootNavigation';
 
 // Firebase 🔥
@@ -112,8 +111,6 @@ const profile = dispatch => uid => {
     .get()
     .then(querySnapShot => {
       console.log(querySnapShot);
-      // docId = querySnapShot.docs[0].id;
-      // details = querySnapShot.docs[0].data();
     });
 };
 
@@ -129,7 +126,6 @@ const uploadUserImage = dispatch => () => {
 
 const photoUserImage = dispatch => async () => {
   await userTakePhoto().then(response => {
-    console.log(response);
     if (response) {
       dispatch({type: 'update_profile_image', payload: response});
     }
@@ -147,7 +143,6 @@ const signout = dispatch => async () => {
 // If signed in but no active user in context then this is requested
 const activeUser = dispatch => async () => {
   const response = await getCurrentUser();
-  console.log(response);
   dispatch({
     type: 'signin',
     payload: {

@@ -1,6 +1,5 @@
-const dateCal = (array) => {
-  const sortedPolls = array.sort((a, b) => new Date(a.deadline) - new Date(b.deadline))
-  console.log(sortedPolls)
-}
+const dateCal = array => {
+  return array.sort((a, b) => new Date(a.deadline) - new Date(b.deadline));
+};
 
 export default dateCal;

@@ -35,13 +35,10 @@ const UserIcon = ({
 
 const styles = StyleSheet.create({
   userIcon: {
-    width: 45,
-    height: 45,
-    borderRadius: 40,
+    width: 62,
+    height: 62,
   },
   imageContainer: {
-    width: 50,
-    height: 50,
     borderRadius: 40,
     overflow: 'hidden',
     resizeMode: 'contain',

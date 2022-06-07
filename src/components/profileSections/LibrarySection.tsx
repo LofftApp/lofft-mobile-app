@@ -45,13 +45,19 @@ const LibrarySection = ({library, onPress, edit}) => {
             <Icon name="add-outline" size={60} color={color.Black[30]} />
           </TouchableOpacity>
         ) : null}
-        <FlatList
-          data={DATA}
-          renderItem={Item}
-          keyExtractor={(_, index) => index.toString()}
-          showsHorizontalScrollIndicator={false}
-          horizontal
-        />
+        {DATA.length > 0 ? (
+          <FlatList
+            data={DATA}
+            renderItem={Item}
+            keyExtractor={(_, index) => index.toString()}
+            showsHorizontalScrollIndicator={false}
+            horizontal
+          />
+        ) : edit ? null : (
+          <Text style={[fontStyles.bodySmall, styles.noPhotos]}>
+            There are currently no Photos 😢
+          </Text>
+        )}
       </View>
     </View>
   );
@@ -89,6 +95,9 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     marginLeft: -15,
     marginTop: 3,
+  },
+  noPhotos: {
+    marginTop: 5,
   },
 });
 

@@ -24,10 +24,13 @@ import firestore from '@react-native-firebase/firestore';
 
 const HomeScreen = () => {
   const [lofft, setLofft]: any = useState(false);
+  const [pending, setPending] = useState(false);
   const [name, setName] = useState('');
   const [image, setImage]: any = useState('');
   const [docId, setDocId]: any = useState('');
+  const [lofftName, setLofftName] = useState(null);
   const {state, activeUser} = useContext(UserDetails);
+
   useEffect(() => {
     if (state.uid) {
       if (state.name) setName(state.name.split(' ')[0]);
@@ -38,7 +41,18 @@ const HomeScreen = () => {
         .onSnapshot(snapShot => {
           setDocId(snapShot.data().id);
           const result = snapShot.data();
-          if (result.lofft) setLofft(result.lofft);
+          if (result.lofftPending) setPending(result.lofftPending);
+          if (result.lofft) {
+            setLofft(result.lofft);
+            firestore()
+              .collection('Loffts')
+              .doc(result.lofft)
+              .get()
+              .then(r => {
+                const data = r.data();
+                setLofftName(data.name);
+              });
+          }
         });
       return () => unsubscribe();
     } else {
@@ -62,7 +76,7 @@ const HomeScreen = () => {
           ]}
           source={paymentContainerBackground}>
           <View style={styles.apartmentNameBar}>
-            <Text style={fontStyles.buttonTextMedium}>{lofft.name}</Text>
+            <Text style={fontStyles.buttonTextMedium}>{lofftName}</Text>
             {lofft.pending ? (
               <View style={styles.statusButton}>
                 <Text style={[fontStyles.buttonTextSmall, styles.pendingText]}>
@@ -72,7 +86,7 @@ const HomeScreen = () => {
             ) : null}
           </View>
           <View style={styles.buttonContainer}>
-            {lofft.pending ? (
+            {pending ? (
               <Text style={fontStyles.buttonTextSmall}>
                 Your request to join a lofft is pending
               </Text>
@@ -81,7 +95,7 @@ const HomeScreen = () => {
                 value="View"
                 style={styles.buttons}
                 onPress={() =>
-                  navigation.navigate('ViewApartment', {lofft: lofft.lofftId})
+                  navigation.navigate('LofftProfile', {lofft: lofft})
                 }
               />
             )}

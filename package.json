@@ -36,6 +36,7 @@
     "react-native-calendars": "^1.1278.0",
     "react-native-chart-kit": "^6.11.0",
     "react-native-date-picker": "^4.2.0",
+    "react-native-emoji-selector": "^0.2.0",
     "react-native-fast-image": "^8.5.11",
     "react-native-gesture-handler": "^2.2.0",
     "react-native-image-picker": "^4.7.1",

@@ -1,7 +1,5 @@
-import firestore, {doc, getDoc, setDoc} from '@react-native-firebase/firestore';
+import firestore from '@react-native-firebase/firestore';
 import auth from '@react-native-firebase/auth';
-import {getCurrentUser} from './firebaseApi';
-import values from '../../data/hobbiesAndValues.json';
 import {dateStringFormatter} from '../../components/helperFunctions/dateFormatter';
 
 export const userDetailsUpdate = () => {
@@ -58,10 +56,14 @@ export const uploadImageToUserProfile = (docId, url) => {
   firestore().collection('Users').doc(docId).update({imageURI: url});
 };
 
-export const uploadLibraryImagesToUserProfile = (docId, urls) => {
+export const uploadLibraryImagesToUserProfile = ({
+  targetId,
+  urls,
+  targetDB = 'Users',
+}) => {
   firestore()
-    .collection('Users')
-    .doc(docId)
+    .collection(targetDB)
+    .doc(targetId)
     .update({libraryURIS: firestore.FieldValue.arrayUnion(...urls)});
 };
 
@@ -76,7 +78,7 @@ export const deleteImageFromImageLibraryRef = (docId, url) => {
 export const createLofft = async ({
   name,
   description,
-  docId,
+  userID,
   hobbiesAndValues,
 }) => {
   await firestore()
@@ -85,14 +87,15 @@ export const createLofft = async ({
       name,
       description,
       users: [{user_id: auth().currentUser.uid, admin: true}],
-      pending_users: [],
+      pendingUsers: [],
       hobbiesAndValues,
+      emoji: '🤷',
     })
     .then(async response => {
       await firestore()
         .collection('Users')
-        .doc(docId)
-        .update({lofft: {lofftId: response.id, name, description}});
+        .doc(userID)
+        .update({lofft: response.id});
     });
 };
 
@@ -113,24 +116,15 @@ export const findLofft = async param => {
 
 // Join a lofft from Search
 export const joinLofft = async lofftId => {
-  const currentUser = auth().currentUser;
-  const user = await getCurrentUserDetails(currentUser);
+  const currentUser = auth().currentUser.uid;
   const lofftRoute = await firestore().collection('Loffts').doc(lofftId);
-  const lofft = (await lofftRoute.get()).data();
   lofftRoute.update({
-    pendingUsers: firestore.FieldValue.arrayUnion(user.docId),
+    pendingUsers: firestore.FieldValue.arrayUnion(currentUser),
   });
-  await firestore()
-    .collection('Users')
-    .doc(user.docId)
-    .update({
-      lofft: {
-        lofftId,
-        name: lofft.name,
-        description: lofft.description,
-        pending: true,
-      },
-    });
+  await firestore().collection('Users').doc(currentUser).update({
+    lofft: lofftId,
+    lofftPending: true,
+  });
   return true;
 };
 
@@ -151,11 +145,11 @@ export const confirmUserLofft = (userId, lofftId) => {
 };
 
 // Edit lofft details
-export const updateLofft = (id, name, description, address, values) => {
+export const updateLofft = (id, name, description, address, emoji, values) => {
   firestore()
     .collection('Loffts')
     .doc(id)
-    .update({name, description, address, hobbiesAndValues: values});
+    .update({name, description, address, emoji, hobbiesAndValues: values});
   console.log('Update complete');
 };
 
