@@ -18,7 +18,7 @@ import color from '../../assets/defaultColorPallet.json';
 import {CoreStyleSheet} from '../../StyleSheets/CoreDesignStyleSheet';
 import {fontStyles} from '../../StyleSheets/FontStyleSheet';
 
-// Firebase
+// Firebase 🔥
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 
