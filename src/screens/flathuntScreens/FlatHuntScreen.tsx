@@ -294,7 +294,7 @@ const FlatHuntScreen = () => {
                 value="Search"
                 style={styles.button}
                 onPress={() =>
-                  navigation.navigate('AddFriendsToEvent') }/>
+                  navigation.navigate('FlatMap') }/>
             </ImageBackground>
           </View>
         </ScrollView>
