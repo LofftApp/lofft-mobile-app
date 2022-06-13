@@ -813,6 +813,13 @@ PODS:
     - RNFBApp
   - RNGestureHandler (2.2.0):
     - React-Core
+  - rnmapbox-maps (10.0.0-beta.15):
+    - React
+    - React-Core
+    - rnmapbox-maps/DynamicLibrary (= 10.0.0-beta.15)
+  - rnmapbox-maps/DynamicLibrary (10.0.0-beta.15):
+    - React
+    - React-Core
   - RNScreens (3.10.2):
     - React-Core
     - React-RCTImage
@@ -889,6 +896,7 @@ DEPENDENCIES:
   - "RNFBFunctions (from `../node_modules/@react-native-firebase/functions`)"
   - "RNFBStorage (from `../node_modules/@react-native-firebase/storage`)"
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
+  - "rnmapbox-maps (from `../node_modules/@rnmapbox/maps`)"
   - RNScreens (from `../node_modules/react-native-screens`)
   - RNSVG (from `../node_modules/react-native-svg`)
   - RNVectorIcons (from `../node_modules/react-native-vector-icons`)
@@ -1011,6 +1019,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/@react-native-firebase/storage"
   RNGestureHandler:
     :path: "../node_modules/react-native-gesture-handler"
+  rnmapbox-maps:
+    :path: "../node_modules/@rnmapbox/maps"
   RNScreens:
     :path: "../node_modules/react-native-screens"
   RNSVG:
@@ -1092,12 +1102,13 @@ SPEC CHECKSUMS:
   RNFBFunctions: 6edd867deda52f7e43cc5a3d69b2720aa6ce7e05
   RNFBStorage: 2725730a381b228385959286894d469b861b5be3
   RNGestureHandler: bf572f552ea324acd5b5464b8d30755b2d8c1de6
+  rnmapbox-maps: 0a87d415234e833c79a2c725a76020daeb8b6d3e
   RNScreens: d6da2b9e29cf523832c2542f47bf1287318b1868
   RNSVG: 551acb6562324b1d52a4e0758f7ca0ec234e278f
   RNVectorIcons: 4143ba35feebab8fdbe6bc43d1e776b393d47ac8
   Yoga: e7dc4e71caba6472ff48ad7d234389b91dadc280
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 
-PODFILE CHECKSUM: bea7dc741eeefb7fe963505c72398978eee9ac3e
+PODFILE CHECKSUM: 0b34fc7d80b79ef28d29339d6f9451a1296ce098
 
 COCOAPODS: 1.11.2

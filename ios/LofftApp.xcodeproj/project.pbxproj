@@ -200,6 +200,9 @@
 				00E356F51AD99517003FC87E /* PBXTargetDependency */,
 			);
 			name = LofftAppTests;
+			packageProductDependencies = (
+				34D89BE70B9163FC54D683C6 /* Mapbox */,
+			);
 			productName = LofftAppTests;
 			productReference = 00E356EE1AD99517003FC87E /* LofftAppTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
@@ -223,6 +226,9 @@
 			dependencies = (
 			);
 			name = LofftApp;
+			packageProductDependencies = (
+				6FF0349EB9F766C2A467E563 /* Mapbox */,
+			);
 			productName = LofftApp;
 			productReference = 13B07F961A680F5B00A75B9A /* LofftApp.app */;
 			productType = "com.apple.product-type.application";
@@ -253,6 +259,9 @@
 				Base,
 			);
 			mainGroup = 83CBB9F61A601CBA00E9B192;
+			packageReferences = (
+				4E8D49A6DD6E13AFBFD2E6C2 /* XCRemoteSwiftPackageReference "maplibre-gl-native-distribution" */,
+			);
 			productRefGroup = 83CBBA001A601CBA00E9B192 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -741,6 +750,30 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		4E8D49A6DD6E13AFBFD2E6C2 /* XCRemoteSwiftPackageReference "maplibre-gl-native-distribution" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/maplibre/maplibre-gl-native-distribution";
+			requirement = {
+				kind = exactVersion;
+				version = 5.12.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		34D89BE70B9163FC54D683C6 /* Mapbox */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4E8D49A6DD6E13AFBFD2E6C2 /* XCRemoteSwiftPackageReference "maplibre-gl-native-distribution" */;
+			productName = Mapbox;
+		};
+		6FF0349EB9F766C2A467E563 /* Mapbox */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4E8D49A6DD6E13AFBFD2E6C2 /* XCRemoteSwiftPackageReference "maplibre-gl-native-distribution" */;
+			productName = Mapbox;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 83CBB9F71A601CBA00E9B192 /* Project object */;
 }
