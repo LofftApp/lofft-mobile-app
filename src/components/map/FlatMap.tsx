@@ -32,3 +32,5 @@ const styles = StyleSheet.create({
 });
 
 export default FlatMap;
+
+// Api restrictions added
