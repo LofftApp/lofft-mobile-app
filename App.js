@@ -30,6 +30,7 @@ import PollConfirmationScreen from './src/screens/managementScreens/PollConfirma
 
 // FlatHunt Screens
 import FlatHuntScreen from './src/screens/flathuntScreens/FlatHuntScreen';
+import FlatMapScreen from './src/screens/flathuntScreens/FlapMapScreen';
 
 // FireStore
 import auth from '@react-native-firebase/auth';
@@ -171,9 +172,17 @@ const App = () => {
 
           {/* Settings and Profile Management */}
 
+          {/* Flathunt */}
+
           <Stack.Screen
             name="FlatHunt"
             component={FlatHuntScreen}
+            options={{ headerShown: false }}
+          />
+
+          <Stack.Screen
+            name="FlatMap"
+            component={FlatMapScreen}
             options={{ headerShown: false }}
           />
 

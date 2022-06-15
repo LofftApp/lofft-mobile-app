@@ -22,7 +22,7 @@ import color from './../../assets/defaultColorPallet.json';
 // Components
 import HeaderBarFlatHunt from '../../components/bannersAndBars/HeaderBarFlatHunt';
 import ToggleBar from '../../components/bannersAndBars/ToggleBar';
-import Map from '../../components/map/Map';
+
 
 // React
 import {navigationRef as navigation} from './../../RootNavigation';
