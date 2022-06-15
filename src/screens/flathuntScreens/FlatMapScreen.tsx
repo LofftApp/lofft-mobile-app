@@ -22,7 +22,7 @@ import color from '../../assets/defaultColorPallet.json';
 // Components
 import HeaderBarFlatHunt from '../../components/bannersAndBars/HeaderBarFlatHunt';
 import ToggleBar from '../../components/bannersAndBars/ToggleBar';
-import Map from '../../components/map/Map';
+import FlatMap from '../../components/map/FlatMap';
 
 
 // React
@@ -63,7 +63,7 @@ const FlatMapScreen = () => {
 
 
       </View>
-
+      <FlatMap />
 
     </>
   )
