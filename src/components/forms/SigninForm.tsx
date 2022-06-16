@@ -5,12 +5,14 @@ import {
   TextInput,
   TouchableOpacity,
   StyleSheet,
+  Modal,
 } from 'react-native';
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
 import color from '../../assets/defaultColorPallet.json';
 import {fontStyles} from '../../StyleSheets/FontStyleSheet';
 import {CoreButton} from './../buttons/CoreButton';
 import {Context as UserDetails} from '../../context/UserDetailsContext';
+import FastImage from 'react-native-fast-image';
 // import {signup, signin} from '../../api/firebase/firebaseApi';
 
 const SigninForm = ({navigation, signupForm = false}: any) => {
@@ -19,7 +21,11 @@ const SigninForm = ({navigation, signupForm = false}: any) => {
   const [repeatPassword, setRepeatPassword] = useState('');
   const [checkbox, setCheckbox] = useState(false);
   const buttonValue = signupForm ? 'Sign up' : 'Sign in';
-  const {state, signin, signup} = useContext(UserDetails);
+  const {state, signin, signup, uploadUserImage, photoUserImage} =
+    useContext(UserDetails);
+  // const [imageURI, setImageURI] = useState(null);
+  const [modalVisible, setModalVisible] = useState(false);
+  const [userImage, setUserImage] = useState('');
 
   const registrationValidation = () => {
     const passwordMatch = password === repeatPassword;
@@ -38,6 +44,15 @@ const SigninForm = ({navigation, signupForm = false}: any) => {
             <Text style={styles.stateText}>{state.errorMessage}</Text>
           </View>
         ) : null}
+        <TouchableOpacity
+          onPress={() => setModalVisible(true)}
+          style={styles.imageContainer}>
+          <FastImage
+            source={{uri: userImage}}
+            style={styles.userImage}
+            resizeMode={FastImage.resizeMode.cover}
+          />
+        </TouchableOpacity>
         <View style={styles.inputContainerStyle}>
           <TextInput
             style={[styles.inputStyle, fontStyles.bodyMedium]}
@@ -112,6 +127,42 @@ const SigninForm = ({navigation, signupForm = false}: any) => {
           />
         )}
       </View>
+      <Modal transparent={true} animationType="fade" visible={modalVisible}>
+        <View style={styles.modalContainer}>
+          <View style={styles.modal}>
+            <View>
+              <CoreButton
+                value="Upload Image"
+                style={[styles.modalButton]}
+                onPress={() => {
+                  // const imageURI = await userImageUpload();
+                  uploadUserImage();
+                  setUserImage('updated');
+                  setModalVisible(false);
+                }}
+              />
+              <CoreButton
+                value="Take Photo"
+                style={[styles.modalButton]}
+                invert
+                onPress={async () => {
+                  // const imageURI = await userTakePhoto();
+                  await photoUserImage();
+                  setUserImage('updated');
+                  setModalVisible(false);
+                }}
+              />
+            </View>
+            <CoreButton
+              value="Cancel"
+              style={[styles.modalButton, styles.modalCancelButton]}
+              onPress={() => {
+                setModalVisible(false);
+              }}
+            />
+          </View>
+        </View>
+      </Modal>
     </View>
   );
 };
@@ -162,6 +213,47 @@ const styles = StyleSheet.create({
   },
   switchLinkText: {
     color: color.Lavendar[80],
+  },
+  imageContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 15,
+    width: '100%',
+  },
+  userImage: {
+    width: 78,
+    height: 78,
+    borderWidth: 4,
+    borderColor: color.Lavendar[100],
+    backgroundColor: color.Lavendar[10],
+    borderRadius: 75,
+  },
+  // Modal
+  modalContainer: {
+    flex: 1,
+    justifyContent: 'flex-end',
+    backgroundColor: color.Black[10],
+  },
+  modal: {
+    justifyContent: 'space-around',
+    height: '30%',
+    backgroundColor: color.White[100],
+    paddingVertical: 15,
+    borderTopRightRadius: 20,
+    borderTopLeftRadius: 20,
+    // shadowColor: color.Black[25],
+    // shadowOpacity: 1,
+    // shadowOffset: {width: 0, height: -2},
+  },
+  modalButton: {
+    alignSelf: 'center',
+    marginVertical: 5,
+    width: '80%',
+    height: 45,
+  },
+  modalCancelButton: {
+    backgroundColor: color.Black[30],
+    borderWidth: 0,
   },
 });
 
