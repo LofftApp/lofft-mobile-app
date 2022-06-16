@@ -23,7 +23,11 @@ const SigninForm = ({navigation, signupForm = false}: any) => {
 
   const registrationValidation = () => {
     const passwordMatch = password === repeatPassword;
-    return !(passwordMatch && checkbox);
+    const emailRegex = new RegExp(
+      /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/i,
+    );
+    const emailCheck = emailRegex.test(email);
+    return !(passwordMatch && checkbox && emailCheck);
   };
 
   return (
