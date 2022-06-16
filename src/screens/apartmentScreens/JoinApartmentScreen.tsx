@@ -6,6 +6,8 @@ import {
   TextInput,
   Platform,
   ImageBackground,
+  Keyboard,
+  Pressable,
 } from 'react-native';
 import {navigationRef as navigation} from '../../RootNavigation';
 
@@ -37,59 +39,61 @@ const JoinApartmentScreen = () => {
         onPress={() => navigation.goBack()}
         title="Join a Lofft"
       />
-      <View style={styles.pageContainer}>
-        <ImageBackground
-          style={styles.inputContainer}
-          source={paymentContainerBackground}>
-          <TextInput
-            style={[styles.formField, fontStyles.bodyMedium]}
-            placeholder="Enter Name or Lofft ID"
-            autoCapitalize="none"
-            value={formInput}
-            onChangeText={e => setFormInput(e)}
-          />
-          <View style={styles.buttonContainer}>
-            <CoreButton
-              value="Search"
-              style={styles.buttons}
-              onPress={() => {
-                const search = async () => {
-                  const response: any = await findLofft(formInput);
-                  setLofft({id: response.id, data: response.data()});
-                };
-                search();
-              }}
+      <Pressable onPressIn={Keyboard.dismiss}>
+        <View style={styles.pageContainer}>
+          <ImageBackground
+            style={styles.inputContainer}
+            source={paymentContainerBackground}>
+            <TextInput
+              style={[styles.formField, fontStyles.bodyMedium]}
+              placeholder="Enter Name or Lofft ID"
+              autoCapitalize="none"
+              value={formInput}
+              onChangeText={e => setFormInput(e)}
             />
-          </View>
-        </ImageBackground>
-      </View>
-      <View>
-        {lofft ? (
-          <>
-            <Text style={fontStyles.headerSmall}>Results</Text>
-            <View style={styles.lofftCard}>
-              <View>
-                <Text style={fontStyles.headerSmall}>{lofft.data.name}</Text>
-                <Text style={fontStyles.bodyMedium}>
-                  {lofft.data.description}
-                </Text>
-              </View>
+            <View style={styles.buttonContainer}>
               <CoreButton
-                value="Join"
-                style={[styles.buttons, styles.smallButton]}
+                value="Search"
+                style={styles.buttons}
                 onPress={() => {
-                  const response = joinLofft(lofft.id);
-                  if (response) {
-                    navigation.goBack();
-                  }
+                  const search = async () => {
+                    const response: any = await findLofft(formInput);
+                    setLofft({id: response.id, data: response.data()});
+                  };
+                  search();
                 }}
               />
             </View>
-          </>
-        ) : (
-          <Text style={fontStyles.headerSmall}>There are no results</Text>
-        )}
-      </View>
+          </ImageBackground>
+        </View>
+        <View>
+          {lofft ? (
+            <>
+              <Text style={fontStyles.headerSmall}>Results</Text>
+              <View style={styles.lofftCard}>
+                <View>
+                  <Text style={fontStyles.headerSmall}>{lofft.data.name}</Text>
+                  <Text style={fontStyles.bodyMedium}>
+                    {lofft.data.description}
+                  </Text>
+                </View>
+                <CoreButton
+                  value="Join"
+                  style={[styles.buttons, styles.smallButton]}
+                  onPress={() => {
+                    const response = joinLofft(lofft.id);
+                    if (response) {
+                      navigation.goBack();
+                    }
+                  }}
+                />
+              </View>
+            </>
+          ) : (
+            <Text style={fontStyles.headerSmall}>There are no results</Text>
+          )}
+        </View>
+      </Pressable>
     </View>
   );
 };

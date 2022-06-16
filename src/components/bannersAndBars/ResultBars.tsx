@@ -3,8 +3,6 @@ import {View, Text, StyleSheet} from 'react-native';
 import color from '../../assets/defaultColorPallet.json';
 
 const ResultBars = ({answers, userAnswers, inactive = false}) => {
-  // console.log(answers);
-  // console.log(userAnswers);
   const accumulatorCalculator = votes => {
     const totalVotes = Object.keys(votes).length;
     let results = {};

@@ -18,7 +18,6 @@ const HobbiesAndValues = ({
       <Text style={fontStyles.buttonTextMedium}>Hobbies & Values</Text>
       <View style={styles.hobbyContaner}>
         {Object.entries(values).map(([k, v]) => {
-          // console.log(`${k}: ${v.active}`);
           if (v.active || edit) {
             return (
               <TouchableOpacity

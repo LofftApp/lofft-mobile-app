@@ -28,9 +28,7 @@ const MakePayment = ({navigation, route}: any) => {
 
   useEffect(() => {
     const getUserName = async () => {
-      console.log(billDetails);
       const user = await getUser(billDetails.recipients);
-      console.log(user);
       // setUserName(user.name);
     };
 
@@ -49,9 +47,7 @@ const MakePayment = ({navigation, route}: any) => {
 
   console.log(userCards.length);
 
-  useEffect(() => {
-    console.log(billDetails);
-  }, []);
+  useEffect(() => {}, []);
 
   return (
     <View

@@ -1,7 +1,6 @@
-import firestore, {doc, getDoc, setDoc} from '@react-native-firebase/firestore';
+import firestore from '@react-native-firebase/firestore';
 import auth from '@react-native-firebase/auth';
-import {getCurrentUser} from './firebaseApi';
-import values from '../../data/hobbiesAndValues.json';
+import {dateStringFormatter} from '../../components/helperFunctions/dateFormatter';
 
 export const userDetailsUpdate = () => {
   auth().onAuthStateChanged(user => {
@@ -10,7 +9,7 @@ export const userDetailsUpdate = () => {
         .collection('Users')
         .where('uid', '==', user.uid)
         .onSnapshot(snapShot => {
-          console.log(snapShot.docs[0].data());
+          snapShot.docs[0].data();
         });
     } else {
       console.log('Unauth');
@@ -20,18 +19,9 @@ export const userDetailsUpdate = () => {
 
 // Update and edit user profiles.
 
-export const getCurrentUserDetails = async user => {
-  let details: any = {};
-  let docId = '';
-  await firestore()
-    .collection('Users')
-    .where('uid', '==', user.uid)
-    .get()
-    .then(querySnapShot => {
-      docId = querySnapShot.docs[0].id;
-      details = querySnapShot.docs[0].data();
-    });
-  return {docId, details};
+export const getCurrentUserDetails = async userID => {
+  const userDetails = await firestore().collection('Users').doc(userID).get();
+  return userDetails.data();
 };
 
 // Edit user profiles
@@ -66,11 +56,29 @@ export const uploadImageToUserProfile = (docId, url) => {
   firestore().collection('Users').doc(docId).update({imageURI: url});
 };
 
+export const uploadLibraryImagesToUserProfile = ({
+  targetId,
+  urls,
+  targetDB = 'Users',
+}) => {
+  firestore()
+    .collection(targetDB)
+    .doc(targetId)
+    .update({libraryURIS: firestore.FieldValue.arrayUnion(...urls)});
+};
+
+export const deleteImageFromImageLibraryRef = (docId, url) => {
+  firestore()
+    .collection('Users')
+    .doc(docId)
+    .update({libraryURIS: firestore.FieldValue.arrayRemove(url)});
+};
+
 // Update and create Lofft Spaces
 export const createLofft = async ({
   name,
   description,
-  docId,
+  userID,
   hobbiesAndValues,
 }) => {
   await firestore()
@@ -79,14 +87,15 @@ export const createLofft = async ({
       name,
       description,
       users: [{user_id: auth().currentUser.uid, admin: true}],
-      pending_users: [],
+      pendingUsers: [],
       hobbiesAndValues,
+      emoji: '🤷',
     })
     .then(async response => {
       await firestore()
         .collection('Users')
-        .doc(docId)
-        .update({lofft: {lofftId: response.id, name, description}});
+        .doc(userID)
+        .update({lofft: response.id});
     });
 };
 
@@ -107,24 +116,15 @@ export const findLofft = async param => {
 
 // Join a lofft from Search
 export const joinLofft = async lofftId => {
-  const currentUser = auth().currentUser;
-  const user = await getCurrentUserDetails(currentUser);
+  const currentUser = auth().currentUser.uid;
   const lofftRoute = await firestore().collection('Loffts').doc(lofftId);
-  const lofft = (await lofftRoute.get()).data();
   lofftRoute.update({
-    pendingUsers: firestore.FieldValue.arrayUnion(user.docId),
+    pendingUsers: firestore.FieldValue.arrayUnion(currentUser),
   });
-  await firestore()
-    .collection('Users')
-    .doc(user.docId)
-    .update({
-      lofft: {
-        lofftId,
-        name: lofft.name,
-        description: lofft.description,
-        pending: true,
-      },
-    });
+  await firestore().collection('Users').doc(currentUser).update({
+    lofft: lofftId,
+    lofftPending: true,
+  });
   return true;
 };
 
@@ -145,11 +145,11 @@ export const confirmUserLofft = (userId, lofftId) => {
 };
 
 // Edit lofft details
-export const updateLofft = (id, name, description, address, values) => {
+export const updateLofft = (id, name, description, address, emoji, values) => {
   firestore()
     .collection('Loffts')
     .doc(id)
-    .update({name, description, address, hobbiesAndValues: values});
+    .update({name, description, address, emoji, hobbiesAndValues: values});
   console.log('Update complete');
 };
 
@@ -178,31 +178,32 @@ export const billQuery = async () => {
 
 // Create Event
 export const addEvent = async (
-  title,
+  eventName,
   location,
   date,
-  from,
-  till,
-  sharewithFlatmates,
+  fromTime,
+  untilTime,
   description,
-  inputFriends,
 ) => {
   const currentUser = auth().currentUser;
   const user = await getCurrentUserDetails(currentUser);
   const loftId = user.details.lofft.lofftId;
-  const selectedFriendsOnly = inputFriends.filter(el => el.selected === true);
+  // const selectedFriendsOnly = inputFriends.filter(el => el.selected === true);
 
   let event = {
-    title: title,
+    title: eventName,
     location: location,
     date: date,
-    from: from,
-    till: till,
-    sharewithFlatmates: sharewithFlatmates,
+    from: fromTime,
+    till: untilTime,
     description: description,
-    selectedFriends: selectedFriendsOnly,
+    attending: [],
+    notAttending: [],
+    active: true,
+    createdBy: currentUser.uid,
+    updatedAt: new Date(),
+    createdAt: new Date(),
   };
-  console.log(event);
 
   firestore()
     .collection('Managements')
@@ -215,16 +216,66 @@ export const getLofftEvents = async () => {
   const currentUser = auth().currentUser;
   const user = await getCurrentUserDetails(currentUser);
   const loftId = user.details.lofft.lofftId;
-
+  let date = new Date();
+  date = new Date(dateStringFormatter(date));
+  const firstMonth = new Date(date.getFullYear(), date.getMonth(), 2);
   const result = await firestore()
     .collection('Managements')
     .doc(loftId)
     .collection('Events')
+    .where('date', '>=', firstMonth)
     .get()
     .then(docSnapshot => {
       return docSnapshot.docs;
     });
+  // console.log(result);
   return result;
+};
+
+export const attendLofftEvent = async e => {
+  const currentUser = auth().currentUser;
+  const user = await getCurrentUserDetails(currentUser);
+  const loftId = user.details.lofft.lofftId;
+  await firestore()
+    .collection('Managements')
+    .doc(loftId)
+    .collection('Events')
+    .doc(e)
+    .update({
+      attending: firestore.FieldValue.arrayUnion(currentUser.uid),
+      updatedAt: new Date(),
+    });
+};
+
+export const rejectLofftEvent = async e => {
+  console.log('I am not attending');
+  const currentUser = auth().currentUser;
+  const user = await getCurrentUserDetails(currentUser);
+  const loftId = user.details.lofft.lofftId;
+  await firestore()
+    .collection('Managements')
+    .doc(loftId)
+    .collection('Events')
+    .doc(e)
+    .update({
+      notAttending: firestore.FieldValue.arrayUnion(currentUser.uid),
+      updatedAt: new Date(),
+    });
+};
+
+export const cancelLofftEvent = async e => {
+  const currentUser = auth().currentUser;
+  const user = await getCurrentUserDetails(currentUser);
+  const loftId = user.details.lofft.lofftId;
+  await firestore()
+    .collection('Managements')
+    .doc(loftId)
+    .collection('Events')
+    .doc(e)
+    .update({
+      active: false,
+      updatedAt: new Date(),
+    });
 };
 
 // Create Poll
@@ -278,7 +329,6 @@ export const getPollsData = async (value, setValue) => {
 
 // Vote in a Poll Method
 export const votePoll = async (pollId, answer) => {
-  // console.log(answer);
   const user = auth().currentUser;
   const userID = user.uid;
   const userDetails = await getCurrentUserDetails(user);

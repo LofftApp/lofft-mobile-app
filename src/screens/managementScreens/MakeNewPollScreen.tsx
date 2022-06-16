@@ -1,5 +1,4 @@
 import React, {useState, useRef, useEffect} from 'react';
-import {v4 as uuidv4} from 'uuid';
 import {
   View,
   Text,
@@ -10,10 +9,9 @@ import {
   SafeAreaView,
   ScrollView,
 } from 'react-native';
-import {Colors} from 'react-native/Libraries/NewAppScreen';
+import {navigationRef as navigation} from './../../RootNavigation';
 
 // Components
-import HeaderBar from '../../components/bannersAndBars/HeaderBar';
 import AddButtonPoll from '../../components/buttons/AddButtonPoll';
 import CustomBackButton from '../../components/buttons/CustomBackButton';
 import {CoreButton} from '../../components/buttons/CoreButton';
@@ -27,7 +25,7 @@ import {CoreStyleSheet} from '../../StyleSheets/CoreDesignStyleSheet';
 import {fontStyles} from '../../StyleSheets/FontStyleSheet';
 import color from '../../assets/defaultColorPallet.json';
 import ToggleBar from '../../components/bannersAndBars/ToggleBar';
-import {navigationRef as navigation} from './../../RootNavigation';
+
 // Firestore
 import {addPoll} from '../../api/firebase/fireStoreActions';
 
@@ -123,15 +121,6 @@ const MakeNewPollScreen = () => {
     setDeadline('');
   };
 
-  // const unitToTen = value => {
-  //   return value.toString().length === 1 ? `0${value}` : value;
-  // };
-  // const convertDate = date => {
-  //   const day = unitToTen(date.getDate());
-  //   const month = unitToTen(date.getMonth() + 1);
-  //   return `${day} - ${month} - ${date.getFullYear()}`;
-  // };
-
   return (
     <View
       style={[
@@ -190,7 +179,6 @@ const MakeNewPollScreen = () => {
                 open={open}
                 date={date}
                 onConfirm={date => {
-                  console.log(date);
                   setNoDate(false);
                   setOpen(false);
                   setDate(date);

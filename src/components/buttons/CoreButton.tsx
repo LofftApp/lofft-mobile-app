@@ -6,7 +6,7 @@ import {fontStyles} from '../../StyleSheets/FontStyleSheet';
 export const CoreButton = ({
   value,
   invert = false,
-  style,
+  style = null,
   textStyle = null,
   onPress,
   disabled = false,

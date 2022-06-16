@@ -1,6 +1,7 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {View, Text, StyleSheet, Platform, TouchableOpacity} from 'react-native';
-import {signout} from '../../api/firebase/firebaseApi';
+// import {signout} from '../../api/firebase/firebaseApi';
+import {Context as UserDetails} from '../../context/UserDetailsContext';
 
 // Components
 import CustomBackButton from '../../components/buttons/CustomBackButton';
@@ -13,6 +14,7 @@ import {fontStyles} from './../../StyleSheets/FontStyleSheet';
 import {navigationRef} from '../../RootNavigation';
 
 const UserOptionsScreen = () => {
+  const {signout} = useContext(UserDetails);
   return (
     <View
       style={[
@@ -70,9 +72,6 @@ const UserOptionsScreen = () => {
 };
 
 const styles = StyleSheet.create({
-  linkContainer: {
-    marginTop: 25,
-  },
   optionsLinkText: {
     paddingVertical: 25,
     borderBottomWidth: 1,

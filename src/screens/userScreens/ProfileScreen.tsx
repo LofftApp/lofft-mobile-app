@@ -1,25 +1,24 @@
-import React, {useState, useEffect} from 'react';
-import {
-  View,
-  ImageBackground,
-  ScrollView,
-  Text,
-  StyleSheet,
-  Image,
-} from 'react-native';
+import React, {useState, useEffect, useContext} from 'react';
+import {View, ScrollView, Text, StyleSheet, Modal, Alert} from 'react-native';
 import storedHobbiesAndValues from '../../data/hobbiesAndValues.json';
+import {Context as UserDetails} from '../../context/UserDetailsContext';
 
 // Firebase
 import {getCurrentUserDetails} from '../../api/firebase/fireStoreActions';
 import auth from '@react-native-firebase/auth';
 import {updateUser} from '../../api/firebase/fireStoreActions';
+import {libraryImageUpload} from '../../api/firebase/firebaseStorage';
 
 // Components
-import CustomBackButton from '../../components/buttons/CustomBackButton';
-import Icon from 'react-native-vector-icons/Ionicons';
 import TagIcon from '../../components/iconsAndContainers/TagIcon';
-import EditPageButton from '../../components/buttons/EditPageButton';
 import HobbiesAndValues from '../../components/HobbiesAndValues';
+import {CoreButton} from '../../components/buttons/CoreButton';
+import LibrarySection from '../../components/profileSections/LibrarySection';
+import ProfileHeader from '../../components/bannersAndBars/ProfileHeader';
+import DescriptionInput from '../../components/profileSections/DescriptionInput';
+
+// helpers
+import {hobbiesFormatter} from '../../components/helperFunctions/hobbiesFormatter';
 
 // Stylesheets
 import color from './../../assets/defaultColorPallet.json';
@@ -27,23 +26,23 @@ import {CoreStyleSheet} from '../../StyleSheets/CoreDesignStyleSheet';
 import {fontStyles} from './../../StyleSheets/FontStyleSheet';
 import {navigationRef} from '../../RootNavigation';
 
-// Images
-import blueBackground from '../../assets/backgroundShapes/blue.png';
-import imagePlaceholder from '../../assets/user.jpeg';
-import EditableTextField from '../../components/inputFields/EditableTextFields';
-
-const ProfileScreen = () => {
-  const [docId, setDocId] = useState('');
+const ProfileScreen = ({userID = auth().currentUser.uid}) => {
+  const {state, profile, updateProfile, uploadUserImage, photoUserImage} =
+    useContext(UserDetails);
+  const [modalVisible, setModalVisible] = useState(false);
   const [edit, setEdit] = useState(false);
   const [admin, setAdmin] = useState(false);
   const [name, setName] = useState('');
   const [newName, setNewName] = useState('');
+  const [lofft, setLofft] = useState(null);
   const [tags, setTags] = useState([]);
   const [newTags, setNewTags] = useState([]);
-  const [userImage, setUserImage] = useState({});
+  const [userImage, setUserImage] = useState('');
   const [description, setDescription] = useState('');
   const [newDescription, setNewDescription] = useState('');
   const [values, setValues] = useState({});
+  const [pronouns, setPronouns] = useState('He/Him');
+  const [library, setLibrary] = useState([]);
 
   const [selectedHobbies, setSelectedHobbies] = useState([]);
   const selectHobby = key => {
@@ -57,157 +56,180 @@ const ProfileScreen = () => {
     }
   };
 
+  // Set Admin
   useEffect(() => {
-    setTags([]);
-    const getUser = async user => {
-      const result = await getCurrentUserDetails(user);
-      setDocId(result.docId);
-      result.details.imageURI
-        ? setUserImage(result.details.imageURI)
-        : setUserImage(imagePlaceholder);
-      if (result.details.name) {
-        setName(result.details.name);
-      }
-      // if (result.details.status) {
-      //   setTags(tags => [
-      //     ...tags,
-      //     {value: result.details.status, color: 'Lavendar'},
-      //   ]);
-      // }
-      // if (result.details.pronouns) {
-      //   setTags(tags => [
-      //     ...tags,
-      //     {value: result.details.pronouns, color: 'Mint'},
-      //   ]);
-      // }
-      if (
-        result.details.userProfile &&
-        result.details.userProfile.description
-      ) {
-        setDescription(result.details.userProfile.description);
-      }
-      if (auth().currentUser.uid === result.details.uid) {
-        setAdmin(true);
-      }
-      if (
-        result.details.userProfile &&
-        result.details.userProfile.hobbiesAndValues
-      ) {
-        setValues(result.details.userProfile.hobbiesAndValues);
-        Object.entries(result.details.userProfile.hobbiesAndValues).forEach(
-          ([k, v]) => {
-            if (v.active) {
-              if (!selectedHobbies.includes(k)) {
-                setSelectedHobbies(selectedHobbies => [...selectedHobbies, k]);
-              }
-            }
-          },
-        );
-      } else {
-        setValues(storedHobbiesAndValues);
-      }
-      // if (result.details.profile.diet) {
-      //   setTags(tags => [
-      //     ...tags,
-      //     {value: result.details.profile.diet, color: 'Gold'},
-      //   ]);
-      // }
-    };
-
-    auth().onAuthStateChanged(user => {
-      if (user) {
-        getUser(user);
-      }
-    });
+    if (userID === state.uid) setAdmin(true);
   }, []);
+
+  // SetUserImage and assign current user Image
+  useEffect(() => {
+    setUserImage(state.imageURI);
+  }, [state.imageURI]);
+
+  // Sets core details name, description
+  useEffect(() => {
+    const setUser = async () => {
+      const user = await getCurrentUserDetails(userID);
+      console.log(user);
+      if (user.name) setName(user.name);
+      if (user.userProfile) {
+        const uProfile = user.userProfile;
+        if (uProfile.description) setDescription(uProfile.description);
+        if (uProfile.hobbiesAndValues) {
+          setValues(uProfile.hobbiesAndValues);
+          setSelectedHobbies(
+            hobbiesFormatter(uProfile.hobbiesAndValues, selectedHobbies),
+          );
+        } else {
+          setValues(storedHobbiesAndValues);
+        }
+      }
+      if (user.libraryURIS) setLibrary(user.libraryURIS);
+      if (user.lofft) setLofft(user.lofft.lofftId);
+    };
+    setUser();
+  }, []);
+
+  useEffect(() => {}, []);
+
+  const onSave = () => {
+    Object.entries(values).forEach(([k, v]) => {
+      v.active = selectedHobbies.includes(k);
+    });
+    setName(newName);
+    setTags(newTags);
+    setDescription(newDescription);
+    setValues(values);
+    updateUser(userID, newName, newDescription, values);
+    setEdit(false);
+  };
+
+  const onEdit = () => {
+    setEdit(true);
+    setNewName(name);
+    setNewTags(tags);
+    setNewDescription(description);
+  };
+
+  const onCancel = () => setEdit(false);
+
+  const modalShow = () => setModalVisible(true);
+
+  const updateUserName = t => setNewName(t);
 
   return (
     <View style={styles.pageContainer}>
-      <ImageBackground source={blueBackground} style={styles.headerBackground}>
-        <CustomBackButton
-          style={styles.backButton}
-          neutral={true}
-          onPress={() => navigationRef.goBack()}
-        />
-        <View style={styles.imageHeaderContainer}>
-          <Image source={userImage} style={styles.userImage} />
-          <EditPageButton
-            edit={edit}
-            admin={admin}
-            onPressSave={() => {
-              Object.entries(values).forEach(([k, v]) => {
-                v.active = selectedHobbies.includes(k);
-              });
-              setName(newName);
-              setTags(newTags);
-              setDescription(newDescription);
-              setValues(values);
-              updateUser(docId, newName, newDescription, values);
-              setEdit(false);
-            }}
-            onPressCancel={() => setEdit(false)}
-            onPressEdit={() => {
-              setEdit(true);
-              setNewName(name);
-              setNewTags(tags);
-              setNewDescription(description);
-            }}
-          />
-        </View>
-      </ImageBackground>
+      <ProfileHeader
+        navigation={navigationRef}
+        edit={edit}
+        admin={admin}
+        onSave={onSave}
+        onEdit={onEdit}
+        onCancel={onCancel}
+        modalShow={modalShow}
+        imageURI={userImage}
+        name={name}
+        newName={newName}
+        updateProfileName={updateUserName}
+      />
       <ScrollView style={CoreStyleSheet.viewContainerStyle}>
+        {/* Tags */}
         <View style={styles.pillContainer}>
+          <TagIcon text="Add more" userColor="Lavendar" />
+          <TagIcon text="Looking" userColor="Gold" />
+          <TagIcon text={pronouns} userColor="Blue" />
           {tags.map(tag => {
             return (
-              <TagIcon text={tag.value} key={tag.value} userColor={tag.color} />
+              <TagIcon
+                text={tag.value}
+                key={tag.value}
+                userColor={tag.color}
+                idTags
+              />
             );
           })}
         </View>
-        {name || edit ? (
-          <EditableTextField
-            placeholder="Name"
-            edit={edit}
-            value={name}
-            newValue={newName}
-            fontStyle={fontStyles.headerSmall}
-            multiline={true}
-            onChangeText={t => setNewName(t)}
-          />
-        ) : null}
+
         {description || edit ? (
-          <EditableTextField
-            placeholder="Description"
+          <DescriptionInput
             edit={edit}
             value={description}
             newValue={newDescription}
-            fontStyle={fontStyles.bodySmall}
-            multiline={true}
-            onChangeText={t => setNewDescription(t)}
+            onTextChange={t => setNewDescription(t)}
           />
         ) : null}
+        <View style={styles.sectionContainer}>
+          <HobbiesAndValues
+            values={values}
+            selectHobby={k => selectHobby(k)}
+            selectedHobbies={selectedHobbies}
+            edit={edit}
+          />
+        </View>
 
-        <Text style={fontStyles.buttonTextMedium}>Loffts</Text>
-        <View style={styles.noLofftContainer}>
-          <Text style={styles.noLofftText}>👀</Text>
-          <Text style={styles.noLofftText}>Nothing to see here</Text>
-          <Text style={styles.noLofftText}>They're a newbie</Text>
-          <Text style={styles.noLofftText}>...........</Text>
-        </View>
-        <Text style={fontStyles.buttonTextMedium}>Photo Library</Text>
-        <View style={styles.noLofftContainer}>
-          <View style={styles.addImageButton}>
-            <Icon name="add-outline" size={60} color={color.Black[30]} />
-          </View>
-        </View>
-        <HobbiesAndValues
-          values={values}
-          selectHobby={k => selectHobby(k)}
-          selectedHobbies={selectedHobbies}
+        {/* Library Section */}
+        <LibrarySection
+          onPress={() => libraryImageUpload(5 - library.length)}
+          library={library}
           edit={edit}
         />
 
+        <View style={styles.sectionContainer}>
+          <Text style={fontStyles.buttonTextMedium}>Loffts</Text>
+          {lofft ? null : (
+            <View style={styles.noLofftContainer}>
+              <Text style={styles.noLofftText}>👀</Text>
+              <Text style={styles.noLofftText}>Nothing to see here</Text>
+              <Text style={styles.noLofftText}>They're a newbie</Text>
+              <Text style={styles.noLofftText}>...........</Text>
+            </View>
+          )}
+        </View>
+
         {/* Add Spotify / Apple Music API here */}
       </ScrollView>
+      <Modal
+        transparent={true}
+        animationType="fade"
+        visible={modalVisible}
+        onRequestClose={() => {
+          Alert.alert('Modal has been closed');
+        }}>
+        <View style={styles.modalContainer}>
+          <View style={styles.modal}>
+            <View>
+              <CoreButton
+                value="Upload Image"
+                style={[styles.modalButton]}
+                onPress={() => {
+                  // const imageURI = await userImageUpload();
+                  uploadUserImage();
+                  setUserImage('updated');
+                  setModalVisible(false);
+                }}
+              />
+              <CoreButton
+                value="Take Photo"
+                style={[styles.modalButton]}
+                invert
+                onPress={async () => {
+                  // const imageURI = await userTakePhoto();
+                  await photoUserImage();
+                  setUserImage('updated');
+                  setModalVisible(false);
+                }}
+              />
+            </View>
+            <CoreButton
+              value="Cancel"
+              style={[styles.modalButton, styles.modalCancelButton]}
+              onPress={() => {
+                setModalVisible(false);
+              }}
+            />
+          </View>
+        </View>
+      </Modal>
     </View>
   );
 };
@@ -216,32 +238,9 @@ const styles = StyleSheet.create({
   pageContainer: {
     flex: 1,
   },
-  headerBackground: {
-    width: '100%',
-    height: 200,
-    backgroundColor: color.Blue[10],
-  },
-  backButton: {
-    marginHorizontal: 15,
-    marginTop: 35,
-  },
   pillContainer: {
     flexDirection: 'row',
-  },
-  imageHeaderContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    flex: 1,
-    alignItems: 'flex-end',
-    paddingBottom: 10,
-    paddingHorizontal: 15,
-  },
-  userImage: {
-    width: 90,
-    height: 90,
-    borderWidth: 4,
-    borderColor: color.Blue[100],
-    borderRadius: 75,
+    marginBottom: 10,
   },
   pill: {
     width: 78,
@@ -253,6 +252,21 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     marginRight: 15,
+  },
+  descriptionStyle: {
+    marginBottom: 15,
+    paddingTop: 10,
+    paddingBottom: 10,
+    paddingHorizontal: 5,
+  },
+  sectionContainer: {
+    marginVertical: 15,
+  },
+  descriptionStyleInput: {
+    borderWidth: 1,
+    borderColor: color.Black[25],
+    color: color.Black[100],
+    width: '100%',
   },
   fontColor: {
     color: color.Lavendar[100],
@@ -271,15 +285,15 @@ const styles = StyleSheet.create({
     color: color.Black[50],
     marginVertical: 3,
   },
-  addImageButton: {
-    width: 95,
-    height: 95,
-    backgroundColor: color.Black[10],
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderRadius: 8,
-    alignSelf: 'flex-start',
-  },
+  // addImageButton: {
+  //   width: 95,
+  //   height: 95,
+  //   backgroundColor: color.Black[10],
+  //   justifyContent: 'center',
+  //   alignItems: 'center',
+  //   borderRadius: 8,
+  //   alignSelf: 'flex-start',
+  // },
   hobbyContaner: {
     flexDirection: 'row',
     flexWrap: 'wrap',
@@ -294,6 +308,33 @@ const styles = StyleSheet.create({
   },
   hobbyText: {
     marginHorizontal: 20,
+  },
+  // Modal
+  modalContainer: {
+    flex: 1,
+    justifyContent: 'flex-end',
+    backgroundColor: color.Black[10],
+  },
+  modal: {
+    justifyContent: 'space-around',
+    height: '30%',
+    backgroundColor: color.White[100],
+    paddingVertical: 15,
+    borderTopRightRadius: 20,
+    borderTopLeftRadius: 20,
+    // shadowColor: color.Black[25],
+    // shadowOpacity: 1,
+    // shadowOffset: {width: 0, height: -2},
+  },
+  modalButton: {
+    alignSelf: 'center',
+    marginVertical: 5,
+    width: '80%',
+    height: 45,
+  },
+  modalCancelButton: {
+    backgroundColor: color.Black[30],
+    borderWidth: 0,
   },
 });
 

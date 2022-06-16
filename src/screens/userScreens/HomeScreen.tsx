@@ -1,6 +1,7 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import {View, Text, StyleSheet, Platform, ImageBackground} from 'react-native';
 import {navigationRef as navigation} from '../../RootNavigation';
+import {Context as UserDetails} from '../../context/UserDetailsContext';
 
 // Components
 import HeaderBar from '../../components/bannersAndBars/HeaderBar';
@@ -23,22 +24,41 @@ import firestore from '@react-native-firebase/firestore';
 
 const HomeScreen = () => {
   const [lofft, setLofft]: any = useState(false);
+  const [pending, setPending] = useState(false);
   const [name, setName] = useState('');
   const [image, setImage]: any = useState('');
   const [docId, setDocId]: any = useState('');
+  const [lofftName, setLofftName] = useState(null);
+  const {state, activeUser} = useContext(UserDetails);
+
   useEffect(() => {
-    const unsubscribe = firestore()
-      .collection('Users')
-      .where('uid', '==', auth().currentUser.uid)
-      .onSnapshot(snapShot => {
-        setDocId(snapShot.docs[0].id);
-        const result = snapShot.docs[0].data();
-        if (result.name) setName(result.name.split(' ')[0]);
-        if (result.imageURI) setImage({uri: result.imageURI});
-        if (result.lofft) setLofft(result.lofft);
-      });
-    return () => unsubscribe();
-  }, []);
+    if (state.uid) {
+      if (state.name) setName(state.name.split(' ')[0]);
+      if (state.imageURI) setImage({uri: state.imageURI});
+      const unsubscribe = firestore()
+        .collection('Users')
+        .doc(state.uid)
+        .onSnapshot(snapShot => {
+          setDocId(snapShot.data().id);
+          const result = snapShot.data();
+          if (result.lofftPending) setPending(result.lofftPending);
+          if (result.lofft) {
+            setLofft(result.lofft);
+            firestore()
+              .collection('Loffts')
+              .doc(result.lofft)
+              .get()
+              .then(r => {
+                const data = r.data();
+                setLofftName(data.name);
+              });
+          }
+        });
+      return () => unsubscribe();
+    } else {
+      activeUser();
+    }
+  }, [state]);
   return (
     <View
       style={[
@@ -56,7 +76,7 @@ const HomeScreen = () => {
           ]}
           source={paymentContainerBackground}>
           <View style={styles.apartmentNameBar}>
-            <Text style={fontStyles.buttonTextMedium}>{lofft.name}</Text>
+            <Text style={fontStyles.buttonTextMedium}>{lofftName}</Text>
             {lofft.pending ? (
               <View style={styles.statusButton}>
                 <Text style={[fontStyles.buttonTextSmall, styles.pendingText]}>
@@ -66,7 +86,7 @@ const HomeScreen = () => {
             ) : null}
           </View>
           <View style={styles.buttonContainer}>
-            {lofft.pending ? (
+            {pending ? (
               <Text style={fontStyles.buttonTextSmall}>
                 Your request to join a lofft is pending
               </Text>
@@ -75,7 +95,7 @@ const HomeScreen = () => {
                 value="View"
                 style={styles.buttons}
                 onPress={() =>
-                  navigation.navigate('ViewApartment', {lofft: lofft.lofftId})
+                  navigation.navigate('LofftProfile', {lofft: lofft})
                 }
               />
             )}

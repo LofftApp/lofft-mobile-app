@@ -3,7 +3,7 @@ import {LogBox} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import RNBootSplash from 'react-native-bootsplash';
-
+import {Provider as UserDetails} from './src/context/UserDetailsContext';
 import {navigationRef} from './src/RootNavigation';
 // Screens
 import {UserComponents} from './src/components/UserComponents';
@@ -23,7 +23,7 @@ import PaidConfirmationScreen from './src/screens/financeScreens/PaidConfirmatio
 // Management Screens
 import MakeNewPollScreen from './src/screens/managementScreens/MakeNewPollScreen';
 import MakeNewEventScreen from './src/screens/managementScreens/MakeNewEventScreen';
-import AddFriendsScreen from './src/screens/managementScreens/AddFriendsScreen';
+
 import DeadlineScreen from './src/screens/managementScreens/DeadlineScreen';
 import EventConfirmationScreen from './src/screens/managementScreens/EventConfirmationScreen';
 import PollConfirmationScreen from './src/screens/managementScreens/PollConfirmationScreen';
@@ -34,13 +34,14 @@ import FlatMapScreen from './src/screens/flathuntScreens/FlatMapScreen';
 
 // FireStore
 import auth from '@react-native-firebase/auth';
+// import firestore from '@react-native-firebase/firestore';
 import firestore from '@react-native-firebase/firestore';
 // import storage from '@react-native-firebase/storage';
 
 // Appartment Screens
 import AddApartmentScreen from './src/screens/apartmentScreens/AddApartmentScreen';
 import JoinApartmentScreen from './src/screens/apartmentScreens/JoinApartmentScreen';
-import ViewApartmentScreen from './src/screens/apartmentScreens/ViewApartmentScreen';
+import LofftProfile from './src/screens/apartmentScreens/LofftProfile';
 
 const Stack = createStackNavigator();
 
@@ -61,9 +62,10 @@ const App = () => {
     if (__DEV__) {
       console.log('FireStore Development Environment');
       let host = 'localhost';
-      // host = '192.168.0.123'
-      auth().useEmulator(`http://${host}:9099`);
+      // If using Mobile device set the host as local IP
+      // host = '192.168.7.156';
       firestore().useEmulator(host, 8080);
+      auth().useEmulator(`http://${host}:9099`);
     }
     return () => unsubscribe();
   }, []);
@@ -119,12 +121,6 @@ const App = () => {
           />
 
           <Stack.Screen
-            name="AddFriendsToEvent"
-            component={AddFriendsScreen}
-            options={{headerShown: false}}
-          />
-
-          <Stack.Screen
             name="EventConfirmation"
             component={EventConfirmationScreen}
             options={{headerShown: false}}
@@ -155,8 +151,8 @@ const App = () => {
           />
           {/* Apartment Management Screens */}
           <Stack.Screen
-            name="ViewApartment"
-            component={ViewApartmentScreen}
+            name="LofftProfile"
+            component={LofftProfile}
             options={{headerShown: false}}
           />
           <Stack.Screen
@@ -212,10 +208,12 @@ const App = () => {
 
 export default () => {
   return (
-    <NavigationContainer
-      ref={navigationRef}
-      onReady={() => RNBootSplash.hide()}>
-      <App />
-    </NavigationContainer>
+    <UserDetails>
+      <NavigationContainer
+        ref={navigationRef}
+        onReady={() => RNBootSplash.hide()}>
+        <App />
+      </NavigationContainer>
+    </UserDetails>
   );
 };

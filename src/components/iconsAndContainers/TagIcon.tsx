@@ -1,21 +1,20 @@
 import React from 'react';
-import {Text, View, StyleSheet, Pressable} from 'react-native';
+import {Text, View, StyleSheet} from 'react-native';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 // Stylesheets
 import color from '../../assets/defaultColorPallet.json';
 import {fontStyles} from '../../StyleSheets/FontStyleSheet';
 
-const TagIcon = ({
-  marginTop = 0,
-  text,
-  userColor,
-  id,
-  pickCity,
-  activeColor = color.Lavendar[10],
-}) => {
+const TagIcon = ({text, userColor, idTags = false}) => {
   let pillColor = '';
   let pillBackgroundColor = '';
+  // let tags = true;
   switch (userColor) {
+    case 'Black':
+      pillColor = color.Black[100];
+      pillBackgroundColor = color.Black[10];
+      break;
     case 'Blue':
       pillColor = color.Blue[100];
       pillBackgroundColor = color.Blue[10];
@@ -34,39 +33,32 @@ const TagIcon = ({
       break;
     default:
       pillColor = color.Lavendar[100];
-      pillBackgroundColor = activeColor;
+      pillBackgroundColor = color.Lavendar[10];
       break;
   }
   return (
-    <>
-      <Pressable
-        onPress={() => {
-          pickCity(id);
-        }}>
-        <View
-          style={[
-            {marginTop: marginTop},
-            styles.pill,
-            {borderColor: pillColor, backgroundColor: pillBackgroundColor},
-          ]}>
-          <Text style={[fontStyles.bodySmall, {color: pillColor}]}>
-            {text}
-          </Text>
-        </View>
-      </Pressable>
-    </>
+    <View
+      style={[
+        styles.pill,
+        {borderColor: pillColor, backgroundColor: pillBackgroundColor},
+      ]}>
+      <Text style={[fontStyles.bodySmall, {color: pillColor}]}>{text}</Text>
+      {idTags ? <Icon name="close-circle" size={20} color={pillColor} /> : null}
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   pill: {
-    width: 90,
+    minWidth: 90,
     height: 25,
+    paddingHorizontal: 4,
     borderWidth: 1,
     borderRadius: 6,
-    justifyContent: 'center',
+    flexDirection: 'row',
+    justifyContent: 'space-around',
     alignItems: 'center',
-    marginRight: 15,
+    marginHorizontal: 5,
   },
 });
 
