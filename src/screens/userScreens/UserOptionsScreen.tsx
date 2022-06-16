@@ -47,6 +47,15 @@ const UserOptionsScreen = () => {
               Billing Information
             </Text>
           </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.optionsLinkText}
+            onPress={() => {
+              navigationRef.navigate('FlatHunt');
+            }}>
+            <Text style={[fontStyles.bodyLarge, styles.textStyle]}>
+              Flat Hunt Magic
+            </Text>
+          </TouchableOpacity>
         </View>
       </View>
       <View style={styles.buttonContainer}>
