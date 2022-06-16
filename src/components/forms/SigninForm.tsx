@@ -16,9 +16,15 @@ import {Context as UserDetails} from '../../context/UserDetailsContext';
 const SigninForm = ({navigation, signupForm = false}: any) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [repeatPassword, setRepeatPassword] = useState('');
   const [checkbox, setCheckbox] = useState(false);
   const buttonValue = signupForm ? 'Sign up' : 'Sign in';
   const {state, signin, signup} = useContext(UserDetails);
+
+  const registrationValidation = () => {
+    const passwordMatch = password === repeatPassword;
+    return !(passwordMatch && checkbox);
+  };
 
   return (
     <View style={styles.container}>
@@ -40,13 +46,24 @@ const SigninForm = ({navigation, signupForm = false}: any) => {
           />
           <TextInput
             style={[styles.inputStyle, fontStyles.bodyMedium]}
-            placeholder="Set up password"
+            placeholder="Password"
             autoCapitalize="none"
             secureTextEntry={true}
             value={password}
             placeholderTextColor={color.Black[30]}
             onChangeText={(text: string) => setPassword(text)}
           />
+          {signupForm ? (
+            <TextInput
+              style={[styles.inputStyle, fontStyles.bodyMedium]}
+              placeholder="Repeat Password"
+              autoCapitalize="none"
+              secureTextEntry={true}
+              value={repeatPassword}
+              placeholderTextColor={color.Black[30]}
+              onChangeText={(text: string) => setRepeatPassword(text)}
+            />
+          ) : null}
           <View style={styles.switchContainer}>
             <Text style={[fontStyles.bodySmall]}>
               {signupForm ? 'Already' : "Don't"} have an account?
@@ -63,7 +80,7 @@ const SigninForm = ({navigation, signupForm = false}: any) => {
           </View>
           {signupForm ? (
             <BouncyCheckbox
-              text="I agree to the terms & conditions and Lofft's privacy policy"
+              text="I agree to the terms & conditions, and Lofft's privacy policy"
               size={25}
               fillColor={color.Lavendar[100]}
               unfillColor={color.White[100]}
@@ -78,6 +95,7 @@ const SigninForm = ({navigation, signupForm = false}: any) => {
       <View style={styles.buttonContainer}>
         {signupForm ? (
           <CoreButton
+            disabled={registrationValidation()}
             value={buttonValue}
             onPress={() => signup({email, password})}
             style={styles.buttonStyle}
