@@ -1,9 +1,10 @@
 import React from "react";
 import { Text, StyleSheet, ScrollView, View } from 'react-native';
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
-
+import {geocoding} from '../map/geocoding'
 
 const FlatMap = () => {
+      geocoding("Berlin Schlegelstr 14")
   return(
     <View style={styles.container}>
       <MapView
