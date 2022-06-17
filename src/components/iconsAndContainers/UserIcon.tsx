@@ -1,5 +1,5 @@
 import React from 'react';
-import {TouchableOpacity, View, Image, StyleSheet} from 'react-native';
+import {TouchableOpacity, View, StyleSheet} from 'react-native';
 import color from './../../assets/defaultColorPallet.json';
 import FastImage from 'react-native-fast-image';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -11,8 +11,24 @@ const UserIcon = ({
   disabled = false,
   icon = 'person-outline',
   iconSize = null,
-  lofftSpace = false,
+  iconColor = 'Lavendar',
 }: any) => {
+  const colorImage = iconColor => {
+    switch (iconColor) {
+      case 'Blue':
+        return color.Blue[80];
+      case 'Mint':
+        return color.Mint[80];
+      case 'Gold':
+        return color.Gold[80];
+      case 'Blue':
+        return color.Blue[80];
+      case 'Tomato':
+        return color.Tomato[80];
+      default:
+        return color.Lavendar[80];
+    }
+  };
   return (
     <View style={[styles.imageContainer, style]}>
       <TouchableOpacity onPress={onPress} disabled={disabled}>
@@ -27,7 +43,7 @@ const UserIcon = ({
             <Icon
               name={icon}
               size={iconSize ? iconSize : 45}
-              color={color.Lavendar[80]}
+              color={colorImage(iconColor)}
             />
           </View>
         )}
