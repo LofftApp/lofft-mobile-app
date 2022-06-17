@@ -40,12 +40,11 @@ const styles = StyleSheet.create({
   imageContainer: {
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 15,
   },
   userImage: {
     width: 78,
     height: 78,
-    borderWidth: 4,
+    borderWidth: 3,
     borderColor: color.Lavendar[100],
     backgroundColor: color.Lavendar[10],
     borderRadius: 75,
