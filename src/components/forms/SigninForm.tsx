@@ -13,7 +13,7 @@ import {fontStyles} from '../../StyleSheets/FontStyleSheet';
 import {CoreButton} from './../buttons/CoreButton';
 import {Context as UserDetails} from '../../context/UserDetailsContext';
 import FastImage from 'react-native-fast-image';
-// import {signup, signin} from '../../api/firebase/firebaseApi';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 const SigninForm = ({navigation, signupForm = false}: any) => {
   const [email, setEmail] = useState('');
@@ -23,7 +23,6 @@ const SigninForm = ({navigation, signupForm = false}: any) => {
   const buttonValue = signupForm ? 'Sign up' : 'Sign in';
   const {state, signin, signup, uploadUserImage, photoUserImage} =
     useContext(UserDetails);
-  // const [imageURI, setImageURI] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
   const [userImage, setUserImage] = useState('');
 
@@ -44,15 +43,27 @@ const SigninForm = ({navigation, signupForm = false}: any) => {
             <Text style={styles.stateText}>{state.errorMessage}</Text>
           </View>
         ) : null}
-        <TouchableOpacity
-          onPress={() => setModalVisible(true)}
-          style={styles.imageContainer}>
-          <FastImage
-            source={{uri: userImage}}
-            style={styles.userImage}
-            resizeMode={FastImage.resizeMode.cover}
-          />
-        </TouchableOpacity>
+        {signupForm ? (
+          <View style={styles.imageContainer}>
+            <TouchableOpacity onPress={() => setModalVisible(true)}>
+              {userImage ? (
+                <FastImage
+                  source={{uri: userImage}}
+                  style={styles.userImage}
+                  resizeMode={FastImage.resizeMode.cover}
+                />
+              ) : (
+                <View style={[styles.userImage, styles.noImageIcon]}>
+                  <Icon
+                    name="person-outline"
+                    size={45}
+                    color={color.Lavendar[80]}
+                  />
+                </View>
+              )}
+            </TouchableOpacity>
+          </View>
+        ) : null}
         <View style={styles.inputContainerStyle}>
           <TextInput
             style={[styles.inputStyle, fontStyles.bodyMedium]}
@@ -218,7 +229,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     marginTop: 15,
-    width: '100%',
   },
   userImage: {
     width: 78,
@@ -227,6 +237,10 @@ const styles = StyleSheet.create({
     borderColor: color.Lavendar[100],
     backgroundColor: color.Lavendar[10],
     borderRadius: 75,
+  },
+  noImageIcon: {
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   // Modal
   modalContainer: {
