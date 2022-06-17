@@ -81,6 +81,8 @@ const ProfileHeader = ({
             image={imageURI}
             style={styles.userImage}
             iconColor="Blue"
+            onPress={modalShow}
+            disabled={!edit}
           />
         )}
 
