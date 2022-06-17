@@ -13,6 +13,7 @@ import {fontStyles} from '../../StyleSheets/FontStyleSheet';
 import {CoreButton} from './../buttons/CoreButton';
 import {Context as UserDetails} from '../../context/UserDetailsContext';
 import FastImage from 'react-native-fast-image';
+import UserIcon from '../../components/iconsAndContainers/UserIcon';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 const SigninForm = ({navigation, signupForm = false}: any) => {
@@ -44,25 +45,7 @@ const SigninForm = ({navigation, signupForm = false}: any) => {
           </View>
         ) : null}
         {signupForm ? (
-          <View style={styles.imageContainer}>
-            <TouchableOpacity onPress={() => setModalVisible(true)}>
-              {userImage ? (
-                <FastImage
-                  source={{uri: userImage}}
-                  style={styles.userImage}
-                  resizeMode={FastImage.resizeMode.cover}
-                />
-              ) : (
-                <View style={[styles.userImage, styles.noImageIcon]}>
-                  <Icon
-                    name="person-outline"
-                    size={45}
-                    color={color.Lavendar[80]}
-                  />
-                </View>
-              )}
-            </TouchableOpacity>
-          </View>
+          <UserIcon image={userImage} onPress={() => setModalVisible(true)} />
         ) : null}
         <View style={styles.inputContainerStyle}>
           <TextInput
@@ -225,23 +208,23 @@ const styles = StyleSheet.create({
   switchLinkText: {
     color: color.Lavendar[80],
   },
-  imageContainer: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginTop: 15,
-  },
-  userImage: {
-    width: 78,
-    height: 78,
-    borderWidth: 4,
-    borderColor: color.Lavendar[100],
-    backgroundColor: color.Lavendar[10],
-    borderRadius: 75,
-  },
-  noImageIcon: {
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
+  // imageContainer: {
+  //   justifyContent: 'center',
+  //   alignItems: 'center',
+  //   marginTop: 15,
+  // },
+  // userImage: {
+  //   width: 78,
+  //   height: 78,
+  //   borderWidth: 4,
+  //   borderColor: color.Lavendar[100],
+  //   backgroundColor: color.Lavendar[10],
+  //   borderRadius: 75,
+  // },
+  // noImageIcon: {
+  //   justifyContent: 'center',
+  //   alignItems: 'center',
+  // },
   // Modal
   modalContainer: {
     flex: 1,
