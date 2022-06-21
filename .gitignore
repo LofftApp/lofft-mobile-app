@@ -54,7 +54,7 @@ buck-out/
 */fastlane/screenshots
 
 # Firebase
-Test-Data-User-Management/
+Test-Data/
 
 # Bundle artifact
 *.jsbundle
