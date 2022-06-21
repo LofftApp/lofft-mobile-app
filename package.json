@@ -10,7 +10,6 @@
     "lint": "eslint ."
   },
   "resolutions": {
-    "nth-check": "^2.0.1",
     "ansi-regex": "^5.0.1",
     "nanoid": "^3.1.31",
     "follow-redirects": "^1.14.7",
@@ -29,7 +28,6 @@
     "@react-navigation/stack": "^6.0.11",
     "follow-redirects": "^1.14.7",
     "nanoid": "^3.1.31",
-    "nth-check": "^2.0.1",
     "radio-buttons-react-native": "^1.0.4",
     "react": "17.0.2",
     "react-native": "^0.66.4",
