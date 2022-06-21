@@ -53,6 +53,9 @@ buck-out/
 */fastlane/Preview.html
 */fastlane/screenshots
 
+# Firebase
+test-Data-User-Management/*
+
 # Bundle artifact
 *.jsbundle
 
