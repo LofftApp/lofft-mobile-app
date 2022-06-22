@@ -32,6 +32,7 @@ const HomeScreen = () => {
   const {state, activeUser} = useContext(UserDetails);
 
   useEffect(() => {
+    console.log(state);
     if (state.uid) {
       if (state.name) setName(state.name.split(' ')[0]);
       if (state.imageURI) setImage({uri: state.imageURI});
@@ -41,8 +42,8 @@ const HomeScreen = () => {
         .onSnapshot(snapShot => {
           setDocId(snapShot.data().id);
           const result = snapShot.data();
-          if (result.lofftPending) setPending(result.lofftPending);
-          if (result.lofft) {
+          if (result && result.lofftPending) setPending(result.lofftPending);
+          if (result && result.lofft) {
             setLofft(result.lofft);
             firestore()
               .collection('Loffts')

@@ -326,9 +326,9 @@ export const getLofftPolls = async () => {
       .then(docSnapshot => {
         return docSnapshot.docs;
       });
-    if (polls.length > 0) return polls;
+    if (polls.length > 0) return {polls, lofftId};
   }
-  return null;
+  return {polls: null, lofftId};
 };
 
 export const getPollsData = async (value, setValue) => {

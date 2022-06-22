@@ -26,9 +26,10 @@ const PollsManagement = ({navigation}) => {
   useEffect(() => {
     const pollsData = async () => {
       setPolls([]);
-      const allPolls = await getLofftPolls();
-      console.log(allPolls);
-      if (allPolls) {
+      const lofftPollData = await getLofftPolls();
+      setUserLofftId(lofftPollData.lofftId);
+      if (lofftPollData.polls) {
+        const allPolls = lofftPollData.polls;
         const currentPolls = allPolls.filter(
           poll =>
             (poll.data().deadline &&
@@ -52,7 +53,7 @@ const PollsManagement = ({navigation}) => {
     };
 
     getPollsData();
-
+    console.log(userLofftId);
     if (userLofftId) {
       const subscriber = firestore()
         .collection('Managements')
