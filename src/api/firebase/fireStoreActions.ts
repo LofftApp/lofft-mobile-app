@@ -35,8 +35,10 @@ export const getCurrentUserDetails = async userID => {
 // 1.2 Get user Lofft ID
 export const getUserLofft = async () => {
   const currentUser = auth().currentUser;
-  const user = await getCurrentUserDetails(currentUser.uid);
-  if (user.lofft) return user.lofft;
+  if (currentUser) {
+    const user = await getCurrentUserDetails(currentUser.uid);
+    if (user && user.lofft) return user.lofft;
+  }
   return null;
 };
 
@@ -47,7 +49,6 @@ export const updateUser = (
   description = '',
   hobbiesAndValues = {},
 ) => {
-  console.log(name);
   auth().onAuthStateChanged(user => {
     firestore()
       .collection('Users')
@@ -244,7 +245,6 @@ export const getLofftEvents = async () => {
     .then(docSnapshot => {
       return docSnapshot.docs;
     });
-  // console.log(result);
   return result;
 };
 
@@ -264,7 +264,6 @@ export const attendLofftEvent = async e => {
 };
 
 export const rejectLofftEvent = async e => {
-  console.log('I am not attending');
   const currentUser = auth().currentUser;
   const user = await getCurrentUserDetails(currentUser);
   const loftId = user.details.lofft.lofftId;
@@ -298,7 +297,6 @@ export const cancelLofftEvent = async e => {
 
 export const addPoll = async (question, answers, deadline) => {
   const lofftId = await getUserLofft();
-  console.log(lofftId);
 
   const poll = {
     createdByID: auth().currentUser.uid,

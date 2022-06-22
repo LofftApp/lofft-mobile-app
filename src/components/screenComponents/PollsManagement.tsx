@@ -24,43 +24,49 @@ const PollsManagement = ({navigation}) => {
   const [todayDate] = useState(new Date());
 
   useEffect(() => {
-    const lofftId = getUserLofft();
-    console.log(lofftId);
-    // if (lofftId) setUserLofftId(lofftId);
     const pollsData = async () => {
       setPolls([]);
       const allPolls = await getLofftPolls();
       console.log(allPolls);
-      // if (allPolls) {
-      //   const currentPolls = allPolls.filter(
-      //     poll =>
-      //       (poll.data().deadline &&
-      //         new Date(poll.data().deadline.seconds * 1000) > todayDate) ||
-      //       !poll.data().deadline,
-      //   );
-      //   const oldPolls = allPolls.filter(
-      //     poll =>
-      //       poll.data().deadline &&
-      //       new Date(poll.data().deadline.seconds * 1000) < todayDate,
-      //   );
-      //   setPolls(currentPolls);
-      //   setPastPolls(oldPolls);
-      // }
+      if (allPolls) {
+        const currentPolls = allPolls.filter(
+          poll =>
+            (poll.data().deadline &&
+              new Date(poll.data().deadline.seconds * 1000) > todayDate) ||
+            !poll.data().deadline,
+        );
+        const oldPolls = allPolls.filter(
+          poll =>
+            poll.data().deadline &&
+            new Date(poll.data().deadline.seconds * 1000) < todayDate,
+        );
+        setPolls(currentPolls);
+        setPastPolls(oldPolls);
+      }
     };
 
-    const subscriber = firestore()
-      .collection('Managements')
-      .doc(userLofftId)
-      .collection('Polls')
-      .onSnapshot(snapShot => {
-        snapShot.docChanges().forEach(async change => {
-          pollsData();
-          // if (change.type === 'added' || change.type === 'removed') {
-          //   pollsData();
-          // }
+    const getPollsData = async () => {
+      const lofftId = await getUserLofft();
+      if (lofftId) setUserLofftId(lofftId);
+      pollsData();
+    };
+
+    getPollsData();
+
+    if (userLofftId) {
+      const subscriber = firestore()
+        .collection('Managements')
+        .doc(userLofftId)
+        .collection('Polls')
+        .onSnapshot(snapShot => {
+          snapShot.docChanges().forEach(async change => {
+            if (change.type === 'added' || change.type === 'removed') {
+              pollsData();
+            }
+          });
         });
-      });
-    return () => subscriber();
+      return () => subscriber();
+    }
   }, []);
 
   return (
