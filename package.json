@@ -36,6 +36,7 @@
     "react-native-bouncy-checkbox": "^2.1.7",
     "react-native-calendars": "^1.1278.0",
     "react-native-chart-kit": "^6.11.0",
+    "react-native-cli": "^2.0.1",
     "react-native-date-picker": "^4.2.0",
     "react-native-emoji-selector": "^0.2.0",
     "react-native-fast-image": "^8.5.11",
