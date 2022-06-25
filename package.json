@@ -18,7 +18,7 @@
     "node-fetch": "^2.6.7"
   },
   "dependencies": {
-    "@react-native-async-storage/async-storage": "^1.15.9",
+    "@react-native-async-storage/async-storage": "^1.15.16",
     "@react-native-firebase/app": "^14.2.4",
     "@react-native-firebase/auth": "^14.2.4",
     "@react-native-firebase/firestore": "^14.2.4",
@@ -32,7 +32,7 @@
     "nanoid": "^3.1.31",
     "radio-buttons-react-native": "^1.0.4",
     "react": "17.0.2",
-    "react-native": "^0.66.0",
+    "react-native": "^0.67.0",
     "react-native-async-storage": "^0.0.1",
     "react-native-bootsplash": "^4.1.5",
     "react-native-bouncy-checkbox": "^2.1.7",
@@ -76,7 +76,7 @@
     "preset": "react-native"
   },
   "rnx-kit": {
-    "reactNativeVersion": "^0.66",
+    "reactNativeVersion": "^0.67.4",
     "kitType": "app",
     "capabilities": [
       "babel-preset-react-native",
