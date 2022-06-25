@@ -7,7 +7,9 @@
     "ios": "react-native run-ios",
     "start": "react-native start",
     "test": "jest",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "check-dependencies": "rnx-dep-check",
+    "fix-dependencies": "rnx-dep-check --write"
   },
   "resolutions": {
     "ansi-regex": "^5.0.1",
@@ -16,34 +18,35 @@
     "node-fetch": "^2.6.7"
   },
   "dependencies": {
-    "@react-native-async-storage/async-storage": "^1.15.14",
-    "@react-native-community/masked-view": "^0.1.11",
+    "@react-native-async-storage/async-storage": "^1.15.9",
     "@react-native-firebase/app": "^14.2.4",
     "@react-native-firebase/auth": "^14.2.4",
     "@react-native-firebase/firestore": "^14.2.4",
     "@react-native-firebase/functions": "^14.2.4",
     "@react-native-firebase/storage": "^14.2.4",
+    "@react-native-masked-view/masked-view": "^0.2.6",
     "@react-navigation/bottom-tabs": "^6.0.9",
-    "@react-navigation/native": "^6.0.6",
-    "@react-navigation/stack": "^6.0.11",
+    "@react-navigation/native": "^6.0.8",
+    "@react-navigation/stack": "^6.2.0",
     "follow-redirects": "^1.14.7",
     "nanoid": "^3.1.31",
     "radio-buttons-react-native": "^1.0.4",
     "react": "17.0.2",
-    "react-native": "^0.66.4",
+    "react-native": "^0.66.0",
     "react-native-async-storage": "^0.0.1",
     "react-native-bootsplash": "^4.1.5",
     "react-native-bouncy-checkbox": "^2.1.7",
     "react-native-calendars": "^1.1278.0",
     "react-native-chart-kit": "^6.11.0",
+    "react-native-cli": "^2.0.1",
     "react-native-date-picker": "^4.2.0",
     "react-native-emoji-selector": "^0.2.0",
     "react-native-fast-image": "^8.5.11",
-    "react-native-gesture-handler": "^2.2.0",
+    "react-native-gesture-handler": "^1.10.3",
     "react-native-image-picker": "^4.7.1",
     "react-native-paper": "^4.11.2",
-    "react-native-safe-area-context": "^3.3.2",
-    "react-native-screens": "^3.10.1",
+    "react-native-safe-area-context": "^3.2.0",
+    "react-native-screens": "^3.9.0",
     "react-native-snap-carousel": "^3.9.1",
     "react-native-svg": "^12.1.1",
     "react-native-vector-icons": "^9.0.0",
@@ -53,6 +56,7 @@
     "@babel/core": "^7.12.9",
     "@babel/runtime": "^7.12.5",
     "@react-native-community/eslint-config": "^2.0.0",
+    "@rnx-kit/dep-check": "^1.12.17",
     "@types/jest": "^27.0.3",
     "@types/react": "~17.0.21",
     "@types/react-native": "~0.64.12",
@@ -70,5 +74,25 @@
   },
   "jest": {
     "preset": "react-native"
+  },
+  "rnx-kit": {
+    "reactNativeVersion": "^0.66",
+    "kitType": "app",
+    "capabilities": [
+      "babel-preset-react-native",
+      "core",
+      "core-android",
+      "core-ios",
+      "gestures",
+      "jest",
+      "navigation/native",
+      "navigation/stack",
+      "react",
+      "react-test-renderer",
+      "safe-area",
+      "screens",
+      "storage",
+      "svg"
+    ]
   }
 }
