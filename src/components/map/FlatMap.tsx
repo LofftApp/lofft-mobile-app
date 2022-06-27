@@ -175,7 +175,7 @@ const FlatMap = ({flats}) => {
   ];
 
   const geocoding = async () => {
-    const adress = ['Schlegel Strase 14, Berlin', 'Rudi Duschke Str 2, Berlin', 'Oranienstraße 8, Berlin', "Unter den Linden 9, Berlin"];
+    const adress = ['Schlegel Strase 14, Berlin', 'Rudi Duschke Str 2, Berlin', 'Oranienstraße 8, Berlin', "Unter den Linden 9, Berlin", "Melchiorstraße 19, Berlin"];
 
 
 
@@ -198,6 +198,11 @@ const FlatMap = ({flats}) => {
 
     setCoordinates(formatedCordinates)
   };
+
+  const createPin = (text) => {
+    const svg = '...'
+    return 'data:image/svg+xml,' + svg.replace('sample-text', text);
+  }
 
   useEffect(() => {
     geocoding();
@@ -242,7 +247,7 @@ const FlatMap = ({flats}) => {
         {coordinates.map((el,index ) => <Marker key={index+1}
           coordinate={{ latitude: el.lat, longitude: el.lng }}
 
-        /> )}
+        ><Text>🎾</Text></Marker>)}
 
       </MapView>
     </View>
