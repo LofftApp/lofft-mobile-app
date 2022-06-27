@@ -33,6 +33,8 @@ import { navigationRef as navigation } from '../../RootNavigation';
 const FlatMapScreen = () => {
 
   const [mapActive, setmapActive] = useState(true);
+  const [flats, setFlats] = useState([{ address: 'Rudi-Dutschke-Straße 26' }, { address: 'Schlegelstr 14' }])
+
 
   const buttonToggle = useCallback(toggled => {
     setmapActive(toggled);
@@ -63,7 +65,7 @@ const FlatMapScreen = () => {
 
 
       </View>
-      <FlatMap />
+      <FlatMap flats={flats} />
 
     </>
   )

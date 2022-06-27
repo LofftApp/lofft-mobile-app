@@ -30,6 +30,7 @@
     "@react-navigation/stack": "^6.0.11",
     "radio-buttons-react-native": "^1.0.4",
     "react": "17.0.2",
+    "react-geocode": "^0.2.3",
     "react-native": "^0.66.4",
     "react-native-async-storage": "^0.0.1",
     "react-native-bootsplash": "^4.0.2",
