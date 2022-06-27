@@ -53,14 +53,12 @@ buck-out/
 */fastlane/Preview.html
 */fastlane/screenshots
 
-# Firebase
-Test-Data/
-
 # Bundle artifact
 *.jsbundle
 
-# CocoaPods
+# Ruby / CocoaPods
 /ios/Pods/
+/vendor/bundle/
 
 # firebase
 firebase-debug.log*
@@ -69,3 +67,4 @@ ui-debug.log*
 *.rules
 firestore.indexes.json
 firebase.json
+Test-Data/
