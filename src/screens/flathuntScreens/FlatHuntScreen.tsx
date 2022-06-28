@@ -100,6 +100,8 @@ const FlatHuntScreen = () => {
     setCity(input);
   };
 
+  console.log(tags)
+
   const peopleTrack = (input, id) => {
     const tagsArray = [];
 
@@ -146,7 +148,7 @@ const FlatHuntScreen = () => {
       }
     });
 
-    setPeopleTags(filteredArray);
+
   };
 
   const randomColor = () => {
@@ -324,6 +326,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     flexWrap: 'wrap',
     justifyContent: 'space-between',
+
   },
   dateContainer: {
     backgroundColor: '#F1EDFE',

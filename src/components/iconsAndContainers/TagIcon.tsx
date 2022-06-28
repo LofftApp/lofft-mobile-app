@@ -1,12 +1,12 @@
 import React from 'react';
-import {Text, View, StyleSheet} from 'react-native';
+import { Text, View, StyleSheet, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 // Stylesheets
 import color from '../../assets/defaultColorPallet.json';
 import {fontStyles} from '../../StyleSheets/FontStyleSheet';
 
-const TagIcon = ({text, userColor, idTags = false}) => {
+const TagIcon = ({ text, userColor, idTags = false, pickCity, id, activeColor }) => {
   let pillColor = '';
   let pillBackgroundColor = '';
   // let tags = true;
@@ -37,22 +37,23 @@ const TagIcon = ({text, userColor, idTags = false}) => {
       break;
   }
   return (
+    <TouchableOpacity onPress={() => pickCity(id)}>
     <View
       style={[
         styles.pill,
-        {borderColor: pillColor, backgroundColor: pillBackgroundColor},
+          { borderColor: pillColor, backgroundColor: activeColor },
       ]}>
       <Text style={[fontStyles.bodySmall, {color: pillColor}]}>{text}</Text>
       {idTags ? <Icon name="close-circle" size={20} color={pillColor} /> : null}
     </View>
+    </TouchableOpacity>
   );
 };
 
 const styles = StyleSheet.create({
   pill: {
-    minWidth: 90,
+    padding: 2,
     height: 25,
-    paddingHorizontal: 4,
     borderWidth: 1,
     borderRadius: 6,
     flexDirection: 'row',
