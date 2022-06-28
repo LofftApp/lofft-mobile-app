@@ -14,7 +14,7 @@ const FlatMap = ({flats}) => {
   Geocode.setLanguage('en');
   Geocode.setRegion('de');
 
-  const adressFromDb = [{ address: 'Schlegel Strase 14, Berlin', icon: '⚡️' }, { address: 'Rudi Duschke Str 2, Berlin', icon: '🦄' }, { address: 'Oranienstraße 8, Berlin', icon: '🌈' }, { address: 'Unter den Linden 9, Berlin', icon: '🗽' }, { address: 'Wilsnackerstrasse 13, Berlin', icon: '💎' }];
+
 
   const [coordinates, setCoordinates] = useState([]);
 
@@ -199,7 +199,7 @@ const FlatMap = ({flats}) => {
   };
 
   useEffect(() => {
-    geocoding(adressFromDb);
+    geocoding(flats);
   }, []);
 
 

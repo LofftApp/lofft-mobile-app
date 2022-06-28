@@ -33,7 +33,7 @@ import { navigationRef as navigation } from '../../RootNavigation';
 const FlatMapScreen = () => {
 
   const [mapActive, setmapActive] = useState(true);
-  const [flats, setFlats] = useState([{ address: 'Rudi-Dutschke-Straße 26' }, { address: 'Schlegelstr 14' }])
+  const [flats, setFlats] = useState([{ address: 'Schlegel Strase 14, Berlin', icon: '⚡️' }, { address: 'Rudi Duschke Str 2, Berlin', icon: '🦄' }, { address: 'Oranienstraße 8, Berlin', icon: '🌈' }, { address: 'Unter den Linden 9, Berlin', icon: '🗽' }, { address: 'Wilsnackerstrasse 13, Berlin', icon: '💎' }])
 
 
   const buttonToggle = useCallback(toggled => {
@@ -52,7 +52,7 @@ const FlatMapScreen = () => {
         <Text style={[fontStyles.buttonTextMedium, styles.dataText]}>
           Cowoabonga Freddie,{"\n"}
           currently
-          <Text style={{ color: color.Lavendar[80] }}> 39 </Text>
+          <Text style={{ color: color.Lavendar[80] }}> {flats.length-1} </Text>
           people are looking for someone cool like you 😎.
         </Text>
 
