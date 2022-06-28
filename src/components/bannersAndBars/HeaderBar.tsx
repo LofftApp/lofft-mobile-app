@@ -17,6 +17,8 @@ const HeaderBar = ({title, image = ''}) => {
         onPress={() => {
           navigationRef.navigate('UserOptions');
         }}
+        iconSize={30}
+        style={styles.iconStyle}
       />
     </View>
   );
@@ -28,6 +30,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'row',
     width: '100%',
+  },
+  iconStyle: {
+    width: 58,
+    height: 58,
   },
 });
 
