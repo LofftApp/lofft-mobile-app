@@ -1,15 +1,20 @@
 import React, {useState, useEffect} from 'react';
 import {Dimensions, Text, StyleSheet, ScrollView, View} from 'react-native';
-import axios from 'axios';
-import Geocode from 'react-geocode';
 
+// external frameworks/libaries
+import Geocode from 'react-geocode';
 import MapView, {Marker, PROVIDER_GOOGLE} from 'react-native-maps';
-//import {geocoding} from '../map/geocoding';
+
+// Stylesheets etc.
+import { fontStyles } from '../../StyleSheets/FontStyleSheet';
+import color from '../../assets/defaultColorPallet.json';
 
 const FlatMap = ({flats}) => {
   Geocode.setApiKey('AIzaSyAD6t5T0t_ZJA5AELVE8JTboDGzKzERMBg');
   Geocode.setLanguage('en');
   Geocode.setRegion('de');
+
+  const adressFromDb = [{ address: 'Schlegel Strase 14, Berlin', icon: '⚡️' }, { address: 'Rudi Duschke Str 2, Berlin', icon: '🦄' }, { address: 'Oranienstraße 8, Berlin', icon: '🌈' }, { address: 'Unter den Linden 9, Berlin', icon: '🗽' }, { address: 'Wilsnackerstrasse 13, Berlin', icon: '💎' }];
 
   const [coordinates, setCoordinates] = useState([]);
 
@@ -174,58 +179,29 @@ const FlatMap = ({flats}) => {
     },
   ];
 
-  const geocoding = async () => {
-    const adress = ['Schlegel Strase 14, Berlin', 'Rudi Duschke Str 2, Berlin', 'Oranienstraße 8, Berlin', "Unter den Linden 9, Berlin", "Melchiorstraße 19, Berlin"];
+  const geocoding = async (addresses) => {
+
 
 
 
     let formatedCordinates = await Promise.all(
-      adress.map(async el => {
-      const response = await Geocode.fromAddress(el);
-      const data = response.results[0].geometry.location;
-      return data
-      // setCoordinates([...coordinates, data]);
-      // Geocode.fromAddress(el).then(
-      //   response => {
-      //     const data = response.results[0].geometry.location;
-      //     setCoordinates([...coordinates,data]);
-      //   },
-      //   error => {
-      //     console.error(error);
-      //   },
-      // );
+      addresses.map(async el => {
+        let addressObject = {};
+        const response = await Geocode.fromAddress(el.address);
+        const data = response.results[0].geometry.location;
+        addressObject.address = data;
+        addressObject.icon = el.icon
+        return addressObject
+
     }));
 
     setCoordinates(formatedCordinates)
   };
 
-  const createPin = (text) => {
-    const svg = '...'
-    return 'data:image/svg+xml,' + svg.replace('sample-text', text);
-  }
-
   useEffect(() => {
-    geocoding();
+    geocoding(adressFromDb);
   }, []);
 
-  // const geocoding = () => {
-
-  //   const formatedAddress = [];
-
-  //   ["Schlegel str 14", "Rudi Duschke Strase"].map(el => {
-  //     axios
-  //       .get('https://maps.googleapis.com/maps/api/geocode/json', {
-  //         params: {
-  //           address: el,
-  //           key: 'AIzaSyAD6t5T0t_ZJA5AELVE8JTboDGzKzERMBg',
-  //         }
-  //       }).then(response => {
-  //         console.log(response.data)
-  //         setTestArray({ categories: [response.data.results[0].geometry.bounds.northeast]})
-  //       }).catch(error => console.log(error))
-  //   })
-
-  // }
 
   console.log(coordinates)
 
@@ -245,9 +221,9 @@ const FlatMap = ({flats}) => {
       >
 
         {coordinates.map((el,index ) => <Marker key={index+1}
-          coordinate={{ latitude: el.lat, longitude: el.lng }}
+          coordinate={{ latitude: el.address.lat, longitude: el.address.lng }}
 
-        ><Text>🎾</Text></Marker>)}
+        ><View style={styles.iconcontainer}><Text style={[styles.icon, fontStyles.buttonTextMedium]}>{el.icon}</Text></View></Marker>)}
 
       </MapView>
     </View>
@@ -262,6 +238,15 @@ const styles = StyleSheet.create({
   },
   map: {
     flex: 1,
+  },
+  icon:{
+
+      padding: 10,
+      backgroundColor: color.Lavendar[80],
+      justifyContent: 'center',
+      alignItems: 'center',
+      borderRadius: 30,
+      overflow: 'hidden',
   },
 });
 
