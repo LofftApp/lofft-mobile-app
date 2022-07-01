@@ -28,6 +28,9 @@ import DeadlineScreen from './src/screens/managementScreens/DeadlineScreen';
 import EventConfirmationScreen from './src/screens/managementScreens/EventConfirmationScreen';
 import PollConfirmationScreen from './src/screens/managementScreens/PollConfirmationScreen';
 
+// Setting screens
+import AccountSettingsScreen from './src/screens/settingScreens/AccountSettingsScreen';
+
 // FireStore
 import auth from '@react-native-firebase/auth';
 // import firestore from '@react-native-firebase/firestore';
@@ -159,6 +162,12 @@ const App = () => {
           <Stack.Screen
             name="JoinApartment"
             component={JoinApartmentScreen}
+            options={{headerShown: false}}
+          />
+          {/* Setting screens */}
+          <Stack.Screen
+            name="AccountSettings"
+            component={AccountSettingsScreen}
             options={{headerShown: false}}
           />
         </>
