@@ -277,6 +277,7 @@ dependencies {
       //noinspection GradleDynamicVersion
         implementation("com.facebook.react:hermes-engine:+") { // From node_modules
           exclude group:'com.facebook.fbjni'
+        }
     } else {
         implementation jscFlavor
     }
