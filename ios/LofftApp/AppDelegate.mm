@@ -29,7 +29,6 @@ static NSString *const kRNConcurrentRoot = @"concurrentRoot";
 }
 @end
 #endif
-#import <GoogleMaps/GoogleMaps.h>
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -62,7 +61,6 @@ static NSString *const kRNConcurrentRoot = @"concurrentRoot";
   [self.window makeKeyAndVisible];
   [FIRApp configure];
   [RNBootSplash initWithStoryboard:@"BootSplash" rootView:rootView];
-  [GMSServices provideAPIKey:@"AIzaSyAD6t5T0t_ZJA5AELVE8JTboDGzKzERMBg"];
   return YES;
 }
 
