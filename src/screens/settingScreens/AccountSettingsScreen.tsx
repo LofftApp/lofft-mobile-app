@@ -4,7 +4,7 @@ import SelectDropdown from 'react-native-select-dropdown';
 
 // Components
 import HeaderBar from '../../components/bannersAndBars/HeaderBar';
-
+import {CoreButton} from '../../components/buttons/CoreButton';
 // Style Sheets
 import {CoreStyleSheet} from '../../StyleSheets/CoreDesignStyleSheet';
 import {fontStyles} from '../../StyleSheets/FontStyleSheet';
@@ -14,11 +14,18 @@ const AccountSettingsScreen = () => {
   const [name, setName] = useState('');
   const [address, setAddress] = useState('');
   const [email, setEmail] = useState('');
-  const [visible, setVisible] = useState(false);
   const [pronoun, setPronoun] = useState('');
   const [otherPronoun, setOtherPronoun] = useState('');
+  const [visible, setVisible] = useState(false);
 
   const pronouns = ['he/him', 'she/her', 'they/them', 'other'];
+  const handleChanges = () => {
+    console.log([name, address, email, otherPronoun ? otherPronoun : pronoun]);
+    setName('');
+    setAddress('');
+    setEmail('');
+    setPronoun('');
+  };
 
   return (
     <View
@@ -76,10 +83,18 @@ const AccountSettingsScreen = () => {
             keyboardType="numeric"
           />
         </View>
+        <CoreButton
+          value="Save"
+          style={styles.saveButton}
+          onPress={() => handleChanges()}
+        />
       </View>
     </View>
   );
 };
+// 1. create a submit button
+// 2. click event on the submit button
+// 3. collect changed personal data
 const styles = StyleSheet.create({
   inputWidth: {
     width: '100%',
@@ -98,6 +113,9 @@ const styles = StyleSheet.create({
     marginTop: 10,
     // width: 200,
     // flex: 0.5,
+  },
+  saveButton: {
+    marginTop: 10,
   },
 });
 export default AccountSettingsScreen;
