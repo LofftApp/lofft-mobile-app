@@ -12,6 +12,7 @@ import CustomBackButton from '../buttons/CustomBackButton';
 import EditPageButton from '../buttons/EditPageButton';
 import EditableTextField from '../inputFields/EditableTextFields';
 import FastImage from 'react-native-fast-image';
+import UserIcon from '../iconsAndContainers/UserIcon';
 
 // Images
 import blueBackground from '../../assets/backgroundShapes/blue.png';
@@ -76,13 +77,13 @@ const ProfileHeader = ({
             </TouchableOpacity>
           </>
         ) : (
-          <TouchableOpacity disabled={edit ? false : true} onPress={modalShow}>
-            <FastImage
-              source={{uri: imageURI}}
-              style={styles.userImage}
-              resizeMode={FastImage.resizeMode.cover}
-            />
-          </TouchableOpacity>
+          <UserIcon
+            image={imageURI}
+            style={styles.userImage}
+            iconColor="Blue"
+            onPress={modalShow}
+            disabled={!edit}
+          />
         )}
 
         <View style={styles.nameAndEditContainer}>
@@ -148,9 +149,7 @@ const styles = StyleSheet.create({
   userImage: {
     width: 78,
     height: 78,
-    borderWidth: 4,
     borderColor: color.Blue[100],
-    borderRadius: 75,
   },
   emojiContainer: {
     width: 65,
