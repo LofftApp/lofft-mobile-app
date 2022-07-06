@@ -59,7 +59,6 @@ const AccountSettingsScreen = () => {
               onChangeText={value => setOtherPronoun(value)}
               value={otherPronoun}
               placeholder="pronoun"
-              keyboardType="numeric"
             />
           </View>
         ) : null}
@@ -75,34 +74,28 @@ const AccountSettingsScreen = () => {
         <View style={styles.inputContainer}>
           <TextInput
             style={[styles.input, styles.inputWidth]}
-            onChangeText={value => setAddress(value)}
-            value={address}
-            placeholder="address"
-            keyboardType="numeric"
-          />
-        </View>
-        <View style={styles.inputContainer}>
-          <TextInput
-            style={[styles.input, styles.inputWidth]}
             onChangeText={value => setEmail(value)}
             value={email}
             placeholder="email"
-            keyboardType="numeric"
+            keyboardType="email-address"
           />
         </View>
-        <View style={styles.inputContainer}>
+        <View style={[styles.inputContainer, styles.inputContainerWithNote]}>
           <TextInput
             style={[styles.input, styles.inputWidth]}
             onChangeText={value => setPassword(value)}
             value={password}
             placeholder="password"
-            keyboardType="numeric"
           />
+          <Text style={styles.note}>
+            Please enter your password to save changes
+          </Text>
         </View>
         <CoreButton
           value="Save"
           style={styles.saveButton}
           onPress={() => handleChanges()}
+          disabled={!(password.length > 5)}
         />
       </View>
     </View>
@@ -129,6 +122,17 @@ const styles = StyleSheet.create({
     marginTop: 10,
     // width: 200,
     // flex: 0.5,
+  },
+  inputContainerWithNote: {
+    flexDirection: 'column',
+    alignItems: 'flex-start',
+  },
+  note: {
+    marginBottom: 15,
+    marginTop: 0,
+    fontSize: 10,
+    fontStyle: 'italic',
+    color: color.Tomato[100],
   },
   saveButton: {
     marginTop: 10,
