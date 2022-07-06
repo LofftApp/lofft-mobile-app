@@ -1,12 +1,16 @@
 import React, {useState, useEffect} from 'react';
 import {Text, View, StyleSheet, TextInput, Platform} from 'react-native';
 import SelectDropdown from 'react-native-select-dropdown';
-import auth from '@react-native-firebase/auth';
 
-// Components
+// FireStore 🔥
+import auth from '@react-native-firebase/auth';
+import firestore from '@react-native-firebase/firestore';
+
+// Components 🪢
 import HeaderBar from '../../components/bannersAndBars/HeaderBar';
 import {CoreButton} from '../../components/buttons/CoreButton';
-// Style Sheets
+
+// Style Sheets 🖌
 import {CoreStyleSheet} from '../../StyleSheets/CoreDesignStyleSheet';
 import {fontStyles} from '../../StyleSheets/FontStyleSheet';
 import color from '../../assets/defaultColorPallet.json';
@@ -14,18 +18,45 @@ import color from '../../assets/defaultColorPallet.json';
 const AccountSettingsScreen = () => {
   const [pronoun, setPronoun] = useState('');
   const [name, setName] = useState('');
-  const [address, setAddress] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [otherPronoun, setOtherPronoun] = useState('');
   // const [visible, setVisible] = useState(false);
 
   const pronouns = ['he/him', 'she/her', 'they/them', 'other'];
+
   const handleChanges = async () => {
     // const update = {name, address, email, otherPronoun ? otherPronoun : pronoun};
-    await auth().currentUser.updateProfile({displayName: name});
-    updateEmail({email: email});
+    const uid = auth().currentUser?.uid;
+    if (name) {
+      try {
+        await auth().currentUser?.updateProfile({displayName: name});
+        firestore().collection('Users').doc(uid).update({displayName: name});
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    if (email) {
+      try {
+        auth().currentUser?.updateEmail(email);
+        firestore().collection('Users').doc(uid).update({email: email});
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    if (pronoun) {
+      try {
+        firestore()
+          .collection('Users')
+          .doc(uid)
+          .update({'userProfile.pronouns': pronoun});
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    setPassword('');
   };
+
   useEffect(() => {
     const user = auth().currentUser;
     console.log('page is loaded.');
@@ -68,7 +99,6 @@ const AccountSettingsScreen = () => {
             onChangeText={value => setName(value)}
             value={name}
             placeholder="name"
-            keyboardType="numeric"
           />
         </View>
         <View style={styles.inputContainer}>
@@ -86,6 +116,8 @@ const AccountSettingsScreen = () => {
             onChangeText={value => setPassword(value)}
             value={password}
             placeholder="password"
+            autoCapitalize="none"
+            secureTextEntry={true}
           />
           <Text style={styles.note}>
             Please enter your password to save changes
