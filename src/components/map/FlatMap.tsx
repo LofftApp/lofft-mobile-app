@@ -179,31 +179,30 @@ const FlatMap = ({flats}) => {
     },
   ];
 
-  const geocoding = async (addresses) => {
 
-
-
-
-    let formatedCordinates = await Promise.all(
-      addresses.map(async el => {
-        let addressObject = {};
-        const response = await Geocode.fromAddress(el.address);
-        const data = response.results[0].geometry.location;
-        addressObject.address = data;
-        addressObject.icon = el.icon
-        return addressObject
-
-    }));
-
-    setCoordinates(formatedCordinates)
-  };
 
   useEffect(() => {
+
+    const geocoding = async (addresses) => {
+
+      let formatedCordinates = await Promise.all(
+        addresses.map(async el => {
+          let addressObject = {};
+          const response = await Geocode.fromAddress(el.address);
+          const data = response.results[0].geometry.location;
+          addressObject.address = data;
+          addressObject.icon = el.icon
+
+          return addressObject
+        }));
+      setCoordinates(formatedCordinates)
+    };
+
     geocoding(flats);
   }, []);
 
 
-  console.log(coordinates)
+
 
   return (
     <View style={styles.container}>
@@ -233,8 +232,13 @@ const FlatMap = ({flats}) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: -140,
-    borderRadius: 30,
+    // Hard coded center due to IOS container see < Flatmapscreen /> Line 49
+    borderRadius: 33,
+    overflow: 'hidden',
+    position: 'relative',
+    marginTop: 17,
+    left: -25,
+    width: "115%"
   },
   map: {
     flex: 1,
