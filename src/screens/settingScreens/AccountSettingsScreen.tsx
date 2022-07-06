@@ -1,6 +1,7 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {Text, View, StyleSheet, TextInput, Platform} from 'react-native';
 import SelectDropdown from 'react-native-select-dropdown';
+import auth from '@react-native-firebase/auth';
 
 // Components
 import HeaderBar from '../../components/bannersAndBars/HeaderBar';
@@ -11,22 +12,28 @@ import {fontStyles} from '../../StyleSheets/FontStyleSheet';
 import color from '../../assets/defaultColorPallet.json';
 
 const AccountSettingsScreen = () => {
+  const [pronoun, setPronoun] = useState('');
   const [name, setName] = useState('');
   const [address, setAddress] = useState('');
   const [email, setEmail] = useState('');
-  const [pronoun, setPronoun] = useState('');
+  const [password, setPassword] = useState('');
   const [otherPronoun, setOtherPronoun] = useState('');
-  const [visible, setVisible] = useState(false);
+  // const [visible, setVisible] = useState(false);
 
   const pronouns = ['he/him', 'she/her', 'they/them', 'other'];
-  const handleChanges = () => {
-    console.log([name, address, email, otherPronoun ? otherPronoun : pronoun]);
-    setName('');
-    setAddress('');
-    setEmail('');
-    setPronoun('');
+  const handleChanges = async () => {
+    // const update = {name, address, email, otherPronoun ? otherPronoun : pronoun};
+    await auth().currentUser.updateProfile({displayName: name});
+    updateEmail({email: email});
   };
-
+  useEffect(() => {
+    const user = auth().currentUser;
+    console.log('page is loaded.');
+    setName(user?.displayName);
+    setEmail(user?.email);
+    console.log(user?.email);
+    console.log(user);
+  }, []);
   return (
     <View
       style={[
@@ -80,6 +87,15 @@ const AccountSettingsScreen = () => {
             onChangeText={value => setEmail(value)}
             value={email}
             placeholder="email"
+            keyboardType="numeric"
+          />
+        </View>
+        <View style={styles.inputContainer}>
+          <TextInput
+            style={[styles.input, styles.inputWidth]}
+            onChangeText={value => setPassword(value)}
+            value={password}
+            placeholder="password"
             keyboardType="numeric"
           />
         </View>
