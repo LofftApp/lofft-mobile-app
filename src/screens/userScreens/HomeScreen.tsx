@@ -74,27 +74,6 @@ const HomeScreen = () => {
         lofftName={lofftName ? lofftName : 'You do not currently have a Lofft'}
         pending={pending}
       />
-      {/* <ImageBackground
-          style={styles.apartmentContainer}
-          source={paymentContainerBackground}>
-          <Text style={fontStyles.buttonTextMedium}>
-            You do not currently have a Lofft
-          </Text>
-          <View style={styles.buttonContainer}>
-            <CoreButton
-              value="Join"
-              style={styles.buttons}
-              onPress={() => navigation.navigate('JoinApartment')}
-            />
-            <CoreButton
-              value="Create"
-              style={[styles.buttons, styles.mintButton]}
-              onPress={() => {
-                navigation.navigate('AddApartment', {docId});
-              }}
-            />
-          </View>
-        </ImageBackground> */}
       <View style={styles.actionButtonContainer}>
         <ActionButton
           text="Find"
