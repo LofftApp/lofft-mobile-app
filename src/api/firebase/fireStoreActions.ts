@@ -203,8 +203,8 @@ export const addEvent = async (
   description,
 ) => {
   const currentUser = auth().currentUser;
-  const user = await getCurrentUserDetails(currentUser);
-  const loftId = user.details.lofft.lofftId;
+  const user = await getCurrentUserDetails(currentUser?.uid);
+  const lofftId = user?.lofft;
   // const selectedFriendsOnly = inputFriends.filter(el => el.selected === true);
 
   let event = {
@@ -217,28 +217,29 @@ export const addEvent = async (
     attending: [],
     notAttending: [],
     active: true,
-    createdBy: currentUser.uid,
+    createdBy: currentUser?.uid,
     updatedAt: new Date(),
     createdAt: new Date(),
   };
 
   firestore()
     .collection('Managements')
-    .doc(loftId)
+    .doc(lofftId)
     .collection('Events')
     .add(event);
 };
 
 export const getLofftEvents = async () => {
   const currentUser = auth().currentUser;
-  const user = await getCurrentUserDetails(currentUser);
-  const loftId = user.details.lofft.lofftId;
+  const user = await getCurrentUserDetails(currentUser?.uid);
+  const lofftId = user.lofft;
+  console.log(lofftId);
   let date = new Date();
   date = new Date(dateStringFormatter(date));
   const firstMonth = new Date(date.getFullYear(), date.getMonth(), 2);
   const result = await firestore()
     .collection('Managements')
-    .doc(loftId)
+    .doc(lofftId)
     .collection('Events')
     .where('date', '>=', firstMonth)
     .get()

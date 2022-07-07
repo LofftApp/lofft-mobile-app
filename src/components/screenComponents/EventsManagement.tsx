@@ -23,7 +23,7 @@ import color from '../../assets/defaultColorPallet.json';
 
 const EventsManagement = ({navigation}) => {
   // Hooks
-  const [userEventsDates, setUserEventsDates] = useState(null);
+  const [userEventsDates, setUserEventsDates] = useState([]);
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [formattedSelectedDate, setFormattedSelectedDate] = useState(
     dateStringFormatter(selectedDate),
@@ -31,6 +31,7 @@ const EventsManagement = ({navigation}) => {
   const [events, setEvents] = useState(null);
   const [selectedEvent, setSelectedEvents] = useState(null);
   const [fullDate, setFullDate] = useState(null);
+
   const addEventsToDate = events => {
     let answer = [];
     events.forEach(event => {
