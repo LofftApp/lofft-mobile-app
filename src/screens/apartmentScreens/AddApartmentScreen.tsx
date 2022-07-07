@@ -27,7 +27,7 @@ import {createLofft} from '../../api/firebase/fireStoreActions';
 // Context
 import {Context as UserDetails} from '../../context/UserDetailsContext';
 
-const AddApartmentScreen = ({route}) => {
+const AddApartmentScreen = () => {
   const {state} = useContext(UserDetails);
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');

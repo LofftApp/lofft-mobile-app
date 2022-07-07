@@ -19,6 +19,7 @@ const authReducer = (state, action) => {
         uid: action.payload.uid,
         name: action.payload.name,
         imageURI: action.payload.imageURI,
+        lofftId: action.payload.lofftId,
       };
     case 'update_profile_image':
       return {...state, imageURI: action.payload};
@@ -73,10 +74,11 @@ const signin =
     auth()
       .signInWithEmailAndPassword(email, password)
       .then(response => {
+        const uid = response.user.uid;
         dispatch({
           type: 'signin',
           payload: {
-            uid: response.user.uid,
+            uid,
             name: response.user.displayName,
             imageURI: response.user.photoURL,
           },

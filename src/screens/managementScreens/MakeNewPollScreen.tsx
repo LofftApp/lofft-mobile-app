@@ -38,7 +38,7 @@ const MakeNewPollScreen = () => {
   const [date, setDate] = useState(new Date());
   const [noDate, setNoDate] = useState(true);
   const [open, setOpen] = useState(false);
-  const [multipleAnwser, setmultipleAnwsers] = useState(false);
+  const [multipleAnwser, setmultipleAnwsers] = useState(true);
 
   const alpha = [
     'a',
@@ -195,47 +195,6 @@ const MakeNewPollScreen = () => {
             </View>
           </View>
 
-          <View style={styles.multipleAnwserOuterContainer}>
-            <Text style={fontStyles.buttonTextMedium}>
-              Allow multiple anwsers?
-            </Text>
-            <View style={styles.multipleAnwserInnerContainer}>
-              {multipleAnwser ? (
-                <TouchableOpacity
-                  style={styles.yesMultipleButtonTern}
-                  onPress={activateMultipleAnwsers}>
-                  <Text style={[fontStyles.buttonTextSmall, {color: 'white'}]}>
-                    Yes
-                  </Text>
-                </TouchableOpacity>
-              ) : (
-                <TouchableOpacity
-                  style={styles.yesMultipleButton}
-                  onPress={activateMultipleAnwsers}>
-                  <Text
-                    style={[
-                      fontStyles.buttonTextSmall,
-                      {color: color.Lavendar[100]},
-                    ]}>
-                    Yes
-                  </Text>
-                </TouchableOpacity>
-              )}
-
-              <TouchableOpacity
-                style={styles.yesMultipleButton}
-                onPress={activateMultipleAnwsers}>
-                <Text
-                  style={[
-                    fontStyles.buttonTextSmall,
-                    {color: color.Lavendar[100]},
-                  ]}>
-                  No
-                </Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-
           <View style={styles.actionButtonContainer}>
             <CoreButton
               value="Post the poll!"
@@ -243,12 +202,7 @@ const MakeNewPollScreen = () => {
               onPress={() =>
                 navigation.navigate(
                   'Managment',
-                  addPoll(
-                    question,
-                    refInputs,
-                    noDate ? null : date,
-                    multipleAnwser,
-                  ),
+                  addPoll(question, refInputs, noDate ? null : date),
                 )
               }
             />

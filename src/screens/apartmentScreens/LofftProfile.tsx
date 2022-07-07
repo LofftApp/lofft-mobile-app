@@ -18,7 +18,7 @@ import {CoreStyleSheet} from '../../StyleSheets/CoreDesignStyleSheet';
 import {fontStyles} from '../../StyleSheets/FontStyleSheet';
 
 // Components
-import UserIcon from '../../components/iconsAndContainers/UserIcon';
+// import UserIcon from '../../components/iconsAndContainers/UserIcon';
 import {navigationRef} from '../../RootNavigation';
 import TagIcon from '../../components/iconsAndContainers/TagIcon';
 import HobbiesAndValues from '../../components/HobbiesAndValues';

@@ -70,7 +70,6 @@ const ProfileScreen = ({userID = auth().currentUser.uid}) => {
   useEffect(() => {
     const setUser = async () => {
       const user = await getCurrentUserDetails(userID);
-      console.log(user);
       if (user.name) setName(user.name);
       if (user.userProfile) {
         const uProfile = user.userProfile;
