@@ -341,10 +341,12 @@ export const getPollsData = async (value, setValue) => {
 
 // Vote in a Poll Method
 export const votePoll = async (pollId, answer) => {
+  console.log(`Poll Id: ${pollId} - Answer: ${answer}`);
   const user = auth().currentUser;
-  const userID = user.uid;
-  const userDetails = await getCurrentUserDetails(user);
-  const lofftId = userDetails.details.lofft.lofftId;
+  const userID = user?.uid;
+  const userDetails = await getCurrentUserDetails(userID);
+  const lofftId = userDetails?.lofft;
+
   firestore()
     .collection('Managements')
     .doc(lofftId)
