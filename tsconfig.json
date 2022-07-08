@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "baseUrl": "./",
+    "paths": {
+      "@buttons/*": ["src/components/buttons/*"]
+    },
+    "jsx": "react",
+    "resolveJsonModule": true
+  }
+}

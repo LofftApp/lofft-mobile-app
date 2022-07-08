@@ -1,26 +1,22 @@
 import React, {useState, useEffect, useContext} from 'react';
-import {View, Text, StyleSheet, Platform, ImageBackground} from 'react-native';
-import {navigationRef as navigation} from '../../RootNavigation';
+import {View, StyleSheet, Platform} from 'react-native';
 import {Context as UserDetails} from '../../context/UserDetailsContext';
 
 // Components
 import HeaderBar from '../../components/bannersAndBars/HeaderBar';
 import ActionButton from '../../components/buttons/ActionButton';
-import {CoreButton} from '../../components/buttons/CoreButton';
+// import ActionButton from '@buttons/ActionButton';
 import LofftDetailsCard from '../../components/cards/LofftDetailsCard';
 
 // Assets
 import sendButtonBackground from './../../assets/sendButtonBackground.png';
 import requestButtonBackground from './../../assets/requestButtonBackground.png';
-import paymentContainerBackground from './../../assets/paymentContainer.png';
 
 // Stylesheets
-import color from '../../assets/defaultColorPallet.json';
+import * as color from '../../assets/defaultColorPallet.json';
 import {CoreStyleSheet} from '../../StyleSheets/CoreDesignStyleSheet';
-import {fontStyles} from '../../StyleSheets/FontStyleSheet';
 
 // Firebase 🔥
-import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 
 const HomeScreen = () => {
