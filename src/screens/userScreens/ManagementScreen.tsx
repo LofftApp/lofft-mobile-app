@@ -6,7 +6,7 @@ import {View, Platform, SafeAreaView, ScrollView} from 'react-native';
 
 // Components 🪢
 import HeaderBar from '../../components/bannersAndBars/HeaderBar';
-import ToggleBar from './../../components/bannersAndBars/ToggleBar';
+import ToggleBar from '../../components/bannersAndBars/ToggleBar';
 import PollsManagement from '../../components/screenComponents/PollsManagement';
 import EventsManagement from '../../components/screenComponents/EventsManagement';
 

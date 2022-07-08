@@ -3,7 +3,7 @@ import {View, Text, StyleSheet, ImageBackground} from 'react-native';
 import {navigationRef as navigation} from '../../RootNavigation';
 
 // Components 🪢
-import {CoreButton} from '../../components/buttons/CoreButton';
+import {CoreButton} from '../buttons/CoreButton';
 
 // Assets 🖼
 import paymentContainerBackground from './../../assets/paymentContainer.png';

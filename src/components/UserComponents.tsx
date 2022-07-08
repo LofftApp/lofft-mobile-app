@@ -5,11 +5,11 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import color from '../assets/defaultColorPallet.json';
 
 // Screens
-import FinanceScreen from './../screens/financeScreens/FinanceScreen';
+import FinanceScreen from '../screens/financeScreens/FinanceScreen';
 import CostsScreen from '../screens/userScreens/HomeScreen';
 import ManagementScreen from '../screens/userScreens/ManagementScreen';
 // import ApartmentScreen from './../screens/userScreens/ApartmentScreen';
-import SettingsScreen from './../screens/userScreens/SettingsScreen';
+import SettingsScreen from '../screens/userScreens/SettingsScreen';
 
 const BottomTab = createBottomTabNavigator();
 

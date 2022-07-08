@@ -1,10 +1,10 @@
 {
   "compilerOptions": {
-    "baseUrl": "./",
-    "paths": {
-      "@buttons/*": ["src/components/buttons/*"]
-    },
+    "moduleResolution": "node",
+    "target": "ES6",
+    "allowSyntheticDefaultImports": true,
     "jsx": "react",
     "resolveJsonModule": true
-  }
+  },
+  "include": ["src"]
 }

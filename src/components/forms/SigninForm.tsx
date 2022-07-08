@@ -10,11 +10,10 @@ import {
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
 import * as color from '../../assets/defaultColorPallet.json';
 import {fontStyles} from '../../StyleSheets/FontStyleSheet';
-// import {CoreButton} from './../buttons/CoreButton';
-import {CoreButton} from '@buttons/CoreButton';
+import {CoreButton} from '../buttons/CoreButton';
 import {Context as UserDetails} from '../../context/UserDetailsContext';
 import FastImage from 'react-native-fast-image';
-import UserIcon from '../../components/iconsAndContainers/UserIcon';
+import UserIcon from '../iconsAndContainers/UserIcon';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 const SigninForm = ({navigation, signupForm = false}: any) => {

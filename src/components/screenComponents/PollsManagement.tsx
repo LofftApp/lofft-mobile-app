@@ -8,7 +8,7 @@ import color from '../../assets/defaultColorPallet.json';
 
 // Components 🪢
 import {CoreButton} from '../buttons/CoreButton';
-import PollCard from '../../components/cards/PollCard';
+import PollCard from '../cards/PollCard';
 
 // FireStore 🔥
 import {getUserLofft, getLofftPolls} from '../../api/firebase/fireStoreActions';
