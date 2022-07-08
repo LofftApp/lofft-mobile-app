@@ -10,9 +10,10 @@ import {
 } from 'react-native';
 
 // StyleSheet
-import color from '../../assets/defaultColorPallet.json';
-import {fontStyles} from '../../StyleSheets/FontStyleSheet';
-import {CoreStyleSheet} from '../../StyleSheets/CoreDesignStyleSheet';
+import color from '@Assets/defaultColorPallet.json';
+import {fontStyles} from '@StyleSheets/FontStyleSheet';
+// import {CoreStyleSheet} from '@StyleSheets/CoreDesignStyleSheet';
+import {CoreStyleSheet} from '@Sty';
 
 // Components
 import CustomBackButton from '../../components/Buttons/CustomBackButton';

@@ -3,8 +3,8 @@ import {View, Text, StyleSheet} from 'react-native';
 import {List} from 'react-native-paper';
 
 // Stylesheets 🌈
-import {fontStyles} from '../../StyleSheets/FontStyleSheet';
-import color from '../../assets/defaultColorPallet.json';
+import {fontStyles} from '@StyleSheets/FontStyleSheet';
+import * as color from '@Assets/defaultColorPallet.json';
 
 // Components 🪢
 import {CoreButton} from '../Buttons/CoreButton';

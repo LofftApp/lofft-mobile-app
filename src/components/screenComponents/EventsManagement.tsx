@@ -2,9 +2,9 @@ import React, {useState, useEffect} from 'react';
 import {View, Text, StyleSheet, ScrollView} from 'react-native';
 
 // Components 🪢
-import {CoreButton} from '../Buttons/CoreButton';
-import CalendarManagement from '../Calendar/CalendarManagement';
-import EventsCard from '../Cards/EventsCard';
+import {CoreButton} from '@Buttons/CoreButton';
+import CalendarManagement from '@Calendar/CalendarManagement';
+import EventsCard from '@Cards/EventsCard';
 
 // FireStore 🔥
 import {getLofftEvents} from '../../api/firebase/fireStoreActions';

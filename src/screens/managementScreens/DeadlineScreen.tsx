@@ -1,24 +1,14 @@
 import React from 'react';
 
-import {
-  View,
-  Text,
-  StyleSheet,
-  TextInput,
-  Pressable,
-  TouchableOpacity,
-  SafeAreaView,
-  ScrollView,
-} from 'react-native';
+import {View, StyleSheet, Platform} from 'react-native';
 
 // Stylesheets
-import {CoreStyleSheet} from '../../StyleSheets/CoreDesignStyleSheet';
-import {fontStyles} from '../../StyleSheets/FontStyleSheet';
+import {CoreStyleSheet} from '@StyleSheets/CoreDesignStyleSheet';
 
 // Components
-import {CoreButton} from '../../components/Buttons/CoreButton';
-import CustomBackButton from '../../components/Buttons/CustomBackButton';
-import CalendarManagement from '../../components/Calendar/CalendarManagement';
+import {CoreButton} from '@Buttons/CoreButton';
+import CustomBackButton from '@Buttons/CustomBackButton';
+import CalendarManagement from '@Calendar/CalendarManagement';
 
 const DeadlineScreen = ({navigation, route}: any) => {
   // console.log(`Hello this is the deadlinescreen:${route.params.fetchdate.fetchdate}`);
@@ -53,11 +43,6 @@ const styles = StyleSheet.create({
     display: 'flex',
     justifyContent: 'flex-start',
   },
-
-  addDeadlineButtonContainer: {
-    marginVertical: 240,
-  },
-
   button: {
     marginVertical: 5,
   },

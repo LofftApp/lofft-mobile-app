@@ -2,11 +2,11 @@ import React from 'react';
 import {View, Platform} from 'react-native';
 
 // StyleSheets
-import {CoreStyleSheet} from '../../StyleSheets/CoreDesignStyleSheet';
+import {CoreStyleSheet} from '@StyleSheets/CoreDesignStyleSheet';
 
 // Components
-import SigninForm from '../../components/Forms/SigninForm';
-import CustomBackButton from '../../components/Buttons/CustomBackButton';
+import SigninForm from '@Forms/SigninForm';
+import CustomBackButton from '@Buttons/CustomBackButton';
 
 const SigninScreen = ({navigation}: any) => {
   return (

@@ -1,13 +1,7 @@
 /* eslint-disable prettier/prettier */
-import React, {useEffect, useState} from 'react';
-import {View, Text, StyleSheet, Image} from 'react-native';
-import {fontStyles} from '../../StyleSheets/FontStyleSheet';
-import color from '../../assets/defaultColorPallet.json';
-import visa from '../../assets/appImages/visa_logo.png';
+import React from 'react';
+import {View, StyleSheet} from 'react-native';
 import paypal from '../../assets/appImages/paypal_logo.png';
-import applepay from '../../assets/appImages/apple_pay_logo.png';
-import sepa from '../../assets/appImages/sepa_logo.png';
-import googlepay from '../../assets/appImages/google_pay_logo.png';
 
 const SingleCardType = props => {
   let card: any = {};

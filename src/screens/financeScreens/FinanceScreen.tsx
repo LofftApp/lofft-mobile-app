@@ -2,21 +2,21 @@ import React, {useState, useEffect, useCallback} from 'react';
 import {Pressable, View, Text, StyleSheet, Platform} from 'react-native';
 
 // StyleSheets
-import color from '../../assets/defaultColorPallet.json';
-import {CoreStyleSheet} from '../../StyleSheets/CoreDesignStyleSheet';
-import {fontStyles} from '../../StyleSheets/FontStyleSheet';
+import * as color from '@Assets/defaultColorPallet.json';
+import {CoreStyleSheet} from '@StyleSheets/CoreDesignStyleSheet';
+import {fontStyles} from '@StyleSheets/FontStyleSheet';
 
 // Components
-import HeaderBar from '../../components/Bars/HeaderBar';
-import ActionButton from '../../components/Buttons/ActionButton';
-import PendingPaymentContainer from '../../components/Containers/PendingPaymentContainer';
-import ZeroPendingPaymentsContainer from '../../components/Containers/ZeroPendingPayments';
-import ToggleBar from '../../components/Bars/ToggleBar';
+import HeaderBar from '@Bars/HeaderBar';
+import ActionButton from '@Buttons/ActionButton';
+import PendingPaymentContainer from '@Containers/PendingPaymentContainer';
+import ZeroPendingPaymentsContainer from '@Containers/ZeroPendingPayments';
+import ToggleBar from '@Bars/ToggleBar';
 
 // Assets
-import sendButtonBackground from './../../assets/sendButtonBackground.png';
-import requestButtonBackground from './../../assets/requestButtonBackground.png';
-import requestIcon from './../../assets/requestIcon.png';
+import sendButtonBackground from '@Assets/sendButtonBackground.png';
+import requestButtonBackground from '@Assets/requestButtonBackground.png';
+import requestIcon from '@Assets/requestIcon.png';
 
 // API Interactions
 // import {my_bills} from './../../context/BillsQuery';

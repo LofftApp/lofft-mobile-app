@@ -1,16 +1,16 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {View, Text, StyleSheet, Platform} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 // StyleSheets
-import color from '../../assets/defaultColorPallet.json';
-import {fontStyles} from '../../StyleSheets/FontStyleSheet';
-import {CoreStyleSheet} from '../../StyleSheets/CoreDesignStyleSheet';
+import color from '@Assets/defaultColorPallet.json';
+import {fontStyles} from '@StyleSheets/FontStyleSheet';
+import {CoreStyleSheet} from '@StyleSheets/CoreDesignStyleSheet';
 
 // Components
-import CustomBackButton from '../../components/Buttons/CustomBackButton';
+import CustomBackButton from '@Buttons/CustomBackButton';
 
-const PollConfirmationScreen = ({navigation, route}: any) => {
+const PollConfirmationScreen = ({navigation}: any) => {
   return (
     <View
       style={[

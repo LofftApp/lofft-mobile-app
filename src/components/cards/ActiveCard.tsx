@@ -1,8 +1,7 @@
-/* eslint-disable prettier/prettier */
-import React, {useState} from 'react';
+import React from 'react';
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
-import {fontStyles} from '../../StyleSheets/FontStyleSheet';
-import color from '../../assets/defaultColorPallet.json';
+import {fontStyles} from '@StyleSheets/FontStyleSheet';
+import * as color from '@Assets/lofftColorPallet.json';
 
 // Components
 import CardType from './CardType';

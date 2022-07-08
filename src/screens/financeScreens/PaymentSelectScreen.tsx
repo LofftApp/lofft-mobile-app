@@ -1,17 +1,15 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable prettier/prettier */
 // React Config
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import {View, StyleSheet} from 'react-native';
 import firestore from '@react-native-firebase/firestore';
 import auth from '@react-native-firebase/auth';
 // Custom Config
-import color from './../../assets/defaultColorPallet.json';
-import CustomBackButton from '../../components/Buttons/CustomBackButton';
+import color from '@Assets/lofftColorPallet.json';
+import CustomBackButton from '@Buttons/CustomBackButton';
 
 // Components
-import PaymentOption from '../../components/PaymentOption';
-import {CoreButton} from '../../components/Buttons/CoreButton';
+import PaymentOption from '@Components/PaymentOption';
+import {CoreButton} from '@Buttons/CoreButton';
 // Current User
 
 const PaymentSelect = ({navigation}: any) => {

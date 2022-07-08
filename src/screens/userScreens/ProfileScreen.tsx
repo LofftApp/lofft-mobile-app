@@ -10,20 +10,21 @@ import {updateUser} from '../../api/firebase/fireStoreActions';
 import {libraryImageUpload} from '../../api/firebase/firebaseStorage';
 
 // Components
-import TagIcon from '../../components/Icons/TagIcon';
+import TagIcon from '@Icons/TagIcon';
+import TagIcon from 'components/Icons/TagIcon';
 import HobbiesAndValues from '../../components/HobbiesAndValues';
-import {CoreButton} from '../../components/Buttons/CoreButton';
-import LibrarySection from '../../components/ProfileSections/LibrarySection';
-import ProfileHeader from '../../components/Bars/ProfileHeader';
-import DescriptionInput from '../../components/ProfileSections/DescriptionInput';
+import {CoreButton} from '@Buttons/CoreButton';
+import LibrarySection from '@Profile/LibrarySection';
+import ProfileHeader from '@Bars/ProfileHeader';
+import DescriptionInput from '@Profile/DescriptionInput';
 
 // helpers
-import {hobbiesFormatter} from '../../components/HelperFunctions/hobbiesFormatter';
+import {hobbiesFormatter} from '@Helpers/hobbiesFormatter';
 
 // Stylesheets
-import color from './../../assets/defaultColorPallet.json';
-import {CoreStyleSheet} from '../../StyleSheets/CoreDesignStyleSheet';
-import {fontStyles} from './../../StyleSheets/FontStyleSheet';
+import color from '@Asstets/defaultColorPallet.json';
+import {CoreStyleSheet} from '@StyleSheets/CoreDesignStyleSheet';
+import {fontStyles} from '@StyleSheets/FontStyleSheet';
 import {navigationRef} from '../../RootNavigation';
 
 const ProfileScreen = ({userID = auth().currentUser.uid}) => {

@@ -1,18 +1,15 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import {View, Text, StyleSheet, Platform} from 'react-native';
 
 // StyleSheets
-import color from './../../assets/defaultColorPallet.json';
-import {fontStyles} from '../../StyleSheets/FontStyleSheet';
-import {CoreStyleSheet} from '../../StyleSheets/CoreDesignStyleSheet';
+import color from '@Assets/defaultColorPallet.json';
+import {fontStyles} from '@StyleSheets/FontStyleSheet';
+import {CoreStyleSheet} from '@StyleSheets/CoreDesignStyleSheet';
 
 // Components
-import PendingPaymentContainer from '../../components/Containers/PendingPaymentContainer';
-import ItemPendingPaymentCard from '../../components/Cards/ItemPendingPaymentCard';
-import CustomBackButton from '../../components/Buttons/CustomBackButton';
-
-// Firebase
-import getAuth from '@react-native-firebase/auth';
+import PendingPaymentContainer from '@Containers/PendingPaymentContainer';
+import ItemPendingPaymentCard from '@Cards/ItemPendingPaymentCard';
+import CustomBackButton from '@Buttons/CustomBackButton';
 
 const PendingPaymentsScreen = ({navigation, route}: any) => {
   const [owed] = useState(route.params.owed);

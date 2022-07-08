@@ -4,11 +4,11 @@ import {Text, View, TouchableOpacity, StyleSheet} from 'react-native';
 // Components
 import DatePicker from 'react-native-date-picker';
 import Icon from 'react-native-vector-icons/Ionicons';
-import {dateFormatter, timeFormatter} from '../HelperFunctions/dateFormatter';
+import {dateFormatter, timeFormatter} from '@Helpers/dateFormatter';
 
 // Styles
-import {fontStyles} from '../../StyleSheets/FontStyleSheet';
-import color from '../../assets/defaultColorPallet.json';
+import {fontStyles} from '@StyleSheets/FontStyleSheet';
+import color from '@Assets/lofftColorPallet.json';
 
 const DateTimeInputField = ({
   value,
