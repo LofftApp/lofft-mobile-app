@@ -17,8 +17,8 @@ import {CoreStyleSheet} from '../../StyleSheets/CoreDesignStyleSheet';
 import {fontStyles} from './../../StyleSheets/FontStyleSheet';
 
 // Components
-import {CoreButton} from '../../components/buttons/CoreButton';
-import CustomBackButton from '../../components/buttons/CustomBackButton';
+import {CoreButton} from '../../components/Buttons/CoreButton';
+import CustomBackButton from '../../components/Buttons/CustomBackButton';
 import HobbiesAndValues from '../../components/HobbiesAndValues';
 
 // Firebase

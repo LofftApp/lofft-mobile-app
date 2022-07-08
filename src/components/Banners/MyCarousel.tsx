@@ -9,7 +9,7 @@ import {
   Platform,
 } from 'react-native';
 
-import ActiveCard from './ActiveCard';
+import ActiveCard from '../Cards/ActiveCard';
 
 const {width: screenWidth} = Dimensions.get('window');
 
@@ -46,7 +46,6 @@ const MyCarousel = props => {
         renderItem={renderItem}
         hasParallaxImages={false}
       />
-
     </View>
   );
 };

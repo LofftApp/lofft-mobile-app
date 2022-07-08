@@ -1,6 +1,6 @@
 import firestore from '@react-native-firebase/firestore';
 import auth from '@react-native-firebase/auth';
-import {dateStringFormatter} from '../../components/helperFunctions/dateFormatter';
+import {dateStringFormatter} from '../../components/HelperFunctions/dateFormatter';
 
 // Contents
 // 1.0 User

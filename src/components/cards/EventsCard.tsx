@@ -10,7 +10,7 @@ import {
 } from '../../api/firebase/fireStoreActions';
 
 // Components 🪢
-import {CoreButton} from '../buttons/CoreButton';
+import {CoreButton} from '../Buttons/CoreButton';
 import HalfBackgroundImage from './../../assets/banner-background-half.png';
 import TagIcon from '../Icons/TagIcon';
 

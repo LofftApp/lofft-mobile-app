@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, StyleSheet, Platform} from 'react-native';
-import CustomBackButton from '../buttons/CustomBackButton';
+import CustomBackButton from '../Buttons/CustomBackButton';
 import {navigationRef} from '../../RootNavigation';
 
 //  Style Sheets

@@ -8,7 +8,7 @@ import {fontStyles} from '../../StyleSheets/FontStyleSheet';
 import {CoreStyleSheet} from '../../StyleSheets/CoreDesignStyleSheet';
 
 // Components
-import CustomBackButton from '../../components/buttons/CustomBackButton';
+import CustomBackButton from '../../components/Buttons/CustomBackButton';
 
 const PollConfirmationScreen = ({navigation, route}: any) => {
   return (

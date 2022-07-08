@@ -3,10 +3,10 @@ import {View, StyleSheet, Platform} from 'react-native';
 import {Context as UserDetails} from '../../context/UserDetailsContext';
 
 // Components
-import HeaderBar from '../../components/bannersAndBars/HeaderBar';
-import ActionButton from '../../components/buttons/ActionButton';
+import HeaderBar from '../../components/Bars/HeaderBar';
+import ActionButton from '../../components/Buttons/ActionButton';
 // import ActionButton from '@buttons/ActionButton';
-import LofftDetailsCard from '../../components/cards/LofftDetailsCard';
+import LofftDetailsCard from '../../components/Cards/LofftDetailsCard';
 
 // Assets
 import sendButtonBackground from './../../assets/sendButtonBackground.png';

@@ -7,9 +7,9 @@ import {fontStyles} from '../../StyleSheets/FontStyleSheet';
 import {CoreStyleSheet} from '../../StyleSheets/CoreDesignStyleSheet';
 
 // Components
-import PendingPaymentContainer from '../../components/containers/PendingPaymentContainer';
-import ItemPendingPaymentCard from '../../components/cards/ItemPendingPaymentCard';
-import CustomBackButton from '../../components/buttons/CustomBackButton';
+import PendingPaymentContainer from '../../components/Containers/PendingPaymentContainer';
+import ItemPendingPaymentCard from '../../components/Cards/ItemPendingPaymentCard';
+import CustomBackButton from '../../components/Buttons/CustomBackButton';
 
 // Firebase
 import getAuth from '@react-native-firebase/auth';

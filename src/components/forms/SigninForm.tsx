@@ -11,7 +11,7 @@ import BouncyCheckbox from 'react-native-bouncy-checkbox';
 import * as color from '../../assets/defaultColorPallet.json';
 import {fontStyles} from '../../StyleSheets/FontStyleSheet';
 // import {CoreButton} from '../buttons/CoreButton';
-import {CoreButton} from '@Buttons/CoreButton';
+import {CoreButton} from 'components/Buttons/CoreButton';
 import {Context as UserDetails} from '../../context/UserDetailsContext';
 import FastImage from 'react-native-fast-image';
 import UserIcon from '../Icons/UserIcon';

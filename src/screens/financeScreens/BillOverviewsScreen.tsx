@@ -15,8 +15,8 @@ import {fontStyles} from '../../StyleSheets/FontStyleSheet';
 import {CoreStyleSheet} from '../../StyleSheets/CoreDesignStyleSheet';
 
 // Components
-import CustomBackButton from '../../components/buttons/CustomBackButton';
-import {CoreButton} from '../../components/buttons/CoreButton';
+import CustomBackButton from '../../components/Buttons/CustomBackButton';
+import {CoreButton} from '../../components/Buttons/CoreButton';
 
 const BillOverviewsScreen = ({navigation, route}: any) => {
   const [nowActive, setNowActive] = useState(true);

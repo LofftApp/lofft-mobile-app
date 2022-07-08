@@ -4,8 +4,8 @@ import {View, Text, StyleSheet, Platform, TouchableOpacity} from 'react-native';
 import {Context as UserDetails} from '../../context/UserDetailsContext';
 
 // Components
-import CustomBackButton from '../../components/buttons/CustomBackButton';
-import {CoreButton} from '../../components/buttons/CoreButton';
+import CustomBackButton from '../../components/Buttons/CustomBackButton';
+import {CoreButton} from '../../components/Buttons/CoreButton';
 
 // Stylesheets
 import color from './../../assets/defaultColorPallet.json';

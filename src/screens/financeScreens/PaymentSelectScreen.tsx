@@ -7,11 +7,11 @@ import firestore from '@react-native-firebase/firestore';
 import auth from '@react-native-firebase/auth';
 // Custom Config
 import color from './../../assets/defaultColorPallet.json';
-import CustomBackButton from '../../components/buttons/CustomBackButton';
+import CustomBackButton from '../../components/Buttons/CustomBackButton';
 
 // Components
 import PaymentOption from '../../components/PaymentOption';
-import {CoreButton} from '../../components/buttons/CoreButton';
+import {CoreButton} from '../../components/Buttons/CoreButton';
 // Current User
 
 const PaymentSelect = ({navigation}: any) => {

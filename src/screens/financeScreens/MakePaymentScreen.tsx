@@ -8,10 +8,10 @@ import {CoreStyleSheet} from '../../StyleSheets/CoreDesignStyleSheet';
 import {fontStyles} from '../../StyleSheets/FontStyleSheet';
 
 // Components
-import CustomBackButton from '../../components/buttons/CustomBackButton';
+import CustomBackButton from '../../components/Buttons/CustomBackButton';
 import UserIcon from '../../components/Icons/UserIcon';
-import PaymentCard from '../../components/cards/PaymentCard';
-import {CoreButton} from '../../components/buttons/CoreButton';
+import PaymentCard from '../../components/Cards/PaymentCard';
+import {CoreButton} from '../../components/Buttons/CoreButton';
 
 // Assets
 import userImage from '../../assets/user.jpeg';

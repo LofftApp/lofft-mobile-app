@@ -10,7 +10,7 @@ import color from '../../assets/defaultColorPallet.json';
 import {fontStyles} from '../../StyleSheets/FontStyleSheet';
 import HalfBackgroundImage from './../../assets/banner-background-half.png';
 import {votePoll} from '../../api/firebase/fireStoreActions';
-import ResultBars from '../bannersAndBars/ResultBars';
+import ResultBars from '../Bars/ResultBars';
 
 // Firestore
 import auth from '@react-native-firebase/auth';

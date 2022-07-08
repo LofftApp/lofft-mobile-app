@@ -7,14 +7,15 @@
     "resolveJsonModule": true,
     "baseUrl": "src",
     "paths": {
-      "@BannersAndBars/*": [".components/BannersAndBars/*"],
-      "@Buttons/*": ["./components/buttons/*"],
-      "@Calendar/*": ["./components/calendar/*"],
-      "@Cards/*": ["./components/cards/*"],
-      "@Charts": ["./components/charts/*"],
-      "@Containers": ["./components/containers/*"],
-      "@Forms": ["./components/forms/*"],
-      "@Helpers": ["./components/helperFunctions/*"],
+      "@Banners/*": [".components/Banners/*"],
+      "@Bars/*": [".components/Bars/*"],
+      "@Buttons/*": ["./components/Buttons/*"],
+      "@Calendar/*": ["./components/Calendar/*"],
+      "@Cards/*": ["./components/Cards/*"],
+      "@Charts": ["./components/Charts/*"],
+      "@Containers": ["./components/Containers/*"],
+      "@Forms": ["./components/Forms/*"],
+      "@Helpers": ["./components/HelperFunctions/*"],
       "@Icons": ["./components/Icons/*"],
       "@InputFields": ["./components/InputFields/*"]
     }

@@ -8,8 +8,8 @@ import {
 } from 'react-native';
 
 // Components
-import CustomBackButton from '../buttons/CustomBackButton';
-import EditPageButton from '../buttons/EditPageButton';
+import CustomBackButton from '../Buttons/CustomBackButton';
+import EditPageButton from '../Buttons/EditPageButton';
 import EditableTextField from '../InputFields/EditableTextFields';
 import FastImage from 'react-native-fast-image';
 import UserIcon from '../Icons/UserIcon';

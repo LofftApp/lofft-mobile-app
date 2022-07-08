@@ -7,11 +7,11 @@ import {CoreStyleSheet} from '../../StyleSheets/CoreDesignStyleSheet';
 import {fontStyles} from '../../StyleSheets/FontStyleSheet';
 
 // Components
-import HeaderBar from '../../components/bannersAndBars/HeaderBar';
-import ActionButton from '../../components/buttons/ActionButton';
-import PendingPaymentContainer from '../../components/containers/PendingPaymentContainer';
-import ZeroPendingPaymentsContainer from '../../components/containers/ZeroPendingPayments';
-import ToggleBar from '../../components/bannersAndBars/ToggleBar';
+import HeaderBar from '../../components/Bars/HeaderBar';
+import ActionButton from '../../components/Buttons/ActionButton';
+import PendingPaymentContainer from '../../components/Containers/PendingPaymentContainer';
+import ZeroPendingPaymentsContainer from '../../components/Containers/ZeroPendingPayments';
+import ToggleBar from '../../components/Bars/ToggleBar';
 
 // Assets
 import sendButtonBackground from './../../assets/sendButtonBackground.png';
@@ -22,9 +22,9 @@ import requestIcon from './../../assets/requestIcon.png';
 // import {my_bills} from './../../context/BillsQuery';
 import {billQuery} from '../../api/firebase/fireStoreActions';
 
-import TestChartWeek from '../../components/charts/TestChartWeek';
-import TestChartMonth from '../../components/charts/TestChartMonth';
-import TestChartYear from '../../components/charts/TestChartYear';
+import TestChartWeek from '../../components/Charts/TestChartWeek';
+import TestChartMonth from '../../components/Charts/TestChartMonth';
+import TestChartYear from '../../components/Charts/TestChartYear';
 
 // Fierstore
 import auth from '@react-native-firebase/auth';

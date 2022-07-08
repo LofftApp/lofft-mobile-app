@@ -2,9 +2,9 @@ import React, {useState, useEffect} from 'react';
 import {View, Text, StyleSheet, ScrollView} from 'react-native';
 
 // Components 🪢
-import {CoreButton} from '../buttons/CoreButton';
-import CalendarManagement from '../calendar/CalendarManagement';
-import EventsCard from '../cards/EventsCard';
+import {CoreButton} from '../Buttons/CoreButton';
+import CalendarManagement from '../Calendar/CalendarManagement';
+import EventsCard from '../Cards/EventsCard';
 
 // FireStore 🔥
 import {getLofftEvents} from '../../api/firebase/fireStoreActions';
@@ -15,7 +15,7 @@ import {
   fullDateFormatter,
   dateStringFormatter,
   timeFormatter,
-} from '../helperFunctions/dateFormatter';
+} from '../HelperFunctions/dateFormatter';
 
 // Styles
 import {fontStyles} from '../../StyleSheets/FontStyleSheet';

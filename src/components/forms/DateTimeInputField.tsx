@@ -4,7 +4,7 @@ import {Text, View, TouchableOpacity, StyleSheet} from 'react-native';
 // Components
 import DatePicker from 'react-native-date-picker';
 import Icon from 'react-native-vector-icons/Ionicons';
-import {dateFormatter, timeFormatter} from '../helperFunctions/dateFormatter';
+import {dateFormatter, timeFormatter} from '../HelperFunctions/dateFormatter';
 
 // Styles
 import {fontStyles} from '../../StyleSheets/FontStyleSheet';

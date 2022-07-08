@@ -12,13 +12,13 @@ import {libraryImageUpload} from '../../api/firebase/firebaseStorage';
 // Components
 import TagIcon from '../../components/Icons/TagIcon';
 import HobbiesAndValues from '../../components/HobbiesAndValues';
-import {CoreButton} from '../../components/buttons/CoreButton';
-import LibrarySection from '../../components/profileSections/LibrarySection';
-import ProfileHeader from '../../components/bannersAndBars/ProfileHeader';
-import DescriptionInput from '../../components/profileSections/DescriptionInput';
+import {CoreButton} from '../../components/Buttons/CoreButton';
+import LibrarySection from '../../components/ProfileSections/LibrarySection';
+import ProfileHeader from '../../components/Bars/ProfileHeader';
+import DescriptionInput from '../../components/ProfileSections/DescriptionInput';
 
 // helpers
-import {hobbiesFormatter} from '../../components/helperFunctions/hobbiesFormatter';
+import {hobbiesFormatter} from '../../components/HelperFunctions/hobbiesFormatter';
 
 // Stylesheets
 import color from './../../assets/defaultColorPallet.json';

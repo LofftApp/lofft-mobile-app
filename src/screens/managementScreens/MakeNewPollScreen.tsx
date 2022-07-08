@@ -12,19 +12,19 @@ import {
 import {navigationRef as navigation} from './../../RootNavigation';
 
 // Components
-import AddButtonPoll from '../../components/buttons/AddButtonPoll';
-import CustomBackButton from '../../components/buttons/CustomBackButton';
-import {CoreButton} from '../../components/buttons/CoreButton';
+import AddButtonPoll from '../../components/Buttons/AddButtonPoll';
+import CustomBackButton from '../../components/Buttons/CustomBackButton';
+import {CoreButton} from '../../components/Buttons/CoreButton';
 import DatePicker from 'react-native-date-picker';
 
 // Helpers
-import {dateFormatter} from '../../components/helperFunctions/dateFormatter';
+import {dateFormatter} from '../../components/HelperFunctions/dateFormatter';
 
 // Styles
 import {CoreStyleSheet} from '../../StyleSheets/CoreDesignStyleSheet';
 import {fontStyles} from '../../StyleSheets/FontStyleSheet';
 import color from '../../assets/defaultColorPallet.json';
-import ToggleBar from '../../components/bannersAndBars/ToggleBar';
+import ToggleBar from '../../components/Bars/ToggleBar';
 
 // Firestore
 import {addPoll} from '../../api/firebase/fireStoreActions';

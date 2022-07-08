@@ -22,11 +22,11 @@ import {fontStyles} from '../../StyleSheets/FontStyleSheet';
 import {navigationRef} from '../../RootNavigation';
 import TagIcon from '../../components/Icons/TagIcon';
 import HobbiesAndValues from '../../components/HobbiesAndValues';
-import ProfileHeader from '../../components/bannersAndBars/ProfileHeader';
-import DescriptionInput from '../../components/profileSections/DescriptionInput';
+import ProfileHeader from '../../components/Bars/ProfileHeader';
+import DescriptionInput from '../../components/ProfileSections/DescriptionInput';
 import EmojiSelector from 'react-native-emoji-selector';
-import ColiversSection from '../../components/profileSections/ColiversSection';
-import LibrarySection from '../../components/profileSections/LibrarySection';
+import ColiversSection from '../../components/ProfileSections/ColiversSection';
+import LibrarySection from '../../components/ProfileSections/LibrarySection';
 
 const LofftProfile = ({route}) => {
   const [lofftId] = useState(route.params.lofft);

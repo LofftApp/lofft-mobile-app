@@ -2,10 +2,10 @@ import React, {useState} from 'react';
 import {Text, View, StyleSheet, Platform, ScrollView} from 'react-native';
 
 // Components
-import CustomBackButton from '../../components/buttons/CustomBackButton';
-import {CoreButton} from '../../components/buttons/CoreButton';
-import TextInputField from '../../components/forms/TextInputField';
-import DateTimeInputField from '../../components/forms/DateTimeInputField';
+import CustomBackButton from '../../components/Buttons/CustomBackButton';
+import {CoreButton} from '../../components/Buttons/CoreButton';
+import TextInputField from '../../components/Forms/TextInputField';
+import DateTimeInputField from '../../components/Forms/DateTimeInputField';
 import UserIcon from '../../components/Icons/UserIcon';
 
 // Styles

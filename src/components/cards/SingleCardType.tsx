@@ -1,8 +1,8 @@
 /* eslint-disable prettier/prettier */
 import React, {useEffect, useState} from 'react';
 import {View, Text, StyleSheet, Image} from 'react-native';
-import {fontStyles} from '../StyleSheets/FontStyleSheet';
-import color from '../assets/defaultColorPallet.json';
+import {fontStyles} from '../../StyleSheets/FontStyleSheet';
+import color from '../../assets/defaultColorPallet.json';
 import visa from '../../assets/appImages/visa_logo.png';
 import paypal from '../../assets/appImages/paypal_logo.png';
 import applepay from '../../assets/appImages/apple_pay_logo.png';
