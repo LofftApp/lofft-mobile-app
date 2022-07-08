@@ -1,10 +1,23 @@
 {
   "compilerOptions": {
     "moduleResolution": "node",
-    "target": "ES6",
+    "target": "ES5",
     "allowSyntheticDefaultImports": true,
-    "jsx": "react",
-    "resolveJsonModule": true
+    "jsx": "react-native",
+    "resolveJsonModule": true,
+    "baseUrl": "src",
+    "paths": {
+      "@BannersAndBars/*": [".components/BannersAndBars/*"],
+      "@Buttons/*": ["./components/buttons/*"],
+      "@Calendar/*": ["./components/calendar/*"],
+      "@Cards/*": ["./components/cards/*"],
+      "@Charts": ["./components/charts/*"],
+      "@Containers": ["./components/containers/*"],
+      "@Forms": ["./components/forms/*"],
+      "@Helpers": ["./components/helperFunctions/*"],
+      "@Icons": ["./components/Icons/*"],
+      "@InputFields": ["./components/InputFields/*"]
+    }
   },
   "include": ["src"]
 }

@@ -20,7 +20,7 @@ import {fontStyles} from '../../StyleSheets/FontStyleSheet';
 // Components
 // import UserIcon from '../../components/iconsAndContainers/UserIcon';
 import {navigationRef} from '../../RootNavigation';
-import TagIcon from '../../components/iconsAndContainers/TagIcon';
+import TagIcon from '../../components/Icons/TagIcon';
 import HobbiesAndValues from '../../components/HobbiesAndValues';
 import ProfileHeader from '../../components/bannersAndBars/ProfileHeader';
 import DescriptionInput from '../../components/profileSections/DescriptionInput';

@@ -10,7 +10,7 @@ import {updateUser} from '../../api/firebase/fireStoreActions';
 import {libraryImageUpload} from '../../api/firebase/firebaseStorage';
 
 // Components
-import TagIcon from '../../components/iconsAndContainers/TagIcon';
+import TagIcon from '../../components/Icons/TagIcon';
 import HobbiesAndValues from '../../components/HobbiesAndValues';
 import {CoreButton} from '../../components/buttons/CoreButton';
 import LibrarySection from '../../components/profileSections/LibrarySection';

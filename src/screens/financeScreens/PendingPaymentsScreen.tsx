@@ -7,7 +7,7 @@ import {fontStyles} from '../../StyleSheets/FontStyleSheet';
 import {CoreStyleSheet} from '../../StyleSheets/CoreDesignStyleSheet';
 
 // Components
-import PendingPaymentContainer from '../../components/iconsAndContainers/PendingPaymentContainer';
+import PendingPaymentContainer from '../../components/containers/PendingPaymentContainer';
 import ItemPendingPaymentCard from '../../components/cards/ItemPendingPaymentCard';
 import CustomBackButton from '../../components/buttons/CustomBackButton';
 

@@ -10,9 +10,9 @@ import {
 // Components
 import CustomBackButton from '../buttons/CustomBackButton';
 import EditPageButton from '../buttons/EditPageButton';
-import EditableTextField from '../inputFields/EditableTextFields';
+import EditableTextField from '../InputFields/EditableTextFields';
 import FastImage from 'react-native-fast-image';
-import UserIcon from '../iconsAndContainers/UserIcon';
+import UserIcon from '../Icons/UserIcon';
 
 // Images
 import blueBackground from '../../assets/backgroundShapes/blue.png';

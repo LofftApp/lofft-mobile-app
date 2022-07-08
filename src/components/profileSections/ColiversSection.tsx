@@ -2,7 +2,7 @@ import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 
 // Components 🪢
-import UserIcon from '../iconsAndContainers/UserIcon';
+import UserIcon from '../Icons/UserIcon';
 
 // Styles 🖌
 import {fontStyles} from '../../StyleSheets/FontStyleSheet';

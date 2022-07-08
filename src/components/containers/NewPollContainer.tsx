@@ -1,12 +1,12 @@
 import React from 'react';
-import { Text, ImageBackground, StyleSheet } from 'react-native';
+import {Text, ImageBackground, StyleSheet} from 'react-native';
 import color from '../../assets/defaultColorPallet.json';
 import paymentContainerBackground from './../../assets/paymentContainer.png';
-import { fontStyles } from '../../StyleSheets/FontStyleSheet';
-import { CoreButton } from '../buttons/CoreButton';
+import {fontStyles} from '../../StyleSheets/FontStyleSheet';
+import {CoreButton} from '../buttons/CoreButton';
 
 const NewPollContainer = ({buttonAction, buttonValue}) => {
-  return(
+  return (
     <ImageBackground
       style={styles.newPollContainer}
       source={paymentContainerBackground}>
@@ -16,8 +16,8 @@ const NewPollContainer = ({buttonAction, buttonValue}) => {
         onPress={buttonAction}
       />
     </ImageBackground>
-  )
-}
+  );
+};
 
 const styles = StyleSheet.create({
   newPollContainer: {
@@ -35,8 +35,8 @@ const styles = StyleSheet.create({
     width: 179,
     height: 53,
     justifyContent: 'center',
-    alignItems:'center'
+    alignItems: 'center',
   },
-})
+});
 
 export default NewPollContainer;

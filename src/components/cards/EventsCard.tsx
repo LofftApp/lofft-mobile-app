@@ -12,7 +12,7 @@ import {
 // Components 🪢
 import {CoreButton} from '../buttons/CoreButton';
 import HalfBackgroundImage from './../../assets/banner-background-half.png';
-import TagIcon from '../iconsAndContainers/TagIcon';
+import TagIcon from '../Icons/TagIcon';
 
 // Styles
 import {fontStyles} from '../../StyleSheets/FontStyleSheet';

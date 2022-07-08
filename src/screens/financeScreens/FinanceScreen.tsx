@@ -9,8 +9,8 @@ import {fontStyles} from '../../StyleSheets/FontStyleSheet';
 // Components
 import HeaderBar from '../../components/bannersAndBars/HeaderBar';
 import ActionButton from '../../components/buttons/ActionButton';
-import PendingPaymentContainer from '../../components/iconsAndContainers/PendingPaymentContainer';
-import ZeroPendingPaymentsContainer from '../../components/iconsAndContainers/ZeroPendingPayments';
+import PendingPaymentContainer from '../../components/containers/PendingPaymentContainer';
+import ZeroPendingPaymentsContainer from '../../components/containers/ZeroPendingPayments';
 import ToggleBar from '../../components/bannersAndBars/ToggleBar';
 
 // Assets

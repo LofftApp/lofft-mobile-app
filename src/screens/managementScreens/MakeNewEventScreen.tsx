@@ -6,7 +6,7 @@ import CustomBackButton from '../../components/buttons/CustomBackButton';
 import {CoreButton} from '../../components/buttons/CoreButton';
 import TextInputField from '../../components/forms/TextInputField';
 import DateTimeInputField from '../../components/forms/DateTimeInputField';
-import UserIcon from '../../components/iconsAndContainers/UserIcon';
+import UserIcon from '../../components/Icons/UserIcon';
 
 // Styles
 import {CoreStyleSheet} from '../../StyleSheets/CoreDesignStyleSheet';

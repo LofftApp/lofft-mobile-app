@@ -9,7 +9,7 @@ import {fontStyles} from '../../StyleSheets/FontStyleSheet';
 
 // Components
 import CustomBackButton from '../../components/buttons/CustomBackButton';
-import UserIcon from '../../components/iconsAndContainers/UserIcon';
+import UserIcon from '../../components/Icons/UserIcon';
 import PaymentCard from '../../components/cards/PaymentCard';
 import {CoreButton} from '../../components/buttons/CoreButton';
 
