@@ -6,20 +6,20 @@ import {
   ImageBackground,
   StyleSheet,
 } from 'react-native';
+import FastImage from 'react-native-fast-image';
 
-// Components
+// Components 🪢
 import CustomBackButton from '@Buttons/CustomBackButton';
 import EditPageButton from '@Buttons/EditPageButton';
 import EditableTextField from '@InputFields/EditableTextFields';
-import FastImage from 'react-native-fast-image';
 import UserIcon from '@Icons/UserIcon';
 
-// Images
+// Assets 🖼
 import blueBackground from '@Assets/backgroundShapes/blue.png';
 import greenBackground from '@Assets/backgroundShapes/mint.png';
+import * as color from '@Assets/lofftColorPallet.json';
 
-// Styles
-import color from '@Assets/lofftColorPallet.json';
+// Styles 🖌
 import {fontStyles} from '@StyleSheets/FontStyleSheet';
 
 const ProfileHeader = ({

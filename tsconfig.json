@@ -10,7 +10,7 @@
       // API
       "@Firebase/*": ["./api/firebase/*"],
       // Navigation
-      "@RootNavigation": ["./RootNavigation"],
+      "@RootNavigation": ["./RootNavigation.ts"],
       // Components
       "@Banners/*": ["./components/Banners/*"],
       "@Bars/*": ["./components/Bars/*"],

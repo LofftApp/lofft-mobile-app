@@ -1,7 +1,11 @@
 import React, {useState} from 'react';
 import {Text, View, TouchableOpacity, StyleSheet} from 'react-native';
+
+// Assets 🖼
+import * as color from '@Assets/lofftColorPallet.json';
+
+// Styles 🖌
 import {fontStyles} from '@StyleSheets/FontStyleSheet';
-import color from '@Assets/lofftColorPallet.json';
 
 const ToggleBar = ({dashboard, optionA, optionB}) => {
   const [toggled, setToggled] = useState(true);
