@@ -7,6 +7,7 @@
     "resolveJsonModule": true,
     "baseUrl": "src",
     "paths": {
+      // Components
       "@Components/*": ["./components/*"],
       "@Banners/*": ["./components/Banners/*"],
       "@Bars/*": ["./components/Bars/*"],
@@ -21,7 +22,10 @@
       "@InputFields/*": ["./components/InputFields/*"],
       "@ScreenComponents/*": ["./components/ScreenComponents/*"],
       "@Profile/*": ["./components/ProfileSection/*"],
+      // Screens
+      // Assets
       "@Assets/*": ["./assets/*"],
+      // StyleSheets
       "@StyleSheets/*": ["./StyleSheets/*"]
     }
   },
