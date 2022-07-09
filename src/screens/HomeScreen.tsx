@@ -1,9 +1,9 @@
 import React, {useState, useEffect, useContext} from 'react';
 import {View, Text, StyleSheet, Modal, Platform} from 'react-native';
-import color from './../assets/defaultColorPallet.json';
-import {CoreButton} from '../components/Buttons/CoreButton';
-import HomeCarosel from '../components/Banners/HomeCarosel';
-import PaginationBar from '../components/Bars/PaginationBar';
+import color from '@Assets/lofftColorPallet.json';
+import {CoreButton} from '@Buttons/CoreButton';
+import HomeCarosel from '@Banners/HomeCarosel';
+import PaginationBar from '@Bars/PaginationBar';
 import {Context as UserDetails} from '../context/UserDetailsContext';
 
 const HomeScreen = ({navigation}: any) => {

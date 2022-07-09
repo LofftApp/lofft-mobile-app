@@ -3,14 +3,14 @@ import {View, Text, StyleSheet, ImageBackground} from 'react-native';
 import {navigationRef as navigation} from '../../RootNavigation';
 
 // Components 🪢
-import {CoreButton} from '../Buttons/CoreButton';
+import {CoreButton} from '@Buttons/CoreButton';
 
 // Assets 🖼
-import paymentContainerBackground from './../../assets/paymentContainer.png';
+import paymentContainerBackground from '@Assets/paymentContainer.png';
 
 // Stylesheets 🖌
-import color from '../../assets/defaultColorPallet.json';
-import {fontStyles} from '../../StyleSheets/FontStyleSheet';
+import color from '@Assets/lofftColorPallet.json';
+import {fontStyles} from '@StyleSheets/FontStyleSheet';
 
 const LofftDetailsCard = ({lofftId, lofftName, pending}) => {
   return (

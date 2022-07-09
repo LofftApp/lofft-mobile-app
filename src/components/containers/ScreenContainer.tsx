@@ -1,10 +1,10 @@
 import React from 'react';
 import {View, StyleSheet, Platform} from 'react-native';
-import CustomBackButton from '../Buttons/CustomBackButton';
+import CustomBackButton from '@Buttons/CustomBackButton';
 import {navigationRef} from '../../RootNavigation';
 
 //  Style Sheets
-import {CoreStyleSheet} from '../../StyleSheets/CoreDesignStyleSheet';
+import {CoreStyleSheet} from '@StyleSheets/CoreDesignStyleSheet';
 
 const ScreenContainer = props => {
   return (

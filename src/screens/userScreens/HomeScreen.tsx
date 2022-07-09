@@ -3,18 +3,17 @@ import {View, StyleSheet, Platform} from 'react-native';
 import {Context as UserDetails} from '../../context/UserDetailsContext';
 
 // Components
-import HeaderBar from '../../components/Bars/HeaderBar';
-import ActionButton from '../../components/Buttons/ActionButton';
-// import ActionButton from '@buttons/ActionButton';
-import LofftDetailsCard from '../../components/Cards/LofftDetailsCard';
+import HeaderBar from '@Bars/HeaderBar';
+import ActionButton from '@Buttons/ActionButton';
+import LofftDetailsCard from '@Cards/LofftDetailsCard';
 
 // Assets
-import sendButtonBackground from './../../assets/sendButtonBackground.png';
-import requestButtonBackground from './../../assets/requestButtonBackground.png';
+import sendButtonBackground from '@Assets/sendButtonBackground.png';
+import requestButtonBackground from '@Assets/requestButtonBackground.png';
 
 // Stylesheets
-import * as color from '../../assets/defaultColorPallet.json';
-import {CoreStyleSheet} from '../../StyleSheets/CoreDesignStyleSheet';
+import * as color from '@Assets/lofftColorPallet.json';
+import {CoreStyleSheet} from '@StyleSheets/CoreDesignStyleSheet';
 
 // Firebase 🔥
 import firestore from '@react-native-firebase/firestore';

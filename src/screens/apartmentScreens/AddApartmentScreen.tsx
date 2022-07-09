@@ -12,14 +12,14 @@ import {navigationRef as navigation} from './../../RootNavigation';
 import values from '../../data/hobbiesAndValues.json';
 
 // StyleSheets
-import color from './../../assets/defaultColorPallet.json';
-import {CoreStyleSheet} from '../../StyleSheets/CoreDesignStyleSheet';
-import {fontStyles} from './../../StyleSheets/FontStyleSheet';
+import color from '@Assets/lofftColorPallet.json';
+import {CoreStyleSheet} from '@StyleSheets/CoreDesignStyleSheet';
+import {fontStyles} from '@StyleSheets/FontStyleSheet';
 
 // Components
-import {CoreButton} from '../../components/Buttons/CoreButton';
-import CustomBackButton from '../../components/Buttons/CustomBackButton';
-import HobbiesAndValues from '../../components/HobbiesAndValues';
+import {CoreButton} from '@Buttons/CoreButton';
+import CustomBackButton from '@Buttons/CustomBackButton';
+import HobbiesAndValues from '@Components/HobbiesAndValues';
 
 // Firebase
 import {createLofft} from '../../api/firebase/fireStoreActions';

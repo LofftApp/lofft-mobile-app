@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {
   View,
   Text,
@@ -8,11 +8,11 @@ import {
 } from 'react-native';
 
 // Components
-import CustomBackButton from '../Buttons/CustomBackButton';
-import EditPageButton from '../Buttons/EditPageButton';
-import EditableTextField from '../InputFields/EditableTextFields';
+import CustomBackButton from '@Buttons/CustomBackButton';
+import EditPageButton from '@Buttons/EditPageButton';
+import EditableTextField from '@InputFields/EditableTextFields';
 import FastImage from 'react-native-fast-image';
-import UserIcon from '../Icons/UserIcon';
+import UserIcon from '@Icons/UserIcon';
 
 // Images
 import blueBackground from '../../assets/backgroundShapes/blue.png';

@@ -10,13 +10,13 @@ import {
 } from '../../api/firebase/fireStoreActions';
 
 // Components 🪢
-import {CoreButton} from '../Buttons/CoreButton';
-import HalfBackgroundImage from './../../assets/banner-background-half.png';
-import TagIcon from '../Icons/TagIcon';
+import {CoreButton} from '@Buttons/CoreButton';
+import HalfBackgroundImage from '@Assets/banner-background-half.png';
+import TagIcon from '@Icons/TagIcon';
 
 // Styles
-import {fontStyles} from '../../StyleSheets/FontStyleSheet';
-import color from '../../assets/defaultColorPallet.json';
+import {fontStyles} from '@StyleSheets/FontStyleSheet';
+import color from '@Assets/lofftColorPallet.json';
 
 const EventsCard = ({event}) => {
   // Hooks
