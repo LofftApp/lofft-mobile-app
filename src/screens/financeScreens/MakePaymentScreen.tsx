@@ -11,11 +11,8 @@ import UserIcon from '@Icons/UserIcon';
 import PaymentCard from '@Cards/PaymentCard';
 import {CoreButton} from '@Buttons/CoreButton';
 
-// Assets
-import userImage from '@Assets/user.jpeg';
-
 // Firebase
-import {getUser} from '../../api/firebase/firebaseApi';
+import {getUser} from '@Firebase/firebaseApi';
 
 const MakePayment = ({navigation, route}: any) => {
   const [billDetails] = useState(route.params.billDetails);

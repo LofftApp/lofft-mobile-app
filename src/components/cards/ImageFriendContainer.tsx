@@ -1,10 +1,11 @@
 import React from 'react';
 import {Text, View, StyleSheet, Image, TouchableOpacity} from 'react-native';
 
-// Styles
-import {CoreStyleSheet} from '../../StyleSheets/CoreDesignStyleSheet';
-import {fontStyles} from '../../StyleSheets/FontStyleSheet';
-import color from '../../assets/lofftColorPallet.json';
+// Styles 🖌
+import {fontStyles} from '@StyleSheets/FontStyleSheet';
+
+// Assets 🖼
+import color from '@Assets/lofftColorPallet.json';
 
 const ImageFriendContainer = ({id, name, imgUrl, selectFriends, selected}) => {
   return (

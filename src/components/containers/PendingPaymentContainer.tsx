@@ -1,9 +1,15 @@
 import React from 'react';
 import {Text, ImageBackground, StyleSheet} from 'react-native';
+
+// Components 🪢
+import {CoreButton} from '@Buttons/CoreButton';
+
+// Assets 🖼
 import color from '@Assets/lofftColorPallet.json';
 import paymentContainerBackground from '@Assets/paymentContainer.png';
+
+// StyleSheets 🖌
 import {fontStyles} from '@StyleSheets/FontStyleSheet';
-import {CoreButton} from '@Buttons/CoreButton';
 
 const PendingPaymentContainer = ({buttonAction, buttonValue, owed}: any) => {
   return (

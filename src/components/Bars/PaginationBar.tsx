@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, StyleSheet} from 'react-native';
-import color from '../../assets/lofftColorPallet.json';
+import color from '@Assets/lofftColorPallet.json';
 
 const PaginationBar = ({screen}: any) => {
   const blobs = [1, 2, 3, 4];

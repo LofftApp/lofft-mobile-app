@@ -1,7 +1,11 @@
 import React from 'react';
 import {StyleSheet, View, Text, TouchableOpacity} from 'react-native';
-import color from '../../assets/lofftColorPallet.json';
-import {fontStyles} from '../../StyleSheets/FontStyleSheet';
+
+// Assets 🖼
+import color from '@Assets/lofftColorPallet.json';
+
+// StyleSheets🖌
+import {fontStyles} from '@StyleSheets/FontStyleSheet';
 
 const AddButtonPoll = ({addInput}) => {
   return (

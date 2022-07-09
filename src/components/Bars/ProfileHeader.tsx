@@ -15,12 +15,12 @@ import FastImage from 'react-native-fast-image';
 import UserIcon from '@Icons/UserIcon';
 
 // Images
-import blueBackground from '../../assets/backgroundShapes/blue.png';
-import greenBackground from '../../assets/backgroundShapes/mint.png';
+import blueBackground from '@Assets/backgroundShapes/blue.png';
+import greenBackground from '@Assets/backgroundShapes/mint.png';
 
 // Styles
-import color from '../../assets/lofftColorPallet.json';
-import {fontStyles} from '../../StyleSheets/FontStyleSheet';
+import color from '@Assets/lofftColorPallet.json';
+import {fontStyles} from '@StyleSheets/FontStyleSheet';
 
 const ProfileHeader = ({
   navigation,

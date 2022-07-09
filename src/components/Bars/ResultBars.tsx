@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
-import color from '../../assets/lofftColorPallet.json';
+import color from '@Assets/lofftColorPallet.json';
 
 const ResultBars = ({answers, userAnswers, inactive = false}) => {
   const accumulatorCalculator = votes => {

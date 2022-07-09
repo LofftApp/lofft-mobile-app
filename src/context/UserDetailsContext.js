@@ -4,8 +4,8 @@ import createUserDetailsContext from './createUserDetailsContext';
 // Firebase 🔥
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
-import {userImageUpload, userTakePhoto} from '../api/firebase/firebaseStorage';
-import {getCurrentUser} from '../api/firebase/firebaseApi';
+import {userImageUpload, userTakePhoto} from '@Firebase/firebaseStorage';
+import {getCurrentUser} from '@Firebase/firebaseApi';
 
 const authReducer = (state, action) => {
   switch (action.type) {

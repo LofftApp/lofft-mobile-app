@@ -7,9 +7,9 @@ import {CoreButton} from '@Buttons/CoreButton';
 
 // Assets 🖼
 import paymentContainerBackground from '@Assets/paymentContainer.png';
+import * as color from '@Assets/lofftColorPallet.json';
 
 // Stylesheets 🖌
-import color from '@Assets/lofftColorPallet.json';
 import {fontStyles} from '@StyleSheets/FontStyleSheet';
 
 const LofftDetailsCard = ({lofftId, lofftName, pending}) => {

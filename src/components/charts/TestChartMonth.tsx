@@ -1,7 +1,5 @@
 import React from 'react';
-import {View, StyleSheet} from 'react-native';
-import {fontStyles} from '../../StyleSheets/FontStyleSheet';
-import color from '../../assets/lofftColorPallet.json';
+import {StyleSheet} from 'react-native';
 import {LineChart} from 'react-native-chart-kit';
 
 const TestChartMonth = () => {

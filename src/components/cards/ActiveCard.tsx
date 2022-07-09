@@ -4,7 +4,7 @@ import {fontStyles} from '@StyleSheets/FontStyleSheet';
 import * as color from '@Assets/lofftColorPallet.json';
 
 // Components
-import CardType from './CardType';
+import CardType from '@Cards/CardType';
 
 const ActiveCard = ({navigation, type}: any) => {
   return (

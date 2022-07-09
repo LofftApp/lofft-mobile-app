@@ -1,6 +1,10 @@
 import React from 'react';
 import {View, Text, StyleSheet, Image} from 'react-native';
-import {fontStyles} from '../../StyleSheets/FontStyleSheet';
+
+// StyleSheets 🖌
+import {fontStyles} from '@StyleSheets/FontStyleSheet';
+
+// Assets 🖼
 import visa from '@Assets/appImages/visa_logo.png';
 import paypal from '@Assets/appImages/paypal_logo.png';
 import applepay from '@Assets/appImages/apple_pay_logo.png';

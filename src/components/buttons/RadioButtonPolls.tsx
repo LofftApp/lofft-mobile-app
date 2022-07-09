@@ -1,13 +1,9 @@
-/* eslint-disable react-native/no-inline-styles */
 import React, {useState} from 'react';
-import RadioButtonRN from 'radio-buttons-react-native';
-
 import {View, Text, StyleSheet} from 'react-native';
-
 import {RadioButton} from 'react-native-paper';
-import {differentApproach} from '../../api/firebase/fireStoreActions';
 
-import color from '../../assets/lofftColorPallet.json';
+// Assets 🖼
+import * as color from '@Assets/lofftColorPallet.json';
 
 const RadioButtonPolls = ({anwsers, selectQuestionById, questionId}) => {
   const [checked, setChecked] = useState('');

@@ -7,6 +7,10 @@
     "resolveJsonModule": true,
     "baseUrl": "src",
     "paths": {
+      // API
+      "@Firebase/*": ["./api/firebase/*"],
+      // Navigation
+      "@RootNavigation": ["./RootNavigation"],
       // Components
       "@Banners/*": ["./components/Banners/*"],
       "@Bars/*": ["./components/Bars/*"],

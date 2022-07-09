@@ -2,11 +2,10 @@ import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 
 // Components 🪢
-import UserIcon from '../Icons/UserIcon';
+import UserIcon from '@Icons/UserIcon';
 
 // Styles 🖌
-import {fontStyles} from '../../StyleSheets/FontStyleSheet';
-import color from '../../assets/lofftColorPallet.json';
+import {fontStyles} from '@StyleSheets/FontStyleSheet';
 
 const ColiversSection = ({tenants, showAlert}) => {
   return (

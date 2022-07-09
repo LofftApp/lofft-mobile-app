@@ -1,9 +1,11 @@
 import React from 'react';
 import {Text, View, TextInput, StyleSheet} from 'react-native';
 
-// Styles
-import {fontStyles} from '../../StyleSheets/FontStyleSheet';
-import color from '../../assets/lofftColorPallet.json';
+// Styles 🖌
+import {fontStyles} from '@StyleSheets/FontStyleSheet';
+
+// Assets 🖼
+import color from '@Assets/lofftColorPallet.json';
 
 const TextInputField = ({
   value,

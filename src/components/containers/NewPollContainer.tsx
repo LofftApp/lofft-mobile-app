@@ -1,8 +1,12 @@
 import React from 'react';
 import {ImageBackground, StyleSheet} from 'react-native';
+
+// Components 🪢
+import {CoreButton} from '@Buttons/CoreButton';
+
+// Assets 🖼
 import color from '@Assets/lofftColorPallet.json';
 import paymentContainerBackground from '@Assets/paymentContainer.png';
-import {CoreButton} from '@Buttons/CoreButton';
 
 const NewPollContainer = ({buttonAction, buttonValue}) => {
   return (

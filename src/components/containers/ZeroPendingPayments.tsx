@@ -1,10 +1,12 @@
 import React from 'react';
 import {ImageBackground, Text, StyleSheet} from 'react-native';
-// StyleSheets
-import color from '../../assets/lofftColorPallet.json';
-import {fontStyles} from '../../StyleSheets/FontStyleSheet';
 
-import bannerBackgroundHalf from './../../assets/banner-background-half.png';
+// StyleSheets 🖌
+import {fontStyles} from '@StyleSheets/FontStyleSheet';
+
+// Assets 🖼
+import color from '@Assets/lofftColorPallet.json';
+import bannerBackgroundHalf from '@Assets/banner-background-half.png';
 
 const ZeroPendingPaymentsContainer = () => {
   return (

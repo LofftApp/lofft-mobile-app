@@ -1,7 +1,6 @@
-/* eslint-disable prettier/prettier */
 import React from 'react';
 import {View, StyleSheet} from 'react-native';
-import paypal from '../../assets/appImages/paypal_logo.png';
+import paypal from '@Assets/appImages/paypal_logo.png';
 
 const SingleCardType = props => {
   let card: any = {};

@@ -1,8 +1,14 @@
 import React from 'react';
 import {View, Text, ImageBackground, StyleSheet} from 'react-native';
+
+// Assets 🖼
 import color from '@Assets/lofftColorPallet.json';
-import {fontStyles} from '@StyleSheets/FontStyleSheet';
 import HalfBackgroundImage from '@Assets/banner-background-half.png';
+
+// StyleSheets 🖌
+import {fontStyles} from '@StyleSheets/FontStyleSheet';
+
+// Components 🪢
 import {CoreButton} from '@Buttons/CoreButton';
 
 const ItemPendingPaymentCard = ({buttonAction, description, value}: any) => {

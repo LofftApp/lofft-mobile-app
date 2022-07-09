@@ -1,21 +1,23 @@
 import React, {useState, useEffect} from 'react';
 import {View, Text, ImageBackground, StyleSheet} from 'react-native';
 
-// Firebase
+// Firebase 🔥
 import auth from '@react-native-firebase/auth';
 import {
   attendLofftEvent,
   cancelLofftEvent,
   rejectLofftEvent,
-} from '../../api/firebase/fireStoreActions';
+} from '@Firebase/fireStoreActions';
 
 // Components 🪢
 import {CoreButton} from '@Buttons/CoreButton';
 import HalfBackgroundImage from '@Assets/banner-background-half.png';
 import TagIcon from '@Icons/TagIcon';
 
-// Styles
+// Styles 🖌
 import {fontStyles} from '@StyleSheets/FontStyleSheet';
+
+// Assets 🖼
 import color from '@Assets/lofftColorPallet.json';
 
 const EventsCard = ({event}) => {

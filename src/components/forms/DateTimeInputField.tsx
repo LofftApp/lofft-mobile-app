@@ -1,13 +1,14 @@
 import React, {useState} from 'react';
 import {Text, View, TouchableOpacity, StyleSheet} from 'react-native';
-
-// Components
 import DatePicker from 'react-native-date-picker';
 import Icon from 'react-native-vector-icons/Ionicons';
+
+// Helpers 🤷
 import {dateFormatter, timeFormatter} from '@Helpers/dateFormatter';
 
-// Styles
+// Styles 🖌
 import {fontStyles} from '@StyleSheets/FontStyleSheet';
+// Assets 🖼
 import color from '@Assets/lofftColorPallet.json';
 
 const DateTimeInputField = ({

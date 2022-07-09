@@ -7,15 +7,15 @@ import CalendarManagement from '@Calendar/CalendarManagement';
 import EventsCard from '@Cards/EventsCard';
 
 // FireStore 🔥
-import {getLofftEvents} from '../../api/firebase/fireStoreActions';
+import {getLofftEvents} from '@Firebase/fireStoreActions';
 import firestore from '@react-native-firebase/firestore';
 
-// Helpers
+// Helpers 🤷
 import {
   fullDateFormatter,
   dateStringFormatter,
   timeFormatter,
-} from '../HelperFunctions/dateFormatter';
+} from '@Helpers/dateFormatter';
 
 // Styles
 import {fontStyles} from '../../StyleSheets/FontStyleSheet';
