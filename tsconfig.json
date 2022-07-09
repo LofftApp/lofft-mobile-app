@@ -23,6 +23,12 @@
       "@Profile/*": ["./components/ProfileSection/*"],
       "@Components/*": ["./components/*"],
       // Screens
+      "@screens": ["./screens/*"],
+      "@ApartmentScreens/*": ["./screens/apartmentScreens/*"],
+      "@FinanceScreens/*": ["./screens/financeScreens/*"],
+      "@ManagementScreens/*": ["./screens/managementScreens/*"],
+      "@UserScreens/*": ["./screens/UserScreens/*"],
+      "@VisitorScreens/*": ["./screens/visitorScreens/*"],
       // Assets
       "@Assets/*": ["./assets/*"],
       // StyleSheets
