@@ -19,7 +19,7 @@ import {
 
 // Styles
 import {fontStyles} from '../../StyleSheets/FontStyleSheet';
-import color from '../../assets/defaultColorPallet.json';
+import color from '../../assets/lofftColorPallet.json';
 
 const EventsManagement = ({navigation}) => {
   // Hooks

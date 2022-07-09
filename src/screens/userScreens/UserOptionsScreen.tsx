@@ -8,7 +8,7 @@ import CustomBackButton from '@Buttons/CustomBackButton';
 import {CoreButton} from '@Buttons/CoreButton';
 
 // Stylesheets
-import color from '@Assets/defaultColorPallet.json';
+import color from '@Assets/lofftColorPallet.json';
 import {CoreStyleSheet} from '@StyleSheets/CoreDesignStyleSheet';
 import {fontStyles} from '@StyleSheets/FontStyleSheet';
 import {navigationRef} from '../../RootNavigation';

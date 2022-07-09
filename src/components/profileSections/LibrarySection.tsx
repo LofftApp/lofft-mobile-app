@@ -7,7 +7,7 @@ import FastImage from 'react-native-fast-image';
 
 // StyleSheets
 import {fontStyles} from '../../StyleSheets/FontStyleSheet';
-import color from '../../assets/defaultColorPallet.json';
+import color from '../../assets/lofftColorPallet.json';
 
 // Firestore 🔥
 import {deleteLibraryImage} from '../../api/firebase/firebaseStorage';

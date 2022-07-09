@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {View, Text, StyleSheet, Platform} from 'react-native';
 
 // StyleSheets
-import color from '@Assets/defaultColorPallet.json';
+import color from '@Assets/lofftColorPallet.json';
 import {fontStyles} from '@StyleSheets/FontStyleSheet';
 import {CoreStyleSheet} from '@StyleSheets/CoreDesignStyleSheet';
 

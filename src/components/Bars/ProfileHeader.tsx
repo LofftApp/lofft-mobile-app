@@ -19,7 +19,7 @@ import blueBackground from '../../assets/backgroundShapes/blue.png';
 import greenBackground from '../../assets/backgroundShapes/mint.png';
 
 // Styles
-import color from '../../assets/defaultColorPallet.json';
+import color from '../../assets/lofftColorPallet.json';
 import {fontStyles} from '../../StyleSheets/FontStyleSheet';
 
 const ProfileHeader = ({

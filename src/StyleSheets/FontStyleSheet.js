@@ -1,5 +1,5 @@
 import {StyleSheet} from 'react-native';
-import color from './../assets/defaultColorPallet.json';
+import color from './../assets/lofftColorPallet.json';
 
 const headerFont700 = 'Montserrat-Bold';
 const headerFont600 = 'Montserrat-SemiBold';

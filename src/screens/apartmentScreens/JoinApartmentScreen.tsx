@@ -15,7 +15,7 @@ import {navigationRef as navigation} from '../../RootNavigation';
 import {findLofft, joinLofft} from '../../api/firebase/fireStoreActions';
 
 // StyleSheets
-import color from '@Assets/defaultColorPallet.json';
+import color from '@Assets/lofftColorPallet.json';
 import {CoreStyleSheet} from '@StyleSheets/CoreDesignStyleSheet';
 import {fontStyles} from '@StyleSheets/FontStyleSheet';
 

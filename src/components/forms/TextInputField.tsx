@@ -3,7 +3,7 @@ import {Text, View, TextInput, StyleSheet} from 'react-native';
 
 // Styles
 import {fontStyles} from '../../StyleSheets/FontStyleSheet';
-import color from '../../assets/defaultColorPallet.json';
+import color from '../../assets/lofftColorPallet.json';
 
 const TextInputField = ({
   value,

@@ -3,7 +3,7 @@ import {Text, View, StyleSheet} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 // Stylesheets
-import color from '../../assets/defaultColorPallet.json';
+import color from '../../assets/lofftColorPallet.json';
 import {fontStyles} from '../../StyleSheets/FontStyleSheet';
 
 const TagIcon = ({text, userColor, idTags = false}) => {

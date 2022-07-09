@@ -5,7 +5,7 @@ import {View, Text, StyleSheet} from 'react-native';
 import EditableTextField from '../InputFields/EditableTextFields';
 
 // Styles 🖌
-import color from '../../assets/defaultColorPallet.json';
+import color from '../../assets/lofftColorPallet.json';
 import {fontStyles} from '../../StyleSheets/FontStyleSheet';
 
 const DescriptionInput = ({edit, value, newValue, onTextChange}) => {

@@ -4,7 +4,7 @@ import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 // stylesheets
-import color from '../assets/defaultColorPallet.json';
+import color from '../assets/lofftColorPallet.json';
 import {fontStyles} from '../StyleSheets/FontStyleSheet';
 
 const HobbiesAndValues = ({

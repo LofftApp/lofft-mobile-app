@@ -6,7 +6,7 @@ import {
   StyleSheet,
   TouchableOpacity,
 } from 'react-native';
-import color from '../../assets/defaultColorPallet.json';
+import color from '../../assets/lofftColorPallet.json';
 import {fontStyles} from '../../StyleSheets/FontStyleSheet';
 import HalfBackgroundImage from './../../assets/banner-background-half.png';
 import {votePoll} from '../../api/firebase/fireStoreActions';

@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, Text, ImageBackground, StyleSheet} from 'react-native';
-import color from '@Assets/defaultColorPallet.json';
+import color from '@Assets/lofftColorPallet.json';
 import {fontStyles} from '@StyleSheets/FontStyleSheet';
 import HalfBackgroundImage from '@Assets/banner-background-half.png';
 import {CoreButton} from '@Buttons/CoreButton';

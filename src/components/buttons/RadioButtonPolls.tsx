@@ -7,7 +7,7 @@ import {View, Text, StyleSheet} from 'react-native';
 import {RadioButton} from 'react-native-paper';
 import {differentApproach} from '../../api/firebase/fireStoreActions';
 
-import color from '../../assets/defaultColorPallet.json';
+import color from '../../assets/lofftColorPallet.json';
 
 const RadioButtonPolls = ({anwsers, selectQuestionById, questionId}) => {
   const [checked, setChecked] = useState('');

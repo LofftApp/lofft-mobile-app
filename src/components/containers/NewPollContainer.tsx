@@ -1,6 +1,6 @@
 import React from 'react';
 import {ImageBackground, StyleSheet} from 'react-native';
-import color from '@Assets/defaultColorPallet.json';
+import color from '@Assets/lofftColorPallet.json';
 import paymentContainerBackground from '@Assets/paymentContainer.png';
 import {CoreButton} from '@Buttons/CoreButton';
 

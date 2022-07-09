@@ -8,7 +8,6 @@
     "baseUrl": "src",
     "paths": {
       // Components
-      "@Components/*": ["./components/*"],
       "@Banners/*": ["./components/Banners/*"],
       "@Bars/*": ["./components/Bars/*"],
       "@Buttons/*": ["./components/Buttons/*"],
@@ -22,6 +21,7 @@
       "@InputFields/*": ["./components/InputFields/*"],
       "@ScreenComponents/*": ["./components/ScreenComponents/*"],
       "@Profile/*": ["./components/ProfileSection/*"],
+      "@Components/*": ["./components/*"],
       // Screens
       // Assets
       "@Assets/*": ["./assets/*"],

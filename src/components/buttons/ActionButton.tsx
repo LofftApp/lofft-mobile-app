@@ -7,7 +7,7 @@ import {
   Image,
   TouchableOpacity,
 } from 'react-native';
-import color from '../../assets/defaultColorPallet.json';
+import color from '../../assets/lofftColorPallet.json';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {fontStyles} from '../../StyleSheets/FontStyleSheet';
 import requestIcon from './../../assets/requestIcon.png';

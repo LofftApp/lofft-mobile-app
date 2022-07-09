@@ -12,7 +12,7 @@ import {
 import {libraryImageUpload} from '../../api/firebase/firebaseStorage';
 
 // stylesheets
-import * as color from '@Assets/defaultColorPallet.json';
+import * as color from '@Assets/lofftColorPallet.json';
 import {CoreStyleSheet} from '@StyleSheets/CoreDesignStyleSheet';
 import {fontStyles} from '@StyleSheets/FontStyleSheet';
 

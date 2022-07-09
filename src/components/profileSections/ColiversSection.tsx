@@ -6,7 +6,7 @@ import UserIcon from '../Icons/UserIcon';
 
 // Styles 🖌
 import {fontStyles} from '../../StyleSheets/FontStyleSheet';
-import color from '../../assets/defaultColorPallet.json';
+import color from '../../assets/lofftColorPallet.json';
 
 const ColiversSection = ({tenants, showAlert}) => {
   return (

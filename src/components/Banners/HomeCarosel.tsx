@@ -8,7 +8,7 @@ import {
   Dimensions,
 } from 'react-native';
 import {fontStyles} from '../../StyleSheets/FontStyleSheet';
-import color from '../../assets/defaultColorPallet.json';
+import color from '../../assets/lofftColorPallet.json';
 
 const {width} = Dimensions.get('screen');
 

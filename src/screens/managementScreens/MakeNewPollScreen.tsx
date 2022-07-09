@@ -23,7 +23,7 @@ import {dateFormatter} from '@Helpers/dateFormatter';
 // Styles
 import {CoreStyleSheet} from '@StyleSheets/CoreDesignStyleSheet';
 import {fontStyles} from '@StyleSheets/FontStyleSheet';
-import color from '@Assets/defaultColorPallet.json';
+import color from '@Assets/lofftColorPallet.json';
 
 // Firestore
 import {addPoll} from '../../api/firebase/fireStoreActions';

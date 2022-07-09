@@ -4,7 +4,7 @@ import {List} from 'react-native-paper';
 
 // Stylesheets 🌈
 import {fontStyles} from '@StyleSheets/FontStyleSheet';
-import * as color from '@Assets/defaultColorPallet.json';
+import * as color from '@Assets/lofftColorPallet.json';
 
 // Components 🪢
 import {CoreButton} from '../Buttons/CoreButton';

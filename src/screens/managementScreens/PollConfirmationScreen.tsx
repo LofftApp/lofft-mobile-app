@@ -3,7 +3,7 @@ import {View, Text, StyleSheet, Platform} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 // StyleSheets
-import color from '@Assets/defaultColorPallet.json';
+import color from '@Assets/lofftColorPallet.json';
 import {fontStyles} from '@StyleSheets/FontStyleSheet';
 import {CoreStyleSheet} from '@StyleSheets/CoreDesignStyleSheet';
 

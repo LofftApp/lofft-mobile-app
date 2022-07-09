@@ -8,7 +8,7 @@ import {
   Modal,
 } from 'react-native';
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
-import * as color from '@Assets/defaultColorPallet.json';
+import * as color from '@Assets/lofftColorPallet.json';
 import {fontStyles} from '@StyleSheets/FontStyleSheet';
 import {CoreButton} from '@Buttons/CoreButton';
 import {Context as UserDetails} from '../../context/UserDetailsContext';

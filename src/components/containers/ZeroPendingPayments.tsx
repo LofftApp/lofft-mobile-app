@@ -1,7 +1,7 @@
 import React from 'react';
 import {ImageBackground, Text, StyleSheet} from 'react-native';
 // StyleSheets
-import color from '../../assets/defaultColorPallet.json';
+import color from '../../assets/lofftColorPallet.json';
 import {fontStyles} from '../../StyleSheets/FontStyleSheet';
 
 import bannerBackgroundHalf from './../../assets/banner-background-half.png';

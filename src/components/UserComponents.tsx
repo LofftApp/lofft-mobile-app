@@ -2,7 +2,7 @@
 import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/Ionicons';
-import color from '../assets/defaultColorPallet.json';
+import color from '../assets/lofftColorPallet.json';
 
 // Screens
 import FinanceScreen from '../screens/financeScreens/FinanceScreen';

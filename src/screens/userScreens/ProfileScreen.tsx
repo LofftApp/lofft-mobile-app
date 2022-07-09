@@ -11,7 +11,6 @@ import {libraryImageUpload} from '../../api/firebase/firebaseStorage';
 
 // Components
 import TagIcon from '@Icons/TagIcon';
-import TagIcon from 'components/Icons/TagIcon';
 import HobbiesAndValues from '../../components/HobbiesAndValues';
 import {CoreButton} from '@Buttons/CoreButton';
 import LibrarySection from '@Profile/LibrarySection';
@@ -22,7 +21,7 @@ import DescriptionInput from '@Profile/DescriptionInput';
 import {hobbiesFormatter} from '@Helpers/hobbiesFormatter';
 
 // Stylesheets
-import color from '@Asstets/defaultColorPallet.json';
+import color from '@Assets/lofftColorPallet.json';
 import {CoreStyleSheet} from '@StyleSheets/CoreDesignStyleSheet';
 import {fontStyles} from '@StyleSheets/FontStyleSheet';
 import {navigationRef} from '../../RootNavigation';
