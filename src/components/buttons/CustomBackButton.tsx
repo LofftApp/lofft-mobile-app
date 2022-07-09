@@ -1,8 +1,11 @@
 import React from 'react';
 import {TouchableOpacity, StyleSheet, View, Text} from 'react-native';
-import color from '../../assets/defaultColorPallet.json';
 import Icon from 'react-native-vector-icons/Ionicons';
-import {fontStyles} from '../../StyleSheets/FontStyleSheet';
+
+// Assets 🖼
+import color from '@Assets/lofftColorPallet.json';
+// Stylesheets 🖌
+import {fontStyles} from '@StyleSheets/FontStyleSheet';
 
 const CustomBackButton = ({
   onPress,

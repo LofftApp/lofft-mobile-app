@@ -1,6 +1,5 @@
 import React, {useState, useEffect} from 'react';
 import {View, Text, StyleSheet, ScrollView, Alert, Modal} from 'react-native';
-import Icon from 'react-native-vector-icons/Ionicons';
 import storedHobbiesAndValues from '../../data/hobbiesAndValues.json';
 
 // Firebase 🔥
@@ -13,20 +12,19 @@ import {
 import {libraryImageUpload} from '../../api/firebase/firebaseStorage';
 
 // stylesheets
-import color from '../../assets/defaultColorPallet.json';
-import {CoreStyleSheet} from '../../StyleSheets/CoreDesignStyleSheet';
-import {fontStyles} from '../../StyleSheets/FontStyleSheet';
+import * as color from '@Assets/lofftColorPallet.json';
+import {CoreStyleSheet} from '@StyleSheets/CoreDesignStyleSheet';
+import {fontStyles} from '@StyleSheets/FontStyleSheet';
 
 // Components
-// import UserIcon from '../../components/iconsAndContainers/UserIcon';
 import {navigationRef} from '../../RootNavigation';
-import TagIcon from '../../components/iconsAndContainers/TagIcon';
+import TagIcon from '@Icons/TagIcon';
 import HobbiesAndValues from '../../components/HobbiesAndValues';
-import ProfileHeader from '../../components/bannersAndBars/ProfileHeader';
-import DescriptionInput from '../../components/profileSections/DescriptionInput';
+import ProfileHeader from '@Bars/ProfileHeader';
+import DescriptionInput from '@Profile/DescriptionInput';
 import EmojiSelector from 'react-native-emoji-selector';
-import ColiversSection from '../../components/profileSections/ColiversSection';
-import LibrarySection from '../../components/profileSections/LibrarySection';
+import ColiversSection from '@Profile/ColiversSection';
+import LibrarySection from '@Profile/LibrarySection';
 
 const LofftProfile = ({route}) => {
   const [lofftId] = useState(route.params.lofft);

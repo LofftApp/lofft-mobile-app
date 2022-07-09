@@ -1,0 +1,43 @@
+{
+  "compilerOptions": {
+    "moduleResolution": "node",
+    "target": "ES5",
+    "allowSyntheticDefaultImports": true,
+    "jsx": "react-native",
+    "resolveJsonModule": true,
+    "baseUrl": "src",
+    "paths": {
+      // API
+      "@Firebase/*": ["./api/firebase/*"],
+      // Navigation
+      "@RootNavigation": ["./RootNavigation.ts"],
+      // Components
+      "@Banners/*": ["./components/Banners/*"],
+      "@Bars/*": ["./components/Bars/*"],
+      "@Buttons/*": ["./components/Buttons/*"],
+      "@Calendar/*": ["./components/Calendar/*"],
+      "@Cards/*": ["./components/Cards/*"],
+      "@Charts": ["./components/Charts/*"],
+      "@Containers/*": ["./components/Containers/*"],
+      "@Forms/*": ["./components/Forms/*"],
+      "@Helpers/*": ["./components/HelperFunctions/*"],
+      "@Icons/*": ["./components/Icons/*"],
+      "@InputFields/*": ["./components/InputFields/*"],
+      "@ScreenComponents/*": ["./components/ScreenComponents/*"],
+      "@Profile/*": ["./components/ProfileSection/*"],
+      "@Components/*": ["./components/*"],
+      // Screens
+      "@screens": ["./screens/*"],
+      "@ApartmentScreens/*": ["./screens/apartmentScreens/*"],
+      "@FinanceScreens/*": ["./screens/financeScreens/*"],
+      "@ManagementScreens/*": ["./screens/managementScreens/*"],
+      "@UserScreens/*": ["./screens/UserScreens/*"],
+      "@VisitorScreens/*": ["./screens/visitorScreens/*"],
+      // Assets
+      "@Assets/*": ["./assets/*"],
+      // StyleSheets
+      "@StyleSheets/*": ["./StyleSheets/*"]
+    }
+  },
+  "include": ["src"]
+}

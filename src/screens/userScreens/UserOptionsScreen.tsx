@@ -4,13 +4,13 @@ import {View, Text, StyleSheet, Platform, TouchableOpacity} from 'react-native';
 import {Context as UserDetails} from '../../context/UserDetailsContext';
 
 // Components
-import CustomBackButton from '../../components/buttons/CustomBackButton';
-import {CoreButton} from '../../components/buttons/CoreButton';
+import CustomBackButton from '@Buttons/CustomBackButton';
+import {CoreButton} from '@Buttons/CoreButton';
 
 // Stylesheets
-import color from './../../assets/defaultColorPallet.json';
-import {CoreStyleSheet} from '../../StyleSheets/CoreDesignStyleSheet';
-import {fontStyles} from './../../StyleSheets/FontStyleSheet';
+import color from '@Assets/lofftColorPallet.json';
+import {CoreStyleSheet} from '@StyleSheets/CoreDesignStyleSheet';
+import {fontStyles} from '@StyleSheets/FontStyleSheet';
 import {navigationRef} from '../../RootNavigation';
 
 const UserOptionsScreen = () => {

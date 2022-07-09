@@ -1,24 +1,18 @@
-/* eslint-disable prettier/prettier */
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, {useState, useEffect} from 'react';
 import {View, Text, StyleSheet, Platform} from 'react-native';
 // StyleSheets
-import color from './../../assets/defaultColorPallet.json';
-import {CoreStyleSheet} from '../../StyleSheets/CoreDesignStyleSheet';
-import {fontStyles} from '../../StyleSheets/FontStyleSheet';
+import color from '@Assets/lofftColorPallet.json';
+import {CoreStyleSheet} from '@StyleSheets/CoreDesignStyleSheet';
+import {fontStyles} from '@StyleSheets/FontStyleSheet';
 
 // Components
-import CustomBackButton from '../../components/buttons/CustomBackButton';
-import UserIcon from '../../components/iconsAndContainers/UserIcon';
-import PaymentCard from '../../components/cards/PaymentCard';
-import {CoreButton} from '../../components/buttons/CoreButton';
-
-// Assets
-import userImage from '../../assets/user.jpeg';
+import CustomBackButton from '@Buttons/CustomBackButton';
+import UserIcon from '@Icons/UserIcon';
+import PaymentCard from '@Cards/PaymentCard';
+import {CoreButton} from '@Buttons/CoreButton';
 
 // Firebase
-import {getUser} from '../../api/firebase/firebaseApi';
-import {getCurrentUserDetails} from '../../api/firebase/fireStoreActions';
+import {getUser} from '@Firebase/firebaseApi';
 
 const MakePayment = ({navigation, route}: any) => {
   const [billDetails] = useState(route.params.billDetails);

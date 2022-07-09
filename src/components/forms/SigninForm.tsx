@@ -8,13 +8,19 @@ import {
   Modal,
 } from 'react-native';
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
-import color from '../../assets/defaultColorPallet.json';
-import {fontStyles} from '../../StyleSheets/FontStyleSheet';
-import {CoreButton} from './../buttons/CoreButton';
-import {Context as UserDetails} from '../../context/UserDetailsContext';
 import FastImage from 'react-native-fast-image';
-import UserIcon from '../../components/iconsAndContainers/UserIcon';
-import Icon from 'react-native-vector-icons/Ionicons';
+
+// Components 🪢
+import UserIcon from '@Icons/UserIcon';
+import {CoreButton} from '@Buttons/CoreButton';
+
+// Assets 🖼
+import * as color from '@Assets/lofftColorPallet.json';
+// StyleSheets 🖌
+import {fontStyles} from '@StyleSheets/FontStyleSheet';
+
+// Context 🗺
+import {Context as UserDetails} from '../../context/UserDetailsContext';
 
 const SigninForm = ({navigation, signupForm = false}: any) => {
   const [email, setEmail] = useState('');

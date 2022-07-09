@@ -1,10 +1,13 @@
 import React, {useState} from 'react';
 import {Text, View, TouchableOpacity, StyleSheet} from 'react-native';
-import {fontStyles} from '../../StyleSheets/FontStyleSheet';
-import color from '../../assets/defaultColorPallet.json';
+
+// Assets 🖼
+import * as color from '@Assets/lofftColorPallet.json';
+
+// Styles 🖌
+import {fontStyles} from '@StyleSheets/FontStyleSheet';
 
 const ToggleBar = ({dashboard, optionA, optionB}) => {
-
   const [toggled, setToggled] = useState(true);
   return (
     <View style={styles.togglePillContainer}>

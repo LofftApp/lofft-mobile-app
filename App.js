@@ -6,38 +6,35 @@ import RNBootSplash from 'react-native-bootsplash';
 import {Provider as UserDetails} from './src/context/UserDetailsContext';
 import {navigationRef} from './src/RootNavigation';
 // Screens
-import {UserComponents} from './src/components/UserComponents';
-import HomeScreen from './src/screens/HomeScreen';
-import SigninScreen from './src/screens/visitorScreens/SigninScreen';
-import SignupScreen from './src/screens/visitorScreens/SignupScreen';
-import UserOptionsScreen from './src/screens/userScreens/UserOptionsScreen';
-import ProfileScreen from './src/screens/userScreens/ProfileScreen';
+import {UserComponents} from '@Components/UserComponents';
+import HomeScreen from '@screens/HomeScreen';
+import SigninScreen from '@VisitorScreens/SigninScreen';
+import SignupScreen from '@VisitorScreens/SignupScreen';
+import UserOptionsScreen from '@UserScreens/UserOptionsScreen';
+import ProfileScreen from '@UserScreens/ProfileScreen';
 
 // Finance Screens
-import BillOverviewsScreen from './src/screens/financeScreens/BillOverviewsScreen';
-import PendingPaymentsScreen from './src/screens/financeScreens/PendingPaymentsScreen';
-import MakePaymentScreen from './src/screens/financeScreens/MakePaymentScreen';
-import PaymentSelectScreen from './src/screens/financeScreens/PaymentSelectScreen';
-import PaidConfirmationScreen from './src/screens/financeScreens/PaidConfirmationScreen';
+import BillOverviewsScreen from '@FinanceScreens/BillOverviewsScreen';
+import PendingPaymentsScreen from '@FinanceScreens/PendingPaymentsScreen';
+import MakePaymentScreen from '@FinanceScreens/MakePaymentScreen';
+import PaymentSelectScreen from '@FinanceScreens/PaymentSelectScreen';
+import PaidConfirmationScreen from '@FinanceScreens/PaidConfirmationScreen';
 
 // Management Screens
-import MakeNewPollScreen from './src/screens/managementScreens/MakeNewPollScreen';
-import MakeNewEventScreen from './src/screens/managementScreens/MakeNewEventScreen';
+import MakeNewPollScreen from '@ManagementScreens/MakeNewPollScreen';
+import MakeNewEventScreen from '@ManagementScreens/MakeNewEventScreen';
+import DeadlineScreen from '@ManagementScreens/DeadlineScreen';
+import EventConfirmationScreen from '@ManagementScreens/EventConfirmationScreen';
+import PollConfirmationScreen from '@ManagementScreens/PollConfirmationScreen';
 
-import DeadlineScreen from './src/screens/managementScreens/DeadlineScreen';
-import EventConfirmationScreen from './src/screens/managementScreens/EventConfirmationScreen';
-import PollConfirmationScreen from './src/screens/managementScreens/PollConfirmationScreen';
+// Appartment Screens
+import AddApartmentScreen from '@ApartmentScreens/AddApartmentScreen';
+import JoinApartmentScreen from '@ApartmentScreens/JoinApartmentScreen';
+import LofftProfile from '@ApartmentScreens/LofftProfile';
 
 // FireStore
 import auth from '@react-native-firebase/auth';
-// import firestore from '@react-native-firebase/firestore';
 import firestore from '@react-native-firebase/firestore';
-// import storage from '@react-native-firebase/storage';
-
-// Appartment Screens
-import AddApartmentScreen from './src/screens/apartmentScreens/AddApartmentScreen';
-import JoinApartmentScreen from './src/screens/apartmentScreens/JoinApartmentScreen';
-import LofftProfile from './src/screens/apartmentScreens/LofftProfile';
 
 const Stack = createStackNavigator();
 

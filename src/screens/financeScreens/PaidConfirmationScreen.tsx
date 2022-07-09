@@ -3,12 +3,12 @@ import {View, Text, StyleSheet, Platform} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 // StyleSheets
-import color from '../../assets/defaultColorPallet.json';
-import {fontStyles} from '../../StyleSheets/FontStyleSheet';
-import {CoreStyleSheet} from '../../StyleSheets/CoreDesignStyleSheet';
+import color from '@Assets/lofftColorPallet.json';
+import {fontStyles} from '@StyleSheets/FontStyleSheet';
+import {CoreStyleSheet} from '@StyleSheets/CoreDesignStyleSheet';
 
 // Components
-import CustomBackButton from '../../components/buttons/CustomBackButton';
+import CustomBackButton from '../../components/Buttons/CustomBackButton';
 
 const PaidConfirmationScreen = ({navigation, route}: any) => {
   const [recipient] = useState(route.params.recipient);

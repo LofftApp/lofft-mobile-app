@@ -1,4 +1,4 @@
-import React, {useState, useRef, useEffect} from 'react';
+import React, {useState, useRef} from 'react';
 import {
   View,
   Text,
@@ -12,19 +12,18 @@ import {
 import {navigationRef as navigation} from './../../RootNavigation';
 
 // Components
-import AddButtonPoll from '../../components/buttons/AddButtonPoll';
-import CustomBackButton from '../../components/buttons/CustomBackButton';
-import {CoreButton} from '../../components/buttons/CoreButton';
+import AddButtonPoll from '@Buttons/AddButtonPoll';
+import CustomBackButton from '@Buttons/CustomBackButton';
+import {CoreButton} from '@Buttons/CoreButton';
 import DatePicker from 'react-native-date-picker';
 
 // Helpers
-import {dateFormatter} from '../../components/helperFunctions/dateFormatter';
+import {dateFormatter} from '@Helpers/dateFormatter';
 
 // Styles
-import {CoreStyleSheet} from '../../StyleSheets/CoreDesignStyleSheet';
-import {fontStyles} from '../../StyleSheets/FontStyleSheet';
-import color from '../../assets/defaultColorPallet.json';
-import ToggleBar from '../../components/bannersAndBars/ToggleBar';
+import {CoreStyleSheet} from '@StyleSheets/CoreDesignStyleSheet';
+import {fontStyles} from '@StyleSheets/FontStyleSheet';
+import color from '@Assets/lofftColorPallet.json';
 
 // Firestore
 import {addPoll} from '../../api/firebase/fireStoreActions';

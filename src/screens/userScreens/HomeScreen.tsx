@@ -1,26 +1,21 @@
 import React, {useState, useEffect, useContext} from 'react';
-import {View, Text, StyleSheet, Platform, ImageBackground} from 'react-native';
-import {navigationRef as navigation} from '../../RootNavigation';
+import {View, StyleSheet, Platform} from 'react-native';
 import {Context as UserDetails} from '../../context/UserDetailsContext';
 
 // Components
-import HeaderBar from '../../components/bannersAndBars/HeaderBar';
-import ActionButton from '../../components/buttons/ActionButton';
-import {CoreButton} from '../../components/buttons/CoreButton';
-import LofftDetailsCard from '../../components/cards/LofftDetailsCard';
+import HeaderBar from '@Bars/HeaderBar';
+import ActionButton from '@Buttons/ActionButton';
+import LofftDetailsCard from '@Cards/LofftDetailsCard';
 
 // Assets
-import sendButtonBackground from './../../assets/sendButtonBackground.png';
-import requestButtonBackground from './../../assets/requestButtonBackground.png';
-import paymentContainerBackground from './../../assets/paymentContainer.png';
+import sendButtonBackground from '@Assets/sendButtonBackground.png';
+import requestButtonBackground from '@Assets/requestButtonBackground.png';
 
 // Stylesheets
-import color from '../../assets/defaultColorPallet.json';
-import {CoreStyleSheet} from '../../StyleSheets/CoreDesignStyleSheet';
-import {fontStyles} from '../../StyleSheets/FontStyleSheet';
+import * as color from '@Assets/lofftColorPallet.json';
+import {CoreStyleSheet} from '@StyleSheets/CoreDesignStyleSheet';
 
 // Firebase 🔥
-import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 
 const HomeScreen = () => {

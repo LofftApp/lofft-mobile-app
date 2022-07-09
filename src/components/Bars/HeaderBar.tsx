@@ -3,7 +3,7 @@ import {View, Text, StyleSheet} from 'react-native';
 import {navigationRef} from '../../RootNavigation';
 
 // Components
-import UserIcon from '../iconsAndContainers/UserIcon';
+import UserIcon from '../Icons/UserIcon';
 
 // Stylesheets
 import {fontStyles} from '../../StyleSheets/FontStyleSheet';

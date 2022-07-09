@@ -3,15 +3,17 @@ import {View, Text, StyleSheet} from 'react-native';
 import {List} from 'react-native-paper';
 
 // Stylesheets 🌈
-import {fontStyles} from '../../StyleSheets/FontStyleSheet';
-import color from '../../assets/defaultColorPallet.json';
+import {fontStyles} from '@StyleSheets/FontStyleSheet';
 
 // Components 🪢
-import {CoreButton} from '../buttons/CoreButton';
-import PollCard from '../../components/cards/PollCard';
+import {CoreButton} from '@Buttons/CoreButton';
+import PollCard from '@Cards/PollCard';
+
+// Assets 🖼
+import * as color from '@Assets/lofftColorPallet.json';
 
 // FireStore 🔥
-import {getUserLofft, getLofftPolls} from '../../api/firebase/fireStoreActions';
+import {getUserLofft, getLofftPolls} from '@Firebase/fireStoreActions';
 import firestore from '@react-native-firebase/firestore';
 
 const PollsManagement = ({navigation}) => {

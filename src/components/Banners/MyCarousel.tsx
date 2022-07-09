@@ -1,15 +1,8 @@
 import React, {useRef, useState, useEffect} from 'react';
-import Carousel, {ParallaxImage} from 'react-native-snap-carousel';
-import {
-  View,
-  Text,
-  Dimensions,
-  StyleSheet,
-  TouchableOpacity,
-  Platform,
-} from 'react-native';
+import Carousel from 'react-native-snap-carousel';
+import {View, Dimensions, StyleSheet, TouchableOpacity} from 'react-native';
 
-import ActiveCard from './ActiveCard';
+import ActiveCard from '@Cards/ActiveCard';
 
 const {width: screenWidth} = Dimensions.get('window');
 
@@ -25,7 +18,7 @@ const MyCarousel = props => {
     setEntries(props.userCards);
   }, []);
 
-  const renderItem = ({item, index}, parallaxProps) => {
+  const renderItem = ({item}) => {
     return (
       <View style={styles.item}>
         {/* {props.userCards.map((el,index) => <ActiveCardX key={index} type={el.type}/>)} */}
@@ -46,7 +39,6 @@ const MyCarousel = props => {
         renderItem={renderItem}
         hasParallaxImages={false}
       />
-
     </View>
   );
 };

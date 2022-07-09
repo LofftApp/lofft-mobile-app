@@ -1,9 +1,8 @@
 import React from 'react';
 import {StyleSheet, Text, TextInput} from 'react-native';
-import {black} from 'react-native-paper/lib/typescript/styles/colors';
 
-// styleSheets
-import color from '../../assets/defaultColorPallet.json';
+// Assets 🖼
+import color from '@Assets/lofftColorPallet.json';
 
 const EditableTextField = ({
   edit = false,

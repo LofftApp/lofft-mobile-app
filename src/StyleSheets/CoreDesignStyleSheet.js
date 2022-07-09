@@ -1,5 +1,5 @@
 import {StyleSheet} from 'react-native';
-import color from './../assets/defaultColorPallet.json';
+import color from './../assets/lofftColorPallet.json';
 
 export const CoreStyleSheet = StyleSheet.create({
   viewContainerStyle: {

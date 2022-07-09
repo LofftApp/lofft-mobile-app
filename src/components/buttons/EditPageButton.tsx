@@ -1,10 +1,9 @@
 import React from 'react';
 import {View, TouchableOpacity, StyleSheet} from 'react-native';
-
-// stylesheets
-import color from '../../assets/defaultColorPallet.json';
-
 import Icon from 'react-native-vector-icons/Ionicons';
+
+// Assets 🖼
+import color from '@Assets/lofftColorPallet.json';
 
 const EditPageButton = ({
   edit = false,

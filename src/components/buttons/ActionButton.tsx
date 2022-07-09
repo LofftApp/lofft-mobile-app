@@ -7,10 +7,14 @@ import {
   Image,
   TouchableOpacity,
 } from 'react-native';
-import color from '../../assets/defaultColorPallet.json';
+
+// Assets
 import Icon from 'react-native-vector-icons/Ionicons';
-import {fontStyles} from '../../StyleSheets/FontStyleSheet';
-import requestIcon from './../../assets/requestIcon.png';
+import color from '@Assets/lofftColorPallet.json';
+
+// StyleSheets 🖌
+import {fontStyles} from '@StyleSheets/FontStyleSheet';
+import requestIcon from '@Assets/requestIcon.png';
 
 const ActionButton = ({
   buttonColor,
