@@ -29,16 +29,7 @@ const CustomBackButton = ({
         ]}>
         {title}
       </Text>
-      <TouchableOpacity
-        style={[
-          styles.button,
-          close
-            ? styles.closeButton
-            : neutral
-            ? styles.neutral
-            : styles.backButton,
-        ]}
-        onPress={onPress}>
+      <TouchableOpacity onPress={onPress}>
         {close ? (
           <Icon name="close" size={35} color={color.Black[50]} />
         ) : (

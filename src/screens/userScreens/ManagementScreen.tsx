@@ -2,20 +2,17 @@
 import React, {useState, useCallback} from 'react';
 
 // React Native 📱
-import {View, Platform, SafeAreaView, ScrollView} from 'react-native';
+import {SafeAreaView, ScrollView} from 'react-native';
 
 // Components 🪢
-import HeaderBar from '@Bars/HeaderBar';
+import RootPage from '@Pages/RootPage';
 import ToggleBar from '@Bars/ToggleBar';
 import PollsManagement from '@ScreenComponents/PollsManagement';
 import EventsManagement from '@ScreenComponents/EventsManagement';
 
-// StyleSheets 🌈
-import {CoreStyleSheet} from '../../StyleSheets/CoreDesignStyleSheet';
-
 const ManagementScreen = ({navigation}: any) => {
   // User Hooks
-  const [image, setImage]: any = useState('');
+  const [image]: any = useState('');
   // Hooks
   const [calendarActive, setCalendarActive] = useState(true);
 
@@ -24,15 +21,9 @@ const ManagementScreen = ({navigation}: any) => {
   }, []);
 
   return (
-    <View
-      style={[
-        CoreStyleSheet.viewContainerStyle,
-        Platform.OS === 'ios' ? CoreStyleSheet.viewContainerIOSStyle : null,
-      ]}>
+    <RootPage name="Management" image={image}>
       <SafeAreaView>
         <ScrollView showsVerticalScrollIndicator={false}>
-          <HeaderBar title="Management" image={image} />
-
           <ToggleBar
             optionA="Events & Calendar"
             optionB="Polls"
@@ -46,7 +37,7 @@ const ManagementScreen = ({navigation}: any) => {
           )}
         </ScrollView>
       </SafeAreaView>
-    </View>
+    </RootPage>
   );
 };
 
