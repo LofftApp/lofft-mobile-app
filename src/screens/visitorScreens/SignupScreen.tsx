@@ -6,20 +6,13 @@ import {CoreStyleSheet} from '@StyleSheets/CoreDesignStyleSheet';
 // Components
 import CustomBackButton from '@Buttons/CustomBackButton';
 import SigninForm from '@Forms/SigninForm';
+import NavBackPage from '@Pages/NavBackPage';
 
 const SignupScreen = ({navigation}: any) => {
   return (
-    <View
-      style={[
-        CoreStyleSheet.viewContainerStyle,
-        Platform.OS === 'ios' ? CoreStyleSheet.viewContainerIOSStyle : null,
-      ]}>
-      <CustomBackButton
-        onPress={() => navigation.goBack()}
-        title="Create account"
-      />
+    <NavBackPage navigation={() => navigation.goBack()} title="Sign up">
       <SigninForm navigation={navigation} signupForm={true} />
-    </View>
+    </NavBackPage>
   );
 };
 
