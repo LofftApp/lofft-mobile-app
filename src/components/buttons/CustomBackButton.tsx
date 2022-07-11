@@ -29,22 +29,13 @@ const CustomBackButton = ({
         ]}>
         {title}
       </Text>
-      <TouchableOpacity
-        style={[
-          styles.button,
-          close
-            ? styles.closeButton
-            : neutral
-            ? styles.neutral
-            : styles.backButton,
-        ]}
-        onPress={onPress}>
+      <TouchableOpacity onPress={onPress}>
         {close ? (
-          <Icon name="close" size={25} color={color.Black[50]} />
+          <Icon name="close" size={35} color={color.Black[50]} />
         ) : (
           <Icon
             name="chevron-back"
-            size={25}
+            size={35}
             color={neutral ? color.Black[50] : color.Lavendar[80]}
           />
         )}
@@ -60,7 +51,6 @@ const styles = StyleSheet.create({
     alignContent: 'flex-start',
     flexDirection: 'row-reverse',
     alignItems: 'center',
-    paddingTop: 5,
   },
   headerContainClose: {
     flexDirection: 'row',
@@ -72,12 +62,6 @@ const styles = StyleSheet.create({
     width: 40,
     height: 40,
     borderRadius: 22,
-  },
-  backButton: {
-    backgroundColor: color.Lavendar[10],
-  },
-  closeButton: {
-    backgroundColor: color.Black[0],
   },
   header: {
     flex: 1,

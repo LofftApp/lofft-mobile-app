@@ -1,9 +1,9 @@
 import React, {useState, useEffect, useContext} from 'react';
-import {View, StyleSheet, Platform} from 'react-native';
+import {View, StyleSheet} from 'react-native';
 import {Context as UserDetails} from '../../context/UserDetailsContext';
 
 // Components
-import HeaderBar from '@Bars/HeaderBar';
+import RootPage from '@Pages/RootPage';
 import ActionButton from '@Buttons/ActionButton';
 import LofftDetailsCard from '@Cards/LofftDetailsCard';
 
@@ -13,7 +13,6 @@ import requestButtonBackground from '@Assets/requestButtonBackground.png';
 
 // Stylesheets
 import * as color from '@Assets/lofftColorPallet.json';
-import {CoreStyleSheet} from '@StyleSheets/CoreDesignStyleSheet';
 
 // Firebase 🔥
 import firestore from '@react-native-firebase/firestore';
@@ -57,13 +56,7 @@ const HomeScreen = () => {
     }
   }, [state]);
   return (
-    <View
-      style={[
-        CoreStyleSheet.viewContainerStyle,
-        Platform.OS === 'ios' ? CoreStyleSheet.viewContainerIOSStyle : null,
-        styles.container,
-      ]}>
-      <HeaderBar title={name ? `Hello ${name}` : 'Welcome'} image={image} />
+    <RootPage name={name} image={image} userHeader={true}>
       <LofftDetailsCard
         lofftId={lofft}
         lofftName={lofftName ? lofftName : 'You do not currently have a Lofft'}
@@ -83,14 +76,11 @@ const HomeScreen = () => {
           buttonColor={color.Gold[100]}
         />
       </View>
-    </View>
+    </RootPage>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    alignItems: 'center',
-  },
   buttonContainer: {
     width: '100%',
     flexDirection: 'row',

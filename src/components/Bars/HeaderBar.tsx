@@ -10,7 +10,7 @@ import {fontStyles} from '../../StyleSheets/FontStyleSheet';
 
 const HeaderBar = ({title, image = ''}) => {
   return (
-    <View style={styles.headerContainer}>
+    <View style={[styles.headerContainer]}>
       <Text style={fontStyles.headerMedium}>{title}</Text>
       <UserIcon
         image={image}
@@ -29,6 +29,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     flexDirection: 'row',
+    marginTop: 15,
     width: '100%',
   },
   iconStyle: {

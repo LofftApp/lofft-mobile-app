@@ -1,36 +1,27 @@
 import React, {useContext} from 'react';
-import {View, Text, StyleSheet, Platform, TouchableOpacity} from 'react-native';
+import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 // import {signout} from '../../api/firebase/firebaseApi';
 import {Context as UserDetails} from '../../context/UserDetailsContext';
 
-// Components
-import CustomBackButton from '@Buttons/CustomBackButton';
+// Components 🪢
+import NavBackPage from '@Pages/NavBackPage';
 import {CoreButton} from '@Buttons/CoreButton';
 
-// Stylesheets
+// Stylesheets 🖌
 import color from '@Assets/lofftColorPallet.json';
-import {CoreStyleSheet} from '@StyleSheets/CoreDesignStyleSheet';
 import {fontStyles} from '@StyleSheets/FontStyleSheet';
-import {navigationRef} from '../../RootNavigation';
+import {navigationRef as navigate} from '../../RootNavigation';
 
 const UserOptionsScreen = () => {
   const {signout} = useContext(UserDetails);
   return (
-    <View
-      style={[
-        CoreStyleSheet.viewContainerStyle,
-        Platform.OS === 'ios' ? CoreStyleSheet.viewContainerIOSStyle : null,
-      ]}>
-      <CustomBackButton
-        onPress={() => navigationRef.goBack()}
-        title="Options"
-      />
+    <NavBackPage navigation={() => navigate.goBack()} title="Options">
       <View>
         <View style={styles.linkContainer}>
           <TouchableOpacity
             style={styles.optionsLinkText}
             onPress={() => {
-              navigationRef.navigate('ProfileScreen');
+              navigate.navigate('ProfileScreen');
             }}>
             <Text style={[fontStyles.bodyLarge, styles.textStyle]}>
               Profile
@@ -62,7 +53,7 @@ const UserOptionsScreen = () => {
           onPress={signout}
         />
       </View>
-    </View>
+    </NavBackPage>
   );
 };
 

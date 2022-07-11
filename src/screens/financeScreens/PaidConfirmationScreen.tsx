@@ -8,7 +8,7 @@ import {fontStyles} from '@StyleSheets/FontStyleSheet';
 import {CoreStyleSheet} from '@StyleSheets/CoreDesignStyleSheet';
 
 // Components
-import CustomBackButton from '../../components/Buttons/CustomBackButton';
+import CustomBackButton from '@Buttons/CustomBackButton';
 
 const PaidConfirmationScreen = ({navigation, route}: any) => {
   const [recipient] = useState(route.params.recipient);

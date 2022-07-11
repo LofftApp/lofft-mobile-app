@@ -12,12 +12,13 @@
       // Navigation
       "@RootNavigation": ["./RootNavigation.ts"],
       // Components
+      "@Pages/*": ["./components/Pages/*"],
       "@Banners/*": ["./components/Banners/*"],
       "@Bars/*": ["./components/Bars/*"],
       "@Buttons/*": ["./components/Buttons/*"],
       "@Calendar/*": ["./components/Calendar/*"],
       "@Cards/*": ["./components/Cards/*"],
-      "@Charts": ["./components/Charts/*"],
+      "@Charts/*": ["./components/Charts/*"],
       "@Containers/*": ["./components/Containers/*"],
       "@Forms/*": ["./components/Forms/*"],
       "@Helpers/*": ["./components/HelperFunctions/*"],
