@@ -25,11 +25,11 @@ import requestIcon from '@Assets/requestIcon.png';
 
 // API Interactions
 // import {my_bills} from './../../context/BillsQuery';
-// import {billQuery} from '../../api/firebase/fireStoreActions';
+import {billQuery} from '@Firebase/fireStoreActions';
 
-import TestChartWeek from '../../components/Charts/TestChartWeek';
-import TestChartMonth from '../../components/Charts/TestChartMonth';
-import TestChartYear from '../../components/Charts/TestChartYear';
+import TestChartWeek from '@Charts/TestChartWeek';
+import TestChartMonth from '@Charts/TestChartMonth';
+import TestChartYear from '@Charts/TestChartYear';
 
 const FinanceScreen = ({navigation}: any) => {
   const [owed, setOwed] = useState(0);
