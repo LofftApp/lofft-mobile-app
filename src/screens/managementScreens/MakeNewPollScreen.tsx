@@ -1,4 +1,4 @@
-import React, {useState, useRef, useEffect} from 'react';
+import React, {useState, useRef} from 'react';
 import {
   View,
   Text,
@@ -12,19 +12,18 @@ import {
 import {navigationRef as navigation} from './../../RootNavigation';
 
 // Components
-import AddButtonPoll from '../../components/buttons/AddButtonPoll';
-import CustomBackButton from '../../components/buttons/CustomBackButton';
-import {CoreButton} from '../../components/buttons/CoreButton';
+import AddButtonPoll from '@Buttons/AddButtonPoll';
+import CustomBackButton from '@Buttons/CustomBackButton';
+import {CoreButton} from '@Buttons/CoreButton';
 import DatePicker from 'react-native-date-picker';
 
 // Helpers
-import {dateFormatter} from '../../components/helperFunctions/dateFormatter';
+import {dateFormatter} from '@Helpers/dateFormatter';
 
 // Styles
-import {CoreStyleSheet} from '../../StyleSheets/CoreDesignStyleSheet';
-import {fontStyles} from '../../StyleSheets/FontStyleSheet';
-import color from '../../assets/defaultColorPallet.json';
-import ToggleBar from '../../components/bannersAndBars/ToggleBar';
+import {CoreStyleSheet} from '@StyleSheets/CoreDesignStyleSheet';
+import {fontStyles} from '@StyleSheets/FontStyleSheet';
+import color from '@Assets/lofftColorPallet.json';
 
 // Firestore
 import {addPoll} from '../../api/firebase/fireStoreActions';
@@ -38,7 +37,7 @@ const MakeNewPollScreen = () => {
   const [date, setDate] = useState(new Date());
   const [noDate, setNoDate] = useState(true);
   const [open, setOpen] = useState(false);
-  const [multipleAnwser, setmultipleAnwsers] = useState(false);
+  const [multipleAnwser, setmultipleAnwsers] = useState(true);
 
   const alpha = [
     'a',
@@ -195,47 +194,6 @@ const MakeNewPollScreen = () => {
             </View>
           </View>
 
-          <View style={styles.multipleAnwserOuterContainer}>
-            <Text style={fontStyles.buttonTextMedium}>
-              Allow multiple anwsers?
-            </Text>
-            <View style={styles.multipleAnwserInnerContainer}>
-              {multipleAnwser ? (
-                <TouchableOpacity
-                  style={styles.yesMultipleButtonTern}
-                  onPress={activateMultipleAnwsers}>
-                  <Text style={[fontStyles.buttonTextSmall, {color: 'white'}]}>
-                    Yes
-                  </Text>
-                </TouchableOpacity>
-              ) : (
-                <TouchableOpacity
-                  style={styles.yesMultipleButton}
-                  onPress={activateMultipleAnwsers}>
-                  <Text
-                    style={[
-                      fontStyles.buttonTextSmall,
-                      {color: color.Lavendar[100]},
-                    ]}>
-                    Yes
-                  </Text>
-                </TouchableOpacity>
-              )}
-
-              <TouchableOpacity
-                style={styles.yesMultipleButton}
-                onPress={activateMultipleAnwsers}>
-                <Text
-                  style={[
-                    fontStyles.buttonTextSmall,
-                    {color: color.Lavendar[100]},
-                  ]}>
-                  No
-                </Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-
           <View style={styles.actionButtonContainer}>
             <CoreButton
               value="Post the poll!"
@@ -243,12 +201,7 @@ const MakeNewPollScreen = () => {
               onPress={() =>
                 navigation.navigate(
                   'Managment',
-                  addPoll(
-                    question,
-                    refInputs,
-                    noDate ? null : date,
-                    multipleAnwser,
-                  ),
+                  addPoll(question, refInputs, noDate ? null : date),
                 )
               }
             />

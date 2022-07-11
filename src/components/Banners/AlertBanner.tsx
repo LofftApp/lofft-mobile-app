@@ -2,8 +2,8 @@ import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 
 // Style Sheets
-import color from '../../assets/defaultColorPallet.json';
-import {fontStyles} from '../../StyleSheets/FontStyleSheet';
+import color from '@Assets/lofftColorPallet.json';
+import {fontStyles} from '@StyleSheets/FontStyleSheet';
 
 const AlertBanner = ({alertType, message}) => {
   const type = alertType;

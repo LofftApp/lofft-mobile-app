@@ -2,28 +2,28 @@ import React, {useState, useEffect} from 'react';
 import {View, Text, StyleSheet, ScrollView} from 'react-native';
 
 // Components 🪢
-import {CoreButton} from '../../components/buttons/CoreButton';
-import CalendarManagement from '../../components/calendar/CalendarManagement';
-import EventsCard from '../cards/EventsCard';
+import {CoreButton} from '@Buttons/CoreButton';
+import CalendarManagement from '@Calendar/CalendarManagement';
+import EventsCard from '@Cards/EventsCard';
 
 // FireStore 🔥
-import {getLofftEvents} from '../../api/firebase/fireStoreActions';
+import {getLofftEvents} from '@Firebase/fireStoreActions';
 import firestore from '@react-native-firebase/firestore';
 
-// Helpers
+// Helpers 🤷
 import {
   fullDateFormatter,
   dateStringFormatter,
   timeFormatter,
-} from '../../components/helperFunctions/dateFormatter';
+} from '@Helpers/dateFormatter';
 
 // Styles
 import {fontStyles} from '../../StyleSheets/FontStyleSheet';
-import color from '../../assets/defaultColorPallet.json';
+import color from '../../assets/lofftColorPallet.json';
 
 const EventsManagement = ({navigation}) => {
   // Hooks
-  const [userEventsDates, setUserEventsDates] = useState(null);
+  const [userEventsDates, setUserEventsDates] = useState([]);
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [formattedSelectedDate, setFormattedSelectedDate] = useState(
     dateStringFormatter(selectedDate),
@@ -31,6 +31,7 @@ const EventsManagement = ({navigation}) => {
   const [events, setEvents] = useState(null);
   const [selectedEvent, setSelectedEvents] = useState(null);
   const [fullDate, setFullDate] = useState(null);
+
   const addEventsToDate = events => {
     let answer = [];
     events.forEach(event => {

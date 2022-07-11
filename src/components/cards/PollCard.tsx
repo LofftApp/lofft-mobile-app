@@ -6,14 +6,20 @@ import {
   StyleSheet,
   TouchableOpacity,
 } from 'react-native';
-import color from '../../assets/defaultColorPallet.json';
-import {fontStyles} from '../../StyleSheets/FontStyleSheet';
-import HalfBackgroundImage from './../../assets/banner-background-half.png';
-import {votePoll} from '../../api/firebase/fireStoreActions';
-import ResultBars from '../bannersAndBars/ResultBars';
 
-// Firestore
+// Firestore 🔥
 import auth from '@react-native-firebase/auth';
+import {votePoll} from '@Firebase/fireStoreActions';
+
+// Components 🪢
+import ResultBars from '@Bars/ResultBars';
+
+// Assets 🖼
+import HalfBackgroundImage from '@Assets/banner-background-half.png';
+import color from '@Assets/lofftColorPallet.json';
+
+// StyleSheets 🖌
+import {fontStyles} from '@StyleSheets/FontStyleSheet';
 
 const PollCard = ({value, inactive = false}) => {
   const [pollValue] = useState(value.data());

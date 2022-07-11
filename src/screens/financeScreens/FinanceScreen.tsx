@@ -2,29 +2,29 @@ import React, {useState, useEffect, useCallback} from 'react';
 import {Pressable, View, Text, StyleSheet, Platform} from 'react-native';
 
 // StyleSheets
-import color from '../../assets/defaultColorPallet.json';
-import {CoreStyleSheet} from '../../StyleSheets/CoreDesignStyleSheet';
-import {fontStyles} from '../../StyleSheets/FontStyleSheet';
+import * as color from '@Assets/lofftColorPallet.json';
+import {CoreStyleSheet} from '@StyleSheets/CoreDesignStyleSheet';
+import {fontStyles} from '@StyleSheets/FontStyleSheet';
 
 // Components
-import HeaderBar from '../../components/bannersAndBars/HeaderBar';
-import ActionButton from '../../components/buttons/ActionButton';
-import PendingPaymentContainer from '../../components/iconsAndContainers/PendingPaymentContainer';
-import ZeroPendingPaymentsContainer from '../../components/iconsAndContainers/ZeroPendingPayments';
-import ToggleBar from '../../components/bannersAndBars/ToggleBar';
+import HeaderBar from '@Bars/HeaderBar';
+import ActionButton from '@Buttons/ActionButton';
+import PendingPaymentContainer from '@Containers/PendingPaymentContainer';
+import ZeroPendingPaymentsContainer from '@Containers/ZeroPendingPayments';
+import ToggleBar from '@Bars/ToggleBar';
 
 // Assets
-import sendButtonBackground from './../../assets/sendButtonBackground.png';
-import requestButtonBackground from './../../assets/requestButtonBackground.png';
-import requestIcon from './../../assets/requestIcon.png';
+import sendButtonBackground from '@Assets/sendButtonBackground.png';
+import requestButtonBackground from '@Assets/requestButtonBackground.png';
+import requestIcon from '@Assets/requestIcon.png';
 
 // API Interactions
 // import {my_bills} from './../../context/BillsQuery';
 import {billQuery} from '../../api/firebase/fireStoreActions';
 
-import TestChartWeek from '../../components/charts/TestChartWeek';
-import TestChartMonth from '../../components/charts/TestChartMonth';
-import TestChartYear from '../../components/charts/TestChartYear';
+import TestChartWeek from '../../components/Charts/TestChartWeek';
+import TestChartMonth from '../../components/Charts/TestChartMonth';
+import TestChartYear from '../../components/Charts/TestChartYear';
 
 // Fierstore
 import auth from '@react-native-firebase/auth';

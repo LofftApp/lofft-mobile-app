@@ -10,13 +10,15 @@ import {
 } from 'react-native';
 
 // StyleSheet
-import color from '../../assets/defaultColorPallet.json';
-import {fontStyles} from '../../StyleSheets/FontStyleSheet';
-import {CoreStyleSheet} from '../../StyleSheets/CoreDesignStyleSheet';
+import color from '@Assets/lofftColorPallet.json';
+import {fontStyles} from '@StyleSheets/FontStyleSheet';
+
+// import {CoreStyleSheet} from '@StyleSheets/CoreDesignStyleSheet';
+import {CoreStyleSheet} from '@StyleSheets/CoreDesignStyleSheet.js';
 
 // Components
-import CustomBackButton from '../../components/buttons/CustomBackButton';
-import {CoreButton} from '../../components/buttons/CoreButton';
+import CustomBackButton from '../../components/Buttons/CustomBackButton';
+import {CoreButton} from '../../components/Buttons/CoreButton';
 
 const BillOverviewsScreen = ({navigation, route}: any) => {
   const [nowActive, setNowActive] = useState(true);

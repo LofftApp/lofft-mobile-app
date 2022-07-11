@@ -1,26 +1,16 @@
 import React from 'react';
 
-import {
-  View,
-  Text,
-  StyleSheet,
-  TextInput,
-  Pressable,
-  TouchableOpacity,
-  SafeAreaView,
-  ScrollView,
-} from 'react-native';
+import {View, StyleSheet, Platform} from 'react-native';
 
 // Stylesheets
-import {CoreStyleSheet} from '../../StyleSheets/CoreDesignStyleSheet';
-import {fontStyles} from '../../StyleSheets/FontStyleSheet';
+import {CoreStyleSheet} from '@StyleSheets/CoreDesignStyleSheet';
 
 // Components
-import {CoreButton} from '../../components/buttons/CoreButton';
-import CustomBackButton from '../../components/buttons/CustomBackButton';
-import CalendarManagement from '../../components/calendar/CalendarManagement';
+import {CoreButton} from '@Buttons/CoreButton';
+import CustomBackButton from '@Buttons/CustomBackButton';
+import CalendarManagement from '@Calendar/CalendarManagement';
 
-const DeadlineScreen = ({ navigation, route }: any) => {
+const DeadlineScreen = ({navigation, route}: any) => {
   // console.log(`Hello this is the deadlinescreen:${route.params.fetchdate.fetchdate}`);
   return (
     <View
@@ -33,7 +23,7 @@ const DeadlineScreen = ({ navigation, route }: any) => {
         title="Set Deadline"
       />
 
-      <CalendarManagement fetchdate={route.params.fetchdate.fetchdate}  />
+      <CalendarManagement fetchdate={route.params.fetchdate.fetchdate} />
 
       <View style={styles.addDeadlineButtonContainer}>
         <CoreButton
@@ -48,16 +38,11 @@ const DeadlineScreen = ({ navigation, route }: any) => {
 };
 
 const styles = StyleSheet.create({
-  addDeadlineButtonContainer:{
+  addDeadlineButtonContainer: {
     backgroundColor: 'white',
     display: 'flex',
     justifyContent: 'flex-start',
   },
-
-  addDeadlineButtonContainer:{
-    marginVertical: 240,
-  },
-
   button: {
     marginVertical: 5,
   },

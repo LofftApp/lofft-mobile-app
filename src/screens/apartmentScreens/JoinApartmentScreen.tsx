@@ -15,16 +15,16 @@ import {navigationRef as navigation} from '../../RootNavigation';
 import {findLofft, joinLofft} from '../../api/firebase/fireStoreActions';
 
 // StyleSheets
-import color from '../../assets/defaultColorPallet.json';
-import {CoreStyleSheet} from '../../StyleSheets/CoreDesignStyleSheet';
-import {fontStyles} from '../../StyleSheets/FontStyleSheet';
+import color from '@Assets/lofftColorPallet.json';
+import {CoreStyleSheet} from '@StyleSheets/CoreDesignStyleSheet';
+import {fontStyles} from '@StyleSheets/FontStyleSheet';
 
 // Componenets
-import CustomBackButton from '../../components/buttons/CustomBackButton';
-import {CoreButton} from '../../components/buttons/CoreButton';
+import CustomBackButton from '@Buttons/CustomBackButton';
+import {CoreButton} from '@Buttons/CoreButton';
 
 // Images
-import paymentContainerBackground from './../../assets/paymentContainer.png';
+import paymentContainerBackground from '@Assets/paymentContainer.png';
 
 const JoinApartmentScreen = () => {
   const [formInput, setFormInput] = useState('');

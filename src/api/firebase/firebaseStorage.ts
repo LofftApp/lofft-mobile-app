@@ -7,7 +7,7 @@ import {
   uploadLibraryImagesToUserProfile,
   deleteImageFromImageLibraryRef,
 } from './fireStoreActions';
-import {addImageToAuth} from './firebaseApi';
+import {addImageToAuth} from '@Firebase/firebaseApi';
 import auth from '@react-native-firebase/auth';
 
 if (__DEV__) {

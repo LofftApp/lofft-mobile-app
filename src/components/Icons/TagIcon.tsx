@@ -2,9 +2,11 @@ import React from 'react';
 import {Text, View, StyleSheet} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 
-// Stylesheets
-import color from '../../assets/defaultColorPallet.json';
-import {fontStyles} from '../../StyleSheets/FontStyleSheet';
+// Stylesheets 🖌
+import {fontStyles} from '@StyleSheets/FontStyleSheet';
+
+// Assets 🖼
+import * as color from '@Assets/lofftColorPallet.json';
 
 const TagIcon = ({text, userColor, idTags = false}) => {
   let pillColor = '';

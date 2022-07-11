@@ -1,16 +1,18 @@
 import React from 'react';
 import {View, Text, TouchableOpacity, StyleSheet, FlatList} from 'react-native';
 
-// Components
+// Components 🪢
 import Icon from 'react-native-vector-icons/Ionicons';
 import FastImage from 'react-native-fast-image';
 
-// StyleSheets
-import {fontStyles} from './../../StyleSheets/FontStyleSheet';
-import color from './../../assets/defaultColorPallet.json';
+// StyleSheets 🖌
+import {fontStyles} from '@StyleSheets/FontStyleSheet';
+
+// Assets 🖼
+import color from '@Assets/lofftColorPallet.json';
 
 // Firestore 🔥
-import {deleteLibraryImage} from '../../api/firebase/firebaseStorage';
+import {deleteLibraryImage} from '@Firebase/firebaseStorage';
 
 const LibrarySection = ({library, onPress, edit}) => {
   const DATA = library;

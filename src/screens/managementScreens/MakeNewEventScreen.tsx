@@ -2,15 +2,15 @@ import React, {useState} from 'react';
 import {Text, View, StyleSheet, Platform, ScrollView} from 'react-native';
 
 // Components
-import CustomBackButton from '../../components/buttons/CustomBackButton';
-import {CoreButton} from '../../components/buttons/CoreButton';
-import TextInputField from '../../components/forms/TextInputField';
-import DateTimeInputField from '../../components/forms/DateTimeInputField';
-import UserIcon from '../../components/iconsAndContainers/UserIcon';
+import CustomBackButton from '@Buttons/CustomBackButton';
+import {CoreButton} from '@Buttons/CoreButton';
+import TextInputField from '@Forms/TextInputField';
+import DateTimeInputField from '@Forms/DateTimeInputField';
+import UserIcon from '@Icons/UserIcon';
 
 // Styles
-import {CoreStyleSheet} from '../../StyleSheets/CoreDesignStyleSheet';
-import {fontStyles} from '../../StyleSheets/FontStyleSheet';
+import {CoreStyleSheet} from '@StyleSheets/CoreDesignStyleSheet';
+import {fontStyles} from '@StyleSheets/FontStyleSheet';
 
 // Firestore
 import {addEvent} from '../../api/firebase/fireStoreActions';

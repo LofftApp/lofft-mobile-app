@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {
   View,
   Text,
@@ -6,21 +6,21 @@ import {
   ImageBackground,
   StyleSheet,
 } from 'react-native';
-
-// Components
-import CustomBackButton from '../buttons/CustomBackButton';
-import EditPageButton from '../buttons/EditPageButton';
-import EditableTextField from '../inputFields/EditableTextFields';
 import FastImage from 'react-native-fast-image';
-import UserIcon from '../iconsAndContainers/UserIcon';
 
-// Images
-import blueBackground from '../../assets/backgroundShapes/blue.png';
-import greenBackground from '../../assets/backgroundShapes/mint.png';
+// Components 🪢
+import CustomBackButton from '@Buttons/CustomBackButton';
+import EditPageButton from '@Buttons/EditPageButton';
+import EditableTextField from '@InputFields/EditableTextFields';
+import UserIcon from '@Icons/UserIcon';
 
-// Styles
-import color from '../../assets/defaultColorPallet.json';
-import {fontStyles} from '../../StyleSheets/FontStyleSheet';
+// Assets 🖼
+import blueBackground from '@Assets/backgroundShapes/blue.png';
+import greenBackground from '@Assets/backgroundShapes/mint.png';
+import * as color from '@Assets/lofftColorPallet.json';
+
+// Styles 🖌
+import {fontStyles} from '@StyleSheets/FontStyleSheet';
 
 const ProfileHeader = ({
   navigation,

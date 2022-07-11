@@ -1,12 +1,14 @@
 import React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import {StyleSheet} from 'react-native';
 
 // Components 🪢
-import EditableTextField from '../inputFields/EditableTextFields';
+import EditableTextField from '@InputFields/EditableTextFields';
 
 // Styles 🖌
-import color from '../../assets/defaultColorPallet.json';
-import {fontStyles} from '../../StyleSheets/FontStyleSheet';
+import {fontStyles} from '@StyleSheets/FontStyleSheet';
+
+// Assets 🖼
+import * as color from '@Assets/lofftColorPallet.json';
 
 const DescriptionInput = ({edit, value, newValue, onTextChange}) => {
   return (

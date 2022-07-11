@@ -1,18 +1,16 @@
-import React, { useState } from 'react';
-import { View, Text, StyleSheet, Platform } from 'react-native';
+import React from 'react';
+import {View, Text, StyleSheet, Platform} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 // StyleSheets
-import color from '../../assets/defaultColorPallet.json';
-import { fontStyles } from '../../StyleSheets/FontStyleSheet';
-import { CoreStyleSheet } from '../../StyleSheets/CoreDesignStyleSheet';
+import color from '@Assets/lofftColorPallet.json';
+import {fontStyles} from '@StyleSheets/FontStyleSheet';
+import {CoreStyleSheet} from '@StyleSheets/CoreDesignStyleSheet';
 
 // Components
-import CustomBackButton from '../../components/buttons/CustomBackButton';
+import CustomBackButton from '@Buttons/CustomBackButton';
 
-const EventConfirmationScreen = ({ navigation, route }: any) => {
-
-
+const EventConfirmationScreen = ({navigation}: any) => {
   return (
     <View
       style={[
@@ -26,13 +24,14 @@ const EventConfirmationScreen = ({ navigation, route }: any) => {
       />
       <View style={styles.pageContainer}>
         <Icon
-          style={{ marginLeft: 3 }}
+          style={{marginLeft: 3}}
           name="checkmark-circle"
           size={112}
           color={color.Mint[100]}
         />
         <Text style={[fontStyles.buttonTextLarge, styles.subHeader]}>
-          Relax !! {"\n"} Your event has been added to the calender  {"\n"} 🚀  🚀  🚀
+          Relax !! {'\n'} Your event has been added to the calender {'\n'} 🚀 🚀
+          🚀
         </Text>
         <Text style={fontStyles.bodyMedium}></Text>
       </View>
@@ -54,7 +53,7 @@ const styles = StyleSheet.create({
   },
   subHeader: {
     marginVertical: 20,
-    textAlign:'center',
+    textAlign: 'center',
   },
 });
 
