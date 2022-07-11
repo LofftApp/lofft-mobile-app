@@ -7,13 +7,13 @@ import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 
 // Components 🪢
-import HeaderBar from '../../components/bannersAndBars/HeaderBar';
-import {CoreButton} from '../../components/buttons/CoreButton';
+import HeaderBar from '@Bars/HeaderBar';
+import {CoreButton} from '@Buttons/CoreButton';
 
 // Style Sheets 🖌
-import {CoreStyleSheet} from '../../StyleSheets/CoreDesignStyleSheet';
-import {fontStyles} from '../../StyleSheets/FontStyleSheet';
-import color from '../../assets/defaultColorPallet.json';
+import {CoreStyleSheet} from '@StyleSheets/CoreDesignStyleSheet';
+import {fontStyles} from '@StyleSheets/FontStyleSheet';
+import color from '@Assets/lofftColorPallet.json';
 
 const AccountSettingsScreen = () => {
   const [pronoun, setPronoun] = useState('');
