@@ -12,6 +12,7 @@
       // Navigation
       "@RootNavigation": ["./RootNavigation.ts"],
       // Components
+      "@Pages/*": ["./components/Pages/*"],
       "@Banners/*": ["./components/Banners/*"],
       "@Bars/*": ["./components/Bars/*"],
       "@Buttons/*": ["./components/Buttons/*"],

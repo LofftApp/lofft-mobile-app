@@ -1,15 +1,14 @@
 import {StyleSheet} from 'react-native';
-import color from './../assets/lofftColorPallet.json';
+import * as color from '@Assets/lofftColorPallet.json';
 
 export const CoreStyleSheet = StyleSheet.create({
   viewContainerStyle: {
     backgroundColor: color.White[100],
-    height: '100%',
     flex: 1,
     paddingHorizontal: 25,
-    paddingTop: 15,
+    paddingTop: 5,
   },
   viewContainerIOSStyle: {
-    paddingTop: 65,
+    paddingTop: 35,
   },
 });

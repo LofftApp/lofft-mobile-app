@@ -1,19 +1,24 @@
 import React, {useState, useEffect, useCallback} from 'react';
 import {Pressable, View, Text, StyleSheet, Platform} from 'react-native';
 
-// StyleSheets
+// Fierstore 🔥
+import auth from '@react-native-firebase/auth';
+import firestore from '@react-native-firebase/firestore';
+
+// StyleSheets 🖌
 import * as color from '@Assets/lofftColorPallet.json';
 import {CoreStyleSheet} from '@StyleSheets/CoreDesignStyleSheet';
 import {fontStyles} from '@StyleSheets/FontStyleSheet';
 
-// Components
+// Components 🪢
+import RootPage from '@Pages/RootPage';
 import HeaderBar from '@Bars/HeaderBar';
 import ActionButton from '@Buttons/ActionButton';
 import PendingPaymentContainer from '@Containers/PendingPaymentContainer';
 import ZeroPendingPaymentsContainer from '@Containers/ZeroPendingPayments';
 import ToggleBar from '@Bars/ToggleBar';
 
-// Assets
+// Assets 🖼
 import sendButtonBackground from '@Assets/sendButtonBackground.png';
 import requestButtonBackground from '@Assets/requestButtonBackground.png';
 import requestIcon from '@Assets/requestIcon.png';
@@ -25,10 +30,6 @@ import {billQuery} from '@Firebase/fireStoreActions';
 import TestChartWeek from '@Charts/TestChartWeek';
 import TestChartMonth from '@Charts/TestChartMonth';
 import TestChartYear from '@Charts/TestChartYear';
-
-// Fierstore
-import auth from '@react-native-firebase/auth';
-import firestore from '@react-native-firebase/firestore';
 
 const FinanceScreen = ({navigation}: any) => {
   const [owed, setOwed] = useState(0);
@@ -102,12 +103,7 @@ const FinanceScreen = ({navigation}: any) => {
   }, []);
 
   return (
-    <View
-      style={[
-        CoreStyleSheet.viewContainerStyle,
-        Platform.OS === 'ios' ? CoreStyleSheet.viewContainerIOSStyle : null,
-      ]}>
-      <HeaderBar title="Your Finances" image={image} />
+    <RootPage name="Your Finances" image={image}>
       <ToggleBar
         optionA="Dashboard"
         optionB="History"
@@ -193,7 +189,7 @@ const FinanceScreen = ({navigation}: any) => {
           </Text>
         </View>
       )}
-    </View>
+    </RootPage>
   );
 };
 
