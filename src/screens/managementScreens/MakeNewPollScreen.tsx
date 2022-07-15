@@ -7,7 +7,6 @@ import {
   Pressable,
   TouchableOpacity,
   SafeAreaView,
-  ScrollView,
 } from 'react-native';
 import {navigationRef as navigation} from './../../RootNavigation';
 
