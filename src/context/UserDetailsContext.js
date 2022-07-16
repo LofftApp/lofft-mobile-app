@@ -1,4 +1,5 @@
 import createUserDetailsContext from './createUserDetailsContext';
+import {signup as signupFirebase} from '@Firebase/firebaseUser';
 // import * as RootNavigation from '../RootNavigation';
 
 // Firebase 🔥
@@ -42,30 +43,13 @@ const authReducer = (state, action) => {
 const signup =
   dispatch =>
   async ({email, password}) => {
-    auth()
-      .createUserWithEmailAndPassword(email, password)
-      .then(response => {
-        const userProfile = {tags: {}, diet: '', pronouns: ''};
-        const looking = false;
-        firestore()
-          .collection('Users')
-          .doc(response.user.uid)
-          .set({uid: response.user.uid, email, userProfile, looking});
-      })
-      .catch(error => {
-        if (error.code === 'auth/email-already-in-use') {
-          dispatch({
-            type: 'add_error',
-            payload: 'This e-mail has already been used',
-          });
-        }
-        if (error.code === 'auth/invalid-email') {
-          dispatch({
-            type: 'add_error',
-            payload: 'This e-mail is not valid',
-          });
-        }
-      });
+    const response = await signupFirebase({email, password});
+    if (response.type === 'Error') {
+      dispatch({type: 'add_error', payload: response.message});
+      return;
+    }
+    // console.log(response.user);
+    dispatch({type: 'signin', payload: response});
   };
 
 const signin =

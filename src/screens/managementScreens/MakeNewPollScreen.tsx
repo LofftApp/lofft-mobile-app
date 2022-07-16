@@ -10,12 +10,12 @@ import {
   ScrollView,
 } from 'react-native';
 import {navigationRef as navigation} from './../../RootNavigation';
+import DatePicker from 'react-native-date-picker';
 
 // Components
 import AddButtonPoll from '@Buttons/AddButtonPoll';
 import CustomBackButton from '@Buttons/CustomBackButton';
 import {CoreButton} from '@Buttons/CoreButton';
-import DatePicker from 'react-native-date-picker';
 
 // Helpers
 import {dateFormatter} from '@Helpers/dateFormatter';
