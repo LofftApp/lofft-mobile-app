@@ -1,4 +1,5 @@
 import auth from '@react-native-firebase/auth';
+import {authError} from '@Helpers/authErrorHandling';
 import firestore from '@react-native-firebase/firestore';
 import {dateStringFormatter} from '@Helpers/dateFormatter';
 
@@ -12,24 +13,13 @@ export const signup = async ({email, password}) => {
       email,
       password,
     );
-    return response;
+    console.log(response);
     // firestore()
     //   .collection('Users')
     //   .doc(response.user.uid)
     //   .set({uid: response.user.uid, email, userProfile, looking});
   } catch (error) {
-    return error;
-    switch (error.code) {
-      case 'auth/email-already-in-use':
-        console.log('This e-mail is already registered');
-        break;
-      case 'auth/invalid-email':
-        console.log('Please use a valid e-mail');
-        break;
-      default:
-        console.log('Something went wrong');
-        break;
-    }
+    return authError(error.code);
   }
 };
 
@@ -39,20 +29,7 @@ export const signin = ({email, password}) => {
   try {
     auth().signInWithEmailAndPassword(email, password);
   } catch (error) {
-    switch (error.code) {
-      case 'auth/email-already-in-use':
-        console.log('This e-mail is already registered');
-        break;
-      case 'auth/invalid-email':
-        console.log('Please use a valid e-mail');
-        break;
-      case 'auth/wrong-password':
-        console.log('Wrong password entered');
-        break;
-      default:
-        console.log('Something went wrong');
-        break;
-    }
+    return authError(error.code);
   }
 };
 

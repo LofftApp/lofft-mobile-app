@@ -44,6 +44,9 @@ const signup =
   dispatch =>
   async ({email, password}) => {
     const response = await signupFirebase({email, password});
+    if (response.type === 'Error') {
+      dispatch({type: 'add_error', payload: response.message});
+    }
   };
 
 const signin =
