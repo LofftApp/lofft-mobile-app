@@ -21,7 +21,7 @@
       "@Charts/*": ["./components/Charts/*"],
       "@Containers/*": ["./components/Containers/*"],
       "@Forms/*": ["./components/Forms/*"],
-      "@Helpers/*": ["./components/HelperFunctions/*"],
+      "@Helpers/*": ["./HelperFunctions/*"],
       "@Icons/*": ["./components/Icons/*"],
       "@InputFields/*": ["./components/InputFields/*"],
       "@ScreenComponents/*": ["./components/ScreenComponents/*"],

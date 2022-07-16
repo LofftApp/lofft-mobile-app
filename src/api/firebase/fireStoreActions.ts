@@ -13,9 +13,9 @@ export const userDetailsUpdate = () => {
     if (user) {
       firestore()
         .collection('Users')
-        .where('uid', '==', user.uid)
+        .doc('uid')
         .onSnapshot(snapShot => {
-          snapShot.docs[0].data();
+          snapShot.data();
         });
     } else {
       console.log('Unauth');
