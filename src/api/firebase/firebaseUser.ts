@@ -7,17 +7,17 @@ import {dateStringFormatter} from '@Helpers/dateFormatter';
 // ========================================
 export const signup = async ({email, password}) => {
   try {
-    // const userProfile = {tags: {}, diet: '', pronouns: ''};
-    // const looking = false;
+    const userProfile = {tags: {}, diet: '', pronouns: ''};
+    const looking = false;
     const response = await auth().createUserWithEmailAndPassword(
       email,
       password,
     );
-    console.log(response);
-    // firestore()
-    //   .collection('Users')
-    //   .doc(response.user.uid)
-    //   .set({uid: response.user.uid, email, userProfile, looking});
+    firestore()
+      .collection('Users')
+      .doc(response.user.uid)
+      .set({uid: response.user.uid, email, userProfile, looking});
+    return {type: 'Success', response};
   } catch (error) {
     return authError(error.code);
   }
