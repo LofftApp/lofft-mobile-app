@@ -32,6 +32,9 @@ import AddApartmentScreen from '@ApartmentScreens/AddApartmentScreen';
 import JoinApartmentScreen from '@ApartmentScreens/JoinApartmentScreen';
 import LofftProfile from '@ApartmentScreens/LofftProfile';
 
+// Setting screens
+import AccountSettingsScreen from './src/screens/settingScreens/AccountSettingsScreen';
+
 // FireStore
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
@@ -56,7 +59,7 @@ const App = () => {
       console.log('FireStore Development Environment');
       let host = 'localhost';
       // If using Mobile device set the host as local IP
-      // host = '192.168.7.156';
+      // host = '192.168.1.33';
       firestore().useEmulator(host, 8080);
       auth().useEmulator(`http://${host}:9099`);
     }
@@ -156,6 +159,12 @@ const App = () => {
           <Stack.Screen
             name="JoinApartment"
             component={JoinApartmentScreen}
+            options={{headerShown: false}}
+          />
+          {/* Setting screens */}
+          <Stack.Screen
+            name="AccountSettings"
+            component={AccountSettingsScreen}
             options={{headerShown: false}}
           />
         </>

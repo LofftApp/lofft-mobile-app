@@ -28,7 +28,11 @@ const UserOptionsScreen = () => {
             </Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.optionsLinkText}>
+          <TouchableOpacity
+            style={styles.optionsLinkText}
+            onPress={() => {
+              navigate.navigate('AccountSettings');
+            }}>
             <Text style={[fontStyles.bodyLarge, styles.textStyle]}>
               Account Settings
             </Text>
